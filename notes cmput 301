@@ -1,0 +1,84 @@
+notes cmput 301
+plans, checkpoints
+stuff for part 3 and part 2
+
+	Have the details in the plan
+
+	text descriptions
+	careful on the subheaders <start locations>: .... (see My Ride Offers)
+		Might be a bit difficult to implement
+
+	flow - maybe for the more important ones. Add an extra field or something below.
+
+	focus on the models like user, rider, driver. More important ones.
+
+	elasticSearch. maybe a class for conecting that.
+		don't really need major tests for that.
+
+		google maps widget is okay. 
+		abram has some sort of open map thing?
+
+	Issue with testcases: try to write tests that aren't too detailed. so they don't break when we make changes in specifications.
+
+	One non-trivial storyboard
+		just cover most of the requirements shown. (project descriptions)
+			Cover the use cases.
+
+		Use cases: big plop of data. how does it work and stuff.
+					Can involve multiple requirements.
+					
+
+User superclass
+	Riders, Drivers. (subclasses)
+	JUnit tests for these
+
+Requests/Offers Class (Maybe merged)
+	RiderRequests  ListViews
+	DriverOffers   ListViews
+
+Status is an attribute of request?
+Might have different types of requests.
+Rider requests in different lists.
+	Issue with requests and offers being updated.. separately? because offers/requests are being copied to each other.
+
+	Request as a superclass?
+		Driver offers
+		rider requests.
+
+		Create another class to hold the two as a tuple.
+			Hashmap instead maybe.
+				Rider request as key, and driver offer as...
+			Only if the driver sends an offer.
+			The two are to be attributes.
+
+MVC:
+	All the user details:
+		Riders will have methods to post requests
+		Drivers, receive requests.
+
+In the code, you can have a bunch of empty methods. but maybe the tests are kinda planned out. Detailed. What are we testing for?
+
+If we are writing a test case for the user class, it should fulfill a lot of the requirements. so... 
+
+Using android notifications may not be worth the hassle. Consider just using custom made ones.
+Keywords are a word for the reason of the request.
+
+
+
+Squares (objects):
+	Mobile Application
+	Drivers
+	Riders
+	(Recent) Ride Request
+	Nearby Requests
+	Start and End (locations)
+	Ride
+	Payment
+
+Circles (action):
+	Search
+	Describe
+	Paying
+	Browse
+	Accept
+	Fulfill
