@@ -15,6 +15,7 @@ public class TestPost extends TestCase {
         String password = "password";
         User user = new User(name, username, email, phoneNumber, password);
         PostList postlist = new PostList();
+        user.getrideOrDrive().setRider(new Rider(name, username, email, phoneNumber, password));
         Rider rider = user.getrideOrDrive().getRider();
         rider.createPost(postlist, "12345 67St", "54321 76St", "55", rider);
         Post current_post = postlist.getPost(0);
@@ -29,6 +30,7 @@ public class TestPost extends TestCase {
         String password = "password";
         User user = new User(name, username, email, phoneNumber, password);
         PostList postlist = new PostList();
+        user.getrideOrDrive().setRider(new Rider(name, username, email, phoneNumber, password));
         Rider rider = user.getrideOrDrive().getRider();
         rider.createPost(postlist, "12345 67St", "54321 76St", "55", rider);
         Post current_post = postlist.getPost(0);
@@ -45,6 +47,7 @@ public class TestPost extends TestCase {
         String password = "password";
         User user = new User(name, username, email, phoneNumber, password);
         PostList postlist = new PostList();
+        user.getrideOrDrive().setRider(new Rider(name, username, email, phoneNumber, password));
         Rider rider = user.getrideOrDrive().getRider();
         rider.createPost(postlist, "12345 67St", "54321 76St", "55", rider);
         Post current_post = postlist.getPost(0);
@@ -59,6 +62,7 @@ public class TestPost extends TestCase {
         String password = "password";
         User user = new User(name, username, email, phoneNumber, password);
         PostList postlist = new PostList();
+        user.getrideOrDrive().setRider(new Rider(name, username, email, phoneNumber, password));
         Rider rider = user.getrideOrDrive().getRider();
         rider.createPost(postlist, "12345 67St", "54321 76St", "55", rider);
         Post current_post = postlist.getPost(0);
@@ -75,6 +79,7 @@ public class TestPost extends TestCase {
         String password = "password";
         User user = new User(name, username, email, phoneNumber, password);
         PostList postlist = new PostList();
+        user.getrideOrDrive().setRider(new Rider(name, username, email, phoneNumber, password));
         Rider rider = user.getrideOrDrive().getRider();
         rider.createPost(postlist, "12345 67St", "54321 76St", "55", rider);
         Post current_post = postlist.getPost(0);
@@ -89,10 +94,11 @@ public class TestPost extends TestCase {
         String password = "password";
         User user = new User(name, username, email, phoneNumber, password);
         PostList postlist = new PostList();
+        user.getrideOrDrive().setRider(new Rider(name, username, email, phoneNumber, password));
         Rider rider = user.getrideOrDrive().getRider();
         rider.createPost(postlist, "12345 67St", "54321 76St", "55", rider);
         Post current_post = postlist.getPost(0);
-        assertEquals(current_post.getDriveOffers(), null);
+        assertTrue(current_post.getDriveOffers().isEmpty());
     }
 
     public void testSetStatus() {
@@ -103,6 +109,7 @@ public class TestPost extends TestCase {
         String password = "password";
         User user = new User(name, username, email, phoneNumber, password);
         PostList postlist = new PostList();
+        user.getrideOrDrive().setRider(new Rider(name, username, email, phoneNumber, password));
         Rider rider = user.getrideOrDrive().getRider();
         rider.createPost(postlist, "12345 67St", "54321 76St", "55", rider);
         Post current_post = postlist.getPost(0);
@@ -119,6 +126,7 @@ public class TestPost extends TestCase {
         String password = "password";
         User user = new User(name, username, email, phoneNumber, password);
         PostList postlist = new PostList();
+        user.getrideOrDrive().setRider(new Rider(name, username, email, phoneNumber, password));
         Rider rider = user.getrideOrDrive().getRider();
         rider.createPost(postlist, "12345 67St", "54321 76St", "55", rider);
         Post current_post = postlist.getPost(0);
@@ -133,6 +141,7 @@ public class TestPost extends TestCase {
         String password = "password";
         User user = new User(name, username, email, phoneNumber, password);
         PostList postlist = new PostList();
+        user.getrideOrDrive().setRider(new Rider(name, username, email, phoneNumber, password));
         Rider rider = user.getrideOrDrive().getRider();
         rider.createPost(postlist, "12345 67St", "54321 76St", "55", rider);
         Post current_post = postlist.getPost(0);
@@ -149,6 +158,7 @@ public class TestPost extends TestCase {
         String password = "password";
         User user = new User(name, username, email, phoneNumber, password);
         PostList postlist = new PostList();
+        user.getrideOrDrive().setRider(new Rider(name, username, email, phoneNumber, password));
         Rider rider = user.getrideOrDrive().getRider();
         rider.createPost(postlist, "12345 67St", "54321 76St", "55", rider);
         Post current_post = postlist.getPost(0);
@@ -163,10 +173,11 @@ public class TestPost extends TestCase {
         String password = "password";
         User user = new User(name, username, email, phoneNumber, password);
         PostList postlist = new PostList();
+        user.getrideOrDrive().setRider(new Rider(name, username, email, phoneNumber, password));
         Rider rider = user.getrideOrDrive().getRider();
         rider.createPost(postlist, "12345 67St", "54321 76St", "55", rider);
         Post current_post = postlist.getPost(0);
-        assertEquals(current_post.getDriveOffers(), null);
+        assertTrue(current_post.getDriveOffers().isEmpty());
         current_post.addDriverOffer("Paul");
         assertEquals(current_post.getDriveOffers().get(0), "Paul");
     }

@@ -17,8 +17,7 @@ public class User {
         this.email = email.toLowerCase();
         this.phoneNumber = phoneNumber;
         this.password = password;
-//        this.rideOrDrive = new UserInstantiations(new Rider(name, username, email, phoneNumber, password), new Driver(name, username, email, phoneNumber, password));
-
+        this.rideOrDrive = new UserInstantiations();
     }
 
     public String getName() {
@@ -64,4 +63,5 @@ public class User {
     public UserInstantiations getrideOrDrive() {
         return this.rideOrDrive;
     }
+
 }

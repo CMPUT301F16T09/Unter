@@ -19,6 +19,7 @@ public class Post {
         this.status = "Pending Offer";
         this.fare = fare;
         this.rider = rider;
+        this.driverOffers = new ArrayList<String>();
     }
 
     public String getStartLocation() {
