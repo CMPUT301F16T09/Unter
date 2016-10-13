@@ -12,11 +12,13 @@ public class User {
     private UserInstantiations rideOrDrive;
 
     public User(String name, String username, String email, String phoneNumber, String password) {
-        this.name = name;
-        this.username = username;
-        this.email = email;
+        this.name = name.toLowerCase();
+        this.username = username.toLowerCase();
+        this.email = email.toLowerCase();
         this.phoneNumber = phoneNumber;
         this.password = password;
+        this.rideOrDrive = new UserInstantiations(new Rider(name, username, email, phoneNumber, password), new Driver(name, username, email, phoneNumber, password));
+
     }
 
     public String getName() {
@@ -57,5 +59,9 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserInstantiations getrideOrDrive() {
+        return this.rideOrDrive;
     }
 }

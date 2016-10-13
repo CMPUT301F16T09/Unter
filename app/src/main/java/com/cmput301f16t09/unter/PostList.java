@@ -23,4 +23,8 @@ public class PostList {
     public void deletePost(Post post) throws Exception{
         postList.remove(post);
     }
+
+    public Post getPost(int i) {
+        return postList.get(i);
+    }
 }
