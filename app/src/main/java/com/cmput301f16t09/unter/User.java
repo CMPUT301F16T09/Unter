@@ -9,7 +9,6 @@ public class User {
     private String email;
     private String phoneNumber;
     private String password;
-    private UserInstantiations rideOrDrive;
 
     public User(String name, String username, String email, String phoneNumber, String password) {
         this.name = name.toLowerCase();
@@ -17,8 +16,6 @@ public class User {
         this.email = email.toLowerCase();
         this.phoneNumber = phoneNumber;
         this.password = password;
-//        this.rideOrDrive = new UserInstantiations(new Rider(name, username, email, phoneNumber, password), new Driver(name, username, email, phoneNumber, password));
-
     }
 
     public String getName() {
@@ -61,7 +58,11 @@ public class User {
         this.password = password;
     }
 
-    public UserInstantiations getrideOrDrive() {
-        return this.rideOrDrive;
+    public Rider createRider() {
+        return new Rider(this.name, this.username, this.email, this.phoneNumber, this.password);
+    }
+
+    public Driver createDriver() {
+        return new Driver(this.name, this.username, this.email, this.phoneNumber, this.password);
     }
 }
