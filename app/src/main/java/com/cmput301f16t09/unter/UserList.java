@@ -2,20 +2,31 @@ package com.cmput301f16t09.unter;
 
 import java.util.ArrayList;
 
-/**
- * Created by Daniel on 2016-10-12.
- */
+
 public class UserList {
     private ArrayList<User> userList;
 
+    /**
+     * Instantiates a new User list.
+     */
     public UserList() {
         userList = new ArrayList<User>();
     }
 
+    /**
+     * Gets users.
+     *
+     * @return the users
+     */
     public ArrayList<User> getUsers() {
         return this.userList;
     }
 
+    /**
+     * Add user.
+     *
+     * @param user the user
+     */
     public void addUser(User user) {
         userList.add(user);
     }

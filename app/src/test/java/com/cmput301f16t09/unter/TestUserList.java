@@ -2,11 +2,12 @@ package com.cmput301f16t09.unter;
 
 import junit.framework.TestCase;
 
-/**
- * Created by Daniel on 2016-10-12.
- */
+
 public class TestUserList extends TestCase {
 
+    /**
+     * Test add user.
+     */
     public void testAddUser() {
         User user = new User("Alvin", "AlvinEhh", "alvin@EmAil.com", "780-123-4567", "password");
         User user2 = new User("Kevin", "SwaGMasTer", "KeVin@EmAil.com", "780-541-6364", "password");
@@ -29,6 +30,9 @@ public class TestUserList extends TestCase {
         assertTrue(userList.getUsers().size() == 5);
     }
 
+    /**
+     * Test get users.
+     */
     public void testGetUsers() {
         User user = new User("Alvin", "AlvinEhh", "alvin@EmAil.com", "780-123-4567", "password");
         User user2 = new User("Kevin", "SwaGMasTer", "KeVin@EmAil.com", "780-541-6364", "password");

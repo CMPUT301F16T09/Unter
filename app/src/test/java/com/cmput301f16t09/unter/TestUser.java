@@ -2,10 +2,11 @@ package com.cmput301f16t09.unter;
 
 import junit.framework.TestCase;
 
-/**
- * Created by Daniel on 2016-10-12.
- */
+
 public class TestUser extends TestCase{
+    /**
+     * Test get user name.
+     */
     public void testGetUserName() {
         String name = "Alvin";
         String username = "AlvinEhh";
@@ -17,6 +18,9 @@ public class TestUser extends TestCase{
         assertTrue(user.getName().equals("alvin"));
     }
 
+    /**
+     * Test get user username.
+     */
     public void testGetUserUsername() {
         String name = "Alvin";
         String username = "AlvinEhh";
@@ -29,6 +33,9 @@ public class TestUser extends TestCase{
 
     }
 
+    /**
+     * Test get user phone number.
+     */
     public void testGetUserPhoneNumber() {
         String name = "Alvin";
         String username = "AlvinEhh";
@@ -39,6 +46,9 @@ public class TestUser extends TestCase{
         assertTrue(user.getPhoneNumber().equals("780-123-4567"));
     }
 
+    /**
+     * Test get user email.
+     */
     public void testGetUserEmail() {
         String name = "Alvin";
         String username = "AlvinEhh";
@@ -50,6 +60,9 @@ public class TestUser extends TestCase{
         assertTrue(user.getEmail().equals("alvin@email.com"));
     }
 
+    /**
+     * Test get user password.
+     */
     public void testGetUserPassword() {
         String name = "Alvin";
         String username = "AlvinEhh";
@@ -61,6 +74,9 @@ public class TestUser extends TestCase{
         assertFalse(user.getPassword().equals("password"));
     }
 
+    /**
+     * Test set user name.
+     */
     public void testSetUserName() {
         String name = "Alvin";
         String username = "AlvinEhh";
@@ -75,6 +91,9 @@ public class TestUser extends TestCase{
         assertFalse(user.getName().equals("KeVin"));
     }
 
+    /**
+     * Test set user username.
+     */
     public void testSetUserUsername() {
         String name = "Alvin";
         String username = "AlvinEhh";
@@ -82,13 +101,16 @@ public class TestUser extends TestCase{
         String phoneNumber = "780-123-4567";
         String password = "password";
         User user = new User(name, username, email, phoneNumber, password);
-        assertTrue(user.getUsername().equals("alvin"));
+        assertTrue(user.getUsername().equals("alvinehh"));
         user.setUsername("KevinWASSUP");
         assertFalse(user.getUsername().equals("alvinehh"));
         assertTrue(user.getUsername().equals("kevinwassup"));
         assertFalse(user.getUsername().equals("KevinWASSUP"));
     }
 
+    /**
+     * Test set user phone number.
+     */
     public void testSetUserPhoneNumber() {
         String name = "Alvin";
         String username = "AlvinEhh";
@@ -96,12 +118,15 @@ public class TestUser extends TestCase{
         String phoneNumber = "780-123-4567";
         String password = "password";
         User user = new User(name, username, email, phoneNumber, password);
-        assertTrue(user.getPhoneNumber().equals("Alvin"));
+        assertTrue(user.getPhoneNumber().equals("780-123-4567"));
         user.setPhoneNumber("780-345-6789");
         assertFalse(user.getPhoneNumber().equals("780-123-4567"));
         assertTrue(user.getPhoneNumber().equals("780-345-6789"));
     }
 
+    /**
+     * Test set user email.
+     */
     public void testSetUserEmail() {
         String name = "Alvin";
         String username = "AlvinEhh";
@@ -116,6 +141,9 @@ public class TestUser extends TestCase{
         assertFalse(user.getEmail().equals("kevin@Email.com"));
     }
 
+    /**
+     * Test set user password.
+     */
     public void testSetUserPassword() {
         String name = "Alvin";
         String username = "AlvinEhh";

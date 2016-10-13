@@ -3,6 +3,9 @@ package com.cmput301f16t09.unter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+/**
+ * The type Main gui activity.
+ */
 public class MainGUIActivity extends AppCompatActivity {
 
     @Override

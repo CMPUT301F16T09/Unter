@@ -2,11 +2,12 @@ package com.cmput301f16t09.unter;
 
 import junit.framework.TestCase;
 
-/**
- * Created by Daniel on 2016-10-12.
- */
+
 public class TestDriver extends TestCase {
 
+    /**
+     * Test update post.
+     */
     public void testUpdatePost() {
         PostList pl = new PostList();
         Rider r = new Rider("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
@@ -18,7 +19,7 @@ public class TestDriver extends TestCase {
         assertTrue(pl.getPost(0).getStatus().equals("Pending Offer"));
         d.updatePost(p);
         assertFalse(p.getStatus().equals("Pending Offer"));
-        assertTrue(pl.getPost(0).getStatus().equals("Pending Offer"));
+        assertFalse(pl.getPost(0).getStatus().equals("Pending Offer"));
         assertTrue(p.getStatus().equals("Pending Approval"));
         assertTrue(pl.getPost(0).getStatus().equals("Pending Approval"));
         assertFalse(p.getDriveOffers().isEmpty());

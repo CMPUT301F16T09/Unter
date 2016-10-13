@@ -2,11 +2,12 @@ package com.cmput301f16t09.unter;
 
 import junit.framework.TestCase;
 
-/**
- * Created by Daniel on 2016-10-12.
- */
+
 public class TestPostList extends TestCase {
 
+    /**
+     * Test get posts.
+     */
     public void testGetPosts() {
         PostList postList = new PostList();
         Rider rider = new Rider("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
@@ -19,6 +20,9 @@ public class TestPostList extends TestCase {
         assertTrue(postList.getPost(0).equals(newPost));
     }
 
+    /**
+     * Test add post.
+     */
     public void testAddPost() {
         PostList postList = new PostList();
         Rider rider = new Rider("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
@@ -29,6 +33,11 @@ public class TestPostList extends TestCase {
         assertTrue(postList.getPosts().size() == 1);
     }
 
+    /**
+     * Test delete post.
+     *
+     * @throws Exception the exception
+     */
     public void testDeletePost() throws Exception {
         PostList postList = new PostList();
         Rider rider = new Rider("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");

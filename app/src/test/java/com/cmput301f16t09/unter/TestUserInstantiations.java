@@ -2,11 +2,12 @@ package com.cmput301f16t09.unter;
 
 import junit.framework.TestCase;
 
-/**
- * Created by Daniel on 2016-10-12.
- */
+
 public class TestUserInstantiations extends TestCase {
 
+    /**
+     * Test get driver.
+     */
     public void testGetDriver() {
         String name = "Alvin";
         String username = "AlvinEhh";
@@ -14,8 +15,10 @@ public class TestUserInstantiations extends TestCase {
         String phoneNumber = "780-123-4567";
         String password = "password";
         User user = new User(name, username, email, phoneNumber, password);
-        Rider r = user.createRider();
-        Driver d = user.createDriver();
+        user.setRider(new Rider(name, username, email, phoneNumber, password));
+        user.setDriver(new Driver(name, username, email, phoneNumber, password));
+        Rider r = user.getRider();
+        Driver d = user.getDriver();
         UserInstantiations riderAnddriver = new UserInstantiations(r, d);
         assertTrue(riderAnddriver.getDriver().equals(d));
         assertTrue(riderAnddriver.getDriver().getName().equals(name.toLowerCase()));
@@ -25,6 +28,9 @@ public class TestUserInstantiations extends TestCase {
         assertTrue(riderAnddriver.getDriver().getPassword().equals(password));
     }
 
+    /**
+     * Test get rider.
+     */
     public void testGetRider() {
         String name = "Alvin";
         String username = "AlvinEhh";
@@ -32,8 +38,10 @@ public class TestUserInstantiations extends TestCase {
         String phoneNumber = "780-123-4567";
         String password = "password";
         User user = new User(name, username, email, phoneNumber, password);
-        Rider r = user.createRider();
-        Driver d = user.createDriver();
+        user.setRider(new Rider(name, username, email, phoneNumber, password));
+        user.setDriver(new Driver(name, username, email, phoneNumber, password));
+        Rider r = user.getRider();
+        Driver d = user.getDriver();
         UserInstantiations riderAnddriver = new UserInstantiations(r, d);
         assertTrue(riderAnddriver.getRider().equals(r));
         assertTrue(riderAnddriver.getRider().getName().equals(name.toLowerCase()));
