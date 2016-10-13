@@ -10,15 +10,15 @@ public class Post {
     private String endLocation;
     private String status;
     private String fare;
-    private Rider riderPost;
+    private Rider rider;
     private ArrayList<String> driverOffers;
 
-    public Post(String startLocation, String endLocation, String fare, Rider riderPost) {
+    public Post(String startLocation, String endLocation, String fare, Rider rider) {
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.status = "Pending Offer";
         this.fare = fare;
-        this.riderPost = riderPost;
+        this.rider = rider;
     }
 
     public String getStartLocation() {
@@ -57,12 +57,12 @@ public class Post {
         this.fare = fare;
     }
 
-    public Rider getRiderPost() {
-        return riderPost;
+    public Rider getRider() {
+        return rider;
     }
 
-    public void setRiderPost(Rider riderPost) {
-        this.riderPost = riderPost;
+    public void setRider(Rider riderPost) {
+        this.rider = riderPost;
     }
 
     public void addDriverOffer(String driverName) {
