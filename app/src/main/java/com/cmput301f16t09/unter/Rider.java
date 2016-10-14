@@ -1,5 +1,9 @@
 package com.cmput301f16t09.unter;
 
+/**
+ * A Rider is a subclass of User, Riders request rides by creating a Post and listing the information
+ * that rider needs to specify
+ */
 
 public class Rider extends User {
     /**

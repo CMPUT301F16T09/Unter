@@ -1,5 +1,8 @@
 package com.cmput301f16t09.unter;
 
+/**
+ * Driver is a subclass of User, Drivers can accept a riders post by updating its status
+ */
 
 public class Driver extends User {
     /**

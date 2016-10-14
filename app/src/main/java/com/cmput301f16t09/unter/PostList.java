@@ -2,6 +2,10 @@ package com.cmput301f16t09.unter;
 
 import java.util.ArrayList;
 
+/**
+ * PostList is a class containing all the Posts created by one rider
+ */
+
 
 public class PostList {
     private ArrayList<Post> postList;

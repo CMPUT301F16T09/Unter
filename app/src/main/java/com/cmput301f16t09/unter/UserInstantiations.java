@@ -1,5 +1,8 @@
 package com.cmput301f16t09.unter;
 
+/**
+ * UserInstantiations is a class that declares a User as a Rider and a Driver
+ */
 
 public class UserInstantiations {
     private Rider rider;

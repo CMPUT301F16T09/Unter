@@ -2,6 +2,11 @@ package com.cmput301f16t09.unter;
 
 import java.util.ArrayList;
 
+/**
+ * a Post is a request created by riders, it contains the information that is inputted by
+ * the rider to specify details of his/her request, this class contains the getter and setter
+ * for all the information
+ */
 
 public class Post {
     private String startLocation;

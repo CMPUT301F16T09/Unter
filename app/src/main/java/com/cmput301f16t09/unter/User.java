@@ -1,5 +1,8 @@
 package com.cmput301f16t09.unter;
 
+/**
+ * Users are members of Unter, a User class contains personal information that is needed to use Unter
+ */
 
 public class User {
     private String name;

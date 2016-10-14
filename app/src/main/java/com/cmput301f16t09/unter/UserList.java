@@ -2,6 +2,10 @@ package com.cmput301f16t09.unter;
 
 import java.util.ArrayList;
 
+/**
+ * UserList is a class that keeps track of all the members of Unter
+ */
+
 
 public class UserList {
     private ArrayList<User> userList;
