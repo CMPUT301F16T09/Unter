@@ -13,6 +13,7 @@ public class Post {
     private String status;
     private String fare;
     private ArrayList<String> driver_OfferList;
+    private String id;
 
     /**
      * Instantiates a new Post.
@@ -27,6 +28,24 @@ public class Post {
         this.status = "Pending Offer";
         this.fare = fare;
         this.driver_OfferList = new ArrayList();
+    }
+
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**

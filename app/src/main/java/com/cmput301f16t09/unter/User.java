@@ -11,6 +11,7 @@ public class User {
     private String password;
     private PostList myRequests;
     private PostList myOffers;
+    private String id;
 
     /**
      * Instantiates a new User.
@@ -20,6 +21,9 @@ public class User {
      * @param email       the email
      * @param phoneNumber the phone number
      * @param password    the password
+     * @param myRequests  the myRequests PostList
+     * @param myOffers    the myOffers PostList
+     * @param id          the jest id
      */
     public User(String name, String username, String email, String phoneNumber, String password) {
         this.name = name.toLowerCase();
@@ -29,6 +33,24 @@ public class User {
         this.password = password;
         this.myRequests = new PostList();
         this.myOffers = new PostList();
+    }
+
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**
