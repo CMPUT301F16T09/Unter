@@ -55,15 +55,6 @@ public class User {
     }
 
     /**
-     * Sets username.
-     *
-     * @param username the username
-     */
-    public void setUsername(String username) {
-        this.username = username.toLowerCase();
-    }
-
-    /**
      * Gets email.
      *
      * @return the email

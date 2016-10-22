@@ -7,10 +7,72 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/background"
     tools:context="com.cmput301f16t09.unter.MainGUIActivity">
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="77dp"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textSize="90sp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:textColor="@color/TextColor"/>
+    
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:text="Username:"
+        android:textColor="@color/TextColor"
+        android:textSize="30sp"
+        android:fontFamily="sans-serif-smallcaps"
+        />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="50dp"
+        android:text="Password:"
+        android:textColor="@color/TextColor"
+        android:textSize="30sp"
+        android:fontFamily="sans-serif-smallcaps"
+        />
+
+    <EditText
+        android:id="@+id/mainScreenPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView"
+        android:layout_toEndOf="@+id/textView2"
+        android:inputType="textPassword"
+        android:hint="Enter Username Here"
+        android:textsize="30sp"
+        android:textColorHint="@color/HintTextColor"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/mainScreenPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2"
+        android:inputType="textPassword"
+        android:hint="Enter Password Here"
+        android:textColorHint="@color/HintTextColor"
+        android:ems="10"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:background="@color/white"
+        android:/>
 </RelativeLayout>
