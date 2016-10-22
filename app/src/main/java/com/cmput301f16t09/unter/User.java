@@ -1,14 +1,16 @@
 package com.cmput301f16t09.unter;
 
-
+/**
+ * Users are members of Unter, a User class contains personal information that is needed to use Unter
+ */
 public class User {
     private String name;
     private String username;
     private String email;
     private String phoneNumber;
     private String password;
-    private Rider rider;
-    private Driver driver;
+    private PostList myRequests;
+    private PostList myOffers;
 
     /**
      * Instantiates a new User.
@@ -25,6 +27,8 @@ public class User {
         this.email = email.toLowerCase();
         this.phoneNumber = phoneNumber;
         this.password = password;
+        this.myRequests = new PostList();
+        this.myOffers = new PostList();
     }
 
     /**
@@ -109,38 +113,56 @@ public class User {
     }
 
     /**
-     * Sets rider.
+     * Gets my requests.
      *
-     * @param rider the rider
+     * @return the my requests
      */
-    public void setRider(Rider rider) {
-        this.rider = rider;
+    public PostList getMyRequests() {
+        return myRequests;
     }
 
     /**
-     * Sets driver.
+     * Gets my offers.
      *
-     * @param driver the driver
+     * @return the my offers
      */
-    public void setDriver(Driver driver) {
-        this.driver = driver;
+    public PostList getMyOffers() {
+        return myOffers;
     }
 
     /**
-     * Gets driver.
+     * Sets my requests.
      *
-     * @return the driver
+     * @param myRequests the my requests
      */
-    public Driver getDriver() {
-        return driver;
+    public void setMyRequests(PostList myRequests) {
+        this.myRequests = myRequests;
     }
 
     /**
-     * Gets rider.
+     * Sets my offers.
      *
-     * @return the rider
+     * @param myOffers the my offers
      */
-    public Rider getRider() {
-        return rider;
+    public void setMyOffers(PostList myOffers) {
+        this.myOffers = myOffers;
+    }
+
+    /**
+     * Add request reference.
+     *
+     * @param post the post
+     */
+    public void addRequestReference(Post post) {
+        this.myRequests.addPost(post);
+    }
+
+    /**
+     * Add offer reference.
+     *
+     * @param post the post
+     */
+    public void addOfferReference(Post post) {
+        this.myOffers.addPost(post);
     }
 }
