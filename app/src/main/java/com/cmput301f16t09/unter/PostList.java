@@ -5,8 +5,6 @@ import java.util.ArrayList;
 /**
  * PostList is a class containing all the Posts created by one rider
  */
-
-
 public class PostList {
     private ArrayList<Post> postList;
 
@@ -53,5 +51,29 @@ public class PostList {
      */
     public Post getPost(int i) {
         return postList.get(i);
+    }
+
+    /**
+     * Search list post list.
+     *
+     * @param keyword the keyword
+     * @return the post list
+     */
+    public PostList searchList(String keyword) {
+        return null;
+    }
+
+    /**
+     * Modify post.
+     *
+     * @param post           the post
+     * @param start_location the start location
+     * @param end_location   the end location
+     * @param status         the status
+     */
+    public void ModifyPost(Post post, Location start_location, Location end_location, String status) {
+        post.setStartLocation(start_location);
+        post.setEndLocation(end_location);
+        post.setStatus(status);
     }
 }
