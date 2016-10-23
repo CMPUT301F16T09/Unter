@@ -10,10 +10,20 @@ import java.util.ArrayList;
 import android.app.Application;
 import android.test.ApplicationTestCase;
 
+/**
+ * The type Test post list offline controller.
+ */
 public class TestPostListOfflineController extends ApplicationTestCase<Application> {
+    /**
+     * Instantiates a new Test post list offline controller.
+     */
     public TestPostListOfflineController() {
         super(Application.class);
     }
+
+    /**
+     * Test offline save.
+     */
     public void testOfflineSave() {
 
         PostListOfflineController ploc = new PostListOfflineController();

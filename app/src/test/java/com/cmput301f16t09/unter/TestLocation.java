@@ -2,9 +2,15 @@ package com.cmput301f16t09.unter;
 
 import junit.framework.TestCase;
 
+/**
+ * The type Test location.
+ */
 public class TestLocation extends TestCase {
 
-    // US 01.01.01
+    /**
+     * Test valid location.
+     */
+// US 01.01.01
     // US 01.01.02
     // US 10.01.01
     public void testValidLocation() {
@@ -26,7 +32,10 @@ public class TestLocation extends TestCase {
         assertFalse(startLocation.checkValidLocation());
     }
 
-    // US 10.01.01
+    /**
+     * Test real location.
+     */
+// US 10.01.01
     public void testRealLocation() {
         // May or may not need °N, °E, °S, °W in the string
         Location startLocation = new Location("53.52676", "-113.52715");

@@ -42,7 +42,13 @@ public class PostListOfflineController {
         return postlist;
     }
 
-    // Function to load stored data in FILENAME
+    /**
+     * Load offline posts post list.
+     *
+     * @param context the context
+     * @return the post list
+     */
+// Function to load stored data in FILENAME
     public PostList loadOfflinePosts(Context context)
     {
         try
@@ -95,6 +101,14 @@ public class PostListOfflineController {
         }
     }
 
+    /**
+     * Add offline post.
+     *
+     * @param startLocation the start location
+     * @param endLocation   the end location
+     * @param fare          the fare
+     * @param context       the context
+     */
     public void addOfflinePost(Location startLocation, Location endLocation, String fare, Context context) {
         Post offlinePost = new Post(startLocation, endLocation, fare);
         getPostList().addPost(offlinePost);

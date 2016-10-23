@@ -60,10 +60,20 @@ public class Location {
         this.longitude = longitude;
     }
 
+    /**
+     * Check valid location boolean.
+     *
+     * @return the boolean
+     */
     public Boolean checkValidLocation() {
         return true;
     }
 
+    /**
+     * Latlong to address string.
+     *
+     * @return the string
+     */
     public String latlongToAddress() {
         return "";
     }
