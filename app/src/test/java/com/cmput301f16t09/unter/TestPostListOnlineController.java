@@ -16,7 +16,7 @@ public class TestPostListOnlineController extends TestCase{
     }
 
     public void testaddPost {
-        Post new_post = new Post(new Location("1234", "1234"), new Location("1234", "1234"), "50");
+        Post new_post = new Post(new Location("1234", "1234"), new Location("1234", "1234"), "50", "username1");
         try {
             PostListOnlineController.AddPostsTask addPostsTask = new PostListOnlineController.AddPostsTask();
             addPostsTask.execute(new_post);
@@ -34,7 +34,7 @@ public class TestPostListOnlineController extends TestCase{
     }
 
     public void testdeletePost {
-        Post new_post = new Post(new Location("1234", "1234"), new Location("1234", "1234"), "50");
+        Post new_post = new Post(new Location("1234", "1234"), new Location("1234", "1234"), "50", "username1");
         try {
             PostListOnlineController.AddPostsTask addPostsTask = new PostListOnlineController.AddPostsTask();
             addPostsTask.execute(new_post);
@@ -54,9 +54,9 @@ public class TestPostListOnlineController extends TestCase{
     }
 
     public void testsearchPost {
-        Post new_post = new Post(new Location("1234", "1234"), new Location("1234", "1234"), "50");
-        Post new_post2 = new Post(new Location("1234", "1234"), new Location("1234", "1234"), "55");
-        Post new_post3 = new Post(new Location("1234", "1234"), new Location("1234", "1234"), "60");
+        Post new_post = new Post(new Location("1234", "1234"), new Location("1234", "1234"), "50", "username1");
+        Post new_post2 = new Post(new Location("1234", "1234"), new Location("1234", "1234"), "55", "username2");
+        Post new_post3 = new Post(new Location("1234", "1234"), new Location("1234", "1234"), "60", "username3");
         try {
             PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
             searchPostListsTask.execute("50");
