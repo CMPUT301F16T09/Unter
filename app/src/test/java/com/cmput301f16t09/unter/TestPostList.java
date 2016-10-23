@@ -5,15 +5,35 @@ import junit.framework.TestCase;
 
 public class TestPostList extends TestCase {
 
+    public void testGetPost(){
+        PostList postList = new PostList();
+
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+        Location start = new Location("1.0", "2.0");
+        Location end = new Location("2.0", "1.0");
+        Post newPost = new Post(start, end, "$4", rider);
+        postList.addPost(newPost);
+
+        User rider2 = new User("Joe", "MoJoe JoeJoe", "joe@joemail.com", "780-joe-joey", "joeisthebest");
+        Location start2 = new Location("5.0", "3.0");
+        Location end2 = new Location("3.0", "5.0");
+        Post newPost2 = new Post(start2, end2, "$4", rider2);
+        postList.addPost(newPost2);
+
+        assertTrue(postList.getPost(1) == newPost2);
+    }
+
     /**
      * Test get posts.
      */
     public void testGetPosts() {
         PostList postList = new PostList();
-        Rider rider = new Rider("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
         assertTrue(postList.getPosts().size() == 0);
 
-        Post newPost = new Post("12345 67St", "54321 76St", "55", rider);
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+        Location start = new Location("1.0", "2.0");
+        Location end = new Location("2.0", "1.0");
+        Post newPost = new Post(start, end, "$4", rider);
         postList.addPost(newPost);
 
         assertTrue(postList.getPosts().size() == 1);
@@ -24,13 +44,18 @@ public class TestPostList extends TestCase {
      * Test add post.
      */
     public void testAddPost() {
+
         PostList postList = new PostList();
-        Rider rider = new Rider("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
         assertTrue(postList.getPosts().size() == 0);
 
-        Post newPost = new Post("12345 67St", "54321 76St", "55", rider);
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+        Location start = new Location("1.0", "2.0");
+        Location end = new Location("2.0", "1.0");
+        Post newPost = new Post(start, end, "$4", rider);
         postList.addPost(newPost);
+
         assertTrue(postList.getPosts().size() == 1);
+        assertTrue(postList.getPost(0) == newPost);
     }
 
     /**
@@ -39,18 +64,51 @@ public class TestPostList extends TestCase {
      * @throws Exception the exception
      */
     public void testDeletePost() throws Exception {
+
         PostList postList = new PostList();
-        Rider rider = new Rider("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
         assertTrue(postList.getPosts().size() == 0);
 
-        Post newPost = new Post("12345 67St", "54321 76St", "55", rider);
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+        Location start = new Location("1.0", "2.0");
+        Location end = new Location("2.0", "1.0");
+        Post newPost = new Post(start, end, "$4", rider);
         postList.addPost(newPost);
+
         assertTrue(postList.getPosts().size() == 1);
+        assertTrue(postList.getPost(0) == newPost);
+
+        postList.deletePost(newPost);
+
+        assertTrue((postList.getPosts()).isEmpty());
 
         try {
             postList.deletePost(newPost);
         } catch (Exception e){
             throw new Exception();
         }
+    }
+
+    public void testSearchList(){
+        PostList postList = new PostList();
+        assertTrue(postList.getPosts().size() == 0);
+
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+        Location start = new Location("1.0", "2.0");
+        Location end = new Location("2.0", "1.0");
+        Post newPost = new Post(start, end, "$4", rider);
+        postList.addPost(newPost);
+
+        User rider2 = new User("Joe", "MoJoe JoeJoe", "joe@joemail.com", "780-joe-joey", "joeisthebest");
+        Location start2 = new Location("5.0", "3.0");
+        Location end2 = new Location("3.0", "5.0");
+        Post newPost2 = new Post(start2, end2, "$4", rider2);
+        postList.addPost(newPost2);
+
+        PostList searchResults = new PostList();
+        searchResults = postList.searchList("Joe");
+
+        assertTrue((searchResults.getPosts().size() == 1));
+        assertTrue(searchResults.getPost(0) == newPost2);
+
     }
 }
