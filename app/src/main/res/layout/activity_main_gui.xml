@@ -52,7 +52,7 @@
         android:layout_alignTop="@+id/textView"
         android:layout_toEndOf="@+id/textView2"
         android:inputType="textPassword"
-        android:hint="Enter Username Here"
+        android:hint="Enter Username Here" />
 
     <EditText
         android:id="@+id/mainScreenPassword"
@@ -63,8 +63,7 @@
         android:inputType="textPassword"
         android:hint="Enter Password Here"
         android:textColorHint="@color/HintTextColor"
-        android:ems="10"
-        />
+        android:ems="10" />
 
     <Button
         android:layout_width="wrap_content"
