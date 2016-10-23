@@ -53,7 +53,7 @@
         android:layout_toEndOf="@+id/textView2"
         android:inputType="textPassword"
         android:hint="Enter Username Here"
-        android:textsize="30sp"
+        android:textSize="30sp"
         android:textColorHint="@color/HintTextColor"
         android:ems="10" />
 

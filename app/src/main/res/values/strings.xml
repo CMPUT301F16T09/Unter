@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">Unter</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_edit_profile_ui">EditProfileUIActivity</string>
+    <string name="title_activity_main_screen_ui">MainScreenUIActivity</string>
+
+    <string name="welcome">Welcome</string>
+    <string name="rider">Rider</string>
+    <string name="driver">Driver</string>
+
+    <string name="request_a_ride">Request\nA Ride</string>
+    <string name="my_ride_requests">Request\nA Ride</string>
+    <string name="provide_a_ride">Provide\nA Ride</string>
+    <string name="my_ride_offers">My Ride\nOffers</string>
+
+    <string name="edit_your_profile">Edit Your Profile</string>
+    <string name="name">Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="title_activity_test">testActivity</string>
+    <string name="title_activity_request_aride_ui">RequestARideUIActivity</string>
+
+
 </resources>
