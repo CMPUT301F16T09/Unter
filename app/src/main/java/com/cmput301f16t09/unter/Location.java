@@ -59,4 +59,12 @@ public class Location {
     public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
+
+    public Boolean checkValidLocation() {
+        return true;
+    }
+
+    public String latlongToAddress() {
+        return "";
+    }
 }
