@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class TestUserListOnlineController extends TestCase {
 
-    public void testRetrieveUsers {
+    public void testRetrieveUsers() {
         try {
             UserList userlist = UserListOnlineController.getUserList();
         }
@@ -15,7 +15,7 @@ public class TestUserListOnlineController extends TestCase {
         }
     }
 
-    public void testaddUser {
+    public void testaddUser() {
         User new_user = new User("Henry", "Popcorn_chicken", "KFC_lover@barnyard.com", "123-456-7890", "password");
         try {
             UserListOnlineController.AddUsersTask addUserTask = new UserListOnlineController.AddUsersTask();
@@ -33,7 +33,7 @@ public class TestUserListOnlineController extends TestCase {
         }
     }
 
-    public void testdeleteUser {
+    public void testdeleteUser() {
         User new_user = new User("Henry", "Popcorn_chicken", "KFC_lover@barnyard.com", "123-456-7890", "password");
         try {
             UserListOnlineController.AddUsersTask addUserTask = new UserListOnlineController.AddUsersTask();
@@ -53,7 +53,7 @@ public class TestUserListOnlineController extends TestCase {
         }
     }
 
-    public void testsearchUser {
+    public void testsearchUser() {
         User new_user = new User("Henry", "Popcorn_chicken", "KFC_lover@barnyard.com", "123-456-7890", "password");
         User new_user2 = new User("Henry2", "Popcorn_chicken", "KFC_lover@barnyard.com", "123-456-7890", "password");
         User new_user3 = new User("Aaron", "Popcorn_chicken", "KFC_lover@barnyard.com", "123-456-7890", "password");

@@ -1,215 +1,209 @@
-//package com.cmput301f16t09.unter;
-//
-//import junit.framework.TestCase;
-//
-//
-//public class TestPost extends TestCase {
-//
-//    /**
-//     * Test get start location.
-//     */
-//    public void testGetStartLocation() {
-//        String name = "Alvin";
-//        String username = "AlvinEhh";
-//        String email = "alvin@email.com";
-//        String phoneNumber = "780-123-4567";
-//        String password = "password";
-//        User user = new User(name, username, email, phoneNumber, password);
-//        PostList postlist = new PostList();
-//        user.setRider(new Rider(name, username, email, phoneNumber, password));
-//        Rider rider = user.getRider();
-//        rider.createPost(postlist, "12345 67St", "54321 76St", "55", rider);
-//        Post current_post = postlist.getPost(0);
-//        assertEquals(current_post.getStartLocation(), "12345 67St");
-//    }
-//
-//    /**
-//     * Test set start location.
-//     */
-//    public void testSetStartLocation() {
-//        String name = "Alvin";
-//        String username = "AlvinEhh";
-//        String email = "alvin@email.com";
-//        String phoneNumber = "780-123-4567";
-//        String password = "password";
-//        User user = new User(name, username, email, phoneNumber, password);
-//        PostList postlist = new PostList();
-//        user.setRider(new Rider(name, username, email, phoneNumber, password));
-//        Rider rider = user.getRider();
-//        rider.createPost(postlist, "12345 67St", "54321 76St", "55", rider);
-//        Post current_post = postlist.getPost(0);
-//        assertEquals(current_post.getStartLocation(), "12345 67St");
-//        current_post.setStartLocation("12121 12St");
-//        assertEquals(current_post.getStartLocation(), "12121 12St");
-//    }
-//
-//    /**
-//     * Test get end location.
-//     */
-//    public void testGetEndLocation() {
-//        String name = "Alvin";
-//        String username = "AlvinEhh";
-//        String email = "alvin@email.com";
-//        String phoneNumber = "780-123-4567";
-//        String password = "password";
-//        User user = new User(name, username, email, phoneNumber, password);
-//        PostList postlist = new PostList();
-//        user.setRider(new Rider(name, username, email, phoneNumber, password));
-//        Rider rider = user.getRider();
-//        rider.createPost(postlist, "12345 67St", "54321 76St", "55", rider);
-//        Post current_post = postlist.getPost(0);
-//        assertEquals(current_post.getEndLocation(), "54321 76St");
-//    }
-//
-//    /**
-//     * Test set end location.
-//     */
-//    public void testSetEndLocation() {
-//        String name = "Alvin";
-//        String username = "AlvinEhh";
-//        String email = "alvin@email.com";
-//        String phoneNumber = "780-123-4567";
-//        String password = "password";
-//        User user = new User(name, username, email, phoneNumber, password);
-//        PostList postlist = new PostList();
-//        user.setRider(new Rider(name, username, email, phoneNumber, password));
-//        Rider rider = user.getRider();
-//        rider.createPost(postlist, "12345 67St", "54321 76St", "55", rider);
-//        Post current_post = postlist.getPost(0);
-//        assertEquals(current_post.getStartLocation(), "12345 67St");
-//        current_post.setEndLocation("12121 12St");
-//        assertEquals(current_post.getEndLocation(), "12121 12St");
-//    }
-//
-//    /**
-//     * Test get status.
-//     */
-//    public void testGetStatus() {
-//        String name = "Alvin";
-//        String username = "AlvinEhh";
-//        String email = "alvin@email.com";
-//        String phoneNumber = "780-123-4567";
-//        String password = "password";
-//        User user = new User(name, username, email, phoneNumber, password);
-//        PostList postlist = new PostList();
-//        user.setRider(new Rider(name, username, email, phoneNumber, password));
-//        Rider rider = user.getRider();
-//        rider.createPost(postlist, "12345 67St", "54321 76St", "55", rider);
-//        Post current_post = postlist.getPost(0);
-//        assertEquals(current_post.getStatus(), "Pending Offer");
-//    }
-//
-//    /**
-//     * Test get drive offers.
-//     */
-//    public void testGetDriveOffers() {
-//        String name = "Alvin";
-//        String username = "AlvinEhh";
-//        String email = "alvin@email.com";
-//        String phoneNumber = "780-123-4567";
-//        String password = "password";
-//        User user = new User(name, username, email, phoneNumber, password);
-//        PostList postlist = new PostList();
-//        user.setRider(new Rider(name, username, email, phoneNumber, password));
-//        Rider rider = user.getRider();
-//        rider.createPost(postlist, "12345 67St", "54321 76St", "55", rider);
-//        Post current_post = postlist.getPost(0);
-//        assertTrue(current_post.getDriveOffers().isEmpty());
-//    }
-//
-//    /**
-//     * Test set status.
-//     */
-//    public void testSetStatus() {
-//        String name = "Alvin";
-//        String username = "AlvinEhh";
-//        String email = "alvin@email.com";
-//        String phoneNumber = "780-123-4567";
-//        String password = "password";
-//        User user = new User(name, username, email, phoneNumber, password);
-//        PostList postlist = new PostList();
-//        user.setRider(new Rider(name, username, email, phoneNumber, password));
-//        Rider rider = user.getRider();
-//        rider.createPost(postlist, "12345 67St", "54321 76St", "55", rider);
-//        Post current_post = postlist.getPost(0);
-//        assertEquals(current_post.getStatus(), "Pending Offer");
-//        current_post.setStatus("Pending Approval");
-//        assertEquals(current_post.getStatus(), "Pending Approval");
-//    }
-//
-//    /**
-//     * Test get fare.
-//     */
-//    public void testGetFare() {
-//        String name = "Alvin";
-//        String username = "AlvinEhh";
-//        String email = "alvin@email.com";
-//        String phoneNumber = "780-123-4567";
-//        String password = "password";
-//        User user = new User(name, username, email, phoneNumber, password);
-//        PostList postlist = new PostList();
-//        user.setRider(new Rider(name, username, email, phoneNumber, password));
-//        Rider rider = user.getRider();
-//        rider.createPost(postlist, "12345 67St", "54321 76St", "55", rider);
-//        Post current_post = postlist.getPost(0);
-//        assertEquals(current_post.getFare(), "55");
-//    }
-//
-//    /**
-//     * Test set fare.
-//     */
-//    public void testSetFare() {
-//        String name = "Alvin";
-//        String username = "AlvinEhh";
-//        String email = "alvin@email.com";
-//        String phoneNumber = "780-123-4567";
-//        String password = "password";
-//        User user = new User(name, username, email, phoneNumber, password);
-//        PostList postlist = new PostList();
-//        user.setRider(new Rider(name, username, email, phoneNumber, password));
-//        Rider rider = user.getRider();
-//        rider.createPost(postlist, "12345 67St", "54321 76St", "55", rider);
-//        Post current_post = postlist.getPost(0);
-//        assertEquals(current_post.getFare(), "55");
-//        current_post.setFare("66");
-//        assertEquals(current_post.getFare(), "66");
-//    }
-//
-//    /**
-//     * Test get rider post.
-//     */
-//    public void testGetRiderPost() {
-//        String name = "Alvin";
-//        String username = "AlvinEhh";
-//        String email = "alvin@email.com";
-//        String phoneNumber = "780-123-4567";
-//        String password = "password";
-//        User user = new User(name, username, email, phoneNumber, password);
-//        PostList postlist = new PostList();
-//        user.setRider(new Rider(name, username, email, phoneNumber, password));
-//        Rider rider = user.getRider();
-//        rider.createPost(postlist, "12345 67St", "54321 76St", "55", rider);
-//        Post current_post = postlist.getPost(0);
-//        assertEquals(postlist.getPost(0), current_post);
-//    }
-//
-//    /**
-//     * Test add driver offer.
-//     */
-//    public void testAddDriverOffer() {
-//        String name = "Alvin";
-//        String username = "AlvinEhh";
-//        String email = "alvin@email.com";
-//        String phoneNumber = "780-123-4567";
-//        String password = "password";
-//        User user = new User(name, username, email, phoneNumber, password);
-//        PostList postlist = new PostList();
-//        user.setRider(new Rider(name, username, email, phoneNumber, password));
-//        Rider rider = user.getRider();
-//        rider.createPost(postlist, "12345 67St", "54321 76St", "55", rider);
-//        Post current_post = postlist.getPost(0);
-//        assertTrue(current_post.getDriveOffers().isEmpty());
-//        current_post.addDriverOffer("Paul");
-//        assertEquals(current_post.getDriveOffers().get(0), "Paul");
-//    }
-//}
+package com.cmput301f16t09.unter;
+
+import junit.framework.TestCase;
+
+import java.util.ArrayList;
+
+
+public class TestPost extends TestCase {
+
+    /**
+     * Test get start location.
+     */
+
+    public void testGetStartLocation() {
+
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+
+        Location start = new Location("1.0", "2.0");
+        Location end = new Location("2.0", "1.0");
+        Post post = new Post(start, end, "$4", rider);
+
+        assertTrue(post.getStartLocation() == start);
+    }
+
+    /**
+     * Test set start location.
+     */
+    public void testSetStartLocation() {
+
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+
+        Location start = new Location("1.0", "2.0");
+        Location end = new Location("2.0", "1.0");
+        Post post = new Post(start, end, "$4", rider);
+
+        Location start2 = new Location("400", "200");
+        post.setStartLocation(start2);
+
+        assertTrue((post.getStartLocation() == start2));
+    }
+
+    /**
+     * Test get end location.
+     */
+    public void testGetEndLocation() {
+
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+
+        Location start = new Location("1.0", "2.0");
+        Location end = new Location("2.0", "1.0");
+        Post post = new Post(start, end, "$4", rider);
+
+        assertTrue(post.getEndLocation() == end);
+    }
+
+    /**
+     * Test set end location.
+     */
+    public void testSetEndLocation() {
+
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+
+        Location start = new Location("1.0", "2.0");
+        Location end = new Location("2.0", "1.0");
+        Post post = new Post(start, end, "$4", rider);
+
+        Location end2 = new Location("200", "400");
+        post.setStartLocation(end2);
+
+        assertTrue((post.getStartLocation() == end2));
+    }
+
+    /**
+     * Test set status.
+     */
+    public void testSetStatus() {
+
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+
+        Location start = new Location("1.0", "2.0");
+        Location end = new Location("2.0", "1.0");
+        Post post = new Post(start, end, "$4", rider);
+
+        post.setStatus("I'm ready");
+
+        assertTrue((post.getStatus().equals("I'm ready")));
+    }
+
+    /**
+     * Test get Status
+     */
+    public void testGetStatus() {
+
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+
+        Location start = new Location("1.0", "2.0");
+        Location end = new Location("2.0", "1.0");
+        Post post = new Post(start, end, "$4", rider);
+
+        post.setStatus("I'm ready");
+
+        assertTrue((post.getStatus().equals("I'm ready")));
+    }
+
+    /**
+     * Test get fare.
+     */
+    public void testGetFare() {
+
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+
+        Location start = new Location("1.0", "2.0");
+        Location end = new Location("2.0", "1.0");
+        Post post = new Post(start, end, "$4", rider);
+
+        assertTrue((post.getFare().equals("$4")));
+    }
+
+    /**
+     * Test set fare.
+     */
+    public void testSetFare() {
+
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+
+        Location start = new Location("1.0", "2.0");
+        Location end = new Location("2.0", "1.0");
+        Post post = new Post(start, end, "$4", rider);
+
+        post.setFare("$5");
+
+        assertTrue((post.getFare().equals("$5")));
+    }
+
+    /**
+     * test get driver offer
+     */
+
+    public void testSetDriverOffers(){
+
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+
+        Location start = new Location("1.0", "2.0");
+        Location end = new Location("2.0", "1.0");
+        Post post = new Post(start, end, "$4", rider);
+
+        ArrayList driverOffers = new ArrayList<>();
+        driverOffers.add("Joe");
+        driverOffers.add("Jim");
+
+        post.setdriverOffers(driverOffers);
+
+        assertTrue((post.getDriverOffers() == driverOffers));
+    }
+
+    public void testGetDriverOffers() {
+
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+
+        Location start = new Location("1.0", "2.0");
+        Location end = new Location("2.0", "1.0");
+        Post post = new Post(start, end, "$4", rider);
+
+        ArrayList driverOffers = new ArrayList<>();
+        driverOffers.add("Joe");
+        driverOffers.add("Jim");
+
+        post.setdriverOffers(driverOffers);
+
+        assertTrue((post.getDriverOffers() == driverOffers));
+    }
+
+    /**
+     * Test add driver offer.
+     */
+    public void testAddDriverOffer() {
+
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+
+        Location start = new Location("1.0", "2.0");
+        Location end = new Location("2.0", "1.0");
+        Post post = new Post(start, end, "$4", rider);
+
+        assertTrue((post.getDriverOffers()).isEmpty());
+        post.addDriverOffer("Joe");
+
+        assertTrue((post.getDriverOffers()).size() == 1);
+        assertTrue((post.getDriverOffers()).get(0) == "Joe");
+
+    }
+
+    public void testPickDriver() {
+
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+
+        Location start = new Location("1.0", "2.0");
+        Location end = new Location("2.0", "1.0");
+        Post post = new Post(start, end, "$4", rider);
+
+        post.addDriverOffer("Joe");
+        post.addDriverOffer("Jim");
+        post.addDriverOffer("Jon");
+
+        post.pickDriver("Jim");
+
+        assertTrue((post.getDriverOffers()).size() == 1);
+        assertTrue((post.getDriverOffers()).get(0) == "Jim");
+    }
+}

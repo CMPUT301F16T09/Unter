@@ -14,6 +14,8 @@ public class Post {
     private String fare;
     private ArrayList<String> driver_OfferList;
     private String id;
+    private User user;
+
 
     /**
      * Instantiates a new Post.
@@ -22,12 +24,13 @@ public class Post {
      * @param endLocation   the end location
      * @param fare          the fare
      */
-    public Post(Location startLocation, Location endLocation, String fare) {
+    public Post(Location startLocation, Location endLocation, String fare, User rider) {
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.status = "Pending Offer";
         this.fare = fare;
         this.driver_OfferList = new ArrayList();
+        this.user = rider;
     }
 
     /**
@@ -135,7 +138,7 @@ public class Post {
      *
      * @return the drive offers
      */
-    public ArrayList getdriverOffers() {
+    public ArrayList getDriverOffers() {
         return this.driver_OfferList;
     }
 
@@ -153,7 +156,7 @@ public class Post {
      *
      * @param driver the driver
      */
-    public void pick_driver(String driver) {
+    public void pickDriver(String driver) {
         this.driver_OfferList.clear();
         this.driver_OfferList.add(driver);
     }

@@ -164,7 +164,7 @@ public class TestUser extends TestCase{
         Location startLoc = new Location("53.52676", "-113.52715");
         Location endLoc = new Location("53.54565", "-113.49026");
         String myFare = "40.39";
-        Post rideRequest = new Post(startLoc,endLoc,myFare);
+        Post rideRequest = new Post(startLoc,endLoc,myFare, newUsr);
         newUsr.addRideRequest(rideRequest);
         assertEquals(newUsr.getMyRequests().getPosts().size(),1);
 
@@ -181,7 +181,7 @@ public class TestUser extends TestCase{
         Location startLoc = new Location("53.52676", "-113.52715");
         Location endLoc = new Location("53.54565", "-113.49026");
         String myFare = "40.39";
-        Post rideRequest = new Post(startLoc,endLoc,myFare);
+        Post rideRequest = new Post(startLoc,endLoc,myFare, newUsr);
         newUsr.addRideRequest(rideRequest);
         assertEquals(newUsr.getMyRequests().getPosts().size(),1);
         newUsr.deleteRideRequest(rideRequest);
@@ -197,7 +197,7 @@ public class TestUser extends TestCase{
         Location startLoc = new Location("53.52676", "-113.52715");
         Location endLoc = new Location("53.54565", "-113.49026");
         String myFare = "40.39";
-        Post a_request_i_accepted = new Post(startLoc,endLoc,myFare);
+        Post a_request_i_accepted = new Post(startLoc,endLoc,myFare, newUsr);
         newUsr.addOfferReference(a_request_i_accepted);
         assertEquals(newUsr.getMyOffers().getPosts().size(),1);
     }
@@ -211,7 +211,7 @@ public class TestUser extends TestCase{
         Location startLoc = new Location("53.52676", "-113.52715");
         Location endLoc = new Location("53.54565", "-113.49026");
         String myFare = "40.39";
-        Post rideRequest = new Post(startLoc,endLoc,myFare);
+        Post rideRequest = new Post(startLoc,endLoc,myFare, newUsr);
         newUsr.addOfferReference(rideRequest);
         assertEquals(newUsr.getMyRequests().getPosts().size(),1);
 
