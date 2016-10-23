@@ -2,6 +2,7 @@ package com.cmput301f16t09.unter;
 
 /**
  * Users are members of Unter, a User class contains personal information that is needed to use Unter
+ * Data class
  */
 public class User {
     private String name;
@@ -186,5 +187,21 @@ public class User {
      */
     public void addOfferReference(Post post) {
         this.myOffers.addPost(post);
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void addRideRequest(Post rideRequest) {
+        this.myRequests.addPost(rideRequest);
+    }
+
+    public void deleteRideRequest(Post rideRequest) {
+        this.myRequests.getPosts().remove(rideRequest);
+    }
+
+    public void deleteOfferReference(Post rideRequest) {
+        this.myOffers.getPosts().remove(rideRequest);
     }
 }

@@ -66,4 +66,18 @@ public class UserList {
         user.setEmail(email);
     }
 
+
+    public User searchByUsername(String username) {
+        return null;
+    }
+
+    public void addListener(Listener l) {
+    }
+
+    public long getListener(Listener l) {
+        return 1;
+    }
+
+    public void deleteListener() {
+    }
 }
