@@ -3,12 +3,23 @@ package com.cmput301f16t09.unter;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.searchly.jestdroid.DroidClientConfig;
+import com.searchly.jestdroid.JestClientFactory;
+import com.searchly.jestdroid.JestDroidClient;
+
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
+import io.searchbox.core.DocumentResult;
+import io.searchbox.core.Index;
+import io.searchbox.core.Search;
+import io.searchbox.core.SearchResult;
 
 public class UserListOnlineController {
     private static JestDroidClient client;
 
-    private static UserList userlist = null;
+    private static ArrayList<User> arrayUserList = null;
+    private static UserList userList = new UserList();
 
     /**
      * Gets user list.
@@ -16,14 +27,21 @@ public class UserListOnlineController {
      * @return the user list
      */
     static public UserList getUserList() {
-        if (userlist == null) {
+        if (arrayUserList == null) {
 
             //Replace this with retrieval from location
             UserListOnlineController.GetUsersTask getUsersTask = new UserListOnlineController.GetUsersTask();
             getUsersTask.execute("");
-            userlist = getUsersTask.get();
+            try {
+                arrayUserList = getUsersTask.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            userList.setUserList(arrayUserList);
         }
-        return userlist;
+        return userList;
     }
 
     public static class SearchUserListsTask extends AsyncTask<String, Void, ArrayList<User>> {
@@ -46,7 +64,7 @@ public class UserListOnlineController {
             try {
                 SearchResult result = client.execute(search);
                 if (result.isSucceeded()) {
-                    ArrayList<User> foundUsers = result.getSourceAsObjectList(User.class);
+                    ArrayList<User> foundUsers = (ArrayList<User>) result.getSourceAsObjectList(User.class);
                     users.addAll(foundUsers);
                 }
                 else {
@@ -76,7 +94,7 @@ public class UserListOnlineController {
             try {
                 SearchResult result = client.execute(search);
                 if (result.isSucceeded()) {
-                    ArrayList<User> foundUsers = result.getSourceAsObjectList(User.class);
+                    ArrayList<User> foundUsers = (ArrayList<User>) result.getSourceAsObjectList(User.class);
                     users.addAll(foundUsers);
                 }
                 else {
@@ -103,7 +121,7 @@ public class UserListOnlineController {
                 try {
                     DocumentResult result = client.execute(index);
                     if (result.isSucceeded()) {
-                        users.setId(result.getId());
+//                        users.setId(result.getId());
                     }
                     else {
                         Log.i("Error", "Elastic search was not able to add the user.");
@@ -119,14 +137,14 @@ public class UserListOnlineController {
         }
     }
 
-    public static class DeleteUsersTask extends AsyncTask<User, Void, Void> {
-
-        //Need to fill
-        @Override
-        protected Void doInBackground(Post... posts) {
-            verifySettings();
-        }
-    }
+//    public static class DeleteUsersTask extends AsyncTask<User, Void, Void> {
+//
+//        //Need to fill
+//        @Override
+//        protected Void doInBackground(User... Users) {
+//            verifySettings();
+//        }
+//    }
 
     private static void verifySettings() {
         // if the client hasn't been initialized then we should make it!

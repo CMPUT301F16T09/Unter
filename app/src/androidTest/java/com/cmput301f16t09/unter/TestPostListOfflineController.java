@@ -28,13 +28,14 @@ public class TestPostListOfflineController extends ApplicationTestCase<Applicati
 
         PostListOfflineController ploc = new PostListOfflineController();
         MockContext mc = new MockContext();
+        User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
 
         Location startLocation = new Location("53.52676", "-113.52715");
         Location endLocation = new Location("53.54565", "-113.49026");
         String fare = "$10.50";
 
         ploc.getPostList();
-        ploc.addOfflinePost(startLocation, endLocation, fare, mc);
+        ploc.addOfflinePost(startLocation, endLocation, fare, newUsr, mc);
 
         PostList pl = new PostList();
         pl = ploc.loadOfflinePosts(mc);

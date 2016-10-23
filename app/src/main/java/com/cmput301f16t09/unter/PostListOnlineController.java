@@ -3,12 +3,25 @@ package com.cmput301f16t09.unter;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.searchly.jestdroid.DroidClientConfig;
+import com.searchly.jestdroid.JestClientFactory;
+import com.searchly.jestdroid.JestDroidClient;
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import io.searchbox.core.DocumentResult;
+import io.searchbox.core.Index;
+import io.searchbox.core.Search;
+import io.searchbox.core.SearchResult;
 
 public class PostListOnlineController {
     private static JestDroidClient client;
 
-    private static PostList postlist = null;
+    private static ArrayList<Post> arrayPostList = null;
+
+    private static PostList postList = new PostList();
 
     /**
      * Gets post list.
@@ -16,13 +29,20 @@ public class PostListOnlineController {
      * @return the post list
      */
     static public PostList getPostList() {
-        if (postlist == null) {
+        if (arrayPostList == null) {
 
             PostListOnlineController.GetPostsTask getPostsTask = new PostListOnlineController.GetPostsTask();
             getPostsTask.execute("");
-            postlist = getPostsTask.get();
+            try {
+                arrayPostList = getPostsTask.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            postList.setPostList(arrayPostList);
         }
-        return postlist;
+        return postList;
     }
 
     public static class SearchPostListsTask extends AsyncTask<String, Void, ArrayList<Post>> {
@@ -45,7 +65,7 @@ public class PostListOnlineController {
             try {
                 SearchResult result = client.execute(search);
                 if (result.isSucceeded()) {
-                    ArrayList<Post> foundPosts = result.getSourceAsObjectList(Post.class);
+                    ArrayList<Post> foundPosts = (ArrayList<Post>) result.getSourceAsObjectList(Post.class);
                     posts.addAll(foundPosts);
                 }
                 else {
@@ -75,8 +95,8 @@ public class PostListOnlineController {
             try {
                 SearchResult result = client.execute(search);
                 if (result.isSucceeded()) {
-                    ArrayList<User> foundPosts = result.getSourceAsObjectList(Post.class);
-                    posts.addAll(foundPost);
+                    List<Post> foundPosts = result.getSourceAsObjectList(Post.class);
+                    posts.addAll(foundPosts);
                 }
                 else {
                     Log.i("Error", "The search query failed to find any posts that matched.");
@@ -118,14 +138,14 @@ public class PostListOnlineController {
         }
     }
 
-    public static class DeletePostsTask extends AsyncTask<Post, Void, Void> {
-
-        //Need to fill
-        @Override
-        protected Void doInBackground(Post... posts) {
-            verifySettings();
-        }
-    }
+//    public static class DeletePostsTask extends AsyncTask<Post, Void, Void> {
+//
+//        //Need to fill
+//        @Override
+//        protected Void doInBackground(Post... posts) {
+//            verifySettings();
+//        }
+//    }
 
     private static void verifySettings() {
         // if the client hasn't been initialized then we should make it!

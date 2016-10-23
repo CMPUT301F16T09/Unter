@@ -76,7 +76,7 @@ public class TestUserList extends TestCase {
         assertTrue(testProperList.getUsername().equals("JellYKeLly"));
         assertTrue(testProperList.getEmail().equals("jellykelly@example.com"));
         assertTrue(testProperList.getPhoneNumber().equals("780-653-1241"));
-        assertTrue(testProperList.getPassword().equals("kelly's password"));
+        assertTrue(testProperList.getPassword().equals("kelly's password");
 
     }
 

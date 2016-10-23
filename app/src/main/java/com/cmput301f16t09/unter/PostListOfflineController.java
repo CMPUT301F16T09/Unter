@@ -109,8 +109,9 @@ public class PostListOfflineController {
      * @param fare          the fare
      * @param context       the context
      */
-    public void addOfflinePost(Location startLocation, Location endLocation, String fare, Context context) {
-        Post offlinePost = new Post(startLocation, endLocation, fare);
+    public void addOfflinePost(Location startLocation, Location endLocation,
+                               String fare, User user, Context context) {
+        Post offlinePost = new Post(startLocation, endLocation, fare, user);
         getPostList().addPost(offlinePost);
         offlinePostList.addPost(offlinePost);
         saveOfflinePosts(context);

@@ -76,4 +76,8 @@ public class PostList {
         post.setEndLocation(end_location);
         post.setStatus(status);
     }
+
+    public void setPostList(ArrayList<Post> postList) {
+        this.postList = postList;
+    }
 }
