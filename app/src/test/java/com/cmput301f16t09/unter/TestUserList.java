@@ -6,7 +6,9 @@ import junit.framework.TestCase;
 public class TestUserList extends TestCase {
 
     /**
-     * Test add user.
+     *
+     * Test addUser to the actual UserList Model
+     * US 3.01.01
      */
     public void testAddUser() {
         User user = new User("Alvin", "AlvinEhh", "alvin@EmAil.com", "780-123-4567", "password");
@@ -59,4 +61,60 @@ public class TestUserList extends TestCase {
         assertTrue(userList.getUsers().size() == 5);
         assertTrue(userList.getUsers().get(4).equals(user5));
     }
+
+    public void testRetrieveUserbyUsername(){
+
+        UserList usrList = new UserList();
+        User jellykelly = new User("Kelly", "JellYKeLly", "jellykelly@example.com", "780-653-1241", "kelly's password");
+
+        User testEmptyList = usrList.searchByUsername(jellykelly.getUsername());
+        assertEquals(testEmptyList instanceof NonexistantUserException);
+
+        usrList.addUser(jellykelly);
+        User testProperList = usrList.searchByUsername(jellykelly.getUsername());
+        assertEquals(testProperList instanceof User);
+        assertTrue(testProperList.getName,"Kelly");
+        assertTrue(testProperList.getUsername(),"JellYKeLly");
+        assertTrue(testProperList.getEmail(),"jellykelly@example.com");
+        assertTrue(testProperList.getPhoneNumber(),"780-653-1241");
+        assertTrue(testProperList.getPassword(), "kelly's password");
+
+    }
+
+    public void testAddListener(){
+
+        UserList usrList = new UserList();
+        Listener l = new Listener();
+        usrList.addListener(l);
+        assertEquals(usrList.getListener(l),l);
+
+    }
+
+
+    public void testDeleteListener(){
+
+        UserList usrList = new UserList();
+        Listener l = new Listener();
+        usrList.addListener(l);
+        usrList.deleteListener();
+        assertTrue(usrList.getListener(l) instanceof ListenerNotInUserListException);
+
+    }
+
+    int updated = 0;
+    public void testNotifyListeners(){
+        UserList list = new UserList();
+        Listener l = new Listener(){
+            public void update(){
+                list.this.updated++;
+            }
+        };
+
+        list.addListener(l);
+
+        User jellykelly = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
+        list.addUser(jellykelly);
+        assertEquals(this.updated,1);
+    }
+
 }

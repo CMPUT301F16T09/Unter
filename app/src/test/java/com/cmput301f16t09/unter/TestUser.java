@@ -2,26 +2,28 @@ package com.cmput301f16t09.unter;
 
 import junit.framework.TestCase;
 
-
 public class TestUser extends TestCase{
     /**
+     * US 3.03.01 Display Contact Info
      * Test get user name.
      */
-    public void testGetUserName() {
+    public void testGetName() {
         String name = "Alvin";
         String username = "AlvinEhh";
         String email = "alvin@email.com";
         String phoneNumber = "780-123-4567";
         String password = "password";
         User user = new User(name, username, email, phoneNumber, password);
+
         assertFalse(user.getName().equals("Alvin"));
         assertTrue(user.getName().equals("alvin"));
     }
 
     /**
+     * US 3.03.01 Display Contact Info
      * Test get user username.
      */
-    public void testGetUserUsername() {
+    public void testGetUsername() {
         String name = "Alvin";
         String username = "AlvinEhh";
         String email = "alvin@email.com";
@@ -34,6 +36,8 @@ public class TestUser extends TestCase{
     }
 
     /**
+     * US 3.03.01 Display Contact Info
+     * US 1.05.01 Phone Driver who accepted my request
      * Test get user phone number.
      */
     public void testGetUserPhoneNumber() {
@@ -47,6 +51,8 @@ public class TestUser extends TestCase{
     }
 
     /**
+     * US 3.03.01 Display Contact Info
+     * US 1.05.01 Email Driver who accepted my request
      * Test get user email.
      */
     public void testGetUserEmail() {
@@ -75,9 +81,10 @@ public class TestUser extends TestCase{
     }
 
     /**
-     * Test set user name.
+     * US 3.02.01 Edit Contact Info
+     * Test set name.
      */
-    public void testSetUserName() {
+    public void testSetName() {
         String name = "Alvin";
         String username = "AlvinEhh";
         String email = "alvin@email.com";
@@ -92,23 +99,7 @@ public class TestUser extends TestCase{
     }
 
     /**
-     * Test set user username.
-     */
-    public void testSetUserUsername() {
-        String name = "Alvin";
-        String username = "AlvinEhh";
-        String email = "alvin@email.com";
-        String phoneNumber = "780-123-4567";
-        String password = "password";
-        User user = new User(name, username, email, phoneNumber, password);
-        assertTrue(user.getUsername().equals("alvinehh"));
-        user.setUsername("KevinWASSUP");
-        assertFalse(user.getUsername().equals("alvinehh"));
-        assertTrue(user.getUsername().equals("kevinwassup"));
-        assertFalse(user.getUsername().equals("KevinWASSUP"));
-    }
-
-    /**
+     * US 3.02.01 Edit Contact Info
      * Test set user phone number.
      */
     public void testSetUserPhoneNumber() {
@@ -125,6 +116,7 @@ public class TestUser extends TestCase{
     }
 
     /**
+     * US 3.02.01 Edit Contact Info
      * Test set user email.
      */
     public void testSetUserEmail() {
@@ -142,7 +134,11 @@ public class TestUser extends TestCase{
     }
 
     /**
+     * US 3.01.01 Unique User Profile
+     * US 3.02.01 Edit Contact Info
      * Test set user password.
+     * Passwords are optional. There will be a password when a new user is created.
+     * This allows for that password to be changed.
      */
     public void testSetUserPassword() {
         String name = "Alvin";
@@ -156,5 +152,58 @@ public class TestUser extends TestCase{
         assertFalse(user.getPassword().equals("password"));
         assertTrue(user.getPassword().equals("12345Aa"));
         assertFalse(user.getPassword().equals("12345aa"));
+    }
+
+    /**
+     *US 1.01.01 Create Requests between two locations
+     *US 1.02.01
+     */
+
+    public void testAddtoMyRequests(){
+        User newUsr = User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
+        Post rideRequest = new Post(startLoc,endLoc,myFare);
+        newUsr.addRideRequest(rideRequest);
+        assertEquals(newUsr.getMyRequests().getPosts().size(),1);
+
+    }
+
+    /**
+     * US 1.04.01 Cancel Requests
+     * US 1.07.01 Rider Confirms Completion
+     *
+     *
+     */
+    public void testDeleteFromMyRequests(){
+        User newUsr = User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
+        Post rideRequest = new Post(startLoc,endLoc,myFare);
+        newUsr.addRideRequest(rideRequest);
+        assertEquals(newUsr.getMyRequests().getPosts().size(),1);
+        newUsr.deleteRideRequest(rideRequest);
+        assertEquals(newUsr.getMyRequests().getPosts().size(),0);
+    }
+
+    /**
+     * US 5.01.01 Driver Accepts a Request
+     *
+     */
+    public void testAddtoMyOffers(){
+        User newUsr = User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
+        Post a_request_i_accepted = new Post(startLoc,endLoc,myFare);
+        newUsr.addOfferReference(a_request_i_accepted);
+        assertEquals(newUsr.getMyOffers().getPosts().size(),1);
+    }
+
+    /**
+     * US 1.08.01 Rider choses a driver
+     * details outlined in "call dibs" in glossary
+     */
+    public void testDeleteFromMyOffers(){
+        User newUsr = User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
+        Post rideRequest = new Post(startLoc,endLoc,myFare);
+        newUsr.addOfferReference(rideRequest);
+        assertEquals(newUsr.getMyRequests().getPosts().size(),1);
+
+        newUsr.deleteOfferReference(rideRequest);
+        assertEquals(newUsr.getMyOffers().getPosts().size(),0);
     }
 }
