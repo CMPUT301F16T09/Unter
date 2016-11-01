@@ -70,5 +70,6 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:background="@color/white"
-        android:layout_below="@+id/mainScreenPassword" />
+        android:layout_below="@+id/mainScreenPassword"
+        android:id="@+id/tester"/>
 </RelativeLayout>

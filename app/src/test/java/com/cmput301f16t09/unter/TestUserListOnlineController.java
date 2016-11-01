@@ -6,34 +6,18 @@ import java.util.ArrayList;
 
 public class TestUserListOnlineController extends TestCase {
 
-    public void testRetrieveUsers() {
-        try {
-            UserList userlist = UserListOnlineController.getUserList();
-        }
-        catch (Exception e) {
-            fail("Couldn't obtain from elastic server.");
-        }
-    }
+//    public void testRetrieveUsers() {
+//        try {
+//            UserListOnlineController.GetUsersTask getUsersTask = new UserListOnlineController.GetUsersTask();
+//            getUsersTask.execute("");
+//            ArrayList<User> userlist = getUsersTask.get();
+//        }
+//        catch (Exception e) {
+//            fail("Couldn't obtain from elastic server.");
+//        }
+//    }
 
     public void testaddUser() {
-        User new_user = new User("Henry", "Popcorn_chicken", "KFC_lover@barnyard.com", "123-456-7890", "password");
-        try {
-            UserListOnlineController.AddUsersTask addUserTask = new UserListOnlineController.AddUsersTask();
-            addUserTask.execute(new User("Henry", "Popcorn_chicken", "KFC_lover@barnyard.com", "123-456-7890", "password"));
-        }
-        catch (Exception e) {
-            fail("Couldn't add user");
-        }
-        try {
-            UserList userlist = UserListOnlineController.getUserList();
-            assertTrue(userlist.getUserList().contains(new_user));
-        }
-        catch (Exception e) {
-            fail("Couldn't obtain from elastic server.");
-        }
-    }
-
-    public void testdeleteUser() {
         User new_user = new User("Henry", "Popcorn_chicken", "KFC_lover@barnyard.com", "123-456-7890", "password");
         try {
             UserListOnlineController.AddUsersTask addUserTask = new UserListOnlineController.AddUsersTask();
@@ -43,15 +27,35 @@ public class TestUserListOnlineController extends TestCase {
             fail("Couldn't add user");
         }
         try {
-            UserList userlist = UserListOnlineController.getUserList();
-            UserListOnlineController.DeleteUsersTask deleteUsersTask = new UserListOnlineController.DeleteUsersTask();
-            deleteUsersTask.execute(new_user);
-            assertFalse(userlist.getUserList().contains(new_user));
+            UserListOnlineController.GetUsersTask getUsersTask = new UserListOnlineController.GetUsersTask();
+            getUsersTask.execute("");
+            ArrayList<User> userlist = getUsersTask.get();
+            assertTrue(userlist.contains(new_user));
         }
         catch (Exception e) {
-            fail("Couldn't delete user or obtain from server");
+            fail("Couldn't obtain from elastic server.");
         }
     }
+
+//    public void testdeleteUser() {
+//        User new_user = new User("Henry", "Popcorn_chicken", "KFC_lover@barnyard.com", "123-456-7890", "password");
+//        try {
+//            UserListOnlineController.AddUsersTask addUserTask = new UserListOnlineController.AddUsersTask();
+//            addUserTask.execute(new_user);
+//        }
+//        catch (Exception e) {
+//            fail("Couldn't add user");
+//        }
+//        try {
+//            UserList userlist = UserListOnlineController.getUserList();
+//            UserListOnlineController.DeleteUsersTask deleteUsersTask = new UserListOnlineController.DeleteUsersTask();
+//            deleteUsersTask.execute(new_user);
+//            assertFalse(userlist.getUserList().contains(new_user));
+//        }
+//        catch (Exception e) {
+//            fail("Couldn't delete user or obtain from server");
+//        }
+//    }
 
     public void testsearchUser() {
         User new_user = new User("Henry", "Popcorn_chicken", "KFC_lover@barnyard.com", "123-456-7890", "password");
