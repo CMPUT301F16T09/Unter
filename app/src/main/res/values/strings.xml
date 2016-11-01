@@ -7,6 +7,7 @@
     <string name="welcome">Welcome</string>
     <string name="rider">Rider</string>
     <string name="driver">Driver</string>
+    <string name="edit_profile">Edit Profile</string>
 
     <string name="request_a_ride">Request\nA Ride</string>
     <string name="my_ride_requests">Request\nA Ride</string>

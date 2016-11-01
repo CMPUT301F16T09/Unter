@@ -47,8 +47,8 @@ public class TestPostListOnlineController extends TestCase{
         }
         try {
             PostList postlist = PostListOnlineController.getPostList();
-            PostListOnlineController.DeletePostsTask deletePostsTask = new PostListOnlineController.DeletePostsTask();
-            deletePostsTask.execute(new_post);
+            //PostListOnlineController.DeletePostsTask deletePostsTask = new PostListOnlineController.DeletePostsTask();
+            //deletePostsTask.execute(new_post);
             assertFalse(postlist.getPosts().contains(new_post));
         }
         catch (Exception e) {
