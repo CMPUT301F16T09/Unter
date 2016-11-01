@@ -79,6 +79,7 @@
         android:background="@color/white"/>
 
     <Button
+        android:id="@+id/createNewUserButton"
         android:layout_width="@dimen/mainscreen_button_width"
         android:layout_height="@dimen/mainscreen_button_height"
         android:layout_alignTop="@+id/loginButton"
@@ -86,6 +87,7 @@
         android:layout_below="@+id/mainScreenPassword"
         android:text="@string/create_new_user"
         android:textSize="18sp"
-        android:background="@color/white"/>
+        android:background="@color/white"
+        android:onClick=""/>
 
 </RelativeLayout>
