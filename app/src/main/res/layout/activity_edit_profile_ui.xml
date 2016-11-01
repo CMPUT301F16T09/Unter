@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:text="@string/edit_your_profile"
         android:id="@+id/textEditYourProfile"
-        android:textSize="42sp"
+        android:textSize="45sp"
 
         android:textColor="@color/TextColor"
         android:textAlignment="center"
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:text="@string/name"
         android:id="@+id/textName"
-        android:textSize="18sp"
+        android:textSize="@dimen/header_text_size"
         android:textColor="@color/TextColor"
         android:layout_marginStart="0dp"
         android:layout_marginTop="20dp"
@@ -37,8 +37,8 @@
 
     <EditText
         android:layout_width="350dp"
-        android:layout_height="35dp"
-        android:textSize="14sp"
+        android:layout_height="40dp"
+        android:textSize="@dimen/input_text_size"
         android:layout_marginStart="5dp"
         android:layout_below="@+id/textName"
         android:layout_alignStart="@+id/textName"
@@ -51,17 +51,17 @@
         android:layout_height="wrap_content"
         android:text="@string/phone_number"
         android:id="@+id/textPhoneNumber"
-        android:textSize="18sp"
+        android:textSize="@dimen/header_text_size"
         android:textColor="@color/TextColor"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="45dp"
         android:layout_below="@+id/textName"
         android:layout_centerHorizontal="true"
         android:layout_alignStart="@+id/textName"/>
 
     <EditText
         android:layout_width="350dp"
-        android:layout_height="35dp"
-        android:textSize="14sp"
+        android:layout_height="40dp"
+        android:textSize="@dimen/input_text_size"
         android:layout_marginStart="5dp"
         android:layout_below="@+id/textPhoneNumber"
         android:layout_alignStart="@+id/textName"
@@ -74,17 +74,17 @@
         android:layout_height="wrap_content"
         android:text="@string/email"
         android:id="@+id/textEmail"
-        android:textSize="18sp"
+        android:textSize="@dimen/header_text_size"
         android:textColor="@color/TextColor"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="45dp"
         android:layout_below="@+id/textPhoneNumber"
         android:layout_alignStart="@+id/textName"
         android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="350dp"
-        android:layout_height="35dp"
-        android:textSize="14sp"
+        android:layout_height="40dp"
+        android:textSize="@dimen/input_text_size"
         android:layout_marginStart="5dp"
         android:layout_below="@+id/textEmail"
         android:layout_alignStart="@+id/textName"
@@ -97,17 +97,17 @@
         android:layout_height="wrap_content"
         android:text="@string/password"
         android:id="@+id/textPassword"
-        android:textSize="18sp"
+        android:textSize="@dimen/header_text_size"
         android:textColor="@color/TextColor"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="45dp"
         android:layout_below="@+id/textEmail"
         android:layout_alignStart="@+id/textName"
         android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="350dp"
-        android:layout_height="35dp"
-        android:textSize="14sp"
+        android:layout_height="40dp"
+        android:textSize="@dimen/input_text_size"
         android:layout_marginStart="5dp"
         android:layout_below="@+id/textPassword"
         android:layout_alignStart="@+id/textName"
@@ -116,21 +116,21 @@
         android:textColorHint="@color/HintTextColor"/>
 
     <TextView
+        android:id="@+id/textConfirmPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/confirm_password"
-        android:id="@+id/textConfirmPassword"
-        android:textSize="18sp"
+        android:textSize="@dimen/header_text_size"
         android:textColor="@color/TextColor"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="45dp"
         android:layout_below="@+id/textPassword"
         android:layout_alignStart="@+id/textName"
         android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="350dp"
-        android:layout_height="35dp"
-        android:textSize="14sp"
+        android:layout_height="40dp"
+        android:textSize="@dimen/input_text_size"
         android:layout_marginStart="5dp"
         android:layout_below="@+id/textConfirmPassword"
         android:layout_alignStart="@+id/textEmail"

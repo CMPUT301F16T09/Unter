@@ -13,62 +13,79 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="77dp"
+        android:layout_marginTop="60dp"
         android:gravity="center"
         android:text="@string/app_name"
-        android:textSize="90sp"
+        android:textSize="110sp"
         android:fontFamily="sans-serif-smallcaps"
         android:textColor="@color/TextColor"/>
     
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/username_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:text="Username:"
+        android:layout_marginTop="220dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/username_title_login"
         android:textColor="@color/TextColor"
-        android:textSize="30sp"
+        android:textSize="40sp"
         android:fontFamily="sans-serif-smallcaps"
         />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/password_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="50dp"
-        android:text="Password:"
+        android:layout_below="@+id/username_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="75dp"
+        android:text="@string/password_title_login"
         android:textColor="@color/TextColor"
-        android:textSize="30sp"
+        android:textSize="40sp"
         android:fontFamily="sans-serif-smallcaps"
         />
 
     <EditText
         android:id="@+id/mainScreenUsername"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView"
-        android:layout_toEndOf="@+id/textView2"
-        android:inputType="textPassword"
-        android:hint="Enter Username Here" />
+        android:layout_below="@+id/username_title"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textColorHint="@color/HintTextColor"
+        android:hint="@string/enter_username_login_hint"
+        android:textSize="20sp"/>
 
     <EditText
         android:id="@+id/mainScreenPassword"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView2"
-        android:layout_toEndOf="@+id/textView2"
+        android:layout_below="@+id/password_title"
+        android:layout_centerHorizontal="true"
         android:inputType="textPassword"
-        android:hint="Enter Password Here"
         android:textColorHint="@color/HintTextColor"
-        android:ems="10" />
+        android:hint="@string/enter_password_login_hint"
+        android:gravity="center"/>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:background="@color/white"
-        android:layout_below="@+id/mainScreenPassword" />
+        android:id="@+id/loginButton"
+        android:layout_width="@dimen/mainscreen_button_width"
+        android:layout_height="@dimen/mainscreen_button_height"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_below="@+id/mainScreenPassword"
+        android:text="@string/login"
+        android:textSize="20sp"
+        android:background="@color/white"/>
+
+    <Button
+        android:layout_width="@dimen/mainscreen_button_width"
+        android:layout_height="@dimen/mainscreen_button_height"
+        android:layout_alignTop="@+id/loginButton"
+        android:layout_marginStart="200dp"
+        android:layout_below="@+id/mainScreenPassword"
+        android:text="@string/create_new_user"
+        android:textSize="18sp"
+        android:background="@color/white"/>
+
 </RelativeLayout>
