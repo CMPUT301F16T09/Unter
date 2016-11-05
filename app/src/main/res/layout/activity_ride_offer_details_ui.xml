@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/background"
+    tools:context="com.cmput301f16t09.unter.RideOfferDetailsUIActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ride Offer\nDetails"
+        android:textColor="@color/white"
+        android:textSize="48sp"
+        android:textAlignment="center"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/textViewRideOfferDetails"/>
+
+    // Insert mapView
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rider: "
+        android:textSize="24sp"
+        android:textColor="@color/white"
+        android:textAlignment="textStart"
+        android:layout_marginTop="380dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:id="@+id/textViewRideOfferRider"/>
+
+    // Needs to be changed
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RiderName"
+        android:textSize="24sp"
+        android:textColor="@color/white"
+        android:textAlignment="textStart"
+        android:layout_alignBaseline="@+id/textViewRideOfferRider"
+        android:layout_toEndOf="@+id/textViewRideOfferRider"
+        android:id="@+id/textViewRideOfferRiderName"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Offered Fare: "
+        android:textSize="24sp"
+        android:textColor="@color/white"
+        android:textAlignment="textStart"
+        android:layout_below="@+id/textViewRideOfferRider"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:id="@+id/textViewRideOfferOfferedFare"/>
+
+    // Needs to be changed
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$$$"
+        android:textSize="24sp"
+        android:textColor="@color/white"
+        android:textAlignment="textStart"
+        android:layout_alignBaseline="@+id/textViewRideOfferOfferedFare"
+        android:layout_toEndOf="@+id/textViewRideOfferOfferedFare"
+        android:id="@+id/textViewRideOffer$$$"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status: "
+        android:textSize="24sp"
+        android:textColor="@color/white"
+        android:textAlignment="textStart"
+        android:layout_below="@+id/textViewRideOfferOfferedFare"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:id="@+id/textViewRideOfferStatus"/>
+
+    // Needs to be changed
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="StatusDesc"
+        android:textSize="24sp"
+        android:textColor="@color/white"
+        android:textAlignment="textStart"
+        android:layout_alignBaseline="@+id/textViewRideOfferStatus"
+        android:layout_toEndOf="@+id/textViewRideOfferStatus"
+        android:id="@+id/textViewRideOfferStatusDesc"/>
+
+</RelativeLayout>

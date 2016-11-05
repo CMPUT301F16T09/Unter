@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Request A Ride"
-        android:id="@+id/textEditYourProfile"
+        android:id="@+id/textViewRequestARide"
         android:textSize="42sp"
 
         android:textColor="@color/TextColor"
@@ -24,49 +24,65 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/name"
-        android:id="@+id/textName"
-        android:textSize="18sp"
-        android:textColor="@color/TextColor"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/textEditYourProfile"/>
-
     <EditText
-        android:layout_width="350dp"
+        android:layout_width="250dp"
         android:layout_height="35dp"
         android:textSize="14sp"
         android:layout_marginStart="5dp"
-        android:layout_below="@+id/textName"
+        android:layout_marginTop="5dp"
+        android:id="@+id/editTextStartLocation"
+        android:layout_below="@+id/textViewRequestARide"
         android:layout_alignStart="@+id/textName"
         android:textColor="@color/TextColor"
-        android:hint="Current Name"
+        android:hint="Enter Start Location"
         android:textColorHint="@color/HintTextColor"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:text="@string/phone_number"
-        android:id="@+id/textPhoneNumber"
-        android:textSize="18sp"
         android:textColor="@color/TextColor"
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/textName"
-        android:layout_centerHorizontal="true"
-        android:layout_alignStart="@+id/textName"/>
+        android:id="@+id/textViewEstimatedFare"
+        android:hint="Enter Start Location"
+        android:text="Estimated\nFare"
+        android:textAlignment="center"
+        android:layout_marginLeft="25dp"
+        android:layout_toEndOf="@+id/editTextStartLocation"
+        android:layout_alignBottom="@id/editTextStartLocation"
+        />
 
     <EditText
-        android:layout_width="350dp"
+        android:layout_width="70dp"
+        android:layout_height="35dp"
+        android:textSize="14sp"
+        android:id="@+id/editTextEstimatedFare"
+        android:textColor="@color/TextColor"
+        android:hint="$$$"
+        android:textColorHint="@color/HintTextColor"
+        android:textAlignment="center"
+        android:layout_below="@+id/textViewEstimatedFare"
+        android:layout_alignStart="@+id/textViewEstimatedFare"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="250dp"
         android:layout_height="35dp"
         android:textSize="14sp"
         android:layout_marginStart="5dp"
-        android:layout_below="@+id/textPhoneNumber"
-        android:layout_alignStart="@+id/textName"
+        android:id="@+id/editTextEndLocation"
+        android:layout_below="@+id/editTextStartLocation"
         android:textColor="@color/TextColor"
-        android:hint="Current Phone Number"
+        android:hint="Enter End Location"
         android:textColorHint="@color/HintTextColor"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:text="CONFIRM"
+        android:textSize="36sp"
+        android:id="@+id/RequestARideConfirmButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/editTextEndLocation"
+        android:layout_alignEnd="@+id/editTextEstimatedFare" />
+
 
 </RelativeLayout>
