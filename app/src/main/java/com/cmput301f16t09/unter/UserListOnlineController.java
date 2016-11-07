@@ -59,6 +59,8 @@ public class UserListOnlineController {
             // assume that search_parameters[0] is the only search term we are interested in using
             //Add Indexing and such
             Search search = new Search.Builder(search_string)
+                    .addIndex("unter")
+                    .addType("user")
                     .build();
 
             try {
@@ -89,6 +91,8 @@ public class UserListOnlineController {
             // assume that search_parameters[0] is the only search term we are interested in using
             //Add Indexing and such
             Search search = new Search.Builder(search_parameters[0])
+                    .addIndex("unter")
+                    .addType("user")
                     .build();
 
             try {
@@ -110,25 +114,28 @@ public class UserListOnlineController {
     }
 
     public static class AddUsersTask extends AsyncTask<User, Void, Void> {
+
         @Override
         protected Void doInBackground(User... users) {
             verifySettings();
 
             for (User user: users) {
                 //Add Indexing and such
-                Index index = new Index.Builder(user).build();
+                Index index = new Index.Builder(user).index("unter").type("user").build();
 
                 try {
                     DocumentResult result = client.execute(index);
                     if (result.isSucceeded()) {
-//                        users.setId(result.getId());
+                        user.setId(result.getId());
                     }
                     else {
                         Log.i("Error", "Elastic search was not able to add the user.");
+                        System.out.println("Elastic search was not able to add the user.");
                     }
                 }
                 catch (Exception e) {
                     Log.i("Uhoh", "We failed to add a user to elastic search!");
+                    System.out.println("We failed to add a user to elastic search!");
                     e.printStackTrace();
                 }
             }
@@ -157,5 +164,16 @@ public class UserListOnlineController {
             factory.setDroidClientConfig(config);
             client = (JestDroidClient) factory.getObject();
         }
+    }
+
+    public boolean verifyLogin(String Username,String Password){
+        //assumes that getUserList() queries the server for the most updated list.
+        User currentUser = getUserList().searchByUsername(Username); //assumes user exists in List
+        String goodPW = currentUser.getPassword();
+
+        if (Password.equals(goodPW)){
+            return true;
+        }
+        return false;
     }
 }

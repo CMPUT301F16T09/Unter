@@ -17,7 +17,12 @@ public class MainGUIActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_gui);
     }
-
+    public void test_add() {
+        setResult(RESULT_OK);
+        User new_user = new User("Henry", "Popcorn_chicken", "KFC_lover@barnyard.com", "123-456-7890", "password");
+        UserListOnlineController.AddUsersTask addUserTask = new UserListOnlineController.AddUsersTask();
+        addUserTask.execute(new_user);
+    }
     public void verifyLoginCredentials(View v) {
 
         // Verify with UserListOnlineController before changing intent
@@ -28,5 +33,9 @@ public class MainGUIActivity extends AppCompatActivity {
     public void createNewUser() {
 //        Intent intent = new Intent(MainGUIActivity.this, CreateNewUserUIActivity.class);
 //        startActivity(intent);
+        setResult(RESULT_OK);
+        User new_user = new User("Henry", "Popcorn_chicken", "KFC_lover@barnyard.com", "123-456-7890", "password");
+        UserListOnlineController.AddUsersTask addUserTask = new UserListOnlineController.AddUsersTask();
+        addUserTask.execute(new_user);
     }
 }
