@@ -76,7 +76,8 @@
         android:layout_below="@+id/mainScreenPassword"
         android:text="@string/login"
         android:textSize="20sp"
-        android:background="@color/white"/>
+        android:background="@color/white"
+        android:onClick="verifyLoginCredentials"/>
 
     <Button
         android:id="@+id/createNewUserButton"
@@ -88,6 +89,6 @@
         android:text="@string/create_new_user"
         android:textSize="18sp"
         android:background="@color/white"
-        android:onClick=""/>
+        android:onClick="createNewUser"/>
 
 </RelativeLayout>
