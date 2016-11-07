@@ -138,14 +138,15 @@ public class PostListOnlineController {
         }
     }
 
-//    public static class DeletePostsTask extends AsyncTask<Post, Void, Void> {
-//
-//        //Need to fill
-//        @Override
-//        protected Void doInBackground(Post... posts) {
-//            verifySettings();
-//        }
-//    }
+    public static class DeletePostsTask extends AsyncTask<Post, Void, Void> {
+
+        //Need to fill
+        @Override
+        protected Void doInBackground(Post... posts) {
+            verifySettings();
+            return null;
+        }
+    }
 
     private static void verifySettings() {
         // if the client hasn't been initialized then we should make it!

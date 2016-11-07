@@ -2,7 +2,6 @@ package com.cmput301f16t09.unter;
 
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.test.mock.MockContext;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -116,5 +115,4 @@ public class PostListOfflineController {
         offlinePostList.addPost(offlinePost);
         saveOfflinePosts(context);
     }
-
 }
