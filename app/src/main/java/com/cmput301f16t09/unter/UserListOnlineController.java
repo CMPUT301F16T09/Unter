@@ -123,14 +123,9 @@ public class UserListOnlineController {
                 try {
                     DocumentResult result = client.execute(index);
                     if (result.isSucceeded()) {
-<<<<<<< HEAD
                         user.setId(result.getId());
                     }
                     else {
-=======
-//                        users.setId(result.getId());
-                    } else {
->>>>>>> origin/Simons_part4
                         Log.i("Error", "Elastic search was not able to add the user.");
                         System.out.println("Elastic search was not able to add the user.");
                     }
