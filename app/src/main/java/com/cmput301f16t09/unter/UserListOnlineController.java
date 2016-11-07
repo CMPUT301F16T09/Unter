@@ -2,6 +2,7 @@ package com.cmput301f16t09.unter;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
@@ -66,12 +67,10 @@ public class UserListOnlineController {
                 if (result.isSucceeded()) {
                     ArrayList<User> foundUsers = (ArrayList<User>) result.getSourceAsObjectList(User.class);
                     users.addAll(foundUsers);
-                }
-                else {
+                } else {
                     Log.i("Error", "The search query failed to find any users that matched.");
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
             }
 
@@ -96,12 +95,10 @@ public class UserListOnlineController {
                 if (result.isSucceeded()) {
                     ArrayList<User> foundUsers = (ArrayList<User>) result.getSourceAsObjectList(User.class);
                     users.addAll(foundUsers);
-                }
-                else {
+                } else {
                     Log.i("Error", "The search query failed to find any users that matched.");
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
             }
 
@@ -114,7 +111,7 @@ public class UserListOnlineController {
         protected Void doInBackground(User... users) {
             verifySettings();
 
-            for (User user: users) {
+            for (User user : users) {
                 //Add Indexing and such
                 Index index = new Index.Builder(user).build();
 
@@ -122,12 +119,10 @@ public class UserListOnlineController {
                     DocumentResult result = client.execute(index);
                     if (result.isSucceeded()) {
 //                        users.setId(result.getId());
-                    }
-                    else {
+                    } else {
                         Log.i("Error", "Elastic search was not able to add the user.");
                     }
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     Log.i("Uhoh", "We failed to add a user to elastic search!");
                     e.printStackTrace();
                 }
@@ -157,5 +152,15 @@ public class UserListOnlineController {
             factory.setDroidClientConfig(config);
             client = (JestDroidClient) factory.getObject();
         }
+    }
+
+    public void editUser(String name, String phoneNumber, String userEmail, String userPassword) {
+
+        User user = getLoggedIn();      //probably not going to be used
+
+        if (!name.isEmpty()) {user.setName(name);}
+        if (!phoneNumber.isEmpty()) {user.setPhoneNumber(phoneNumber);}
+        if (!userEmail.isEmpty()) {user.setEmail(userEmail);}
+        if (!userPassword.isEmpty()) {user.setPassword(userPassword);}
     }
 }
