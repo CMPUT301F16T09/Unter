@@ -38,8 +38,11 @@ public class MainGUIActivity extends AppCompatActivity {
         EditText passwordInput = (EditText) findViewById(R.id.mainScreenPassword);
         String username = usernameInput.getText().toString();
         String password = passwordInput.getText().toString();
+//        CurrentUser currentUser = new CurrentUser();
         // Verify with UserListOnlineController before changing intent
         if (UserListOnlineController.verifyLogin(username, password)) {
+            // Set the current user before intent change
+//            currentUser.setCurrentUser();
             Intent intent = new Intent(MainGUIActivity.this, MainScreenUIActivity.class);
             startActivity(intent);
         }
