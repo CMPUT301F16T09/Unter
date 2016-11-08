@@ -50,6 +50,7 @@ public class MainGUIActivity extends AppCompatActivity {
             currentUser = checkLogin.get();
             if (password.equals(currentUser.get(0).getPassword())){
                 Toast.makeText(this, "Logging In", Toast.LENGTH_SHORT).show();
+                CurrentUser.setCurrentUser(currentUser.get(0));
                 Intent intent = new Intent(MainGUIActivity.this, MainScreenUIActivity.class);
                 startActivity(intent);
             }

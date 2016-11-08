@@ -23,13 +23,17 @@ public class EditProfileUIActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile_ui);
+        Toast.makeText(EditProfileUIActivity.this, CurrentUser.getCurrentUser().getName(), Toast.LENGTH_SHORT).show();
 
         editName = (EditText) findViewById(R.id.editTextEditProfileName);
+        editName.setText(CurrentUser.getCurrentUser().getName());
         editPhoneNumber = (EditText) findViewById(R.id.editTextEditProfilePhoneNumber);
+        editPhoneNumber.setText(CurrentUser.getCurrentUser().getPhoneNumber());
         editEmail = (EditText) findViewById(R.id.editTextEditProfileEmail);
+        editEmail.setText(CurrentUser.getCurrentUser().getEmail());
         editPassword = (EditText) findViewById(R.id.editTextEditProfilePassword);
+        editPassword.setText(CurrentUser.getCurrentUser().getPassword());
         editConfirmPassword = (EditText) findViewById(R.id.editTextEditProfileConfirmPassword);
-
     }
 
     @Override
