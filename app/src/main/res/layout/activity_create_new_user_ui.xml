@@ -88,7 +88,6 @@
         android:textColor="@color/TextColor"
         android:textColorHint="@color/HintTextColor"
         android:textAlignment="center"
-        android:inputType="textPassword"
         android:fontFamily="sans-serif-smallcaps"/>
 
     <EditText
@@ -102,7 +101,6 @@
         android:textColor="@color/TextColor"
         android:textColorHint="@color/HintTextColor"
         android:textAlignment="center"
-        android:inputType="textPassword"
         android:fontFamily="sans-serif-smallcaps"/>
 
     <Button
@@ -116,5 +114,6 @@
         android:background="@color/lightAccent"
         android:fontFamily="sans-serif-smallcaps"
         android:onClick="create_user"/>
+
 
 </RelativeLayout>

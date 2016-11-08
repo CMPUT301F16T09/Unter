@@ -61,8 +61,6 @@ public class UserListOnlineController {
             Search search = new Search.Builder(search_string)
                     .addIndex("t09")
                     .addType("user")
-                    .addIndex("unter")
-                    .addType("User")
                     .build();
 
             try {
@@ -93,7 +91,6 @@ public class UserListOnlineController {
             Search search = new Search.Builder(search_parameters[0])
                     .addIndex("t09")
                     .addType("user")
-
                     .build();
 
             try {
@@ -101,10 +98,12 @@ public class UserListOnlineController {
                 if (result.isSucceeded()) {
                     ArrayList<User> foundUsers = (ArrayList<User>) result.getSourceAsObjectList(User.class);
                     users.addAll(foundUsers);
-                } else {
+                }
+                else {
                     Log.i("Error", "The search query failed to find any users that matched.");
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
             }
 

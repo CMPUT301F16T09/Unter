@@ -55,11 +55,13 @@ public class PostListOnlineController {
             //Just list top 10000 posts
             //String search_string = "\{\"from\": 0, \"size\": 10000}"
             //Replace with our indexes
-            String search_string = "{\"from\": 0, \"size\": 10000, \"query\": {\"match\": {\"message\": \"" + search_parameters[0] + "\"}}}";
+            String search_string = "{\"from\": 0, \"size\": 10000, \"query\": {\"match\": {\"" + search_parameters[0] + "\": \"" + search_parameters[1] + "\"}}}";
 
             // assume that search_parameters[0] is the only search term we are interested in using
             //Add Indexing and such
             Search search = new Search.Builder(search_string)
+                    .addIndex("t09")
+                    .addType("post")
                     .build();
 
             try {
@@ -90,12 +92,14 @@ public class PostListOnlineController {
             // assume that search_parameters[0] is the only search term we are interested in using
             //Add Indexing and such
             Search search = new Search.Builder(search_parameters[0])
+                    .addIndex("t09")
+                    .addType("post")
                     .build();
 
             try {
                 SearchResult result = client.execute(search);
                 if (result.isSucceeded()) {
-                    List<Post> foundPosts = result.getSourceAsObjectList(Post.class);
+                    ArrayList<Post> foundPosts = (ArrayList<Post>) result.getSourceAsObjectList(Post.class);
                     posts.addAll(foundPosts);
                 }
                 else {
@@ -117,7 +121,7 @@ public class PostListOnlineController {
 
             for (Post post: posts) {
                 //Add Indexing and such
-                Index index = new Index.Builder(post).build();
+                Index index = new Index.Builder(post).index("t09").type("post").build();
 
                 try {
                     DocumentResult result = client.execute(index);
