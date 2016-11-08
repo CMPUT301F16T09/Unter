@@ -45,7 +45,8 @@
         android:text="@string/request_a_ride"
         android:textSize="22sp"
         android:textColor="@color/background"
-        android:fontFamily="sans-serif-smallcaps" />
+        android:fontFamily="sans-serif-smallcaps"
+        android:onClick="requestARide"/>
     <Button
         android:id="@+id/MainScreenMyRideRequestsButton"
         android:layout_width="160dp"
@@ -58,7 +59,8 @@
         android:text="@string/my_ride_requests"
         android:textSize="22sp"
         android:textColor="@color/background"
-        android:fontFamily="sans-serif-smallcaps" />
+        android:fontFamily="sans-serif-smallcaps"
+        android:onClick="myRideRequests"/>
 
     <TextView
         android:id="@+id/textViewMainScreenDriver"
@@ -82,7 +84,8 @@
         android:text="@string/provide_a_ride"
         android:textSize="22sp"
         android:textColor="@color/background"
-        android:fontFamily="sans-serif-smallcaps" />
+        android:fontFamily="sans-serif-smallcaps"
+        android:onClick="provideARide"/>
 
     <Button
         android:id="@+id/MainScreenMyRideOffersButton"
@@ -96,6 +99,7 @@
         android:textSize="22sp"
         android:text="@string/my_ride_offers"
         android:textColor="@color/background"
-        android:fontFamily="sans-serif-smallcaps" />
+        android:fontFamily="sans-serif-smallcaps"
+        android:onClick="myRideOffers"/>
 
 </RelativeLayout>

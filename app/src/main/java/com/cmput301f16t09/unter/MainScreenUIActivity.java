@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 
 //import android.support.design.widget.FloatingActionButton;
@@ -26,9 +28,39 @@ public class MainScreenUIActivity extends AppCompatActivity {
         return true;
     }
 
-    public void reqestRide(){
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.edit_profile) {
+            Intent requestARideIntent = new Intent(MainScreenUIActivity.this, EditProfileUIActivity.class);
+            startActivity(requestARideIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void requestARide(View v){
         Intent requestARideIntent = new Intent(MainScreenUIActivity.this, RequestARideUIActivity.class);
         startActivity(requestARideIntent);
     }
 
+    public void myRideRequests(View v){
+        Intent requestARideIntent = new Intent(MainScreenUIActivity.this, MyRideRequestsUIActivity.class);
+        startActivity(requestARideIntent);
+    }
+
+    public void provideARide(View v){
+        Intent requestARideIntent = new Intent(MainScreenUIActivity.this, ProvideARideUIActivity.class);
+        startActivity(requestARideIntent);
+    }
+
+    public void myRideOffers(View v){
+        Intent requestARideIntent = new Intent(MainScreenUIActivity.this, MyRideOffersUIActivity.class);
+        startActivity(requestARideIntent);
+    }
+
+    public void editProfile(View v){
+        Intent requestARideIntent = new Intent(MainScreenUIActivity.this, EditProfileUIActivity.class);
+        startActivity(requestARideIntent);
+    }
 }

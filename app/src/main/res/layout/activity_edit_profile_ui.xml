@@ -165,7 +165,7 @@
         android:text="C o n f i r m"
         android:textSize="40sp"
         android:background="@color/lightAccent"
-        />
+        android:onClick="updateProfile"/>
 
 
 </RelativeLayout>

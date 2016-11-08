@@ -19,11 +19,38 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".CreateNewUserUIActivity"
+            android:label="@string/title_activity_create_new_user_ui"></activity>
+        <activity
+            android:name=".EditProfileUIActivity"
+            android:label="@string/title_activity_main_screen_ui"></activity>
+        <activity
             android:name=".MainScreenUIActivity"
             android:label="@string/title_activity_main_screen_ui"></activity>
         <activity
-            android:name=".CreateNewUserUIActivity"
-            android:label="@string/title_activity_create_new_user_ui"></activity>
+            android:name=".MyRideOffersUIActivity"
+            android:label="@string/title_activity_main_screen_ui"></activity>
+        <activity
+            android:name=".MyRideRequestsUIActivity"
+            android:label="@string/title_activity_main_screen_ui"></activity>
+        <activity
+            android:name=".ProvideARideUIActivity"
+            android:label="@string/title_activity_main_screen_ui"></activity>
+        <activity
+            android:name=".RequestARideUIActivity"
+            android:label="@string/title_activity_main_screen_ui"></activity>
+        <activity
+            android:name=".RequestDetailsUIActivity"
+            android:label="@string/title_activity_request_details_ui"></activity>
+        <activity
+            android:name=".RideOfferDetailsUIActivity"
+            android:label="@string/title_activity_main_screen_ui"></activity>
+        <activity
+            android:name=".RidersRequestDetailsPostUIActivity"
+            android:label="@string/title_activity_main_screen_ui"></activity>
+        <activity
+            android:name=".RidersRequestDetailsPreUIActivity"
+            android:label="@string/title_activity_main_screen_ui"></activity>
     </application>
 
 </manifest>

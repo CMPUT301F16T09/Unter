@@ -78,7 +78,7 @@
         android:text="@string/login"
         android:textSize="20sp"
         android:fontFamily="sans-serif-smallcaps"
-        android:onClick="verifyLoginCredentials" />
+        android:onClick="verifyLogin" />
 
     <Button
         android:id="@+id/createNewUserButton"

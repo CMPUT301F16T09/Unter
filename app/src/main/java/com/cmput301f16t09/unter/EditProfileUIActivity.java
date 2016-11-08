@@ -13,39 +13,23 @@ import android.widget.Toast;
 
 public class EditProfileUIActivity extends AppCompatActivity {
 
-    EditText editName = (EditText) findViewById(R.id.editTextEditProfileName);
-    EditText editPhoneNumber = (EditText) findViewById(R.id.editTextEditProfilePhoneNumber);
-    EditText editEmail = (EditText) findViewById(R.id.editTextEditProfileEmail);
-    EditText editPassword = (EditText) findViewById(R.id.editTextEditProfilePassword);
-    EditText editConfirmPassword = (EditText) findViewById(R.id.editTextEditProfileConfirmPassword);
-    Button confirmButton = (Button) findViewById(R.id.EditProfileConfirmButton);
+    EditText editName;
+    EditText editPhoneNumber;
+    EditText editEmail;
+    EditText editPassword;
+    EditText editConfirmPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile_ui);
 
-        confirmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        editName = (EditText) findViewById(R.id.editTextEditProfileName);
+        editPhoneNumber = (EditText) findViewById(R.id.editTextEditProfilePhoneNumber);
+        editEmail = (EditText) findViewById(R.id.editTextEditProfileEmail);
+        editPassword = (EditText) findViewById(R.id.editTextEditProfilePassword);
+        editConfirmPassword = (EditText) findViewById(R.id.editTextEditProfileConfirmPassword);
 
-                UserListOnlineController uc = new UserListOnlineController();
-                String newName = editName.getText().toString();
-                String newNumber = editPhoneNumber.getText().toString();
-                String newEmail = editEmail.getText().toString();
-                String newPassword = editPassword.getText().toString();
-                String confirmPassword = editConfirmPassword.getText().toString();
-
-                if (newPassword.equals(confirmPassword)){
-                    Toast.makeText(EditProfileUIActivity.this, "Your information was updated!" , Toast.LENGTH_SHORT).show();
-//                    uc.editUser(newName, newNumber, newEmail, newPassword);
-                }
-
-                else {
-                    Toast.makeText(EditProfileUIActivity.this, "Your password did not confirm!" , Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     @Override
@@ -54,4 +38,21 @@ public class EditProfileUIActivity extends AppCompatActivity {
         return true;
     }
 
+    public void updateProfile() {
+        UserListOnlineController uc = new UserListOnlineController();
+        String newName = editName.getText().toString();
+        String newNumber = editPhoneNumber.getText().toString();
+        String newEmail = editEmail.getText().toString();
+        String newPassword = editPassword.getText().toString();
+        String confirmPassword = editConfirmPassword.getText().toString();
+
+        if (newPassword.equals(confirmPassword)){
+            Toast.makeText(EditProfileUIActivity.this, "Your information was updated!" , Toast.LENGTH_SHORT).show();
+//                    uc.editUser(newName, newNumber, newEmail, newPassword);
+        }
+
+        else {
+            Toast.makeText(EditProfileUIActivity.this, "Your password did not confirm!" , Toast.LENGTH_SHORT).show();
+        }
+    }
 }

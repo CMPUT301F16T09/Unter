@@ -1,9 +1,17 @@
 <resources>
     <string name="app_name">Unter</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_create_new_user_ui">CreateNewUserUIActivity</string>
     <string name="title_activity_edit_profile_ui">EditProfileUIActivity</string>
     <string name="title_activity_main_screen_ui">MainScreenUIActivity</string>
-    <string name="title_activity_create_new_user_ui">CreateNewUserUIActivity</string>
+    <string name="title_activity_my_ride_offers_ui">MyRideOffersUIActivity</string>
+    <string name="title_activity_my_ride_requests_ui">MyRideRequestsUIActivity</string>
+    <string name="title_activity_provide_aride_ui">ProvideARideUIActivity</string>
+    <string name="title_activity_request_aride_ui">RequestARideUIActivity</string>
+    <string name="title_activity_request_details_ui">RequestDetailsUIActivity</string>
+    <string name="title_activity_ride_offer_details_ui">RideOfferDetailsUIActivity</string>
+    <string name="title_activity_riders_request_details_post_ui">RidersRequestDetailsPostUIActivity</string>
+    <string name="title_activity_riders_request_details_pre_ui">RidersRequestDetailsPreUIActivity</string>
 
     <!--activity_main_gui.xml strings-->
     <string name="create_new_user">Create\nNew User</string>
@@ -30,7 +38,6 @@
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="title_activity_test">testActivity</string>
-    <string name="title_activity_request_aride_ui">RequestARideUIActivity</string>
 
     <string name="action_settings">Settings</string>
 

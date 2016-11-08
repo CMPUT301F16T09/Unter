@@ -27,7 +27,7 @@ public class MainGUIActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_new_user_ui);
+        setContentView(R.layout.activity_main_gui);
     }
     public void test_add() {
         setResult(RESULT_OK);
@@ -35,7 +35,7 @@ public class MainGUIActivity extends AppCompatActivity {
         UserListOnlineController.AddUsersTask addUserTask = new UserListOnlineController.AddUsersTask();
         addUserTask.execute(new_user);
     }
-    public void verifyLoginCredentials(View v) {
+    public void verifyLogin(View v) {
         EditText usernameInput = (EditText) findViewById(R.id.mainScreenUsername);
         EditText passwordInput = (EditText) findViewById(R.id.mainScreenPassword);
         String username = usernameInput.getText().toString();
@@ -49,15 +49,16 @@ public class MainGUIActivity extends AppCompatActivity {
         try {
             currentUser = checkLogin.get();
             if (password.equals(currentUser.get(0).getPassword())){
+                Toast.makeText(this, "Logging In", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainGUIActivity.this, MainScreenUIActivity.class);
                 startActivity(intent);
             }
             else {
                 Toast.makeText(this, "Invalid Username/Password", Toast.LENGTH_SHORT).show();
-
             }
         }
         catch (Exception e) {
+            Toast.makeText(this, "Invalid Username", Toast.LENGTH_SHORT).show();
             Log.i("Error", "Loading failed");
         }
     }
@@ -65,8 +66,8 @@ public class MainGUIActivity extends AppCompatActivity {
     public void createNewUser(View v) {
 //        Intent intent = new Intent(MainGUIActivity.this, CreateNewUserUIActivity.class);
 //        startActivity(intent);
-        Intent intent = new Intent(MainGUIActivity.this, CreateNewUserUIActivity.class);
+//        Intent intent = new Intent(MainGUIActivity.this, CreateNewUserUIActivity.class);
+        Intent intent = new Intent(MainGUIActivity.this, RequestDetailsUIActivity.class);
         startActivity(intent);
-
     }
 }
