@@ -55,12 +55,12 @@ public class UserListOnlineController {
             //Just list top 10000 users
             //String search_string = "\{\"from\": 0, \"size\": 10000}"
             //Replace with our indexes
-            String search_string = "{\"from\": 0, \"size\": 10000, \"query\": {\"match\": {\"message\": \"" + search_parameters[0] + "\"}}}";
+            String search_string = "{\"from\": 0, \"size\": 10000, \"query\": {\"match\": {\"" + search_parameters[0] + "\": \"" + search_parameters[1] + "\"}}}";
 
             // assume that search_parameters[0] is the only search term we are interested in using
             //Add Indexing and such
             Search search = new Search.Builder(search_string)
-                    .addIndex("unter")
+                    .addIndex("t09")
                     .addType("user")
                     .build();
 
@@ -90,7 +90,7 @@ public class UserListOnlineController {
             // assume that search_parameters[0] is the only search term we are interested in using
             //Add Indexing and such
             Search search = new Search.Builder(search_parameters[0])
-                    .addIndex("unter")
+                    .addIndex("t09")
                     .addType("user")
                     .build();
 
@@ -118,7 +118,7 @@ public class UserListOnlineController {
 
             for (User user : users) {
                 //Add Indexing and such
-                Index index = new Index.Builder(user).index("unter").type("user").build();
+                Index index = new Index.Builder(user).index("t09").type("user").build();
 
                 try {
                     DocumentResult result = client.execute(index);
@@ -175,11 +175,11 @@ public class UserListOnlineController {
 
     public void editUser(String name, String phoneNumber, String userEmail, String userPassword) {
 
-        User user = getLoggedIn();      //probably not going to be used
+        //User user = getLoggedIn();      //probably not going to be used
 
-        if (!name.isEmpty()) {user.setName(name);}
-        if (!phoneNumber.isEmpty()) {user.setPhoneNumber(phoneNumber);}
-        if (!userEmail.isEmpty()) {user.setEmail(userEmail);}
-        if (!userPassword.isEmpty()) {user.setPassword(userPassword);}
+//        if (!name.isEmpty()) {user.setName(name);}
+//        if (!phoneNumber.isEmpty()) {user.setPhoneNumber(phoneNumber);}
+//        if (!userEmail.isEmpty()) {user.setEmail(userEmail);}
+//        if (!userPassword.isEmpty()) {user.setPassword(userPassword);}
     }
 }

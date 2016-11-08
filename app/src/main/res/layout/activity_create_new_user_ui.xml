@@ -105,6 +105,7 @@
         android:background="@color/lightAccent"
         android:id="@+id/SignUpConfirmButton"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="create_user" />
 
 </RelativeLayout>

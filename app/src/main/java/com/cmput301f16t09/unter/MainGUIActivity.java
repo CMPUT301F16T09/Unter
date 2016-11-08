@@ -26,16 +26,18 @@ public class MainGUIActivity extends AppCompatActivity {
     public void verifyLoginCredentials(View v) {
 
         // Verify with UserListOnlineController before changing intent
-        Intent intent = new Intent(MainGUIActivity.this, MainScreenUIActivity.class);
-        startActivity(intent);
-    }
-
-    public void createNewUser() {
-//        Intent intent = new Intent(MainGUIActivity.this, CreateNewUserUIActivity.class);
-//        startActivity(intent);
+        //Intent intent = new Intent(MainGUIActivity.this, MainScreenUIActivity.class);
         setResult(RESULT_OK);
         User new_user = new User("Henry", "Popcorn_chicken", "KFC_lover@barnyard.com", "123-456-7890", "password");
         UserListOnlineController.AddUsersTask addUserTask = new UserListOnlineController.AddUsersTask();
         addUserTask.execute(new_user);
+        //startActivity(intent);
+    }
+
+    public void createNewUser(View v) {
+//        Intent intent = new Intent(MainGUIActivity.this, CreateNewUserUIActivity.class);
+//        startActivity(intent);
+        Intent intent = new Intent(MainGUIActivity.this, CreateNewUserUIActivity.class);
+        startActivity(intent);
     }
 }

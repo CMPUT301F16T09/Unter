@@ -3,6 +3,7 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_edit_profile_ui">EditProfileUIActivity</string>
     <string name="title_activity_main_screen_ui">MainScreenUIActivity</string>
+    <string name="title_activity_create_new_user_ui">CreateNewUserUIActivity</string>
 
     <!--activity_main_gui.xml strings-->
     <string name="create_new_user">Create\nNew User</string>
