@@ -1,5 +1,6 @@
 package com.cmput301f16t09.unter;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,10 +50,10 @@ public class CreateNewUserUIActivity extends AppCompatActivity {
         input_index.add(4, password.getText().toString());
         input_index.add(5, confirm_password.getText().toString());
 
-        UserListOnlineController.SearchUserListsTask searchUserListsTask = new UserListOnlineController.SearchUserListsTask();
-        searchUserListsTask.execute("username", input_index.get(0));
         // Frame skipping issue
         try {
+            UserListOnlineController.SearchUserListsTask searchUserListsTask = new UserListOnlineController.SearchUserListsTask();
+            searchUserListsTask.execute("username", input_index.get(0));
             ArrayList<User> userlist = searchUserListsTask.get();
             if (userlist.isEmpty()) {
                 searchUserListsTask = new UserListOnlineController.SearchUserListsTask();
@@ -60,7 +61,7 @@ public class CreateNewUserUIActivity extends AppCompatActivity {
                 userlist = searchUserListsTask.get();
                 if (userlist.isEmpty()) {
                     if (input_index.get(5).equals(input_index.get(4))) {
-                        User new_user = new User(input_index.get(0), input_index.get(1), input_index.get(2), input_index.get(3), input_index.get(4));
+                        User new_user = new User(input_index.get(1), input_index.get(0), input_index.get(3), input_index.get(2), input_index.get(4));
                         UserListOnlineController.AddUsersTask addUserTask = new UserListOnlineController.AddUsersTask();
                         addUserTask.execute(new_user);
                         addUserTask.get();

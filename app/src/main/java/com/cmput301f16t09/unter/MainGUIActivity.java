@@ -25,7 +25,7 @@ public class MainGUIActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_request_aride_ui);
+        setContentView(R.layout.activity_main_gui);
     }
     public void test_add() {
         setResult(RESULT_OK);
