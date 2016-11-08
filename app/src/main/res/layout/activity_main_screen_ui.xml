@@ -42,7 +42,8 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="100dp"
         android:id="@+id/RequestARideButton"
-        android:layout_below="@+id/textWelcome" />
+        android:layout_below="@+id/textWelcome"
+        android:onClick="requestRide" />
 
     <Button
         android:layout_width="160dp"

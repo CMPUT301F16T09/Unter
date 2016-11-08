@@ -2,6 +2,7 @@ package com.cmput301f16t09.unter;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.location.Location;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -89,7 +90,7 @@ public class PostListOfflineController {
             // Instantiate Gson
             Gson gson = new Gson();
 
-            // Write the data in hlist to BufferedWriter
+            // Write the data in list to BufferedWriter
             gson.toJson(offlinePostList, bw);
 
             // Flush the buffer to prevent memory leakage and close the OutputStream
@@ -110,6 +111,7 @@ public class PostListOfflineController {
      */
     public void addOfflinePost(Location startLocation, Location endLocation,
                                String fare, User user, Context context) {
+
         Post offlinePost = new Post(startLocation, endLocation, fare, user);
         getPostList().addPost(offlinePost);
         offlinePostList.addPost(offlinePost);

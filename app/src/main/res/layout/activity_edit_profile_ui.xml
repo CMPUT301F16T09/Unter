@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/edit_your_profile"
-        android:id="@+id/textEditYourProfile"
+        android:id="@+id/textRequestARide"
         android:textSize="42sp"
 
         android:textColor="@color/TextColor"
@@ -28,20 +28,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/name"
-        android:id="@+id/textName"
+        android:id="@+id/textStart"
         android:textSize="18sp"
         android:textColor="@color/TextColor"
         android:layout_marginStart="0dp"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/textEditYourProfile"/>
+        android:layout_below="@+id/textRequestARide"/>
 
     <EditText
         android:layout_width="350dp"
         android:layout_height="35dp"
         android:textSize="14sp"
         android:layout_marginStart="5dp"
-        android:layout_below="@+id/textName"
-        android:layout_alignStart="@+id/textName"
+        android:layout_below="@+id/textStart"
+        android:layout_alignStart="@+id/textStart"
         android:textColor="@color/TextColor"
         android:hint="Current Name"
         android:textColorHint="@color/HintTextColor"
@@ -51,21 +51,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/phone_number"
-        android:id="@+id/textPhoneNumber"
+        android:id="@+id/textEnd"
         android:textSize="18sp"
         android:textColor="@color/TextColor"
         android:layout_marginTop="40dp"
-        android:layout_below="@+id/textName"
+        android:layout_below="@+id/textStart"
         android:layout_centerHorizontal="true"
-        android:layout_alignStart="@+id/textName"/>
+        android:layout_alignStart="@+id/textStart"/>
 
     <EditText
         android:layout_width="350dp"
         android:layout_height="35dp"
         android:textSize="14sp"
         android:layout_marginStart="5dp"
-        android:layout_below="@+id/textPhoneNumber"
-        android:layout_alignStart="@+id/textName"
+        android:layout_below="@+id/textEnd"
+        android:layout_alignStart="@+id/textStart"
         android:textColor="@color/TextColor"
         android:hint="Current Phone Number"
         android:textColorHint="@color/HintTextColor"
@@ -79,8 +79,8 @@
         android:textSize="18sp"
         android:textColor="@color/TextColor"
         android:layout_marginTop="40dp"
-        android:layout_below="@+id/textPhoneNumber"
-        android:layout_alignStart="@+id/textName"
+        android:layout_below="@+id/textEnd"
+        android:layout_alignStart="@+id/textStart"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -92,7 +92,7 @@
         android:textColor="@color/TextColor"
         android:layout_marginTop="40dp"
         android:layout_below="@+id/textEmail"
-        android:layout_alignStart="@+id/textName"
+        android:layout_alignStart="@+id/textStart"
         android:layout_centerHorizontal="true" />
 
     <EditText
@@ -101,7 +101,7 @@
         android:textSize="14sp"
         android:layout_marginStart="5dp"
         android:layout_below="@+id/textPassword"
-        android:layout_alignStart="@+id/textName"
+        android:layout_alignStart="@+id/textStart"
         android:textColor="@color/TextColor"
         android:hint="Current Password"
         android:textColorHint="@color/HintTextColor"
@@ -116,7 +116,7 @@
         android:textColor="@color/TextColor"
         android:layout_marginTop="40dp"
         android:layout_below="@+id/textPassword"
-        android:layout_alignStart="@+id/textName"
+        android:layout_alignStart="@+id/textStart"
         android:layout_centerHorizontal="true" />
 
     <EditText
