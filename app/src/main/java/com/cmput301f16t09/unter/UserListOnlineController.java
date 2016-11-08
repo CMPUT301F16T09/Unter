@@ -162,24 +162,24 @@ public class UserListOnlineController {
         }
     }
 
-    public boolean verifyLogin(String Username,String Password){
+    public static boolean verifyLogin(String username,String password){
         //assumes that getUserList() queries the server for the most updated list.
-        User currentUser = getUserList().searchByUsername(Username); //assumes user exists in List
-        String goodPW = currentUser.getPassword();
-
-        if (Password.equals(goodPW)){
-            return true;
-        }
+//        User currentUser = SearchUserListsTask("username", username);
+//        String goodPW = SearchUserListsTask("password", password);
+//
+//        if (password.equals(goodPW)){
+//            return true;
+//        }
         return false;
     }
 
-    public void editUser(String name, String phoneNumber, String userEmail, String userPassword) {
-
-        User user = getLoggedIn();      //probably not going to be used
-
-        if (!name.isEmpty()) {user.setName(name);}
-        if (!phoneNumber.isEmpty()) {user.setPhoneNumber(phoneNumber);}
-        if (!userEmail.isEmpty()) {user.setEmail(userEmail);}
-        if (!userPassword.isEmpty()) {user.setPassword(userPassword);}
-    }
+//    public void editUser(String name, String phoneNumber, String userEmail, String userPassword) {
+//
+//        User user = getLoggedIn();      //probably not going to be used
+//
+//        if (!name.isEmpty()) {user.setName(name);}
+//        if (!phoneNumber.isEmpty()) {user.setPhoneNumber(phoneNumber);}
+//        if (!userEmail.isEmpty()) {user.setEmail(userEmail);}
+//        if (!userPassword.isEmpty()) {user.setPassword(userPassword);}
+//    }
 }

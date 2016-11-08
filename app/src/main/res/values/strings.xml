@@ -31,5 +31,6 @@
     <string name="title_activity_test">testActivity</string>
     <string name="title_activity_request_aride_ui">RequestARideUIActivity</string>
 
+    <string name="action_settings">Settings</string>
 
 </resources>

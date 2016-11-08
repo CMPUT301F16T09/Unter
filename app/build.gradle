@@ -7,9 +7,10 @@ android {
     defaultConfig {
         applicationId "com.cmput301f16t09.unter"
         minSdkVersion 19
-        targetSdkVersion 19
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -17,11 +18,27 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        pickFirst  'META-INF/maven/org.apache.commons/commons-lang3/pom.xml'
+        pickFirst  'META-INF/maven/org.apache.commons/commons-lang3/pom.properties'
+    }
+}
+
+
+repositories {
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.1.1'
+//    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
     compile files('src/include/jest-droid-2.0.1-SNAPSHOT.jar')
+    compile ('com.github.MKergall:osmbonuspack:6.0') {
+        transitive = true;
+        exclude module: 'gson';
+        exclude module: 'commons-lang3'
+    }
 }

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * The type Main gui activity.
@@ -15,7 +17,7 @@ public class MainGUIActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_gui);
+        setContentView(R.layout.activity_request_aride_ui);
     }
     public void test_add() {
         setResult(RESULT_OK);
@@ -24,10 +26,19 @@ public class MainGUIActivity extends AppCompatActivity {
         addUserTask.execute(new_user);
     }
     public void verifyLoginCredentials(View v) {
-
+        EditText usernameInput = (EditText) findViewById(R.id.mainScreenUsername);
+        EditText passwordInput = (EditText) findViewById(R.id.mainScreenPassword);
+        String username = usernameInput.getText().toString();
+        String password = passwordInput.getText().toString();
         // Verify with UserListOnlineController before changing intent
-        Intent intent = new Intent(MainGUIActivity.this, MainScreenUIActivity.class);
-        startActivity(intent);
+        if (UserListOnlineController.verifyLogin(username, password)) {
+            Intent intent = new Intent(MainGUIActivity.this, MainScreenUIActivity.class);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(this, "Invalid Username/Password", Toast.LENGTH_SHORT).show();
+
+        }
     }
 
     public void createNewUser() {

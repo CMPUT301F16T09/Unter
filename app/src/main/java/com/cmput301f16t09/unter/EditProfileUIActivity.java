@@ -38,7 +38,7 @@ public class EditProfileUIActivity extends AppCompatActivity {
 
                 if (newPassword.equals(confirmPassword)){
                     Toast.makeText(EditProfileUIActivity.this, "Your information was updated!" , Toast.LENGTH_SHORT).show();
-                    uc.editUser(newName, newNumber, newEmail, newPassword);
+//                    uc.editUser(newName, newNumber, newEmail, newPassword);
                 }
 
                 else {
