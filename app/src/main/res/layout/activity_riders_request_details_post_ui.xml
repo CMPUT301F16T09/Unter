@@ -11,118 +11,118 @@
     tools:context="com.cmput301f16t09.unter.RidersRequestDetailsPostUIActivity">
 
     <TextView
-        android:id="@+id/RideRequestDetailsPostStatus"
+        android:id="@+id/textViewRideRequestDetailsPostStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:text="Status: "
         android:textSize="20sp"
         android:textColor="@color/white"
-        />
+        android:fontFamily="sans-serif-smallcaps" />
 
     // To be filled in with CurrentStatus
     <TextView
-        android:id="@+id/RideRequestDetailsPostCurrentStatus"
+        android:id="@+id/textViewRideRequestDetailsPostCurrentStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/RideRequestDetailsPostStatus"
-        android:layout_alignBottom="@+id/RideRequestDetailsPostStatus"
+        android:layout_toEndOf="@+id/textViewRideRequestDetailsPostStatus"
+        android:layout_alignBottom="@+id/textViewRideRequestDetailsPostStatus"
         android:text="CurrentStatus"
         android:textSize="20sp"
         android:textColor="@color/white"
-        />
+        android:fontFamily="sans-serif-smallcaps" />
 
     <TextView
-        android:id="@+id/RideRequestDetailsPostStartLocation"
+        android:id="@+id/textViewRideRequestDetailsPostStartLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewRideRequestDetailsPostStatus"
         android:layout_marginBottom="5dp"
         android:text="Start Location: "
-        android:layout_below="@+id/RideRequestDetailsPostStatus"
         android:textSize="20sp"
         android:textColor="@color/white"
-        />
+        android:fontFamily="sans-serif-smallcaps" />
 
     // To be filled in with StartLocationName
     <TextView
-        android:id="@+id/RideRequestDetailsPostStartLocationName"
+        android:id="@+id/textViewRideRequestDetailsPostStartLocationName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/RideRequestDetailsPostStartLocation"
-        android:layout_alignBottom="@+id/RideRequestDetailsPostStartLocation"
+        android:layout_toEndOf="@+id/textViewRideRequestDetailsPostStartLocation"
+        android:layout_alignBottom="@+id/textViewRideRequestDetailsPostStartLocation"
         android:text="StartLocationName"
         android:textSize="20sp"
         android:textColor="@color/white"
-        />
+        android:fontFamily="sans-serif-smallcaps" />
 
     <TextView
-        android:id="@+id/RideRequestDetailsPostEndLocation"
+        android:id="@+id/textViewRideRequestDetailsPostEndLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewRideRequestDetailsPostStartLocation"
         android:layout_marginBottom="5dp"
         android:text="End Location: "
-        android:layout_below="@+id/RideRequestDetailsPostStartLocation"
         android:textSize="20sp"
         android:textColor="@color/white"
-        />
+        android:fontFamily="sans-serif-smallcaps" />
 
     // To be filled in with EndLocationName
     <TextView
-        android:id="@+id/RideRequestDetailsPostEndLocationName"
+        android:id="@+id/textViewRideRequestDetailsPostEndLocationName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/RideRequestDetailsPostEndLocation"
-        android:layout_alignBottom="@+id/RideRequestDetailsPostEndLocation"
+        android:layout_toEndOf="@+id/textViewRideRequestDetailsPostEndLocation"
+        android:layout_alignBottom="@+id/textViewRideRequestDetailsPostEndLocation"
         android:text="EndLocationName"
         android:textSize="20sp"
         android:textColor="@color/white"
-        />
+        android:fontFamily="sans-serif-smallcaps" />
 
     <TextView
-        android:id="@+id/RideRequestDetailsPostFare"
+        android:id="@+id/textViewRideRequestDetailsPostFare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewRideRequestDetailsPostEndLocation"
         android:layout_marginBottom="5dp"
         android:text="Offered Fare: "
-        android:layout_below="@+id/RideRequestDetailsPostEndLocation"
         android:textSize="20sp"
         android:textColor="@color/white"
-        />
+        android:fontFamily="sans-serif-smallcaps" />
 
     // To be filled in with OfferedFareAmount
     <TextView
-        android:id="@+id/RideRequestDetailsPostEndOfferedFare"
+        android:id="@+id/textViewRideRequestDetailsPostEndOfferedFare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/RideRequestDetailsPostFare"
-        android:layout_alignBottom="@+id/RideRequestDetailsPostFare"
+        android:layout_toEndOf="@+id/textViewRideRequestDetailsPostFare"
+        android:layout_alignBottom="@+id/textViewRideRequestDetailsPostFare"
         android:text="OfferedFareAmount"
         android:textSize="20sp"
         android:textColor="@color/white"
-        />
+        android:fontFamily="sans-serif-smallcaps" />
 
     <TextView
-        android:id="@+id/RideRequestDetailsPostDriver"
+        android:id="@+id/textViewRideRequestDetailsPostDriver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewRideRequestDetailsPostFare"
         android:layout_marginBottom="5dp"
         android:text="Driver: "
-        android:layout_below="@+id/RideRequestDetailsPostFare"
         android:textSize="20sp"
         android:textColor="@color/white"
-        />
+        android:fontFamily="sans-serif-smallcaps" />
 
     // To be filled in with Selected Driver's Name
     <TextView
-        android:id="@+id/RideRequestDetailsPostDriverName"
+        android:id="@+id/textViewRideRequestDetailsPostDriverName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/RideRequestDetailsPostDriver"
-        android:layout_alignBottom="@+id/RideRequestDetailsPostDriver"
+        android:layout_toEndOf="@+id/textViewRideRequestDetailsPostDriver"
+        android:layout_alignBottom="@+id/textViewRideRequestDetailsPostDriver"
         android:text="DriverName"
         android:textSize="20sp"
         android:textColor="@color/white"
-        />
+        android:fontFamily="sans-serif-smallcaps" />
 
     // Insert Map here
 
@@ -130,11 +130,12 @@
     <Button
         android:id="@+id/RideRequestDetailsCompleteRequestButton"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Complete Request"
-        android:textSize="30sp"
+        android:layout_height="70dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="Complete Request"
+        android:textSize="36sp"
+        android:fontFamily="sans-serif-smallcaps" />
 
 
 </RelativeLayout>

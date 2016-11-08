@@ -4,85 +4,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
     android:background="@color/background"
     tools:context="com.cmput301f16t09.unter.RequestARideUIActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/textViewRequestARide"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Request A Ride"
-        android:id="@+id/textViewRequestARide"
         android:textSize="42sp"
-
         android:textColor="@color/TextColor"
         android:textAlignment="center"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:fontFamily="sans-serif-smallcaps" />
 
     <EditText
-        android:layout_width="250dp"
-        android:layout_height="35dp"
-        android:textSize="14sp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:id="@+id/editTextStartLocation"
+        android:id="@+id/editTextRequestRideStartLocation"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
         android:layout_below="@+id/textViewRequestARide"
-        android:layout_alignStart="@+id/textName"
+        android:layout_marginTop="20dp"
+        android:textSize="@dimen/input_text_size"
         android:textColor="@color/TextColor"
         android:hint="Enter Start Location"
-        android:textColorHint="@color/HintTextColor"/>
-
-    <TextView
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/TextColor"
-        android:id="@+id/textViewEstimatedFare"
-        android:hint="Enter Start Location"
-        android:text="Estimated\nFare"
-        android:textAlignment="center"
-        android:layout_marginLeft="25dp"
-        android:layout_toEndOf="@+id/editTextStartLocation"
-        android:layout_alignBottom="@id/editTextStartLocation"
-        />
-
-    <EditText
-        android:layout_width="70dp"
-        android:layout_height="35dp"
-        android:textSize="14sp"
-        android:id="@+id/editTextEstimatedFare"
-        android:textColor="@color/TextColor"
-        android:hint="$$$"
         android:textColorHint="@color/HintTextColor"
-        android:textAlignment="center"
-        android:layout_below="@+id/textViewEstimatedFare"
-        android:layout_alignStart="@+id/textViewEstimatedFare"
-        android:layout_centerHorizontal="true" />
+        android:fontFamily="sans-serif-smallcaps" />
 
     <EditText
-        android:layout_width="250dp"
-        android:layout_height="35dp"
-        android:textSize="14sp"
-        android:layout_marginStart="5dp"
-        android:id="@+id/editTextEndLocation"
-        android:layout_below="@+id/editTextStartLocation"
+        android:id="@+id/editTextRequestRideEndLocation"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_below="@+id/editTextRequestRideStartLocation"
+        android:textSize="@dimen/input_text_size"
         android:textColor="@color/TextColor"
         android:hint="Enter End Location"
-        android:textColorHint="@color/HintTextColor"/>
+        android:textColorHint="@color/HintTextColor"
+        android:fontFamily="sans-serif-smallcaps" />
+
+
+    <TextView
+        android:id="@+id/textViewRequestRideEstimatedFare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextRequestRideEndLocation"
+        android:layout_marginStart="100dp"
+        android:text="Estimated Fare: "
+        android:textSize="@dimen/input_text_size"
+        android:textColor="@color/TextColor"
+        android:textAlignment="center"/>
+
+    // Input EstimatedFare calculation here
+    <EditText
+        android:id="@+id/editTextRequestRideEstimatedFare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textViewRequestRideEstimatedFare"
+        android:layout_toEndOf="@+id/textViewRequestRideEstimatedFare"
+        android:text="Fare"
+        android:textSize="@dimen/input_text_size"
+        android:textColor="@color/TextColor"
+        android:fontFamily="sans-serif-smallcaps" />
+
+    // Input map here
+
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        android:text="CONFIRM"
-        android:textSize="36sp"
         android:id="@+id/RequestARideConfirmButton"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/editTextEndLocation"
-        android:layout_alignEnd="@+id/editTextEstimatedFare" />
+        android:text="CONFIRM"
+        android:textSize="40sp"
+        android:fontFamily="sans-serif-smallcaps" />
 
 
 </RelativeLayout>

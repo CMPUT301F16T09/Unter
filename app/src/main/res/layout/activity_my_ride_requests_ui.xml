@@ -11,17 +11,18 @@
     tools:context="com.cmput301f16t09.unter.MyRideRequestsUIActivity">
 
     <TextView
+        android:id="@+id/textViewMyRideRequests"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="My Ride Requests"
-        android:textColor="@color/white"
         android:textSize="42sp"
-        android:id="@+id/textViewMyRideRequests" />
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-smallcaps" />
 
     <ListView
+        android:id="@+id/listViewMyRideRequests"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listView"
         android:layout_below="@+id/textViewMyRideRequests"
         android:layout_centerHorizontal="true" />
 

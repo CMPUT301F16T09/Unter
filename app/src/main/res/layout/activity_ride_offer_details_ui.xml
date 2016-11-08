@@ -11,85 +11,90 @@
     tools:context="com.cmput301f16t09.unter.RideOfferDetailsUIActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/textViewRideOfferDetails"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Ride Offer\nDetails"
-        android:textColor="@color/white"
         android:textSize="48sp"
+        android:textColor="@color/white"
         android:textAlignment="center"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/textViewRideOfferDetails"/>
+        android:fontFamily="sans-serif-smallcaps" />
 
     // Insert mapView
 
     <TextView
+        android:id="@+id/textViewRideOfferRider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="460dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:text="Rider: "
         android:textSize="24sp"
         android:textColor="@color/white"
         android:textAlignment="textStart"
-        android:layout_marginTop="380dp"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:id="@+id/textViewRideOfferRider"/>
+        android:fontFamily="sans-serif-smallcaps" />
 
     // Needs to be changed
     <TextView
+        android:id="@+id/textViewRideOfferRiderName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/textViewRideOfferRider"
+        android:layout_alignBaseline="@+id/textViewRideOfferRider"
         android:text="RiderName"
         android:textSize="24sp"
         android:textColor="@color/white"
         android:textAlignment="textStart"
-        android:layout_alignBaseline="@+id/textViewRideOfferRider"
-        android:layout_toEndOf="@+id/textViewRideOfferRider"
-        android:id="@+id/textViewRideOfferRiderName"/>
+        android:fontFamily="sans-serif-smallcaps" />
 
     <TextView
+        android:id="@+id/textViewRideOfferOfferedFare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewRideOfferRider"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:text="Offered Fare: "
         android:textSize="24sp"
         android:textColor="@color/white"
         android:textAlignment="textStart"
-        android:layout_below="@+id/textViewRideOfferRider"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:id="@+id/textViewRideOfferOfferedFare"/>
+        android:fontFamily="sans-serif-smallcaps" />
 
     // Needs to be changed
     <TextView
+        android:id="@+id/textViewRideOffer$$$"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/textViewRideOfferOfferedFare"
+        android:layout_alignBaseline="@+id/textViewRideOfferOfferedFare"
         android:text="$$$"
         android:textSize="24sp"
         android:textColor="@color/white"
         android:textAlignment="textStart"
-        android:layout_alignBaseline="@+id/textViewRideOfferOfferedFare"
-        android:layout_toEndOf="@+id/textViewRideOfferOfferedFare"
-        android:id="@+id/textViewRideOffer$$$"/>
+        android:fontFamily="sans-serif-smallcaps" />
 
     <TextView
+        android:id="@+id/textViewRideOfferStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewRideOfferOfferedFare"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:text="Status: "
         android:textSize="24sp"
         android:textColor="@color/white"
         android:textAlignment="textStart"
-        android:layout_below="@+id/textViewRideOfferOfferedFare"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:id="@+id/textViewRideOfferStatus"/>
+        android:fontFamily="sans-serif-smallcaps" />
 
     // Needs to be changed
     <TextView
+        android:id="@+id/textViewRideOfferStatusDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textViewRideOfferStatus"
+        android:layout_toEndOf="@+id/textViewRideOfferStatus"
         android:text="StatusDesc"
         android:textSize="24sp"
         android:textColor="@color/white"
         android:textAlignment="textStart"
-        android:layout_alignBaseline="@+id/textViewRideOfferStatus"
-        android:layout_toEndOf="@+id/textViewRideOfferStatus"
-        android:id="@+id/textViewRideOfferStatusDesc"/>
+        android:fontFamily="sans-serif-smallcaps" />
 
 </RelativeLayout>
