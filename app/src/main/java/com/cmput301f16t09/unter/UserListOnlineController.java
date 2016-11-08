@@ -54,22 +54,15 @@ public class UserListOnlineController {
 
             //Just list top 10000 users
             //Replace with our indexes
-<<<<<<< HEAD
             String search_string = "{\"from\": 0, \"size\": 10000, \"query\": {\"match\": {\"" + search_parameters[0] + "\": \"" + search_parameters[1] + "\"}}}";
-=======
-            String search_string = "{\"from\": 0, \"size\": 10000, \"query\": {\"match\": {\"username\": \"" + search_parameters[0] + "\"}}}";
->>>>>>> origin/kc
 
             // assume that search_parameters[0] is the only search term we are interested in using
             //Add Indexing
             Search search = new Search.Builder(search_string)
-<<<<<<< HEAD
                     .addIndex("t09")
                     .addType("user")
-=======
                     .addIndex("unter")
                     .addType("User")
->>>>>>> origin/kc
                     .build();
 
             try {
@@ -99,11 +92,8 @@ public class UserListOnlineController {
             //Add Indexing and such
             Search search = new Search.Builder(search_parameters[0])
                     .addIndex("t09")
-<<<<<<< HEAD
                     .addType("user")
-=======
-                    .addType("User")
->>>>>>> origin/kc
+
                     .build();
 
             try {
