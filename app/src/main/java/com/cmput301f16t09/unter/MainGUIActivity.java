@@ -1,5 +1,6 @@
 package com.cmput301f16t09.unter;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,13 +9,20 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 
 /**
  * The type Main gui activity.
  */
 public class MainGUIActivity extends AppCompatActivity {
 
-    @Override
+    private Activity activity = this;
+    private EditText mainScreenUsername;
+    private EditText mainScreenPassword;
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_aride_ui);
@@ -46,5 +54,6 @@ public class MainGUIActivity extends AppCompatActivity {
 //        startActivity(intent);
         Intent intent = new Intent(MainGUIActivity.this, CreateNewUserUIActivity.class);
         startActivity(intent);
+
     }
 }
