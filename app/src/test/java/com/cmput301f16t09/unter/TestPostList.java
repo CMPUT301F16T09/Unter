@@ -9,14 +9,14 @@ public class TestPostList extends TestCase {
         PostList postList = new PostList();
 
         User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
-        Location start = new Location("1.0", "2.0");
-        Location end = new Location("2.0", "1.0");
+        CustomLocation start = new CustomLocation("1.0", "2.0");
+        CustomLocation end = new CustomLocation("2.0", "1.0");
         Post newPost = new Post(start, end, "$4", rider);
         postList.addPost(newPost);
 
         User rider2 = new User("Joe", "MoJoe JoeJoe", "joe@joemail.com", "780-joe-joey", "joeisthebest");
-        Location start2 = new Location("5.0", "3.0");
-        Location end2 = new Location("3.0", "5.0");
+        CustomLocation start2 = new CustomLocation("5.0", "3.0");
+        CustomLocation end2 = new CustomLocation("3.0", "5.0");
         Post newPost2 = new Post(start2, end2, "$4", rider2);
         postList.addPost(newPost2);
 
@@ -31,8 +31,8 @@ public class TestPostList extends TestCase {
         assertTrue(postList.getPosts().size() == 0);
 
         User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
-        Location start = new Location("1.0", "2.0");
-        Location end = new Location("2.0", "1.0");
+        CustomLocation start = new CustomLocation("1.0", "2.0");
+        CustomLocation end = new CustomLocation("2.0", "1.0");
         Post newPost = new Post(start, end, "$4", rider);
         postList.addPost(newPost);
 
@@ -49,8 +49,8 @@ public class TestPostList extends TestCase {
         assertTrue(postList.getPosts().size() == 0);
 
         User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
-        Location start = new Location("1.0", "2.0");
-        Location end = new Location("2.0", "1.0");
+        CustomLocation start = new CustomLocation("1.0", "2.0");
+        CustomLocation end = new CustomLocation("2.0", "1.0");
         Post newPost = new Post(start, end, "$4", rider);
         postList.addPost(newPost);
 
@@ -69,8 +69,8 @@ public class TestPostList extends TestCase {
         assertTrue(postList.getPosts().size() == 0);
 
         User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
-        Location start = new Location("1.0", "2.0");
-        Location end = new Location("2.0", "1.0");
+        CustomLocation start = new CustomLocation("1.0", "2.0");
+        CustomLocation end = new CustomLocation("2.0", "1.0");
         Post newPost = new Post(start, end, "$4", rider);
         postList.addPost(newPost);
 
@@ -93,14 +93,14 @@ public class TestPostList extends TestCase {
         assertTrue(postList.getPosts().size() == 0);
 
         User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
-        Location start = new Location("1.0", "2.0");
-        Location end = new Location("2.0", "1.0");
+        CustomLocation start = new CustomLocation("1.0", "2.0");
+        CustomLocation end = new CustomLocation("2.0", "1.0");
         Post newPost = new Post(start, end, "$4", rider);
         postList.addPost(newPost);
 
         User rider2 = new User("Joe", "MoJoe JoeJoe", "joe@joemail.com", "780-joe-joey", "joeisthebest");
-        Location start2 = new Location("5.0", "3.0");
-        Location end2 = new Location("3.0", "5.0");
+        CustomLocation start2 = new CustomLocation("5.0", "3.0");
+        CustomLocation end2 = new CustomLocation("3.0", "5.0");
         Post newPost2 = new Post(start2, end2, "$4", rider2);
         postList.addPost(newPost2);
 

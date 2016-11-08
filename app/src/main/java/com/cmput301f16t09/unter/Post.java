@@ -8,8 +8,8 @@ import java.util.ArrayList;
  * for all the information
  */
 public class Post {
-    private Location startLocation;
-    private Location endLocation;
+    private CustomLocation startCustomLocation;
+    private CustomLocation endCustomLocation;
     private String status;
     private String fare;
     private ArrayList<String> driver_OfferList;
@@ -20,13 +20,13 @@ public class Post {
     /**
      * Instantiates a new Post.
      *
-     * @param startLocation the start location
-     * @param endLocation   the end location
+     * @param startCustomLocation the start location
+     * @param endCustomLocation   the end location
      * @param fare          the fare
      */
-    public Post(Location startLocation, Location endLocation, String fare, User rider) {
-        this.startLocation = startLocation;
-        this.endLocation = endLocation;
+    public Post(CustomLocation startCustomLocation, CustomLocation endCustomLocation, String fare, User rider) {
+        this.startCustomLocation = startCustomLocation;
+        this.endCustomLocation = endCustomLocation;
         this.status = "Pending Offer";
         this.fare = fare;
         this.driver_OfferList = new ArrayList();
@@ -56,17 +56,17 @@ public class Post {
      *
      * @return the start location
      */
-    public Location getStartLocation() {
-        return startLocation;
+    public CustomLocation getStartCustomLocation() {
+        return startCustomLocation;
     }
 
     /**
      * Sets start location.
      *
-     * @param startLocation the start location
+     * @param startCustomLocation the start location
      */
-    public void setStartLocation(Location startLocation) {
-        this.startLocation = startLocation;
+    public void setStartCustomLocation(CustomLocation startCustomLocation) {
+        this.startCustomLocation = startCustomLocation;
     }
 
     /**
@@ -74,17 +74,17 @@ public class Post {
      *
      * @return the end location
      */
-    public Location getEndLocation() {
-        return endLocation;
+    public CustomLocation getEndCustomLocation() {
+        return endCustomLocation;
     }
 
     /**
      * Sets end location.
      *
-     * @param endLocation the end location
+     * @param endCustomLocation the end location
      */
-    public void setEndLocation(Location endLocation) {
-        this.endLocation = endLocation;
+    public void setEndCustomLocation(CustomLocation endCustomLocation) {
+        this.endCustomLocation = endCustomLocation;
     }
 
     /**

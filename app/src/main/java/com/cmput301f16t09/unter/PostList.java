@@ -1,5 +1,6 @@
 package com.cmput301f16t09.unter;
 
+
 import java.util.ArrayList;
 
 /**
@@ -67,13 +68,13 @@ public class PostList {
      * Modify post.
      *
      * @param post           the post
-     * @param start_location the start location
-     * @param end_location   the end location
+     * @param start_Custom_location the start location
+     * @param end_Custom_location   the end location
      * @param status         the status
      */
-    public void ModifyPost(Post post, Location start_location, Location end_location, String status) {
-        post.setStartLocation(start_location);
-        post.setEndLocation(end_location);
+    public void ModifyPost(Post post, CustomLocation start_Custom_location, CustomLocation end_Custom_location, String status) {
+        post.setStartCustomLocation(start_Custom_location);
+        post.setEndCustomLocation(end_Custom_location);
         post.setStatus(status);
     }
 

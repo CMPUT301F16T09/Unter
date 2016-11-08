@@ -14,22 +14,22 @@ public class TestLocation extends TestCase {
     // US 01.01.02
     // US 10.01.01
     public void testValidLocation() {
-        // Start Location at Computer Science Center (Open City Maps)
-        Location startLocation = new Location("53.52676", "-113.52715");
-        assertTrue(startLocation.checkValidLocation());
+        // Start CustomLocation at Computer Science Center (Open City Maps)
+        CustomLocation startCustomLocation = new CustomLocation("53.52676", "-113.52715");
+        assertTrue(startCustomLocation.checkValidLocation());
 
-        // End Location at City Hall (Open City Maps)
-        Location endLocation = new Location("53.54565", "-113.49026");
-        assertTrue(endLocation.checkValidLocation());
+        // End CustomLocation at City Hall (Open City Maps)
+        CustomLocation endCustomLocation = new CustomLocation("53.54565", "-113.49026");
+        assertTrue(endCustomLocation.checkValidLocation());
 
         // Coordinates of China
-        startLocation.setLatitude("35.8617");
-        startLocation.setLatitude("104.1954");
-        assertFalse(startLocation.getLatitude().equals("53.52676"));
-        assertFalse(startLocation.getLongitude().equals("104.1954"));
-        assertFalse(startLocation.getLatitude().equals("35.8617"));
-        assertFalse(startLocation.getLongitude().equals("104.1954"));
-        assertFalse(startLocation.checkValidLocation());
+        startCustomLocation.setLatitude("35.8617");
+        startCustomLocation.setLatitude("104.1954");
+        assertFalse(startCustomLocation.getLatitude().equals("53.52676"));
+        assertFalse(startCustomLocation.getLongitude().equals("104.1954"));
+        assertFalse(startCustomLocation.getLatitude().equals("35.8617"));
+        assertFalse(startCustomLocation.getLongitude().equals("104.1954"));
+        assertFalse(startCustomLocation.checkValidLocation());
     }
 
     /**
@@ -38,14 +38,14 @@ public class TestLocation extends TestCase {
 // US 10.01.01
     public void testRealLocation() {
         // May or may not need °N, °E, °S, °W in the string
-        Location startLocation = new Location("53.52676", "-113.52715");
-        assertTrue(startLocation.latlongToAddress().equals("Computer Science Center"));
+        CustomLocation startCustomLocation = new CustomLocation("53.52676", "-113.52715");
+        assertTrue(startCustomLocation.latlongToAddress().equals("Computer Science Center"));
 
-        Location endLocation = new Location("53.54565", "-113.49026");
-        assertTrue(endLocation.latlongToAddress().equals("City Hall"));
+        CustomLocation endCustomLocation = new CustomLocation("53.54565", "-113.49026");
+        assertTrue(endCustomLocation.latlongToAddress().equals("City Hall"));
 
-        startLocation.setLatitude("35.8617");
-        startLocation.setLatitude("1004.1954");
-        assertTrue(startLocation.latlongToAddress().equals("Invalid Address"));
+        startCustomLocation.setLatitude("35.8617");
+        startCustomLocation.setLatitude("1004.1954");
+        assertTrue(startCustomLocation.latlongToAddress().equals("Invalid Address"));
     }
 }

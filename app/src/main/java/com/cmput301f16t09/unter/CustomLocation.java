@@ -1,9 +1,9 @@
 package com.cmput301f16t09.unter;
 
 /**
- * The type Location.
+ * The type CustomLocation.
  */
-public class Location {
+public class CustomLocation {
     /**
      * The Latitude.
      */
@@ -14,12 +14,12 @@ public class Location {
     String longitude;
 
     /**
-     * Instantiates a new Location.
+     * Instantiates a new CustomLocation.
      *
      * @param latitude  the latitude
      * @param longitude the longitude
      */
-    public Location(String latitude, String longitude) {
+    public CustomLocation(String latitude, String longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }

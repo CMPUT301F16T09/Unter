@@ -15,11 +15,11 @@ public class TestPost extends TestCase {
 
         User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
 
-        Location start = new Location("1.0", "2.0");
-        Location end = new Location("2.0", "1.0");
+        CustomLocation start = new CustomLocation("1.0", "2.0");
+        CustomLocation end = new CustomLocation("2.0", "1.0");
         Post post = new Post(start, end, "$4", rider);
 
-        assertTrue(post.getStartLocation() == start);
+        assertTrue(post.getStartCustomLocation() == start);
     }
 
     /**
@@ -29,14 +29,14 @@ public class TestPost extends TestCase {
 
         User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
 
-        Location start = new Location("1.0", "2.0");
-        Location end = new Location("2.0", "1.0");
+        CustomLocation start = new CustomLocation("1.0", "2.0");
+        CustomLocation end = new CustomLocation("2.0", "1.0");
         Post post = new Post(start, end, "$4", rider);
 
-        Location start2 = new Location("400", "200");
-        post.setStartLocation(start2);
+        CustomLocation start2 = new CustomLocation("400", "200");
+        post.setStartCustomLocation(start2);
 
-        assertTrue((post.getStartLocation() == start2));
+        assertTrue((post.getStartCustomLocation() == start2));
     }
 
     /**
@@ -46,11 +46,11 @@ public class TestPost extends TestCase {
 
         User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
 
-        Location start = new Location("1.0", "2.0");
-        Location end = new Location("2.0", "1.0");
+        CustomLocation start = new CustomLocation("1.0", "2.0");
+        CustomLocation end = new CustomLocation("2.0", "1.0");
         Post post = new Post(start, end, "$4", rider);
 
-        assertTrue(post.getEndLocation() == end);
+        assertTrue(post.getEndCustomLocation() == end);
     }
 
     /**
@@ -60,14 +60,14 @@ public class TestPost extends TestCase {
 
         User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
 
-        Location start = new Location("1.0", "2.0");
-        Location end = new Location("2.0", "1.0");
+        CustomLocation start = new CustomLocation("1.0", "2.0");
+        CustomLocation end = new CustomLocation("2.0", "1.0");
         Post post = new Post(start, end, "$4", rider);
 
-        Location end2 = new Location("200", "400");
-        post.setStartLocation(end2);
+        CustomLocation end2 = new CustomLocation("200", "400");
+        post.setStartCustomLocation(end2);
 
-        assertTrue((post.getStartLocation() == end2));
+        assertTrue((post.getStartCustomLocation() == end2));
     }
 
     /**
@@ -77,8 +77,8 @@ public class TestPost extends TestCase {
 
         User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
 
-        Location start = new Location("1.0", "2.0");
-        Location end = new Location("2.0", "1.0");
+        CustomLocation start = new CustomLocation("1.0", "2.0");
+        CustomLocation end = new CustomLocation("2.0", "1.0");
         Post post = new Post(start, end, "$4", rider);
 
         post.setStatus("I'm ready");
@@ -93,8 +93,8 @@ public class TestPost extends TestCase {
 
         User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
 
-        Location start = new Location("1.0", "2.0");
-        Location end = new Location("2.0", "1.0");
+        CustomLocation start = new CustomLocation("1.0", "2.0");
+        CustomLocation end = new CustomLocation("2.0", "1.0");
         Post post = new Post(start, end, "$4", rider);
 
         post.setStatus("I'm ready");
@@ -109,8 +109,8 @@ public class TestPost extends TestCase {
 
         User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
 
-        Location start = new Location("1.0", "2.0");
-        Location end = new Location("2.0", "1.0");
+        CustomLocation start = new CustomLocation("1.0", "2.0");
+        CustomLocation end = new CustomLocation("2.0", "1.0");
         Post post = new Post(start, end, "$4", rider);
 
         assertTrue((post.getFare().equals("$4")));
@@ -123,8 +123,8 @@ public class TestPost extends TestCase {
 
         User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
 
-        Location start = new Location("1.0", "2.0");
-        Location end = new Location("2.0", "1.0");
+        CustomLocation start = new CustomLocation("1.0", "2.0");
+        CustomLocation end = new CustomLocation("2.0", "1.0");
         Post post = new Post(start, end, "$4", rider);
 
         post.setFare("$5");
@@ -140,8 +140,8 @@ public class TestPost extends TestCase {
 
         User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
 
-        Location start = new Location("1.0", "2.0");
-        Location end = new Location("2.0", "1.0");
+        CustomLocation start = new CustomLocation("1.0", "2.0");
+        CustomLocation end = new CustomLocation("2.0", "1.0");
         Post post = new Post(start, end, "$4", rider);
 
         ArrayList driverOffers = new ArrayList<>();
@@ -157,8 +157,8 @@ public class TestPost extends TestCase {
 
         User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
 
-        Location start = new Location("1.0", "2.0");
-        Location end = new Location("2.0", "1.0");
+        CustomLocation start = new CustomLocation("1.0", "2.0");
+        CustomLocation end = new CustomLocation("2.0", "1.0");
         Post post = new Post(start, end, "$4", rider);
 
         ArrayList driverOffers = new ArrayList<>();
@@ -177,8 +177,8 @@ public class TestPost extends TestCase {
 
         User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
 
-        Location start = new Location("1.0", "2.0");
-        Location end = new Location("2.0", "1.0");
+        CustomLocation start = new CustomLocation("1.0", "2.0");
+        CustomLocation end = new CustomLocation("2.0", "1.0");
         Post post = new Post(start, end, "$4", rider);
 
         assertTrue((post.getDriverOffers()).isEmpty());
@@ -193,8 +193,8 @@ public class TestPost extends TestCase {
 
         User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
 
-        Location start = new Location("1.0", "2.0");
-        Location end = new Location("2.0", "1.0");
+        CustomLocation start = new CustomLocation("1.0", "2.0");
+        CustomLocation end = new CustomLocation("2.0", "1.0");
         Post post = new Post(start, end, "$4", rider);
 
         post.addDriverOffer("Joe");

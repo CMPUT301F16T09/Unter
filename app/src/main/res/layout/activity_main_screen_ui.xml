@@ -46,7 +46,6 @@
         android:textSize="22sp"
         android:textColor="@color/background"
         android:fontFamily="sans-serif-smallcaps" />
-
     <Button
         android:id="@+id/MainScreenMyRideRequestsButton"
         android:layout_width="160dp"
