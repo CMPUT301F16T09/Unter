@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 /**
  * The type Main gui activity.
  */
@@ -25,7 +27,7 @@ public class MainGUIActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_request_aride_ui);
+        setContentView(R.layout.activity_create_new_user_ui);
     }
     public void test_add() {
         setResult(RESULT_OK);
@@ -38,14 +40,25 @@ public class MainGUIActivity extends AppCompatActivity {
         EditText passwordInput = (EditText) findViewById(R.id.mainScreenPassword);
         String username = usernameInput.getText().toString();
         String password = passwordInput.getText().toString();
-        // Verify with UserListOnlineController before changing intent
-        if (UserListOnlineController.verifyLogin(username, password)) {
-            Intent intent = new Intent(MainGUIActivity.this, MainScreenUIActivity.class);
-            startActivity(intent);
-        }
-        else {
-            Toast.makeText(this, "Invalid Username/Password", Toast.LENGTH_SHORT).show();
 
+        UserListOnlineController.SearchUserListsTask checkLogin = new UserListOnlineController.SearchUserListsTask();
+        // Verify with UserListOnlineController before changing intent
+        ArrayList<User> currentUser;
+
+        checkLogin.execute("username", username);
+        try {
+            currentUser = checkLogin.get();
+            if (password.equals(currentUser.get(0).getPassword())){
+                Intent intent = new Intent(MainGUIActivity.this, MainScreenUIActivity.class);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(this, "Invalid Username/Password", Toast.LENGTH_SHORT).show();
+
+            }
+        }
+        catch (Exception e) {
+            Log.i("Error", "Loading failed");
         }
     }
 

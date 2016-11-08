@@ -164,16 +164,7 @@ public class UserListOnlineController {
         }
     }
 
-    public static boolean verifyLogin(String username,String password){
-        //assumes that getUserList() queries the server for the most updated list.
-//        User currentUser = SearchUserListsTask("username", username);
-//        String goodPW = SearchUserListsTask("password", password);
-//
-//        if (password.equals(goodPW)){
-//            return true;
-//        }
-        return false;
-    }
+
 
     public void editUser(String name, String phoneNumber, String userEmail, String userPassword) {
 

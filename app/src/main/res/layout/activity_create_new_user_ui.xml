@@ -114,6 +114,7 @@
         android:text="C o n f i r m"
         android:textSize="40sp"
         android:background="@color/lightAccent"
-        android:fontFamily="sans-serif-smallcaps"/>
+        android:fontFamily="sans-serif-smallcaps"
+        android:onClick="create_user"/>
 
 </RelativeLayout>
