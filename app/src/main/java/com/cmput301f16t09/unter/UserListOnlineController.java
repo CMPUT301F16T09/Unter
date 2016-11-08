@@ -52,15 +52,14 @@ public class UserListOnlineController {
             ArrayList<User> users = new ArrayList<User>();
 
             //Just list top 10000 users
-            //String search_string = "\{\"from\": 0, \"size\": 10000}"
             //Replace with our indexes
-            String search_string = "{\"from\": 0, \"size\": 10000, \"query\": {\"match\": {\"message\": \"" + search_parameters[0] + "\"}}}";
+            String search_string = "{\"from\": 0, \"size\": 10000, \"query\": {\"match\": {\"username\": \"" + search_parameters[0] + "\"}}}";
 
             // assume that search_parameters[0] is the only search term we are interested in using
-            //Add Indexing and such
+            //Add Indexing
             Search search = new Search.Builder(search_string)
                     .addIndex("unter")
-                    .addType("user")
+                    .addType("User")
                     .build();
 
             try {
@@ -91,8 +90,8 @@ public class UserListOnlineController {
             // assume that search_parameters[0] is the only search term we are interested in using
             //Add Indexing and such
             Search search = new Search.Builder(search_parameters[0])
-                    .addIndex("unter")
-                    .addType("user")
+                    .addIndex("t09")
+                    .addType("User")
                     .build();
 
             try {
@@ -121,7 +120,7 @@ public class UserListOnlineController {
 
             for (User user: users) {
                 //Add Indexing and such
-                Index index = new Index.Builder(user).index("unter").type("user").build();
+                Index index = new Index.Builder(user).index("t09").type("User").build();
 
                 try {
                     DocumentResult result = client.execute(index);

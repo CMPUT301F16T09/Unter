@@ -204,4 +204,9 @@ public class User {
     public void deleteOfferReference(Post rideRequest) {
         this.myOffers.getPosts().remove(rideRequest);
     }
+
+    public String toString(){
+        String output = getUsername();
+        return output;
+    }
 }
