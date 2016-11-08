@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cmput301f16t09.unter">
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,6 +21,9 @@
         <activity
             android:name=".MainScreenUIActivity"
             android:label="@string/title_activity_main_screen_ui"></activity>
+        <activity
+            android:name=".CreateNewUserUIActivity"
+            android:label="@string/title_activity_create_new_user_ui"></activity>
     </application>
 
 </manifest>
