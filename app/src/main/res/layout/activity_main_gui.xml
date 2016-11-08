@@ -17,20 +17,19 @@
         android:gravity="center"
         android:text="@string/app_name"
         android:textSize="110sp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:textColor="@color/TextColor"/>
+        android:textColor="@color/TextColor"
+        android:fontFamily="sans-serif-smallcaps" />
     
     <TextView
         android:id="@+id/username_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="220dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="220dp"
         android:text="@string/username_title_login"
-        android:textColor="@color/TextColor"
         android:textSize="40sp"
-        android:fontFamily="sans-serif-smallcaps"
-        />
+        android:textColor="@color/TextColor"
+        android:fontFamily="sans-serif-smallcaps" />
 
     <TextView
         android:id="@+id/password_title"
@@ -40,10 +39,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="75dp"
         android:text="@string/password_title_login"
-        android:textColor="@color/TextColor"
         android:textSize="40sp"
-        android:fontFamily="sans-serif-smallcaps"
-        />
+        android:textColor="@color/TextColor"
+        android:fontFamily="sans-serif-smallcaps" />
 
     <EditText
         android:id="@+id/mainScreenUsername"
@@ -52,9 +50,10 @@
         android:layout_below="@+id/username_title"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:textColorHint="@color/HintTextColor"
         android:hint="@string/enter_username_login_hint"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:textColorHint="@color/HintTextColor"
+        />
 
     <EditText
         android:id="@+id/mainScreenPassword"
@@ -62,22 +61,24 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/password_title"
         android:layout_centerHorizontal="true"
+        android:hint="@string/enter_password_login_hint"
         android:inputType="textPassword"
         android:textColorHint="@color/HintTextColor"
-        android:hint="@string/enter_password_login_hint"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:fontFamily="sans-serif-smallcaps" />
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="@dimen/mainscreen_button_width"
         android:layout_height="@dimen/mainscreen_button_height"
+        android:layout_below="@+id/mainScreenPassword"
         android:layout_marginTop="50dp"
         android:layout_marginStart="50dp"
-        android:layout_below="@+id/mainScreenPassword"
+        android:background="@color/white"
         android:text="@string/login"
         android:textSize="20sp"
-        android:background="@color/white"
-        android:onClick="verifyLoginCredentials"/>
+        android:fontFamily="sans-serif-smallcaps"
+        android:onClick="verifyLoginCredentials" />
 
     <Button
         android:id="@+id/createNewUserButton"
@@ -86,9 +87,10 @@
         android:layout_alignTop="@+id/loginButton"
         android:layout_marginStart="200dp"
         android:layout_below="@+id/mainScreenPassword"
+        android:background="@color/white"
         android:text="@string/create_new_user"
         android:textSize="18sp"
-        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
         android:onClick="createNewUser"/>
 
 </RelativeLayout>

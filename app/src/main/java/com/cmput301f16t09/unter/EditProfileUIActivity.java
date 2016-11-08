@@ -13,11 +13,11 @@ import android.widget.Toast;
 
 public class EditProfileUIActivity extends AppCompatActivity {
 
-    EditText editName = (EditText) findViewById(R.id.editName);
-    EditText editPhoneNumber = (EditText) findViewById(R.id.editPhoneNumber);
-    EditText editEmail = (EditText) findViewById(R.id.editEmail);
-    EditText editPassword = (EditText) findViewById(R.id.editPassword);
-    EditText editConfirmPassword = (EditText) findViewById(R.id.editConfirmPassword);
+    EditText editName = (EditText) findViewById(R.id.editTextEditProfileName);
+    EditText editPhoneNumber = (EditText) findViewById(R.id.editTextEditProfilePhoneNumber);
+    EditText editEmail = (EditText) findViewById(R.id.editTextEditProfileEmail);
+    EditText editPassword = (EditText) findViewById(R.id.editTextEditProfilePassword);
+    EditText editConfirmPassword = (EditText) findViewById(R.id.editTextEditProfileConfirmPassword);
     Button confirmButton = (Button) findViewById(R.id.EditProfileConfirmButton);
 
     @Override

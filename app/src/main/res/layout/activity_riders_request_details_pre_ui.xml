@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/background"
+    tools:context="com.cmput301f16t09.unter.RidersRequestDetailsPreUIActivity">
+
+
+    <TextView
+        android:id="@+id/textViewRideRequestDetailsPreStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="Status: "
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-smallcaps" />
+
+    // To be filled in with CurrentStatus
+    <TextView
+        android:id="@+id/textViewRideRequestDetailsPreCurrentStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/textViewRideRequestDetailsPreStatus"
+        android:layout_alignBottom="@+id/textViewRideRequestDetailsPreStatus"
+        android:text="CurrentStatus"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-smallcaps" />
+
+    <TextView
+        android:id="@+id/textViewRideRequestDetailsPreStartLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewRideRequestDetailsPreStatus"
+        android:layout_marginBottom="5dp"
+        android:text="Start Location: "
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-smallcaps" />
+
+
+    // To be filled in with StartLocationName
+    <TextView
+        android:id="@+id/RideRequestDetailsPreStartLocationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/textViewRideRequestDetailsPreStartLocation"
+        android:layout_alignBottom="@+id/textViewRideRequestDetailsPreStartLocation"
+        android:text="StartLocationName"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-smallcaps" />
+
+
+    <TextView
+        android:id="@+id/textViewRideRequestDetailsPreEndLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewRideRequestDetailsPreStartLocation"
+        android:layout_marginBottom="5dp"
+        android:text="End Location: "
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-smallcaps" />
+
+    // To be filled in with EndLocationName
+    <TextView
+        android:id="@+id/textViewRideRequestDetailsPreEndLocationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/textViewRideRequestDetailsPreEndLocation"
+        android:layout_alignBottom="@+id/textViewRideRequestDetailsPreEndLocation"
+        android:text="EndLocationName"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-smallcaps" />
+
+
+    <TextView
+        android:id="@+id/textViewRideRequestDetailsPreFare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewRideRequestDetailsPreEndLocation"
+        android:layout_marginBottom="5dp"
+        android:text="Offered Fare: "
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-smallcaps" />
+
+    // To be filled in with OfferedFareAmount
+    <TextView
+        android:id="@+id/textViewRideRequestDetailsPreEndOfferedFare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/textViewRideRequestDetailsPreFare"
+        android:layout_alignBottom="@+id/textViewRideRequestDetailsPreFare"
+        android:text="OfferedFareAmount"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-smallcaps" />
+
+    <TextView
+        android:id="@+id/textViewRideRequestDetailsPreSelectDriver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewRideRequestDetailsPreFare"
+        android:layout_marginTop="15dp"
+        android:text="Select a Driver"
+        android:textSize="28sp"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-smallcaps" />
+
+    <ListView
+        android:id="@+id/listViewRideRequestDetailsRiderOffers"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:layout_below="@+id/textViewRideRequestDetailsPreSelectDriver"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:id="@+id/RideRequestDetailsCancelRequestButton"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Cancel Request"
+        android:textSize="40sp"
+        android:fontFamily="sans-serif-smallcaps" />
+
+
+</RelativeLayout>
