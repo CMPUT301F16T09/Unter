@@ -1,10 +1,15 @@
 package com.cmput301f16t09.unter;
+
 import android.app.Activity;
-import android.location.*;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,20 +29,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
 //import android.support.design.widget.FloatingActionButton;
 //import android.support.design.widget.Snackbar;
+
 public class RequestARideUIActivity extends AppCompatActivity {
-    EditText editStart;
-    EditText editEnd;
-    EditText editFare;
+
+    private AutoCompleteTextView editStart;
+    private AutoCompleteTextView editEnd;
+    private EditText editFare;
 
     RoadManager roadManager;
     MapView map;
     Road[] mRoads;
     GeoPoint startPoint;
     GeoPoint endPoint;
-    double startLong;
+    Geocoder coder = new Geocoder(this, Locale.getDefault());
+
     double startLat;
+    double startLong;
     double endLat;
     double endLong;
     Activity myActivity = this;
@@ -46,18 +56,19 @@ public class RequestARideUIActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_request_aride_ui);
 
-        editStart = (EditText) findViewById(R.id.editTextRequestRideStartLocation);
-        editEnd = (EditText) findViewById(R.id.editTextRequestRideEndLocation);
-        editFare = (EditText) findViewById(R.id.editTextRequestRideEstimatedFare);
+        setContentView(R.layout.activity_request_aride_ui);
 
         map = (MapView) findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
         mapController = map.getController();
-        mapController.setZoom(12);
+
+        GeoPoint edmPoint = new GeoPoint(53.5444, -113.4909);
+        mapController.setZoom(15);
+        mapController.setCenter(edmPoint);
+        
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -65,13 +76,20 @@ public class RequestARideUIActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-    public void requestARide(){
+
+    public void getEstimate(View v){
+
+        editStart = (AutoCompleteTextView) findViewById(R.id.editTextRequestRideStartLocation);
+        editEnd = (AutoCompleteTextView) findViewById(R.id.editTextRequestRideEndLocation);
+        editFare = (EditText) findViewById(R.id.editTextRequestRideEstimatedFare);
+
         String startLocation = editStart.getText().toString();
         String endLocation = editEnd.getText().toString();
+
         //Nov 7th, 2016 - http://stackoverflow.com/questions/13576470/converting-an-address-into-geopoint
         //Geocoder takes an string and finds an address that most closely resembles the string
         //then latitude and longitude is extracted from the address
-        Geocoder coder = new Geocoder(this, Locale.CANADA);
+
         try {
             List<Address> startAddress = coder.getFromLocationName(startLocation, 1);
             startLat = startAddress.get(0).getLatitude();
@@ -89,15 +107,20 @@ public class RequestARideUIActivity extends AppCompatActivity {
 
         startPoint = new GeoPoint(startLong, startLat);
         endPoint = new GeoPoint(endLong, endLat);
+
         double fare = getFareEstimate(startPoint, endPoint);
         editFare.setText(Double.toString(fare));                //brings out fare estimate to users
+
         mapController.setCenter(startPoint);
         // to get a key http://developer.mapquest.com/
-        roadManager = new MapQuestRoadManager("--");
+        roadManager = new MapQuestRoadManager("xPGrfmORuC6QJMSkF6SXGKYbBgTefNdm");
         ArrayList<OverlayItem> overlayItemArray = new ArrayList<>();
         overlayItemArray.add(new OverlayItem("Starting Point", "This is the starting point", startPoint));
         overlayItemArray.add(new OverlayItem("Destination", "This is the destination point", endPoint));
         getRoadAsync();
+    }
+
+    public void requestARide(View v){
         //PostListOfflineController pOffC = new PostListOfflineController();
         //PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
         //Post newPost = new Post(startPoint, endPoint, fare, rider);
@@ -105,6 +128,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
         //addPostOnline.execute(newPost);
         //Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();
     }
+
     public void getRoadAsync() {
         mRoads = null;
         GeoPoint roadStartPoint = startPoint;
@@ -113,6 +137,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
         waypoints.add(endPoint);
         new UpdateRoadTask().execute(waypoints);
     }
+
     private class UpdateRoadTask extends AsyncTask<Object, Void, Road[]> {
         protected Road[] doInBackground(Object... params) {
             @SuppressWarnings("unchecked")
@@ -147,10 +172,13 @@ public class RequestARideUIActivity extends AppCompatActivity {
     private double getFareEstimate(GeoPoint startPoint, GeoPoint endPoint) {
         Location from = new Location("start");
         Location to = new Location("end");
+
         from.setLatitude(startPoint.getLatitude());
         from.setLongitude(startPoint.getLongitude());
+
         to.setLatitude(endPoint.getLatitude());
         to.setLongitude(endPoint.getLongitude());
+
         double distance = from.distanceTo(to);
         double fare = distance * 1.5; //will most probably do something else for the estimate
         return fare;
