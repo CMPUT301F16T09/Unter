@@ -44,7 +44,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
     Road[] mRoads;
     GeoPoint startPoint;
     GeoPoint endPoint;
-    Geocoder coder = new Geocoder(this, Locale.getDefault());
+    Geocoder coder;
 
     double startLat;
     double startLong;
@@ -58,6 +58,8 @@ public class RequestARideUIActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_request_aride_ui);
+
+        coder = new Geocoder(this, Locale.getDefault());
 
         map = (MapView) findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);
