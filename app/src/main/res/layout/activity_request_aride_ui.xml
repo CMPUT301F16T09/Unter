@@ -75,7 +75,8 @@
         android:layout_alignParentBottom="true"
         android:text="CONFIRM"
         android:textSize="40sp"
-        android:fontFamily="sans-serif-smallcaps" />
+        android:fontFamily="sans-serif-smallcaps"
+        android:onClick="confirmRideRequest"/>
 
     <org.osmdroid.views.MapView android:id="@+id/map"
         android:layout_width="400dp"

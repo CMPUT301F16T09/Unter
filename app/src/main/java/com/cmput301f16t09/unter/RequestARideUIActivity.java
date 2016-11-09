@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -65,7 +66,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-    public void requestARide(){
+    public void confirmRideRequest(View v){
         String startLocation = editStart.getText().toString();
         String endLocation = editEnd.getText().toString();
         //Nov 7th, 2016 - http://stackoverflow.com/questions/13576470/converting-an-address-into-geopoint
