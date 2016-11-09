@@ -77,11 +77,14 @@ public class RequestARideUIActivity extends AppCompatActivity {
         return true;
     }
 
-    public void getEstimate(View v){
+    public void getEstimate(View v) {
 
         editStart = (AutoCompleteTextView) findViewById(R.id.editTextRequestRideStartLocation);
         editEnd = (AutoCompleteTextView) findViewById(R.id.editTextRequestRideEndLocation);
         editFare = (EditText) findViewById(R.id.editTextRequestRideEstimatedFare);
+    }
+    
+    public void confirmRideRequest(View v){
 
         String startLocation = editStart.getText().toString();
         String endLocation = editEnd.getText().toString();
@@ -118,15 +121,13 @@ public class RequestARideUIActivity extends AppCompatActivity {
         overlayItemArray.add(new OverlayItem("Starting Point", "This is the starting point", startPoint));
         overlayItemArray.add(new OverlayItem("Destination", "This is the destination point", endPoint));
         getRoadAsync();
-    }
-
-    public void requestARide(View v){
-        //PostListOfflineController pOffC = new PostListOfflineController();
-        //PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
-        //Post newPost = new Post(startPoint, endPoint, fare, rider);
-        //pOffC.addOfflinePost(newPost);
-        //addPostOnline.execute(newPost);
-        //Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();
+        PostListOfflineController pOffC = new PostListOfflineController();
+        PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
+        Post newPost = new Post(startPoint, endPoint, Double.toString(fare), CurrentUser.getCurrentUser());
+        pOffC.addOfflinePost(newPost, this);
+        addPostOnline.execute(newPost);
+        Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     public void getRoadAsync() {
