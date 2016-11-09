@@ -24,6 +24,9 @@
         <activity
             android:name=".CreateNewUserUIActivity"
             android:label="@string/title_activity_create_new_user_ui"></activity>
+        <activity
+            android:name=".EditProfileUIActivity"
+            android:label="@string/title_activity_edit_profile_ui"></activity>
     </application>
 
 </manifest>

@@ -27,13 +27,13 @@ public class MainGUIActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_new_user_ui);
+        setContentView(R.layout.activity_main_gui);
     }
     public void test_add() {
-        setResult(RESULT_OK);
-        User new_user = new User("Henry", "Popcorn_chicken", "KFC_lover@barnyard.com", "123-456-7890", "password");
-        UserListOnlineController.AddUsersTask addUserTask = new UserListOnlineController.AddUsersTask();
-        addUserTask.execute(new_user);
+//        setResult(RESULT_OK);
+//        User new_user = new User("Henry", "Popcorn_chicken", "KFC_lover@barnyard.com", "123-456-7890", "password");
+//        UserListOnlineController.AddUsersTask addUserTask = new UserListOnlineController.AddUsersTask();
+//        addUserTask.execute(new_user);
     }
     public void verifyLoginCredentials(View v) {
         EditText usernameInput = (EditText) findViewById(R.id.mainScreenUsername);
@@ -49,6 +49,9 @@ public class MainGUIActivity extends AppCompatActivity {
         try {
             currentUser = checkLogin.get();
             if (password.equals(currentUser.get(0).getPassword())){
+
+                CurrentUser.setCurrentUser(currentUser.get(0));
+                CurrentUser.getCurrentUser().setId(currentUser.get(0).getId());
                 Intent intent = new Intent(MainGUIActivity.this, MainScreenUIActivity.class);
                 startActivity(intent);
             }
@@ -63,8 +66,7 @@ public class MainGUIActivity extends AppCompatActivity {
     }
 
     public void createNewUser(View v) {
-//        Intent intent = new Intent(MainGUIActivity.this, CreateNewUserUIActivity.class);
-//        startActivity(intent);
+
         Intent intent = new Intent(MainGUIActivity.this, CreateNewUserUIActivity.class);
         startActivity(intent);
 

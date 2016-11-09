@@ -8,6 +8,7 @@ import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -15,6 +16,7 @@ import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
+import io.searchbox.core.Update;
 
 public class UserListOnlineController {
     private static JestDroidClient client;
@@ -61,8 +63,6 @@ public class UserListOnlineController {
             Search search = new Search.Builder(search_string)
                     .addIndex("t09")
                     .addType("user")
-                    .addIndex("unter")
-                    .addType("User")
                     .build();
 
             try {
@@ -93,7 +93,6 @@ public class UserListOnlineController {
             Search search = new Search.Builder(search_parameters[0])
                     .addIndex("t09")
                     .addType("user")
-
                     .build();
 
             try {
@@ -142,6 +141,43 @@ public class UserListOnlineController {
         }
     }
 
+
+    public static class UpdateUserTask extends AsyncTask<User, Void, Void> {
+
+        @Override
+        protected Void doInBackground(User... user) {
+            verifySettings();
+            //Index index = new Index.Builder(user).index("t09").type("user").id(user[0].getId()).build();
+
+//            String script =  "{\n" +
+//                    "    \"script\" : \"ctx._source.tags += params\",\n" +
+//                    "    \"params\" : {\n" +
+//                    "        \"tag\" : \"blue\"\n" +
+//                    "    }\n" +
+//                    "}";
+
+
+            String script = "{\n" +
+                    "    \"doc\" : {\n" +
+                    "        \"name\" :" + user[0].getName().toString() + ",\n" +
+                    "        \"email\" :" + user[0].getEmail().toString() + ",\n" +
+                    "        \"password\" :" + user[0].getPassword().toString() + ",\n" +
+                    "        \"phoneNumber\" :" + user[0].getPhoneNumber().toString() + "\n" +
+                    "    }\n" +
+                    "}";
+            try {
+                client.execute(new Update.Builder(script).index("t09").type("user").build());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.i("Error","Could Not update user info.");
+            }
+
+            return null;
+        }
+
+    }
+
 //    public static class DeleteUsersTask extends AsyncTask<User, Void, Void> {
 //
 //        //Need to fill
@@ -167,6 +203,8 @@ public class UserListOnlineController {
 
 
     public void editUser(String name, String phoneNumber, String userEmail, String userPassword) {
+
+        SearchUserListsTask  searchTask = new SearchUserListsTask();
 
         //User user = getLoggedIn();      //probably not going to be used
 

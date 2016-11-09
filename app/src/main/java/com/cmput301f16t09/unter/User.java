@@ -33,7 +33,7 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.myRequests = new PostList();
-        this.myOffers = new PostList();
+        this.myOffers =new PostList();
     }
 
     /**

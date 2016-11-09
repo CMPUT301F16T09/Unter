@@ -3,10 +3,9 @@
     tools:context="com.cmput301f16t09.unter">
 
     <item
-        android:id="@+id/delete_habit"
-        android:orderInCategory="100"
+        android:id="@+id/edit_profile"
         android:title="@string/edit_profile"
-        app:showAsAction="never" />
+        />
 
     <item
         android:id="@+id/action_settings"

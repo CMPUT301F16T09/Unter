@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 //import android.support.design.widget.FloatingActionButton;
 //import android.support.design.widget.Snackbar;
@@ -26,9 +29,25 @@ public class MainScreenUIActivity extends AppCompatActivity {
         return true;
     }
 
-    public void reqestRide(){
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.edit_profile) {
+            Intent intent = new Intent(MainScreenUIActivity.this, EditProfileUIActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void requestRide(View v){
         Intent requestARideIntent = new Intent(MainScreenUIActivity.this, RequestARideUIActivity.class);
         startActivity(requestARideIntent);
+    }
+
+    public void provideRide(View v){
+        Intent intent = new Intent(MainScreenUIActivity.this, ProvideARideUIActivity.class);
+        startActivity(intent);
     }
 
 }
