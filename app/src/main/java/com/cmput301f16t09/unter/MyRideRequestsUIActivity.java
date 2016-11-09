@@ -20,6 +20,35 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_ride_requests_ui);
 
+        currentPostList = (ListView) findViewById(R.id.listViewMyRideRequests);
+
+        PostListOfflineController ploc = new PostListOfflineController();
+        postList = ploc.loadOfflinePosts(this);
+    }
+
+    @Override
+    protected void onStart() {
+
+        super.onStart();
+        adapter = new ArrayAdapter<Post>(this, R.layout.list_item, postList.getPosts());
+        currentPostList.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+}
+
+
+
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_my_ride_requests_ui);
+
 //        postList.getPosts().clear();
 //        PostListOnlineController.SearchPostListsTask searchUserPosts = new PostListOnlineController.SearchPostListsTask();
 //        searchUserPosts.execute("username", CurrentUser.getCurrentUser().getUsername());
@@ -30,7 +59,7 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
 //            Log.i("Error", "Loading failed");
 //        }
 //        adapter.notifyDataSetChanged();
-    }
+//    }
 
 //    @Override
 //    protected void onStart() {
@@ -47,11 +76,3 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
 //        adapter = new ArrayAdapter<Post>(this, R.layout.list_item, postList.getPosts());
 //        currentPostList.setAdapter(adapter);
 //    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-}

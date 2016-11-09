@@ -86,50 +86,66 @@ public class RequestARideUIActivity extends AppCompatActivity {
         editFare = (EditText) findViewById(R.id.editTextRequestRideEstimatedFare);
     }
     
-    public void confirmRideRequest(View v){
+    public void confirmRideRequest(View v) {
+
+        editStart = (AutoCompleteTextView) findViewById(R.id.editTextRequestRideStartLocation);
+        editEnd = (AutoCompleteTextView) findViewById(R.id.editTextRequestRideEndLocation);
+        editFare = (EditText) findViewById(R.id.editTextRequestRideEstimatedFare);
 
         String startLocation = editStart.getText().toString();
         String endLocation = editEnd.getText().toString();
 
-        //Nov 7th, 2016 - http://stackoverflow.com/questions/13576470/converting-an-address-into-geopoint
-        //Geocoder takes an string and finds an address that most closely resembles the string
-        //then latitude and longitude is extracted from the address
-
-        try {
-            List<Address> startAddress = coder.getFromLocationName(startLocation, 1);
-            startLat = startAddress.get(0).getLatitude();
-            startLong = startAddress.get(0).getLongitude();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (startLocation.equals("") && endLocation.equals("")) {
+            Toast.makeText(this, "Please fill in start and end locations", Toast.LENGTH_SHORT).show();
         }
-        try {
-            List<Address> endAddress = coder.getFromLocationName(endLocation, 1);
-            endLat = endAddress.get(0).getLatitude();
-            endLong = endAddress.get(0).getLongitude();
-        } catch (IOException e) {
-            e.printStackTrace();
+        else if (startLocation.equals("")) {
+            Toast.makeText(this, "Please fill in start location", Toast.LENGTH_SHORT).show();
         }
+        else if (endLocation.equals("")) {
+            Toast.makeText(this, "Please fill in end location", Toast.LENGTH_SHORT).show();
+        }
+        else {
 
-        startPoint = new GeoPoint(startLong, startLat);
-        endPoint = new GeoPoint(endLong, endLat);
+            //Nov 7th, 2016 - http://stackoverflow.com/questions/13576470/converting-an-address-into-geopoint
+            //Geocoder takes an string and finds an address that most closely resembles the string
+            //then latitude and longitude is extracted from the address
 
-        double fare = getFareEstimate(startPoint, endPoint);
-        editFare.setText(Double.toString(fare));                //brings out fare estimate to users
+            try {
+                List<Address> startAddress = coder.getFromLocationName(startLocation, 1);
+                startLat = startAddress.get(0).getLatitude();
+                startLong = startAddress.get(0).getLongitude();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                List<Address> endAddress = coder.getFromLocationName(endLocation, 1);
+                endLat = endAddress.get(0).getLatitude();
+                endLong = endAddress.get(0).getLongitude();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        mapController.setCenter(startPoint);
-        // to get a key http://developer.mapquest.com/
-        roadManager = new MapQuestRoadManager("xPGrfmORuC6QJMSkF6SXGKYbBgTefNdm");
-        ArrayList<OverlayItem> overlayItemArray = new ArrayList<>();
-        overlayItemArray.add(new OverlayItem("Starting Point", "This is the starting point", startPoint));
-        overlayItemArray.add(new OverlayItem("Destination", "This is the destination point", endPoint));
-        getRoadAsync();
-        PostListOfflineController pOffC = new PostListOfflineController();
-        PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
-        Post newPost = new Post(startPoint, endPoint, Double.toString(fare), CurrentUser.getCurrentUser());
-        pOffC.addOfflinePost(newPost, this);
-        addPostOnline.execute(newPost);
-        Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();
-        finish();
+            startPoint = new GeoPoint(startLong, startLat);
+            endPoint = new GeoPoint(endLong, endLat);
+
+            double fare = getFareEstimate(startPoint, endPoint);
+            editFare.setText(Double.toString(fare));                //brings out fare estimate to users
+
+            mapController.setCenter(startPoint);
+            // to get a key http://developer.mapquest.com/
+            roadManager = new MapQuestRoadManager("xPGrfmORuC6QJMSkF6SXGKYbBgTefNdm");
+            ArrayList<OverlayItem> overlayItemArray = new ArrayList<>();
+            overlayItemArray.add(new OverlayItem("Starting Point", "This is the starting point", startPoint));
+            overlayItemArray.add(new OverlayItem("Destination", "This is the destination point", endPoint));
+            getRoadAsync();
+            PostListOfflineController pOffC = new PostListOfflineController();
+            PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
+            Post newPost = new Post(startPoint, endPoint, Double.toString(fare), CurrentUser.getCurrentUser());
+            pOffC.addOfflinePost(newPost, this);
+            addPostOnline.execute(newPost);
+            Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
     public void getRoadAsync() {
