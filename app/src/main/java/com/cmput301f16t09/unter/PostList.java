@@ -1,6 +1,8 @@
 package com.cmput301f16t09.unter;
 
 
+import org.osmdroid.util.GeoPoint;
+
 import java.util.ArrayList;
 
 /**
@@ -72,7 +74,7 @@ public class PostList {
      * @param end_Custom_location   the end location
      * @param status         the status
      */
-    public void ModifyPost(Post post, CustomLocation start_Custom_location, CustomLocation end_Custom_location, String status) {
+    public void ModifyPost(Post post, GeoPoint start_Custom_location, GeoPoint end_Custom_location, String status) {
         post.setStartCustomLocation(start_Custom_location);
         post.setEndCustomLocation(end_Custom_location);
         post.setStatus(status);

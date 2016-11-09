@@ -1,5 +1,7 @@
 package com.cmput301f16t09.unter;
 
+import org.osmdroid.util.GeoPoint;
+
 import java.util.ArrayList;
 
 /**
@@ -8,8 +10,8 @@ import java.util.ArrayList;
  * for all the information
  */
 public class Post {
-    private CustomLocation startCustomLocation;
-    private CustomLocation endCustomLocation;
+    private GeoPoint startCustomLocation;
+    private GeoPoint endCustomLocation;
     private String status;
     private String fare;
     private ArrayList<String> driver_OfferList;
@@ -24,7 +26,7 @@ public class Post {
      * @param endCustomLocation   the end location
      * @param fare          the fare
      */
-    public Post(CustomLocation startCustomLocation, CustomLocation endCustomLocation, String fare, User rider) {
+    public Post(GeoPoint startCustomLocation, GeoPoint endCustomLocation, String fare, User rider) {
         this.startCustomLocation = startCustomLocation;
         this.endCustomLocation = endCustomLocation;
         this.status = "Pending Offer";
@@ -56,7 +58,7 @@ public class Post {
      *
      * @return the start location
      */
-    public CustomLocation getStartCustomLocation() {
+    public GeoPoint getStartCustomLocation() {
         return startCustomLocation;
     }
 
@@ -65,7 +67,7 @@ public class Post {
      *
      * @param startCustomLocation the start location
      */
-    public void setStartCustomLocation(CustomLocation startCustomLocation) {
+    public void setStartCustomLocation(GeoPoint startCustomLocation) {
         this.startCustomLocation = startCustomLocation;
     }
 
@@ -74,7 +76,7 @@ public class Post {
      *
      * @return the end location
      */
-    public CustomLocation getEndCustomLocation() {
+    public GeoPoint getEndCustomLocation() {
         return endCustomLocation;
     }
 
@@ -83,7 +85,7 @@ public class Post {
      *
      * @param endCustomLocation the end location
      */
-    public void setEndCustomLocation(CustomLocation endCustomLocation) {
+    public void setEndCustomLocation(GeoPoint endCustomLocation) {
         this.endCustomLocation = endCustomLocation;
     }
 

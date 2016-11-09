@@ -27,9 +27,9 @@ import java.util.Locale;
 //import android.support.design.widget.FloatingActionButton;
 //import android.support.design.widget.Snackbar;
 public class RequestARideUIActivity extends AppCompatActivity {
-    EditText editStart = (EditText) findViewById(R.id.editTextRequestRideStartLocation);
-    EditText editEnd = (EditText) findViewById(R.id.editTextRequestRideEndLocation);
-    EditText editFare = (EditText) findViewById(R.id.editTextRequestRideEstimatedFare);
+    EditText editStart;
+    EditText editEnd;
+    EditText editFare;
 
     RoadManager roadManager;
     MapView map;
@@ -47,6 +47,11 @@ public class RequestARideUIActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_aride_ui);
+
+        editStart = (EditText) findViewById(R.id.editTextRequestRideStartLocation);
+        editEnd = (EditText) findViewById(R.id.editTextRequestRideEndLocation);
+        editFare = (EditText) findViewById(R.id.editTextRequestRideEstimatedFare);
+
         map = (MapView) findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setBuiltInZoomControls(true);
@@ -93,12 +98,13 @@ public class RequestARideUIActivity extends AppCompatActivity {
         overlayItemArray.add(new OverlayItem("Starting Point", "This is the starting point", startPoint));
         overlayItemArray.add(new OverlayItem("Destination", "This is the destination point", endPoint));
         getRoadAsync();
-        //PostListOfflineController pOffC = new PostListOfflineController();
-        //PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
-        //Post newPost = new Post(startPoint, endPoint, fare, rider);
-        //pOffC.addOfflinePost(newPost);
-        //addPostOnline.execute(newPost);
-        //Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();
+        PostListOfflineController pOffC = new PostListOfflineController();
+        PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
+        Post newPost = new Post(startPoint, endPoint, Double.toString(fare), CurrentUser.getCurrentUser());
+        pOffC.addOfflinePost(newPost, this);
+        addPostOnline.execute(newPost);
+        Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();
+        finish();
     }
     public void getRoadAsync() {
         mRoads = null;

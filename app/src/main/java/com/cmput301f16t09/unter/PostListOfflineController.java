@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class PostListOfflineController {
     private static PostList postlist = null;
     private static final String FILENAME = "offline_posts.sav";
-    private static PostList offlinePostList = new PostList();
+    private static PostList postListQueue = new PostList();
 
     /**
      * Gets post list.
@@ -69,15 +69,15 @@ public class PostListOfflineController {
             // Code from http://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
             Type listType = new TypeToken<ArrayList<Post>>(){}.getType();
 
-            // Load the data into the global variable offlinePostList
-            offlinePostList = gson.fromJson(br_in, listType);
+            // Load the data into the global variable postListQueue
+            postListQueue = gson.fromJson(br_in, listType);
         }
 
         // If there is no file, return error.
         catch (FileNotFoundException e) {
             Log.i("Error", "No Habits");
         }
-        return offlinePostList;
+        return postListQueue;
     }
 
     private void saveOfflinePosts(Context context)
@@ -91,7 +91,7 @@ public class PostListOfflineController {
             Gson gson = new Gson();
 
             // Write the data in list to BufferedWriter
-            gson.toJson(offlinePostList, bw);
+            gson.toJson(postListQueue, bw);
 
             // Flush the buffer to prevent memory leakage and close the OutputStream
             bw.flush();
@@ -109,12 +109,10 @@ public class PostListOfflineController {
      * @param fare          the fare
      * @param context       the context
      */
-    public void addOfflinePost(CustomLocation startLocation, CustomLocation endLocation,
-                               String fare, User user, Context context) {
+    public void addOfflinePost(Post offlinePost, Context context) {
 
-        Post offlinePost = new Post(startLocation, endLocation, fare, user);
         getPostList().addPost(offlinePost);
-        offlinePostList.addPost(offlinePost);
+        postListQueue.addPost(offlinePost);
         saveOfflinePosts(context);
     }
 }
