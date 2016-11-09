@@ -27,9 +27,9 @@ import java.util.Locale;
 //import android.support.design.widget.FloatingActionButton;
 //import android.support.design.widget.Snackbar;
 public class RequestARideUIActivity extends AppCompatActivity {
-    EditText editStart = (EditText) findViewById(R.id.editTextRequestRideStartLocation);
-    EditText editEnd = (EditText) findViewById(R.id.editTextRequestRideEndLocation);
-    EditText editFare = (EditText) findViewById(R.id.editTextRequestRideEstimatedFare);
+    EditText editStart;
+    EditText editEnd;
+    EditText editFare;
 
     RoadManager roadManager;
     MapView map;
@@ -47,12 +47,17 @@ public class RequestARideUIActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_aride_ui);
+
+        editStart = (EditText) findViewById(R.id.editTextRequestRideStartLocation);
+        editEnd = (EditText) findViewById(R.id.editTextRequestRideEndLocation);
+        editFare = (EditText) findViewById(R.id.editTextRequestRideEstimatedFare);
+
         map = (MapView) findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
         mapController = map.getController();
-        mapController.setZoom(9);
+        mapController.setZoom(12);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
