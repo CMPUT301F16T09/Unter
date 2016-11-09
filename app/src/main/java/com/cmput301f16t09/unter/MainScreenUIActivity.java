@@ -40,8 +40,8 @@ public class MainScreenUIActivity extends AppCompatActivity {
     }
 
     public void requestARide(View v){
-        Intent requestARideIntent = new Intent(MainScreenUIActivity.this, RequestARideUIActivity.class);
-        startActivity(requestARideIntent);
+        Intent intent = new Intent(MainScreenUIActivity.this, RequestARideUIActivity.class);
+        startActivity(intent);
     }
 
     public void myRideRequests(View v){

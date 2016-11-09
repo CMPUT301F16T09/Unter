@@ -63,7 +63,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         mapController.setCenter(startPoint);
 
         // to get a key http://developer.mapquest.com/
-        roadManager = new MapQuestRoadManager("--");
+        roadManager = new MapQuestRoadManager("xPGrfmORuC6QJMSkF6SXGKYbBgTefNdm");
         //roadManager = new OSRMRoadManager(myActivity);
 
         ArrayList<OverlayItem> overlayItemArray;

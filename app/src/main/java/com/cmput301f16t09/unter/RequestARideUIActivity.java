@@ -57,7 +57,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
         mapController = map.getController();
-        mapController.setZoom(9);
+        mapController.setZoom(12);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
