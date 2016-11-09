@@ -1,5 +1,7 @@
 package com.cmput301f16t09.unter;
 
+import io.searchbox.annotations.JestId;
+
 /**
  * Users are members of Unter, a User class contains personal information that is needed to use Unter
  * Data class
@@ -12,7 +14,8 @@ public class User {
     private String password;
     private PostList myRequests;
     private PostList myOffers;
-    private String id;
+    @JestId
+    private String documentId;
 
     /**
      * Instantiates a new User.
@@ -24,7 +27,7 @@ public class User {
      * @param password    the password
      * @param myRequests  the myRequests PostList
      * @param myOffers    the myOffers PostList
-     * @param id          the jest id
+     * @param documentId  the jest id
      */
     public User(String name, String username, String email, String phoneNumber, String password) {
         this.name = name.toLowerCase();
@@ -42,7 +45,7 @@ public class User {
      * @return the id
      */
     public String getId() {
-        return id;
+        return documentId;
     }
 
     /**
@@ -51,7 +54,7 @@ public class User {
      * @param id the id
      */
     public void setId(String id) {
-        this.id = id;
+        this.documentId = id;
     }
 
     /**

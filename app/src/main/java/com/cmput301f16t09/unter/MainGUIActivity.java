@@ -68,7 +68,7 @@ public class MainGUIActivity extends AppCompatActivity {
 //        Intent intent = new Intent(MainGUIActivity.this, CreateNewUserUIActivity.class);
 //        startActivity(intent);
 //        Intent intent = new Intent(MainGUIActivity.this, CreateNewUserUIActivity.class);
-        Intent intent = new Intent(MainGUIActivity.this, RequestDetailsUIActivity.class);
+        Intent intent = new Intent(MainGUIActivity.this, CreateNewUserUIActivity.class);
         startActivity(intent);
     }
 }

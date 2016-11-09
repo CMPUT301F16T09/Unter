@@ -2,6 +2,7 @@ package com.cmput301f16t09.unter;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -42,7 +43,7 @@ public class EditProfileUIActivity extends AppCompatActivity {
         return true;
     }
 
-    public void updateProfile() {
+    public void updateProfile(View v) {
         UserListOnlineController uc = new UserListOnlineController();
         String newName = editName.getText().toString();
         String newNumber = editPhoneNumber.getText().toString();
@@ -51,7 +52,19 @@ public class EditProfileUIActivity extends AppCompatActivity {
         String confirmPassword = editConfirmPassword.getText().toString();
 
         if (newPassword.equals(confirmPassword)){
-            Toast.makeText(EditProfileUIActivity.this, "Your information was updated!" , Toast.LENGTH_SHORT).show();
+            CurrentUser.getCurrentUser().setName(newName);
+            CurrentUser.getCurrentUser().setEmail(newEmail);
+            CurrentUser.getCurrentUser().setPhoneNumber(newNumber);
+            CurrentUser.getCurrentUser().setPassword(newPassword);
+            try {
+                UserListOnlineController.UpdateUsersTask updateUserListsTask = new UserListOnlineController.UpdateUsersTask();
+                updateUserListsTask.execute(CurrentUser.getCurrentUser());
+                updateUserListsTask.get();
+                Toast.makeText(EditProfileUIActivity.this, "Your information was updated!" , Toast.LENGTH_SHORT).show();
+            } catch(Exception e) {
+                Log.i("Error", "Could not update");
+                Toast.makeText(EditProfileUIActivity.this, "Could not update!" , Toast.LENGTH_SHORT).show();
+            }
 //                    uc.editUser(newName, newNumber, newEmail, newPassword);
         }
 
