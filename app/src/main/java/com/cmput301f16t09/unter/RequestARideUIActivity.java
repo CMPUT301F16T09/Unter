@@ -138,10 +138,9 @@ public class RequestARideUIActivity extends AppCompatActivity {
             overlayItemArray.add(new OverlayItem("Starting Point", "This is the starting point", startPoint));
             overlayItemArray.add(new OverlayItem("Destination", "This is the destination point", endPoint));
             getRoadAsync();
-            PostListOfflineController pOffC = new PostListOfflineController();
             PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
             Post newPost = new Post(startPoint, endPoint, Double.toString(fare), CurrentUser.getCurrentUser());
-            pOffC.addOfflinePost(newPost, this);
+            PostListOfflineController.addOfflinePost(newPost, this);
             addPostOnline.execute(newPost);
             Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();
             finish();

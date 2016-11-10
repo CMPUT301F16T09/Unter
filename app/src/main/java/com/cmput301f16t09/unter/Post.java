@@ -162,4 +162,8 @@ public class Post {
         this.driver_OfferList.clear();
         this.driver_OfferList.add(driver);
     }
+
+    public String getUsername() {
+        return this.user.getUsername();
+    }
 }

@@ -25,7 +25,7 @@ import java.util.ArrayList;
  */
 public class PostListOfflineController {
     private static PostList postlist = null;
-    private static final String FILENAME = "offline_posts.sav";
+    private static final String FILENAME = "real_offline_posts.sav";
     private static PostList postListQueue = new PostList();
 
     /**
@@ -69,20 +69,22 @@ public class PostListOfflineController {
             // Code from http://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
             Type listType = new TypeToken<ArrayList<Post>>(){}.getType();
 
+            ArrayList<Post> tempList = gson.fromJson(br_in, listType);
+
             // Load the data into the global variable postListQueue
-            postListQueue = gson.fromJson(br_in, listType);
+            getPostList().setPostList(tempList);
         }
 
         // If there is no file, return error.
         catch (FileNotFoundException e) {
             Log.i("Error", "No Habits");
         }
-        return postListQueue;
+        return postlist;
     }
 
-    private void saveOfflinePosts(Context context)
+    private static void saveOfflinePosts(Context context)
     {
-        try {
+            try {
             // Open the FileOutputStream and BufferedWriter to write to FILENAME
             FileOutputStream fos = context.openFileOutput(FILENAME, context.MODE_PRIVATE);
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
@@ -91,7 +93,8 @@ public class PostListOfflineController {
             Gson gson = new Gson();
 
             // Write the data in list to BufferedWriter
-            gson.toJson(postListQueue, bw);
+            gson.toJson(postListQueue.getPosts(), bw);
+            gson.toJson(getPostList().getPosts(), bw);
 
             // Flush the buffer to prevent memory leakage and close the OutputStream
             bw.flush();
@@ -109,7 +112,7 @@ public class PostListOfflineController {
      * @param fare          the fare
      * @param context       the context
      */
-    public void addOfflinePost(Post offlinePost, Context context) {
+    public static void addOfflinePost(Post offlinePost, Context context) {
 
         getPostList().addPost(offlinePost);
         postListQueue.addPost(offlinePost);
