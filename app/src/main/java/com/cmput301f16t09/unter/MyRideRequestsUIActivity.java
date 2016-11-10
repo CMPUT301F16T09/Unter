@@ -145,35 +145,3 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
         deleteDialog.show();
     }
 }
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_my_ride_requests_ui);
-
-//        postList.getPosts().clear();
-//        PostListOnlineController.SearchPostListsTask searchUserPosts = new PostListOnlineController.SearchPostListsTask();
-//        searchUserPosts.execute("username", CurrentUser.getCurrentUser().getUsername());
-//        try {
-//            postList.setPostList(searchUserPosts.get());
-//        }
-//        catch (Exception e) {
-//            Log.i("Error", "Loading failed");
-//        }
-//        adapter.notifyDataSetChanged();
-//    }
-
-//    @Override
-//    protected void onStart() {
-//
-//        super.onStart();
-//        PostListOnlineController.SearchPostListsTask searchUserPosts = new PostListOnlineController.SearchPostListsTask();
-//        searchUserPosts.execute("username", CurrentUser.getCurrentUser().getUsername());
-//        try {
-//            postList.setPostList(searchUserPosts.get());
-//        }
-//        catch (Exception e) {
-//            Log.i("Error", "Loading failed");
-//        }
-//        adapter = new ArrayAdapter<Post>(this, R.layout.list_item, postList.getPosts());
-//        currentPostList.setAdapter(adapter);
-//    }
