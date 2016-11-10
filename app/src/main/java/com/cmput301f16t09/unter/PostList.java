@@ -10,12 +10,29 @@ import java.util.ArrayList;
  */
 public class PostList {
     private ArrayList<Post> postList;
+    protected ArrayList<Listener> listeners;
 
     /**
      * Instantiates a new Post list.
      */
     public PostList() {
         this.postList = new ArrayList<Post>();
+        listeners = new ArrayList<Listener>();
+    }
+
+    public void notifyListeners()
+    {
+        for (Listener l : listeners)
+        {
+            l.update();
+        }
+    }
+
+    // Adds listener to the HabitList
+    public void addListener(Listener l)
+    {
+        listeners.add(l);
+
     }
 
     /**
@@ -34,6 +51,7 @@ public class PostList {
      */
     public void addPost(Post post) {
         postList.add(post);
+        notifyListeners();
     }
 
     /**
@@ -44,6 +62,7 @@ public class PostList {
      */
     public void deletePost(Post post) throws Exception{
         postList.remove(post);
+        notifyListeners();
     }
 
     /**
@@ -75,12 +94,14 @@ public class PostList {
      * @param status         the status
      */
     public void ModifyPost(Post post, GeoPoint start_Custom_location, GeoPoint end_Custom_location, String status) {
-        post.setStartCustomLocation(start_Custom_location);
-        post.setEndCustomLocation(end_Custom_location);
+        post.setStartLocation(start_Custom_location);
+        post.setEndLocation(end_Custom_location);
         post.setStatus(status);
+        notifyListeners();
     }
 
     public void setPostList(ArrayList<Post> postList) {
         this.postList = postList;
+        notifyListeners();
     }
 }

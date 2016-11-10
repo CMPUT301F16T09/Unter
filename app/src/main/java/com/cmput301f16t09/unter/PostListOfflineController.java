@@ -17,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -26,7 +27,8 @@ import java.util.ArrayList;
 public class PostListOfflineController {
     private static PostList postlist = null;
     private static final String FILENAME = "real_offline_posts.sav";
-    private static PostList postListQueue = new PostList();
+    // Create a second file and store into that for offline queue?
+//    private static PostList postListQueue = new PostList();
 
     /**
      * Gets post list.
@@ -49,7 +51,7 @@ public class PostListOfflineController {
      * @return the post list
      */
 // Function to load stored data in FILENAME
-    public PostList loadOfflinePosts(Context context)
+    public static PostList loadOfflinePosts(Context context)
     {
         try
         {
@@ -82,7 +84,7 @@ public class PostListOfflineController {
         return postlist;
     }
 
-    private static void saveOfflinePosts(Context context)
+    public static void saveOfflinePosts(Context context)
     {
             try {
             // Open the FileOutputStream and BufferedWriter to write to FILENAME
@@ -93,7 +95,6 @@ public class PostListOfflineController {
             Gson gson = new Gson();
 
             // Write the data in list to BufferedWriter
-            gson.toJson(postListQueue.getPosts(), bw);
             gson.toJson(getPostList().getPosts(), bw);
 
             // Flush the buffer to prevent memory leakage and close the OutputStream
@@ -115,7 +116,6 @@ public class PostListOfflineController {
     public static void addOfflinePost(Post offlinePost, Context context) {
 
         getPostList().addPost(offlinePost);
-        postListQueue.addPost(offlinePost);
         saveOfflinePosts(context);
     }
 }

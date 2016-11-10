@@ -5,5 +5,5 @@ package com.cmput301f16t09.unter;
  */
 public interface Listener {
 
-    public void update();
+    void update();
 }
