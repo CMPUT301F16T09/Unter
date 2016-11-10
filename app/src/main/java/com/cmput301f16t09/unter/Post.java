@@ -10,8 +10,8 @@ import java.util.ArrayList;
  * for all the information
  */
 public class Post {
-    private GeoPoint startCustomLocation;
-    private GeoPoint endCustomLocation;
+    private GeoPoint startLocation;
+    private GeoPoint endLocation;
     private String status;
     private String fare;
     private ArrayList<String> driver_OfferList;
@@ -22,13 +22,13 @@ public class Post {
     /**
      * Instantiates a new Post.
      *
-     * @param startCustomLocation the start location
-     * @param endCustomLocation   the end location
+     * @param startLocation the start location
+     * @param endLocation   the end location
      * @param fare          the fare
      */
-    public Post(GeoPoint startCustomLocation, GeoPoint endCustomLocation, String fare, User rider) {
-        this.startCustomLocation = startCustomLocation;
-        this.endCustomLocation = endCustomLocation;
+    public Post(GeoPoint startLocation, GeoPoint endLocation, String fare, User rider) {
+        this.startLocation = startLocation;
+        this.endLocation = endLocation;
         this.status = "Pending Offer";
         this.fare = fare;
         this.driver_OfferList = new ArrayList();
@@ -58,36 +58,28 @@ public class Post {
      *
      * @return the start location
      */
-    public GeoPoint getStartCustomLocation() {
-        return startCustomLocation;
-    }
+    public GeoPoint getStartLocation() {return startLocation;}
 
     /**
      * Sets start location.
      *
-     * @param startCustomLocation the start location
+     * @param startLocation the start location
      */
-    public void setStartCustomLocation(GeoPoint startCustomLocation) {
-        this.startCustomLocation = startCustomLocation;
-    }
+    public void setStartLocation(GeoPoint startLocation) {this.startLocation = startLocation;}
 
     /**
      * Gets end location.
      *
      * @return the end location
      */
-    public GeoPoint getEndCustomLocation() {
-        return endCustomLocation;
-    }
+    public GeoPoint getEndLocation() {return endLocation;}
 
     /**
      * Sets end location.
      *
-     * @param endCustomLocation the end location
+     * @param endLocation the end location
      */
-    public void setEndCustomLocation(GeoPoint endCustomLocation) {
-        this.endCustomLocation = endCustomLocation;
-    }
+    public void setEndLocation(GeoPoint endLocation) {this.endLocation = endLocation;}
 
     /**
      * Gets status.
@@ -97,8 +89,6 @@ public class Post {
     public String getStatus() {
         return status;
     }
-
-
     /**
      * Sets status.
      *

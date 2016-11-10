@@ -75,8 +75,8 @@ public class PostList {
      * @param status         the status
      */
     public void ModifyPost(Post post, GeoPoint start_Custom_location, GeoPoint end_Custom_location, String status) {
-        post.setStartCustomLocation(start_Custom_location);
-        post.setEndCustomLocation(end_Custom_location);
+        post.setStartLocation(start_Custom_location);
+        post.setEndLocation(end_Custom_location);
         post.setStatus(status);
     }
 

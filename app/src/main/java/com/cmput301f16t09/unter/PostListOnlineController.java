@@ -8,7 +8,6 @@ import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import io.searchbox.core.DocumentResult;
@@ -163,5 +162,11 @@ public class PostListOnlineController {
             factory.setDroidClientConfig(config);
             client = (JestDroidClient) factory.getObject();
         }
+    }
+
+    // Idea: we call notifyUsers whenever we communicate with the server to notify user B
+    // that user A has made changes to their post (e.g. Driver accepts Riders request)
+    private static void notifyUsers(User user){
+        
     }
 }
