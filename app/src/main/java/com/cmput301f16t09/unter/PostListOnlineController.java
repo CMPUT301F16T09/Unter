@@ -141,6 +141,32 @@ public class PostListOnlineController {
         }
     }
 
+    public static class UpdatePostsTask extends AsyncTask<Post, Void, Void> {
+        @Override
+        protected Void doInBackground(Post... posts) {
+            verifySettings();
+
+            for (Post post: posts) {
+                //Add Indexing and such
+                Index index = new Index.Builder(post).index("t09").type("post").id(post.getId()).build();
+
+                try {
+                    DocumentResult result = client.execute(index);
+                    if (!result.isSucceeded()) {
+                        Log.i("Error", "Elastic search was not able to update the post.");
+                        System.out.println("Elastic search was not able to update the post.");
+                    }
+                }
+                catch (Exception e) {
+                    Log.i("Uhoh", "We failed to add a user to elastic search!");
+                    e.printStackTrace();
+                }
+            }
+
+            return null;
+        }
+    }
+
     public static class DeletePostsTask extends AsyncTask<Post, Void, Void> {
 
         //Need to fill

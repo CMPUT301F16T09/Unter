@@ -15,6 +15,7 @@ import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
+import io.searchbox.core.Update;
 
 public class UserListOnlineController {
     private static JestDroidClient client;
@@ -133,6 +134,33 @@ public class UserListOnlineController {
                 } catch (Exception e) {
                     Log.i("Uhoh", "We failed to add a user to elastic search!");
                     System.out.println("We failed to add a user to elastic search!");
+                    e.printStackTrace();
+                }
+            }
+
+            return null;
+        }
+    }
+
+    public static class UpdateUsersTask extends AsyncTask<User, Void, Void> {
+
+        @Override
+        protected Void doInBackground(User... users) {
+            verifySettings();
+
+            for (User user : users) {
+                //Add Indexing and such
+                Index index = new Index.Builder(user).index("t09").type("user").id(user.getId()).build();
+
+                try {
+                    DocumentResult result = client.execute(index);
+                    if (!result.isSucceeded()) {
+                        Log.i("Error", "Elastic search was not able to update the user.");
+                        System.out.println("Elastic search was not able to update the user.");
+                    }
+                } catch (Exception e) {
+                    Log.i("Uhoh", "We failed to update a user to elastic search!");
+                    System.out.println("We failed to update a user to elastic search!");
                     e.printStackTrace();
                 }
             }

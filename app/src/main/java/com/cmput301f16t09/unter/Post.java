@@ -4,6 +4,8 @@ import org.osmdroid.util.GeoPoint;
 
 import java.util.ArrayList;
 
+import io.searchbox.annotations.JestId;
+
 /**
  * a Post is a request created by riders, it contains the information that is inputted by
  * the rider to specify details of his/her request, this class contains the getter and setter
@@ -15,7 +17,8 @@ public class Post {
     private String status;
     private String fare;
     private ArrayList<String> driver_OfferList;
-    private String id;
+    @JestId
+    private String documentId;
     private User user;
 
 
@@ -41,7 +44,7 @@ public class Post {
      * @return the id
      */
     public String getId() {
-        return id;
+        return this.documentId;
     }
 
     /**
@@ -50,7 +53,7 @@ public class Post {
      * @param id the id
      */
     public void setId(String id) {
-        this.id = id;
+        this.documentId = id;
     }
 
     /**
