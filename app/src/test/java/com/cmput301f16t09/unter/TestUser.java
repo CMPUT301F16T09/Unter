@@ -2,6 +2,8 @@ package com.cmput301f16t09.unter;
 
 import junit.framework.TestCase;
 
+import org.osmdroid.util.GeoPoint;
+
 public class TestUser extends TestCase{
     /**
      * US 3.03.01 Display Contact Info
@@ -161,8 +163,8 @@ public class TestUser extends TestCase{
 
     public void testAddtoMyRequests(){
         User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
-        CustomLocation startLoc = new CustomLocation("53.52676", "-113.52715");
-        CustomLocation endLoc = new CustomLocation("53.54565", "-113.49026");
+        GeoPoint startLoc = new GeoPoint(53.52676, -113.52715);
+        GeoPoint endLoc = new GeoPoint(53.54565, -113.49026);
         String myFare = "40.39";
         Post rideRequest = new Post(startLoc,endLoc,myFare, newUsr);
         newUsr.addRideRequest(rideRequest);
@@ -178,8 +180,8 @@ public class TestUser extends TestCase{
      */
     public void testDeleteFromMyRequests(){
         User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
-        CustomLocation startLoc = new CustomLocation("53.52676", "-113.52715");
-        CustomLocation endLoc = new CustomLocation("53.54565", "-113.49026");
+        GeoPoint startLoc = new GeoPoint(53.52676, -113.52715);
+        GeoPoint endLoc = new GeoPoint(53.54565, -113.49026);
         String myFare = "40.39";
         Post rideRequest = new Post(startLoc,endLoc,myFare, newUsr);
         newUsr.addRideRequest(rideRequest);
@@ -194,8 +196,8 @@ public class TestUser extends TestCase{
      */
     public void testAddtoMyOffers(){
         User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
-        CustomLocation startLoc = new CustomLocation("53.52676", "-113.52715");
-        CustomLocation endLoc = new CustomLocation("53.54565", "-113.49026");
+        GeoPoint startLoc = new GeoPoint(53.52676, -113.52715);
+        GeoPoint endLoc = new GeoPoint(53.54565, -113.49026);
         String myFare = "40.39";
         Post a_request_i_accepted = new Post(startLoc,endLoc,myFare, newUsr);
         newUsr.addOfferReference(a_request_i_accepted);
@@ -208,8 +210,8 @@ public class TestUser extends TestCase{
      */
     public void testDeleteFromMyOffers(){
         User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
-        CustomLocation startLoc = new CustomLocation("53.52676", "-113.52715");
-        CustomLocation endLoc = new CustomLocation("53.54565", "-113.49026");
+        GeoPoint startLoc = new GeoPoint(53.52676, -113.52715);
+        GeoPoint endLoc = new GeoPoint(53.54565, -113.49026);
         String myFare = "40.39";
         Post rideRequest = new Post(startLoc,endLoc,myFare, newUsr);
         newUsr.addOfferReference(rideRequest);

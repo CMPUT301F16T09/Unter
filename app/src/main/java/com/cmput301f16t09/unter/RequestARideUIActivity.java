@@ -84,31 +84,17 @@ public class RequestARideUIActivity extends AppCompatActivity {
         editStart = (AutoCompleteTextView) findViewById(R.id.editTextRequestRideStartLocation);
         editEnd = (AutoCompleteTextView) findViewById(R.id.editTextRequestRideEndLocation);
         editFare = (EditText) findViewById(R.id.editTextRequestRideEstimatedFare);
-    }
-    
-    public void confirmRideRequest(View v) {
-
-        editStart = (AutoCompleteTextView) findViewById(R.id.editTextRequestRideStartLocation);
-        editEnd = (AutoCompleteTextView) findViewById(R.id.editTextRequestRideEndLocation);
-        editFare = (EditText) findViewById(R.id.editTextRequestRideEstimatedFare);
 
         String startLocation = editStart.getText().toString();
         String endLocation = editEnd.getText().toString();
 
         if (startLocation.equals("") && endLocation.equals("")) {
             Toast.makeText(this, "Please fill in start and end locations", Toast.LENGTH_SHORT).show();
-        }
-        else if (startLocation.equals("")) {
+        } else if (startLocation.equals("")) {
             Toast.makeText(this, "Please fill in start location", Toast.LENGTH_SHORT).show();
-        }
-        else if (endLocation.equals("")) {
+        } else if (endLocation.equals("")) {
             Toast.makeText(this, "Please fill in end location", Toast.LENGTH_SHORT).show();
-        }
-        else {
-
-            //Nov 7th, 2016 - http://stackoverflow.com/questions/13576470/converting-an-address-into-geopoint
-            //Geocoder takes an string and finds an address that most closely resembles the string
-            //then latitude and longitude is extracted from the address
+        } else {
 
             try {
                 List<Address> startAddress = coder.getFromLocationName(startLocation, 1);
@@ -138,15 +124,61 @@ public class RequestARideUIActivity extends AppCompatActivity {
             overlayItemArray.add(new OverlayItem("Starting Point", "This is the starting point", startPoint));
             overlayItemArray.add(new OverlayItem("Destination", "This is the destination point", endPoint));
             getRoadAsync();
+        }
+    }
+
+    public void confirmRideRequest(View v) {
+
+        editStart = (AutoCompleteTextView) findViewById(R.id.editTextRequestRideStartLocation);
+        editEnd = (AutoCompleteTextView) findViewById(R.id.editTextRequestRideEndLocation);
+        editFare = (EditText) findViewById(R.id.editTextRequestRideEstimatedFare);
+
+        String startLocation = editStart.getText().toString();
+        String endLocation = editEnd.getText().toString();
+        String fare = editFare.getText().toString();
+
+        if (startLocation.equals("") && endLocation.equals("")) {
+            Toast.makeText(this, "Please fill in start and end locations", Toast.LENGTH_SHORT).show();
+        }
+        else if (startLocation.equals("")) {
+            Toast.makeText(this, "Please fill in start location", Toast.LENGTH_SHORT).show();
+        }
+        else if (endLocation.equals("")) {
+            Toast.makeText(this, "Please fill in end location", Toast.LENGTH_SHORT).show();
+        }
+        else {
+
+            try {
+                List<Address> startAddress = coder.getFromLocationName(startLocation, 1);
+                startLat = startAddress.get(0).getLatitude();
+                startLong = startAddress.get(0).getLongitude();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                List<Address> endAddress = coder.getFromLocationName(endLocation, 1);
+                endLat = endAddress.get(0).getLatitude();
+                endLong = endAddress.get(0).getLongitude();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            startPoint = new GeoPoint(startLong, startLat);
+            endPoint = new GeoPoint(endLong, endLat);
+            //Nov 7th, 2016 - http://stackoverflow.com/questions/13576470/converting-an-address-into-geopoint
+            //Geocoder takes an string and finds an address that most closely resembles the string
+            //then latitude and longitude is extracted from the address
+
+            PostListOfflineController pOffC = new PostListOfflineController();
             PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
-            Post newPost = new Post(startPoint, endPoint, Double.toString(fare), CurrentUser.getCurrentUser());
-            PostListOfflineController.addOfflinePost(newPost, this);
+            Post newPost = new Post(startPoint, endPoint, fare, CurrentUser.getCurrentUser());
+            pOffC.addOfflinePost(newPost, this);
             addPostOnline.execute(newPost);
             Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();
             finish();
         }
     }
-
+    
     public void getRoadAsync() {
         mRoads = null;
         GeoPoint roadStartPoint = startPoint;

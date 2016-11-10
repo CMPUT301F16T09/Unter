@@ -2,6 +2,8 @@ package com.cmput301f16t09.unter;
 
 import junit.framework.TestCase;
 
+import org.osmdroid.util.GeoPoint;
+
 import java.util.ArrayList;
 
 public class TestPostListOnlineController extends TestCase{
@@ -17,7 +19,7 @@ public class TestPostListOnlineController extends TestCase{
 
     public void testaddPost() {
         User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
-        Post new_post = new Post(new CustomLocation("1234", "1234"), new CustomLocation("1234", "1234"), "50", newUsr);
+        Post new_post = new Post(new GeoPoint(1234.0, 1234.0), new GeoPoint(1234.0, 1234.0), "50", newUsr);
         try {
             PostListOnlineController.AddPostsTask addPostsTask = new PostListOnlineController.AddPostsTask();
             addPostsTask.execute(new_post);
@@ -37,7 +39,7 @@ public class TestPostListOnlineController extends TestCase{
     public void testdeletePost() {
         User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
 
-        Post new_post = new Post(new CustomLocation("1234", "1234"), new CustomLocation("1234", "1234"), "50", newUsr);
+        Post new_post = new Post(new GeoPoint(1234.0, 1234.0), new GeoPoint(1234.0, 1234.0), "50", newUsr);
         try {
             PostListOnlineController.AddPostsTask addPostsTask = new PostListOnlineController.AddPostsTask();
             addPostsTask.execute(new_post);
@@ -60,9 +62,9 @@ public class TestPostListOnlineController extends TestCase{
         User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
         User newUsr2 = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
         User newUsr3 = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
-        Post new_post = new Post(new CustomLocation("1234", "1234"), new CustomLocation("1234", "1234"), "50", newUsr);
-        Post new_post2 = new Post(new CustomLocation("1234", "1234"), new CustomLocation("1234", "1234"), "55", newUsr2);
-        Post new_post3 = new Post(new CustomLocation("1234", "1234"), new CustomLocation("1234", "1234"), "60", newUsr3);
+        Post new_post = new Post(new GeoPoint(1234.0, 1234.0), new GeoPoint(1234.0, 1234.0), "50", newUsr);
+        Post new_post2 = new Post(new GeoPoint(1234.0, 1234.0), new GeoPoint(1234.0, 1234.0), "55", newUsr2);
+        Post new_post3 = new Post(new GeoPoint(1234.0, 1234.0), new GeoPoint(1234.0, 1234.0), "60", newUsr3);
         try {
             PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
             searchPostListsTask.execute("50");

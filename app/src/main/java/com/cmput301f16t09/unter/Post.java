@@ -71,6 +71,7 @@ public class Post {
         this.startLocation = startLocation;
     }
 
+
     /**
      * Gets end location.
      *
@@ -97,8 +98,6 @@ public class Post {
     public String getStatus() {
         return status;
     }
-
-
     /**
      * Sets status.
      *
