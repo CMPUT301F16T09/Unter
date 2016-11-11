@@ -59,7 +59,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_request_aride_ui);
 
-        coder = new Geocoder(this, Locale.getDefault());
+        coder = new Geocoder(this, Locale.CANADA);
 
         map = (MapView) findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);
@@ -97,6 +97,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
         } else {
 
             try {
+//                List<Address> startAddress = coder.getFromLocationName(startLocation, 1, 51.0, -111.0, 54.0, -114.0);
                 List<Address> startAddress = coder.getFromLocationName(startLocation, 1);
                 startLat = startAddress.get(0).getLatitude();
                 startLong = startAddress.get(0).getLongitude();
@@ -104,6 +105,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             try {
+//                List<Address> endAddress = coder.getFromLocationName(endLocation, 1, 51.0, -111.0, 54.0, -114.0);
                 List<Address> endAddress = coder.getFromLocationName(endLocation, 1);
                 endLat = endAddress.get(0).getLatitude();
                 endLong = endAddress.get(0).getLongitude();
@@ -169,10 +171,9 @@ public class RequestARideUIActivity extends AppCompatActivity {
             //Geocoder takes an string and finds an address that most closely resembles the string
             //then latitude and longitude is extracted from the address
 
-            PostListOfflineController pOffC = new PostListOfflineController();
             PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
             Post newPost = new Post(startPoint, endPoint, fare, CurrentUser.getCurrentUser());
-            pOffC.addOfflinePost(newPost, this);
+            PostListOfflineController.addOfflinePost(newPost, RequestARideUIActivity.this);
             addPostOnline.execute(newPost);
             Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();
             finish();

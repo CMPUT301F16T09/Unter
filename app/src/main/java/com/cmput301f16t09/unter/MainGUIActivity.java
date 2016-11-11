@@ -51,6 +51,7 @@ public class MainGUIActivity extends AppCompatActivity {
             if (password.equals(currentUser.get(0).getPassword())){
                 Toast.makeText(this, "Logging In", Toast.LENGTH_SHORT).show();
                 CurrentUser.setCurrentUser(currentUser.get(0));
+                PostListOfflineController.getPostList(MainGUIActivity.this);
                 Intent intent = new Intent(MainGUIActivity.this, MainScreenUIActivity.class);
                 startActivity(intent);
             }

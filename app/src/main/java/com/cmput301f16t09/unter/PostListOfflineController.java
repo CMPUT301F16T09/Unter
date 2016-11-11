@@ -2,11 +2,14 @@ package com.cmput301f16t09.unter;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.location.Location;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -35,12 +39,28 @@ public class PostListOfflineController {
      *
      * @return the post list
      */
-    static public PostList getPostList() {
-        if (postlist == null) {
+    static public PostList getPostList(Context context) {
+        try {
+            postlist.getPosts().clear();
 
-            //Replace this with retrieval from location
-            postlist = new PostList();
+            PostListOnlineController.GetPostsTask onlinePosts = new PostListOnlineController.GetPostsTask();
+            onlinePosts.execute("");
+
+            try {
+                postlist.setPostList(onlinePosts.get());
+                saveOfflinePosts(context);
+            }
+            catch (Exception e) {
+                loadOfflinePosts(context);
+                Toast.makeText(context, "Cannot store posts", Toast.LENGTH_SHORT).show();
+                Log.i("Error", "Loading failed");
+            }
         }
+        catch (Exception e) {
+            postlist = new PostList();
+            Log.i("Error", "New Post List Created");
+        }
+
         return postlist;
     }
 
@@ -59,7 +79,7 @@ public class PostListOfflineController {
             // stackoverflow.com/questions/5017292/how-to-create-a-file-on-android-internal-storage
             ContextWrapper cw = new ContextWrapper(context);
             File dir = cw.getDir(FILENAME, context.MODE_PRIVATE);
-
+//            new FileOutputStream(FILENAME, false).close();
             // Open the file stream and buffer to load the data from FILENAME
             FileInputStream fis = context.openFileInput(FILENAME);
             BufferedReader br_in = new BufferedReader(new InputStreamReader(fis));
@@ -71,16 +91,21 @@ public class PostListOfflineController {
             // Code from http://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
             Type listType = new TypeToken<ArrayList<Post>>(){}.getType();
 
+            JsonReader reader = new JsonReader(br_in);
+            reader.setLenient(true);
             ArrayList<Post> tempList = gson.fromJson(br_in, listType);
 
             // Load the data into the global variable postListQueue
-            getPostList().setPostList(tempList);
+            postlist.setPostList(tempList);
         }
 
         // If there is no file, return error.
         catch (FileNotFoundException e) {
             Log.i("Error", "No Habits");
         }
+//        catch (IOException e) {
+//            e.printStackTrace();
+//        }
         return postlist;
     }
 
@@ -95,7 +120,7 @@ public class PostListOfflineController {
             Gson gson = new Gson();
 
             // Write the data in list to BufferedWriter
-            gson.toJson(getPostList().getPosts(), bw);
+            gson.toJson(postlist.getPosts(), bw);
 
             // Flush the buffer to prevent memory leakage and close the OutputStream
             bw.flush();
@@ -105,17 +130,9 @@ public class PostListOfflineController {
         }
     }
 
-    /**
-     * Add offline post.
-     *
-     * @param startLocation the start location
-     * @param endLocation   the end location
-     * @param fare          the fare
-     * @param context       the context
-     */
     public static void addOfflinePost(Post offlinePost, Context context) {
 
-        getPostList().addPost(offlinePost);
+        postlist.addPost(offlinePost);
         saveOfflinePosts(context);
     }
 }
