@@ -29,19 +29,19 @@ public class ViewProfileUIActivity extends AppCompatActivity {
         email = (TextView) findViewById(R.id.displayEmailTextView);
 
         Bundle extras = getIntent().getExtras();
-        String riderUserName = extras.getString("Rider");
+        String fetchThisUser = extras.getString("User");
 
-        title.setText(riderUserName);
+        title.setText(fetchThisUser);
 
         try {
-            UserListOnlineController.SearchUserListsTask getRiderInfoTask = new UserListOnlineController.SearchUserListsTask();
-            getRiderInfoTask.execute("username",riderUserName);
-            ArrayList<User> results = getRiderInfoTask.get();
-            User rider = results.get(0);
+            UserListOnlineController.SearchUserListsTask getUserInfoTask = new UserListOnlineController.SearchUserListsTask();
+            getUserInfoTask.execute("username",fetchThisUser);
+            ArrayList<User> results = getUserInfoTask.get();
+            User fetched = results.get(0);
 
-            name.setText(rider.getName());
-            phNumber.setText(rider.getPhoneNumber());
-            email.setText(rider.getEmail());
+            name.setText(fetched.getName());
+            phNumber.setText(fetched.getPhoneNumber());
+            email.setText(fetched.getEmail());
         }
         catch(Exception e){
         }

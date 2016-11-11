@@ -33,7 +33,7 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
     public void viewProfile(View v){
         Toast.makeText(this, "Logging In", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,ViewProfileUIActivity.class);
-        intent.putExtra("Rider","jellybean");
+        intent.putExtra("User","jellybean");
         startActivity(intent);
     }
 

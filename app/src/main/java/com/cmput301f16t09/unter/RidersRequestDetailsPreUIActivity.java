@@ -26,23 +26,23 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
 
         potentialDriversListView = (ListView) findViewById(R.id.listViewRideRequestDetailsRiderOffers);
         //potentialDrivers = CurrentUser.getCurrentPost().getDriverOffers();
-        potentialDrivers = new ArrayList<String>();
-        potentialDrivers.add("joker");
-        potentialDrivers.add("kappaross");
+        potentialDrivers = new ArrayList<String>(); //test
+        potentialDrivers.add("joker"); //test
+        potentialDrivers.add("kappaross"); //test
 
         driversAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,potentialDrivers);
         potentialDriversListView.setAdapter(driversAdapter);
 
         potentialDriversListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int currDriver_pos, long l) {
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final int currDriver_pos = i;
                 AlertDialog.Builder builder = new AlertDialog.Builder(RidersRequestDetailsPreUIActivity.this);
                 //String driverUsername = CurrentUser.getCurrentPost().getDriverOffers().get(currDriver_pos).toString(); //unsure about this
-                String driverUsername = potentialDrivers.get(currDriver_pos);
+                final String driverUsername = potentialDrivers.get(currDriver_pos);
 
-
-                builder.setMessage("Confirm Driver Selection: "+ driverUsername);
-                builder.setPositiveButton(R.string.positive_button, new DialogInterface.OnClickListener() {
+                builder.setMessage("Actions for Driver:         "+ driverUsername);
+                builder.setPositiveButton(R.string.choose_driver, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK button
                         Toast.makeText(RidersRequestDetailsPreUIActivity.this, "OK", Toast.LENGTH_SHORT).show();
@@ -50,6 +50,7 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
                         //update postlist here
                     }
                 });
+
                 builder.setNegativeButton(R.string.cancel_button, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
@@ -57,24 +58,25 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
 
                     }
                 });
+
+                builder.setNeutralButton(R.string.view_profile, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        // String driverUsername = CurrentUser.getCurrentPost().getDriverOffers().get(currDriver_pos).toString(); //unsure about this
+                       // String driverUsername = potentialDrivers.get(currDriver_pos);
+                        Intent intent = new Intent(RidersRequestDetailsPreUIActivity.this, ViewProfileUIActivity.class);
+                        intent.putExtra("User", driverUsername);
+                        startActivity(intent);
+
+                        Toast.makeText(RidersRequestDetailsPreUIActivity.this, "viewing profile", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+                builder.show();
                 return true;
             }
         });
-
-        //short clicks go to that user's profile
-        potentialDriversListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int currDriver_pos, long l) {
-               // String driverUsername = CurrentUser.getCurrentPost().getDriverOffers().get(currDriver_pos).toString(); //unsure about this
-                String driverUsername = potentialDrivers.get(currDriver_pos);
-                Intent intent = new Intent(RidersRequestDetailsPreUIActivity.this, ViewProfileUIActivity.class);
-                intent.putExtra("Rider", driverUsername);
-                startActivity(intent);
-            }
-
-        });
-
-        //long click brigs up dialog to confirm driver selection
 
 
     }//end of onCreate
