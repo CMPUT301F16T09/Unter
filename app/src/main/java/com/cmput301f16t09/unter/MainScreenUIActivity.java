@@ -57,12 +57,10 @@ public class MainScreenUIActivity extends AppCompatActivity {
     }
 
     public void myRideOffers(View v){
-        Intent requestARideIntent = new Intent(MainScreenUIActivity.this, MyRideOffersUIActivity.class);
-        startActivity(requestARideIntent);
-    }
+//        Intent requestARideIntent = new Intent(MainScreenUIActivity.this, MyRideOffersUIActivity.class);
+//        startActivity(requestARideIntent);
 
-    public void editProfile(View v){
-        Intent requestARideIntent = new Intent(MainScreenUIActivity.this, EditProfileUIActivity.class);
+        Intent requestARideIntent = new Intent(MainScreenUIActivity.this, RideOfferDetailsUIActivity.class);
         startActivity(requestARideIntent);
     }
 }

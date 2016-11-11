@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/background"
+    tools:context="com.cmput301f16t09.unter.EditProfileUIActivity">
+
+    <TextView
+        android:id="@+id/textUsernameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Username"
+        android:textSize="42sp"
+        android:textColor="@color/TextColor"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-smallcaps"/>
+
+    <TextView
+        android:id="@+id/textViewProfileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:textSize="@dimen/header_text_size"
+        android:textColor="@color/TextColor"
+        android:fontFamily="sans-serif-smallcaps"
+        android:layout_below="@+id/textUsernameTitle"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="39dp" />
+
+    <TextView
+        android:id="@+id/textViewProfilePhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewProfileName"
+        android:layout_alignStart="@+id/textViewProfileName"
+        android:layout_marginTop="45dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/phone_number"
+        android:textSize="@dimen/header_text_size"
+        android:textColor="@color/TextColor"
+        android:fontFamily="sans-serif-smallcaps" />
+
+    <TextView
+        android:id="@+id/textViewProfileEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewProfilePhoneNumber"
+        android:layout_alignStart="@+id/textViewProfileName"
+        android:layout_marginTop="45dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/email"
+        android:textSize="@dimen/header_text_size"
+        android:textColor="@color/TextColor"
+        android:fontFamily="sans-serif-smallcaps"/>
+
+    <TextView
+        android:id="@+id/displayNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="name of user"
+        android:textSize="@dimen/input_text_size"
+        android:textColor="@color/TextColor"
+        android:fontFamily="sans-serif-smallcaps"
+        android:layout_below="@+id/textViewProfileName"
+        android:layout_alignEnd="@+id/textViewProfilePhoneNumber" />
+
+    <TextView
+        android:id="@+id/displayNumberTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ph no"
+        android:textSize="@dimen/input_text_size"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:layout_below="@+id/textViewProfilePhoneNumber"
+        android:layout_alignStart="@+id/displayNameTextView"
+        android:phoneNumber="true"
+        android:inputType="phone"
+        android:autoLink="phone"
+        android:visibility="visible"
+        android:textColorHighlight="@color/lightAccent"
+        android:textColorLink="@color/lightAccent" />
+
+    <TextView
+        android:id="@+id/displayEmailTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="user email"
+        android:textSize="@dimen/input_text_size"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:layout_below="@+id/textViewProfileEmail"
+        android:layout_alignStart="@+id/displayNumberTextView"
+        android:inputType="textEmailAddress"
+        android:autoLink="email"
+        android:visibility="visible"
+        android:phoneNumber="false"
+        android:textColorHighlight="@color/lightAccent"
+        android:textColorLink="@color/lightAccent"
+        android:textAppearance="@color/darkAccent" />
+
+
+</RelativeLayout>

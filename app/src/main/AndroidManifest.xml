@@ -51,6 +51,9 @@
         <activity
             android:name=".RidersRequestDetailsPreUIActivity"
             android:label="@string/title_activity_riders_request_details_pre_ui"></activity>
+        <activity
+            android:name=".ViewProfileUIActivity"
+            ></activity>
     </application>
 
     <service android:name=".MyFirebaseMessagingService">

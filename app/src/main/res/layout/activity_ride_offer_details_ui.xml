@@ -45,7 +45,10 @@
         android:textSize="24sp"
         android:textColor="@color/white"
         android:textAlignment="textStart"
-        android:fontFamily="sans-serif-smallcaps" />
+        android:fontFamily="sans-serif-smallcaps"
+        android:clickable="true"
+        android:textColorLink="@color/accent"
+        android:onClick="viewProfile" />
 
     <TextView
         android:id="@+id/textViewRideOfferOfferedFare"
