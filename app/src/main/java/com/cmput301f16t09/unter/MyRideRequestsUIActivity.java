@@ -45,7 +45,6 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
 
         final ArrayAdapter<Post> adapter = new ArrayAdapter<Post>(this, android.R.layout.simple_list_item_1, postList.getPosts()) {
 
-
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
@@ -73,7 +72,7 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
 
 
                 // Remove forTestUsername after
-//                tv.setText(postList.getPost(position).getUsername());
+                // tv.setText(postList.getPost(position).getUsername());
                 tv.setTextColor(Color.WHITE);
                 tv.setTextSize(24);
                 return view;
@@ -109,6 +108,8 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
             }
         });
 
+        // Add a listener and define the update function to refresh the habits list when there
+        // is a change in the dataset, then save the data to FILENAME
         PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).addListener(new Listener() {
             @Override
             public void update()

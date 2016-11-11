@@ -19,7 +19,7 @@ public class Post {
     private ArrayList<String> driver_OfferList;
     @JestId
     private String documentId;
-    private User user;
+    private String user;
     private String driver;
 
     /**
@@ -29,7 +29,7 @@ public class Post {
      * @param endLocation   the end location
      * @param fare          the fare
      */
-    public Post(GeoPoint startLocation, GeoPoint endLocation, String fare, User rider) {
+    public Post(GeoPoint startLocation, GeoPoint endLocation, String fare, String rider) {
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.status = "Pending Offer";
@@ -171,7 +171,7 @@ public class Post {
     }
 
     public String getUsername() {
-        return this.user.getUsername();
+        return this.user;
     }
 
     public String toString(){

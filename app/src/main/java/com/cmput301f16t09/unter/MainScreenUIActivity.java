@@ -20,7 +20,6 @@ public class MainScreenUIActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen_ui);
-//        Toast.makeText(MainScreenUIActivity.this, CurrentUser.getCurrentUser().getId(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -57,10 +56,10 @@ public class MainScreenUIActivity extends AppCompatActivity {
     }
 
     public void myRideOffers(View v){
-//        Intent requestARideIntent = new Intent(MainScreenUIActivity.this, MyRideOffersUIActivity.class);
-//        startActivity(requestARideIntent);
-
-        Intent requestARideIntent = new Intent(MainScreenUIActivity.this, RidersRequestDetailsPreUIActivity.class);
+        Intent requestARideIntent = new Intent(MainScreenUIActivity.this, MyRideOffersUIActivity.class);
         startActivity(requestARideIntent);
+
+//        Intent requestARideIntent = new Intent(MainScreenUIActivity.this, RidersRequestDetailsPreUIActivity.class);
+//        startActivity(requestARideIntent);
     }
 }

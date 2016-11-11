@@ -172,7 +172,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
             //then latitude and longitude is extracted from the address
 
             PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
-            Post newPost = new Post(startPoint, endPoint, fare, CurrentUser.getCurrentUser());
+            Post newPost = new Post(startPoint, endPoint, fare, CurrentUser.getCurrentUser().getUsername());
             PostListOfflineController.addOfflinePost(newPost, RequestARideUIActivity.this);
             addPostOnline.execute(newPost);
             Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();

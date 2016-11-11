@@ -1,6 +1,7 @@
 package com.cmput301f16t09.unter;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
@@ -36,7 +37,9 @@ public class ProvideARideUIActivity extends AppCompatActivity {
         currentPostList = (ListView) findViewById(R.id.listViewProvideARide);
 
         for(Post p : PostListOfflineController.getPostList(ProvideARideUIActivity.this).getPosts()) {
-            if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername()))) {
+            if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&
+                    (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) &&
+                    (p.getStatus().equals("Pending Offer") || p.getStatus().equals("Pending Approval"))) {
                 postList.addPost(p);
             }
         }
@@ -81,6 +84,36 @@ public class ProvideARideUIActivity extends AppCompatActivity {
 
         currentPostList.setAdapter(adapter);
 
+        currentPostList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                CurrentUser.setCurrentPost(postList.getPost(position));
+                Boolean found = false;
+                postList.getPosts().clear();
+                for(Post p : PostListOfflineController.getPostList(ProvideARideUIActivity.this).getPosts()) {
+                    if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&
+                            (p.getStatus().equals("Pending Offer") || p.getStatus().equals("Pending Approval"))) {
+                        postList.addPost(p);
+                    }
+                }
+                for (Post p : postList.getPosts()) {
+                    if (CurrentUser.getCurrentPost().getId().equals(p.getId())) {
+                        CurrentUser.setCurrentPost(p);
+                        found = true;
+                        break;
+                    }
+                }
+                if (found) {
+                    Intent intent = new Intent(ProvideARideUIActivity.this, RequestDetailsUIActivity.class);
+                    startActivity(intent);
+                }
+                else {
+                    CurrentUser.setCurrentPost(null);
+                    Toast.makeText(ProvideARideUIActivity.this, "Selected Post Request Unavailable. Updated List.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         currentPostList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long id) {
@@ -103,10 +136,20 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                 }
 
                 adapter.notifyDataSetChanged();
-                PostListOfflineController.saveOfflinePosts(ProvideARideUIActivity.this);
             }
         });
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        for(Post p : PostListOfflineController.getPostList(ProvideARideUIActivity.this).getPosts()) {
+//            if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) && (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) && (p.getStatus().equals("Pending Offer") || p.getStatus().equals("Pending Approval"))) {
+//                postList.addPost(p);
+//            }
+//        }
+//    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -141,8 +184,6 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                // Save this change of data into FILENAME
-                PostListOfflineController.saveOfflinePosts(ProvideARideUIActivity.this);
 
                 Toast.makeText(ProvideARideUIActivity.this, "Post Deleted", Toast.LENGTH_SHORT).show();
             }

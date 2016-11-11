@@ -40,13 +40,11 @@ public class PostListOfflineController {
      * @return the post list
      */
     static public PostList getPostList(Context context) {
-        try {
-            postlist.getPosts().clear();
-
-            PostListOnlineController.GetPostsTask onlinePosts = new PostListOnlineController.GetPostsTask();
-            onlinePosts.execute("");
-
+        if (postlist == null) {
             try {
+                PostListOnlineController.GetPostsTask onlinePosts = new PostListOnlineController.GetPostsTask();
+                onlinePosts.execute("");
+                postlist = new PostList();
                 postlist.setPostList(onlinePosts.get());
                 saveOfflinePosts(context);
             }
@@ -55,10 +53,6 @@ public class PostListOfflineController {
                 Toast.makeText(context, "Cannot store posts", Toast.LENGTH_SHORT).show();
                 Log.i("Error", "Loading failed");
             }
-        }
-        catch (Exception e) {
-            postlist = new PostList();
-            Log.i("Error", "New Post List Created");
         }
 
         return postlist;
@@ -73,6 +67,7 @@ public class PostListOfflineController {
 // Function to load stored data in FILENAME
     public static PostList loadOfflinePosts(Context context)
     {
+        Toast.makeText(context, "Offline", Toast.LENGTH_SHORT).show();
         try
         {
             // Getting file directory code to ensure file is created from:
@@ -98,14 +93,10 @@ public class PostListOfflineController {
             // Load the data into the global variable postListQueue
             postlist.setPostList(tempList);
         }
-
-        // If there is no file, return error.
-        catch (FileNotFoundException e) {
-            Log.i("Error", "No Habits");
+         // If there is no file, return error.
+        catch (FileNotFoundException f) {
+            postlist = new PostList();
         }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
         return postlist;
     }
 
@@ -130,9 +121,15 @@ public class PostListOfflineController {
         }
     }
 
+    /**
+     * Add offline post.
+     *
+     * @param offlinePost   the post
+     * @param context       the context
+     */
     public static void addOfflinePost(Post offlinePost, Context context) {
 
-        postlist.addPost(offlinePost);
+        getPostList(context).addPost(offlinePost);
         saveOfflinePosts(context);
     }
 }
