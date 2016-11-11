@@ -9,15 +9,21 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.firebase.client.Firebase;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Salim Simon Akl on 2016-11-09.
  */
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
+
     private static final String TAG = "MyFirebaseMsgService";
+    private static final String FIREBASE_URL = " unter-8d7e0.firebaseio.com";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -61,5 +67,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0 /*ID of notification*/, notifiBuilder.build());
+    }
+
+    public static void sendNotificationToUser(User user, final String message) {
+        Firebase ref = new Firebase(FIREBASE_URL);
+        final Firebase notifications = ref.child("notificationRequests");
+
+        Map notification = new HashMap<>();
+        notification.put("username", user.getUsername());
+        notification.put("message", message);
+
+        notifications.push().setValue(notification);
     }
 }
