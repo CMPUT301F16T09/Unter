@@ -36,8 +36,6 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
 
         currentPostList = (ListView) findViewById(R.id.listViewMyRideRequests);
 
-        PostListOfflineController.getPostList(MyRideRequestsUIActivity.this);
-
         // Get All posts for the specific user
         for(Post p : PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
             if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
@@ -86,16 +84,16 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
 
         currentPostList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> adapterView, View view, int pos ,long id){
-                Intent RiderRequestPreIntent = new Intent(MyRideRequestsUIActivity.this,
-                                                        RidersRequestDetailsPreUIActivity.class);
-                Intent RiderRequestPostIntent = new Intent(MyRideRequestsUIActivity.this,
-                        RidersRequestDetailsPostUIActivity.class);
 
                 CurrentUser.setCurrentPost(postList.getPost(pos));
                 if (CurrentUser.getCurrentPost().getDriver() == null) {
+                    Intent RiderRequestPreIntent = new Intent(MyRideRequestsUIActivity.this,
+                            RidersRequestDetailsPreUIActivity.class);
                     startActivity(RiderRequestPreIntent);
                 }
                 else {
+                    Intent RiderRequestPostIntent = new Intent(MyRideRequestsUIActivity.this,
+                            RidersRequestDetailsPostUIActivity.class);
                     startActivity(RiderRequestPostIntent);
                 }
 

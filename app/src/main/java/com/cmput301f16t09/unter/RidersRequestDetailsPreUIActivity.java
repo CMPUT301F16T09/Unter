@@ -26,6 +26,7 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
 
     private PostList postList = new PostList();
     private ListView potentialDriversListView;
+    ArrayAdapter<String> driversAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,44 +41,46 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
             }
         }
 
-        TextView tvCurrentStatus = (TextView) findViewById(R.id.RideRequestDetailsPreCurrentStatus);
-        String currentStatus = CurrentUser.getCurrentPost().getStatus().toString();
-        tvCurrentStatus.setText(currentStatus);
+//        TextView tvCurrentStatus = (TextView) findViewById(R.id.RideRequestDetailsPreCurrentStatus);
+//        String currentStatus = CurrentUser.getCurrentPost().getStatus().toString();
+//        tvCurrentStatus.setText(currentStatus);
+//
+//        TextView tvStartLocation = (TextView) findViewById(R.id.RideRequestDetailsPreStartLocationName);
+//        String startLocation = CurrentUser.getCurrentPost().getStartLocation().toString();
+//        tvStartLocation.setText(startLocation);
+//
+//        TextView tvEndLocation = (TextView) findViewById(R.id.RideRequestDetailsPreEndLocationName);
+//        String endLocation = CurrentUser.getCurrentPost().getEndLocation().toString();
+//        tvEndLocation.setText(endLocation);
+//
+//        TextView tvOfferedFare = (TextView) findViewById(R.id.RideRequestDetailsPreOfferedFare);
+//        String offeredFare = CurrentUser.getCurrentPost().getFare().toString();
+//        tvOfferedFare.setText(offeredFare);
 
-        TextView tvStartLocation = (TextView) findViewById(R.id.RideRequestDetailsPreStartLocationName);
-        String startLocation = CurrentUser.getCurrentPost().getStartLocation().toString();
-        tvStartLocation.setText(startLocation);
+//        final ArrayAdapter<Post> adapter = new ArrayAdapter<Post>(this, android.R.layout.simple_list_item_1, postList.getPosts()) {
+//
+//            // Create the view for the habits. Habits name is red if it has not been completed before
+//            // and green if it has been completed.
+//            // Code to change text from: http://android--code.blogspot.ca/2015/08/android-listview-text-color.html
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//                View view = super.getView(position, convertView, parent);
+//                TextView tv = (TextView) view.findViewById(android.R.id.text1);
+//
+//                String startLocation = postList.getPost(position).getStartLocation().toString();
+//                String endLocation = postList.getPost(position).getEndLocation().toString();
+//                // Remove forTestUsername after
+////                String forTestUsername = postList.getPost(position).getDriverOffers();
+////                tv.setText("Username: " + forTestUsername);
+////                tv.setText(postList.getPost(position).getUsername());
+//                tv.setTextColor(Color.WHITE);
+//                return view;
+//            }
+//        };
 
-        TextView tvEndLocation = (TextView) findViewById(R.id.RideRequestDetailsPreEndLocationName);
-        String endLocation = CurrentUser.getCurrentPost().getEndLocation().toString();
-        tvEndLocation.setText(endLocation);
+        driversAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,potentialDrivers);
 
-        TextView tvOfferedFare = (TextView) findViewById(R.id.RideRequestDetailsPreOfferedFare);
-        String offeredFare = CurrentUser.getCurrentPost().getFare().toString();
-        tvOfferedFare.setText(offeredFare);
-
-        final ArrayAdapter<Post> adapter = new ArrayAdapter<Post>(this, android.R.layout.simple_list_item_1, postList.getPosts()) {
-
-            // Create the view for the habits. Habits name is red if it has not been completed before
-            // and green if it has been completed.
-            // Code to change text from: http://android--code.blogspot.ca/2015/08/android-listview-text-color.html
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View view = super.getView(position, convertView, parent);
-                TextView tv = (TextView) view.findViewById(android.R.id.text1);
-
-                String startLocation = postList.getPost(position).getStartLocation().toString();
-                String endLocation = postList.getPost(position).getEndLocation().toString();
-                // Remove forTestUsername after
-//                String forTestUsername = postList.getPost(position).getDriverOffers();
-//                tv.setText("Username: " + forTestUsername);
-//                tv.setText(postList.getPost(position).getUsername());
-                tv.setTextColor(Color.WHITE);
-                return view;
-            }
-        };
-
-        potentialDriversListView.setAdapter(adapter);
+        potentialDriversListView.setAdapter(driversAdapter);
         //potentialDrivers = CurrentUser.getCurrentPost().getDriverOffers();
         potentialDrivers = new ArrayList<String>(); //test
         potentialDrivers.add("joker"); //test
