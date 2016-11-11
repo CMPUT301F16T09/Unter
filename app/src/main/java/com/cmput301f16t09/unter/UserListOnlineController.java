@@ -192,14 +192,4 @@ public class UserListOnlineController {
     }
 
 
-
-    public void editUser(String name, String phoneNumber, String userEmail, String userPassword) {
-
-        //User user = getLoggedIn();      //probably not going to be used
-
-//        if (!name.isEmpty()) {user.setName(name);}
-//        if (!phoneNumber.isEmpty()) {user.setPhoneNumber(phoneNumber);}
-//        if (!userEmail.isEmpty()) {user.setEmail(userEmail);}
-//        if (!userPassword.isEmpty()) {user.setPassword(userPassword);}
-    }
 }

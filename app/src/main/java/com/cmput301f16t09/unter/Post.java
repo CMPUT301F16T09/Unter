@@ -34,7 +34,7 @@ public class Post {
         this.endLocation = endLocation;
         this.status = "Pending Offer";
         this.fare = fare;
-        this.driver_OfferList = new ArrayList();
+        this.driver_OfferList = new ArrayList<String>();
         this.user = rider;
         this.driver = null;
     }
@@ -172,5 +172,11 @@ public class Post {
 
     public String getUsername() {
         return this.user.getUsername();
+    }
+
+    public String toString(){
+        //String output = "Rider: "+ getUsername()+ "Driver:"
+        String output= "this is a post";
+        return output;
     }
 }

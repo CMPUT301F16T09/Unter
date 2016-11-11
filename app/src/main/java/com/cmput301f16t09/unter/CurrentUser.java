@@ -1,25 +1,22 @@
 package com.cmput301f16t09.unter;
 
-/**
- * Created by Mike on 2016-11-08.
- */
 public class CurrentUser {
     private static User currentUser = null;
     private static Post currentPost = null;
 
-    static User getCurrentUser() {
+    public static User getCurrentUser() {
         return currentUser;
     }
 
-    static void setCurrentUser(User newCurrentUser) {
+    public static void setCurrentUser(User newCurrentUser) {
         currentUser = newCurrentUser;
     }
 
-    static void setPost(Post newCurrentPost) {
-        currentPost = newCurrentPost;
+    public static Post getCurrentPost() {
+        return currentPost;
     }
 
-    static Post getPost() {
-        return currentPost;
+    public static void setCurrentPost(Post newCurrentPost) {
+        currentPost = newCurrentPost;
     }
 }

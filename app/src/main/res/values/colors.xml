@@ -4,9 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="background">#505050</color>
-    <color name="accent">#FF4500</color>
+    <color name="accent">#ff4500</color>
     <color name="TextColor">#FFFFFF</color>
-    <color name="darkAccent">#A62D00</color>
+    <color name="darkAccent">#a62d00</color>
     <color name="lightAccent">#ff9973</color>
     <color name="HintTextColor">#d3d3d3</color>
     <color name="black">#000000</color>

@@ -65,7 +65,6 @@ public class EditProfileUIActivity extends AppCompatActivity {
                 Log.i("Error", "Could not update");
                 Toast.makeText(EditProfileUIActivity.this, "Could not update!" , Toast.LENGTH_SHORT).show();
             }
-//                    uc.editUser(newName, newNumber, newEmail, newPassword);
         }
 
         else {
