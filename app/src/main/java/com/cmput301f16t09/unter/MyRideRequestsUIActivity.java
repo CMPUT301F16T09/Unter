@@ -28,11 +28,8 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_ride_requests_ui);
 
         currentPostList = (ListView) findViewById(R.id.listViewMyRideRequests);
-
-        PostListOfflineController ploc = new PostListOfflineController();
-        ploc.loadOfflinePosts(MyRideRequestsUIActivity.this);
         // Get All posts for the specific user
-        for(Post p : ploc.getPostList().getPosts()) {
+        for(Post p : PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
             if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
                 postList.addPost(p);
             }
@@ -41,9 +38,6 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
 
         final ArrayAdapter<Post> adapter = new ArrayAdapter<Post>(this, android.R.layout.simple_list_item_1, postList.getPosts()) {
 
-            // Create the view for the habits. Habits name is red if it has not been completed before
-            // and green if it has been completed.
-            // Code to change text from: http://android--code.blogspot.ca/2015/08/android-listview-text-color.html
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
@@ -54,13 +48,12 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
                 // Remove forTestUsername after
                 String forTestUsername = postList.getPost(position).getUsername();
                 tv.setText("Username: " + forTestUsername + "\nStart: " + startLocation +"\nEnd: " + endLocation);
-//                tv.setText(postList.getPost(position).getUsername());
+                // tv.setText(postList.getPost(position).getUsername());
                 tv.setTextColor(Color.WHITE);
                 return view;
             }
         };
 
-        // Set the adapter to the HabitList habitList
         currentPostList.setAdapter(adapter);
 
         currentPostList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -74,13 +67,13 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
 
         // Add a listener and define the update function to refresh the habits list when there
         // is a change in the dataset, then save the data to FILENAME
-        PostListOfflineController.getPostList().addListener(new Listener() {
+        PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).addListener(new Listener() {
             @Override
             public void update()
             {
                 postList.getPosts().clear();
 
-                for(Post p : PostListOfflineController.getPostList().getPosts()) {
+                for(Post p : PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
                     if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
                         postList.addPost(p);
                     }
@@ -129,7 +122,7 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 // Remove the habit from HabitList
                 try {
-                    PostListOfflineController.getPostList().deletePost(postToRemove);
+                    PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).deletePost(postToRemove);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

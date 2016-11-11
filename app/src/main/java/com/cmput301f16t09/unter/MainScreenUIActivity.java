@@ -20,7 +20,6 @@ public class MainScreenUIActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen_ui);
-        Toast.makeText(MainScreenUIActivity.this, CurrentUser.getCurrentUser().getId(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

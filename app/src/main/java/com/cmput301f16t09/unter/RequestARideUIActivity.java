@@ -171,7 +171,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
 
             PostListOfflineController pOffC = new PostListOfflineController();
             PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
-            Post newPost = new Post(startPoint, endPoint, fare, CurrentUser.getCurrentUser());
+            Post newPost = new Post(startPoint, endPoint, fare, CurrentUser.getCurrentUser().getUsername());
             pOffC.addOfflinePost(newPost, this);
             addPostOnline.execute(newPost);
             Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();

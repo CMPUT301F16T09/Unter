@@ -13,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
@@ -28,6 +30,7 @@ import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.infowindow.BasicInfoWindow;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,35 +46,47 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
     GeoPoint startPoint;
     GeoPoint destinationPoint;
 
+    TextView poster;
+    TextView start_Location;
+    TextView end_Location;
+    TextView fare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_details_ui);
 
-        map = (MapView) findViewById(R.id.request_details_map);
-        map.setTileSource(TileSourceFactory.MAPNIK);
-        map.setBuiltInZoomControls(true);
-        map.setMultiTouchControls(true);
-
-
-        startPoint = new GeoPoint(48.13, -1.63);
-        destinationPoint = new GeoPoint(48.4, -1.9);
-
-        IMapController mapController = map.getController();
-        mapController.setZoom(11);
-        mapController.setCenter(startPoint);
-
-        // to get a key http://developer.mapquest.com/
-        roadManager = new MapQuestRoadManager("xPGrfmORuC6QJMSkF6SXGKYbBgTefNdm");
-        //roadManager = new OSRMRoadManager(myActivity);
-
-        ArrayList<OverlayItem> overlayItemArray;
-        overlayItemArray = new ArrayList<>();
-
-        overlayItemArray.add(new OverlayItem("Starting Point", "This is the starting point", startPoint));
-        overlayItemArray.add(new OverlayItem("Destination", "This is the detination point", destinationPoint));
-        getRoadAsync();
+        poster = (TextView) findViewById(R.id.textViewPostedByRiderName);
+        poster.setText(CurrentUser.getCurrentPost().getUsername());
+        start_Location = (TextView) findViewById(R.id.textViewRequestDetailsStartLocationName);
+        start_Location.setText(CurrentUser.getCurrentPost().getStartLocation().toString());
+        end_Location = (TextView) findViewById(R.id.textViewRequestDetailsEndLocationName);
+        end_Location.setText(CurrentUser.getCurrentPost().getEndLocation().toString());
+        fare = (TextView) findViewById(R.id.textViewRequestDetails$$$);
+        fare.setText(CurrentUser.getCurrentPost().getFare());
+//        map = (MapView) findViewById(R.id.request_details_map);
+//        map.setTileSource(TileSourceFactory.MAPNIK);
+//        map.setBuiltInZoomControls(true);
+//        map.setMultiTouchControls(true);
+//
+//
+//        startPoint = new GeoPoint(48.13, -1.63);
+//        destinationPoint = new GeoPoint(48.4, -1.9);
+//
+//        IMapController mapController = map.getController();
+//        mapController.setZoom(11);
+//        mapController.setCenter(startPoint);
+//
+//        // to get a key http://developer.mapquest.com/
+//        roadManager = new MapQuestRoadManager("xPGrfmORuC6QJMSkF6SXGKYbBgTefNdm");
+//        //roadManager = new OSRMRoadManager(myActivity);
+//
+//        ArrayList<OverlayItem> overlayItemArray;
+//        overlayItemArray = new ArrayList<>();
+//
+//        overlayItemArray.add(new OverlayItem("Starting Point", "This is the starting point", startPoint));
+//        overlayItemArray.add(new OverlayItem("Destination", "This is the detination point", destinationPoint));
+//        getRoadAsync();
     }
 
     public void getRoadAsync() {
@@ -141,5 +156,39 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void confirm_ride_request(View v) {
+        Boolean found = false;
+        PostList temp;
+        for(Post p : PostListOfflineController.getPostList(RequestDetailsUIActivity.this).getPosts()) {
+            // Prob don't need the first check if this if statement.
+            if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) && (p.getStatus().equals("Pending Offer") || p.getStatus().equals("Pending Approval")) && CurrentUser.getCurrentPost().getId().equals(p.getId())) {
+                found = true;
+                p.addDriverOffer(CurrentUser.getCurrentUser().getUsername());
+                CurrentUser.setCurrentPost(p);
+                break;
+            }
+        }
+        if (found) {
+            try {
+                PostListOnlineController.UpdatePostsTask updatePostsTask = new PostListOnlineController.UpdatePostsTask();
+                updatePostsTask.execute(CurrentUser.getCurrentPost());
+                updatePostsTask.get();
+                PostListOfflineController.addOfflinePost(CurrentUser.getCurrentPost(), RequestDetailsUIActivity.this);
+                CurrentUser.getCurrentUser().getMyOffers().addPost(CurrentUser.getCurrentPost());
+                UserListOnlineController.UpdateUsersTask updateUserTask = new UserListOnlineController.UpdateUsersTask();
+                updateUserTask.execute(CurrentUser.getCurrentUser());
+                updateUserTask.get();
+                Toast.makeText(RequestDetailsUIActivity.this, "Successfully sent the offer!", Toast.LENGTH_SHORT).show();
+            }
+            catch (Exception e){
+                Toast.makeText(RequestDetailsUIActivity.this, "Sorry, Could not update the database", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else {
+            Toast.makeText(RequestDetailsUIActivity.this, "Sorry, Post is unavailable to offer ride to.", Toast.LENGTH_SHORT).show();
+        }
+        finish();
     }
 }

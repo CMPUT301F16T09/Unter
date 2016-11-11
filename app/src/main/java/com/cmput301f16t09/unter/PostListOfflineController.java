@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.location.Location;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -35,51 +36,46 @@ public class PostListOfflineController {
      *
      * @return the post list
      */
-    static public PostList getPostList() {
+    static public PostList getPostList(Context context) {
         if (postlist == null) {
+            try {
+                PostListOnlineController.GetPostsTask onlinePosts = new PostListOnlineController.GetPostsTask();
+                onlinePosts.execute("");
+                postlist = new PostList();
+                postlist.setPostList(onlinePosts.get());
+                saveOfflinePosts(context);
+            }
+            catch (Exception e) {
+                try
+                {
+                    Toast.makeText(context, "Offline", Toast.LENGTH_SHORT).show();
+                    // Getting file directory code to ensure file is created from:
+                    // stackoverflow.com/questions/5017292/how-to-create-a-file-on-android-internal-storage
+                    ContextWrapper cw = new ContextWrapper(context);
+                    File dir = cw.getDir(FILENAME, context.MODE_PRIVATE);
 
-            //Replace this with retrieval from location
-            postlist = new PostList();
-        }
-        return postlist;
-    }
+                    // Open the file stream and buffer to load the data from FILENAME
+                    FileInputStream fis = context.openFileInput(FILENAME);
+                    BufferedReader br_in = new BufferedReader(new InputStreamReader(fis));
 
-    /**
-     * Load offline posts post list.
-     *
-     * @param context the context
-     * @return the post list
-     */
-// Function to load stored data in FILENAME
-    public static PostList loadOfflinePosts(Context context)
-    {
-        try
-        {
-            // Getting file directory code to ensure file is created from:
-            // stackoverflow.com/questions/5017292/how-to-create-a-file-on-android-internal-storage
-            ContextWrapper cw = new ContextWrapper(context);
-            File dir = cw.getDir(FILENAME, context.MODE_PRIVATE);
+                    // Instantiate Gson
+                    Gson gson = new Gson();
 
-            // Open the file stream and buffer to load the data from FILENAME
-            FileInputStream fis = context.openFileInput(FILENAME);
-            BufferedReader br_in = new BufferedReader(new InputStreamReader(fis));
+                    // Type that Gson will convert the Json to
+                    // Code from http://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
+                    Type listType = new TypeToken<ArrayList<Post>>(){}.getType();
 
-            // Instantiate Gson
-            Gson gson = new Gson();
+                    ArrayList<Post> tempList = gson.fromJson(br_in, listType);
 
-            // Type that Gson will convert the Json to
-            // Code from http://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
-            Type listType = new TypeToken<ArrayList<Post>>(){}.getType();
+                    // Load the data into the global variable postListQueue
+                    postlist.setPostList(tempList);
+                }
 
-            ArrayList<Post> tempList = gson.fromJson(br_in, listType);
-
-            // Load the data into the global variable postListQueue
-            getPostList().setPostList(tempList);
-        }
-
-        // If there is no file, return error.
-        catch (FileNotFoundException e) {
-            Log.i("Error", "No Habits");
+                // If there is no file, return error.
+                catch (FileNotFoundException f) {
+                    postlist = new PostList();
+                }
+            }
         }
         return postlist;
     }
@@ -95,7 +91,7 @@ public class PostListOfflineController {
             Gson gson = new Gson();
 
             // Write the data in list to BufferedWriter
-            gson.toJson(getPostList().getPosts(), bw);
+            gson.toJson(postlist.getPosts(), bw);
 
             // Flush the buffer to prevent memory leakage and close the OutputStream
             bw.flush();
@@ -108,14 +104,12 @@ public class PostListOfflineController {
     /**
      * Add offline post.
      *
-     * @param startLocation the start location
-     * @param endLocation   the end location
-     * @param fare          the fare
+     * @param offlinePost   the post
      * @param context       the context
      */
     public static void addOfflinePost(Post offlinePost, Context context) {
 
-        getPostList().addPost(offlinePost);
+        getPostList(context).addPost(offlinePost);
         saveOfflinePosts(context);
     }
 }

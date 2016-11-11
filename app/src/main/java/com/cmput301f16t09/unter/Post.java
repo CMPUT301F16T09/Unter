@@ -19,7 +19,7 @@ public class Post {
     private ArrayList<String> driver_OfferList;
     @JestId
     private String documentId;
-    private User user;
+    private String user;
 
 
     /**
@@ -29,12 +29,12 @@ public class Post {
      * @param endLocation   the end location
      * @param fare          the fare
      */
-    public Post(GeoPoint startLocation, GeoPoint endLocation, String fare, User rider) {
+    public Post(GeoPoint startLocation, GeoPoint endLocation, String fare, String rider) {
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.status = "Pending Offer";
         this.fare = fare;
-        this.driver_OfferList = new ArrayList();
+        this.driver_OfferList = new ArrayList<String>();
         this.user = rider;
     }
 
@@ -166,6 +166,6 @@ public class Post {
     }
 
     public String getUsername() {
-        return this.user.getUsername();
+        return this.user;
     }
 }
