@@ -1,6 +1,7 @@
 package com.cmput301f16t09.unter;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
@@ -83,6 +84,24 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
 
         currentPostList.setAdapter(adapter);
 
+        currentPostList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos ,long id){
+                Intent RiderRequestPreIntent = new Intent(MyRideRequestsUIActivity.this,
+                                                        RidersRequestDetailsPreUIActivity.class);
+                Intent RiderRequestPostIntent = new Intent(MyRideRequestsUIActivity.this,
+                        RidersRequestDetailsPostUIActivity.class);
+
+                CurrentUser.setPost(postList.getPost(pos));
+                if (CurrentUser.getPost().getDriver() == null) {
+                    startActivity(RiderRequestPreIntent);
+                }
+                else {
+                    startActivity(RiderRequestPostIntent);
+                }
+
+            }
+        });
+
         currentPostList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long id) {
@@ -115,6 +134,7 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
 
     public void createDeletionDialog(Post post) {
 

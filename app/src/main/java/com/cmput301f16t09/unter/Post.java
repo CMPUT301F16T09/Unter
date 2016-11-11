@@ -20,7 +20,7 @@ public class Post {
     @JestId
     private String documentId;
     private User user;
-
+    private String driver;
 
     /**
      * Instantiates a new Post.
@@ -36,6 +36,7 @@ public class Post {
         this.fare = fare;
         this.driver_OfferList = new ArrayList();
         this.user = rider;
+        this.driver = null;
     }
 
     /**
@@ -146,6 +147,9 @@ public class Post {
         return this.driver_OfferList;
     }
 
+    public String getDriver() {
+        return this.driver;
+    }
     /**
      * Sets offers.
      *
@@ -163,6 +167,7 @@ public class Post {
     public void pickDriver(String driver) {
         this.driver_OfferList.clear();
         this.driver_OfferList.add(driver);
+        this.driver = driver;
     }
 
     public String getUsername() {
