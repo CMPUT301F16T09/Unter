@@ -91,8 +91,8 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
                 Intent RiderRequestPostIntent = new Intent(MyRideRequestsUIActivity.this,
                         RidersRequestDetailsPostUIActivity.class);
 
-                CurrentUser.setPost(postList.getPost(pos));
-                if (CurrentUser.getPost().getDriver() == null) {
+                CurrentUser.setCurrentPost(postList.getPost(pos));
+                if (CurrentUser.getCurrentPost().getDriver() == null) {
                     startActivity(RiderRequestPreIntent);
                 }
                 else {
