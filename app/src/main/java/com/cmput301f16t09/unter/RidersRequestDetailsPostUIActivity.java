@@ -21,23 +21,23 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
         setContentView(R.layout.activity_riders_request_details_post_ui);
 
         TextView tvCurrentStatus = (TextView) findViewById(R.id.RideRequestDetailsPostCurrentStatus);
-        String currentStatus = CurrentUser.getPost().getStatus().toString();
+        String currentStatus = CurrentUser.getCurrentPost().getStatus().toString();
         tvCurrentStatus.setText(currentStatus);
 
         TextView tvStartLocation = (TextView) findViewById(R.id.RideRequestDetailsPostStartLocationName);
-        String startLocation = CurrentUser.getPost().getStartLocation().toString();
+        String startLocation = CurrentUser.getCurrentPost().getStartLocation().toString();
         tvStartLocation.setText(startLocation);
 
         TextView tvEndLocation = (TextView) findViewById(R.id.RideRequestDetailsPostEndLocationName);
-        String endLocation = CurrentUser.getPost().getEndLocation().toString();
+        String endLocation = CurrentUser.getCurrentPost().getEndLocation().toString();
         tvEndLocation.setText(endLocation);
 
         TextView tvOfferedFare = (TextView) findViewById(R.id.RideRequestDetailsPostOfferedFare);
-        String offeredFare = CurrentUser.getPost().getFare().toString();
+        String offeredFare = CurrentUser.getCurrentPost().getFare().toString();
         tvOfferedFare.setText(offeredFare);
 
         TextView tvDriverName = (TextView) findViewById(R.id.RideRequestDetailsPostDriverName);
-        String driverName = CurrentUser.getPost().getDriver().toString();
+        String driverName = CurrentUser.getCurrentPost().getDriver().toString();
         tvDriverName.setText(driverName);
 
     }
