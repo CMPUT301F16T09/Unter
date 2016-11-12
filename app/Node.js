@@ -4,7 +4,7 @@ var request = require('request');
 var API_KEY = "AIzaSyDnmSHLfw4Qb1mdPUtjXZgya8UXhYbXnU8"; // Your Firebase Cloud Server API key
 
 firebase.initializeApp({
-  serviceAccount: "/Unter/app/google-services.json",
+  serviceAccount: "unter-8d7e0-firebase-adminsdk-xqu1e-15a1e06f7c.json",
   databaseURL: "https://unter-8d7e0.firebaseio.com/"
 });
 ref = firebase.database().ref();
@@ -37,7 +37,7 @@ function sendNotificationToUser(user, message, onSuccess) {
       notification: {
         title: message
       },
-      to : '/topics/"user_"+user.getUsername()'
+      to : '/topics/user_'+user.getUsername()
     })
   }, function(error, response, body) {
     if (error) { console.error(error); }
