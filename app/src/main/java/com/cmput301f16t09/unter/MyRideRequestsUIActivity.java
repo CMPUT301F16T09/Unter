@@ -71,7 +71,6 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
 
                 tv.setText("Username: " + forTestUsername + "\nStart: " + startLocation +"\nEnd: " + endLocation);
 
-
                 // Remove forTestUsername after
                 // tv.setText(postList.getPost(position).getUsername());
                 tv.setTextColor(Color.WHITE);

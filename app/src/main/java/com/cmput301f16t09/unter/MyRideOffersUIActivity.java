@@ -1,5 +1,6 @@
 package com.cmput301f16t09.unter;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -49,6 +51,16 @@ public class MyRideOffersUIActivity extends AppCompatActivity {
         };
 
         currentPostList.setAdapter(adapter);
+
+        currentPostList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos ,long id){
+
+                CurrentUser.setCurrentPost(postList.getPost(pos));
+                Intent RideOfferDetailsIntent = new Intent(MyRideOffersUIActivity.this,
+                        RideOfferDetailsUIActivity.class);
+                startActivity(RideOfferDetailsIntent);
+            }
+        });
 
         PostListOfflineController.getPostList(MyRideOffersUIActivity.this).addListener(new Listener() {
             @Override

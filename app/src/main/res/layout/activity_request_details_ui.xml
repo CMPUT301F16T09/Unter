@@ -10,7 +10,6 @@
     android:background="@color/background"
     tools:context="com.cmput301f16t09.unter.RequestDetailsUIActivity">
 
-
     <TextView
         android:id="@+id/RequestDetails"
         android:layout_width="match_parent"
@@ -41,12 +40,15 @@
         android:layout_toEndOf="@id/RequestDetailsPostedBy"
         android:layout_alignBaseline="@id/RequestDetailsPostedBy"
         android:layout_marginTop="10dp"
-        android:text="RiderName"
         android:textSize="20sp"
         android:textColor="@color/white"
         android:fontFamily="sans-serif-smallcaps" />
 
-     <!--Insert map view-->
+    <org.osmdroid.views.MapView android:id="@+id/map"
+        android:layout_width="400dp"
+        android:layout_height="300dp"
+        android:layout_below="@+id/RequestDetailsPostedBy"/>
+
     <TextView
         android:id="@+id/RequestDetailsStartLocation"
         android:layout_width="wrap_content"
@@ -66,9 +68,9 @@
         android:layout_toEndOf="@id/RequestDetailsStartLocation"
         android:layout_alignBaseline="@id/RequestDetailsStartLocation"
         android:layout_marginTop="10dp"
-        android:text="Location"
         android:textSize="20sp"
         android:textColor="@color/white"
+        android:singleLine="true"
         android:fontFamily="sans-serif-smallcaps" />
 
     <TextView
@@ -89,9 +91,9 @@
         android:layout_toEndOf="@id/RequestDetailsEndLocation"
         android:layout_alignBaseline="@id/RequestDetailsEndLocation"
         android:layout_marginTop="10dp"
-        android:text="Location"
         android:textSize="20sp"
         android:textColor="@color/white"
+        android:singleLine="true"
         android:fontFamily="sans-serif-smallcaps" />
 
 
@@ -106,6 +108,7 @@
         android:textSize="20sp"
         android:textColor="@color/white"
         android:textAlignment="textEnd"
+        android:singleLine="true"
         android:fontFamily="sans-serif-smallcaps" />
 
     <TextView
