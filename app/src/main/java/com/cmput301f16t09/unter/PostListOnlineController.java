@@ -181,10 +181,7 @@ public class PostListOnlineController {
 
                 try {
                     DocumentResult result = client.execute(index);
-                    if (result.isSucceeded()) {
-                        post.setId(result.getId());
-                    }
-                    else {
+                    if (!result.isSucceeded()) {
                         Log.i("Error", "Elastic search was not able to delete the post.");
                     }
                 }

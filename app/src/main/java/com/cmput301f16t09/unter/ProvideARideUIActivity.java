@@ -26,7 +26,7 @@ public class ProvideARideUIActivity extends AppCompatActivity {
     private PostList postList = new PostList();
     private ListView currentPostList;
     private Geocoder coder;
-
+    private ArrayAdapter<Post> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class ProvideARideUIActivity extends AppCompatActivity {
             }
         }
 
-        final ArrayAdapter<Post> adapter = new ArrayAdapter<Post>(this, android.R.layout.simple_list_item_1, postList.getPosts()) {
+        adapter = new ArrayAdapter<Post>(this, android.R.layout.simple_list_item_1, postList.getPosts()) {
 
             // Create the view for the habits. Habits name is red if it has not been completed before
             // and green if it has been completed.
@@ -144,19 +144,24 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                 }
 
                 adapter.notifyDataSetChanged();
+                PostListOfflineController.saveOfflinePosts(ProvideARideUIActivity.this);
             }
         });
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        for(Post p : PostListOfflineController.getPostList(ProvideARideUIActivity.this).getPosts()) {
-//            if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) && (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) && (p.getStatus().equals("Pending Offer") || p.getStatus().equals("Pending Approval"))) {
-//                postList.addPost(p);
-//            }
-//        }
-//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        postList.getPosts().clear();
+        for(Post p : PostListOfflineController.getPostList(ProvideARideUIActivity.this).getPosts()) {
+            if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&
+                    (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) &&
+                    (p.getStatus().equals("Pending Offer") || p.getStatus().equals("Pending Approval"))) {
+                postList.addPost(p);
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)

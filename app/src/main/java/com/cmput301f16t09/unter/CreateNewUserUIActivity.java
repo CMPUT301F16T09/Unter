@@ -61,8 +61,11 @@ public class CreateNewUserUIActivity extends AppCompatActivity {
                 searchUserListsTask.execute("email", input_index.get(3));
                 userlist = searchUserListsTask.get();
                 // Searching emails requires regex to get the correct results, so looping through the results is an easy way out.
-                //if (userlist.isEmpty()) {
-                if (!userlist.contains(input_index.get(3))) {
+                // if (!userlist.contains(input_index.get(3))) {
+                // Userlist is a array of users, can't use contains with string?
+                // Use this possibily if desired, but userlist.isEmpty() is better (probably)
+                // if (!userlist.get(0).getEmail().equals(input_index.get(3).toLowerCase())) {
+                if (userlist.isEmpty()) {
                     if (input_index.get(5).equals(input_index.get(4))) {
                         User new_user = new User(input_index.get(1), input_index.get(0), input_index.get(3), input_index.get(2), input_index.get(4));
                         UserListOnlineController.AddUsersTask addUserTask = new UserListOnlineController.AddUsersTask();

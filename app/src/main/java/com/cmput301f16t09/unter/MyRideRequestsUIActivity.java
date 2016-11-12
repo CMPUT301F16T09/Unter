@@ -25,25 +25,26 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
 
     private PostList postList = new PostList();
     private Geocoder coder;
+    private ArrayAdapter<Post> adapter;
+    private ListView currentPostList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_ride_requests_ui);
 
-        ListView currentPostList;
         coder = new Geocoder(this, Locale.CANADA);
 
         currentPostList = (ListView) findViewById(R.id.listViewMyRideRequests);
 
         // Get All posts for the specific user
-        for(Post p : PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
-            if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
-                postList.addPost(p);
-            }
-        }
+//        for(Post p : PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
+//            if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
+//                postList.addPost(p);
+//            }
+//        }
 
-        final ArrayAdapter<Post> adapter = new ArrayAdapter<Post>(this, android.R.layout.simple_list_item_1, postList.getPosts()) {
+        adapter = new ArrayAdapter<Post>(this, android.R.layout.simple_list_item_1, postList.getPosts()) {
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -129,6 +130,18 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        postList.getPosts().clear();
+        for(Post p : PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
+            if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
+                postList.addPost(p);
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
@@ -158,13 +171,27 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 try {
-                    PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).deletePost(postToRemove);
+                    PostListOnlineController.DeletePostsTask deletePostsTask = new PostListOnlineController.DeletePostsTask();
+                    deletePostsTask.execute(CurrentUser.getCurrentPost());
+                    deletePostsTask.get();
+
+                    CurrentUser.getCurrentUser().getMyOffers().deletePost(CurrentUser.getCurrentPost());
+
+                    UserListOnlineController.UpdateUsersTask updateUsersTask = new UserListOnlineController.UpdateUsersTask();
+                    updateUsersTask.execute(CurrentUser.getCurrentUser());
+                    updateUsersTask.get();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 // Save this change of data into FILENAME
                 PostListOfflineController.saveOfflinePosts(MyRideRequestsUIActivity.this);
-
+                postList.getPosts().clear();
+                for(Post p : PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
+                    if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
+                        postList.addPost(p);
+                    }
+                }
+                adapter.notifyDataSetChanged();
                 Toast.makeText(MyRideRequestsUIActivity.this, "Post Deleted", Toast.LENGTH_SHORT).show();
             }
         });

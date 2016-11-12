@@ -70,10 +70,10 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
 
         potentialDriversListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(RidersRequestDetailsPreUIActivity.this);
-                final String driverUsername = CurrentUser.getCurrentPost().getDriverOffers().get(i); //unsure about this
+                final String driverUsername = CurrentUser.getCurrentPost().getDriverOffers().get(position); //unsure about this
 
                 builder.setMessage("Actions for Driver:         "+ driverUsername);
                 builder.setPositiveButton(R.string.choose_driver, new DialogInterface.OnClickListener() {
@@ -86,7 +86,6 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
                             PostListOnlineController.UpdatePostsTask upt = new PostListOnlineController.UpdatePostsTask();
                             upt.execute(CurrentUser.getCurrentPost());
                             upt.get();
-                            CurrentUser.getCurrentUser().getMyOffers().addPost(CurrentUser.getCurrentPost());
 
                             UserListOnlineController.UpdateUsersTask uut = new UserListOnlineController.UpdateUsersTask();
                             uut.execute(CurrentUser.getCurrentUser());
@@ -94,6 +93,7 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
 
                             Toast.makeText(RidersRequestDetailsPreUIActivity.this, "OK", Toast.LENGTH_SHORT).show();
                             adapter.notifyDataSetChanged();
+                            finish();
                         }
                         catch (Exception e) {
                             Log.i("Error", "Unable to Update Post/User Information");
@@ -134,7 +134,9 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
             PostListOnlineController.DeletePostsTask upt = new PostListOnlineController.DeletePostsTask();
             upt.execute(CurrentUser.getCurrentPost());
             upt.get();
+
             CurrentUser.getCurrentUser().getMyOffers().deletePost(CurrentUser.getCurrentPost());
+
             UserListOnlineController.UpdateUsersTask uut = new UserListOnlineController.UpdateUsersTask();
             uut.execute(CurrentUser.getCurrentUser());
             uut.get();
