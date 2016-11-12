@@ -1,19 +1,26 @@
 package com.cmput301f16t09.unter;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
 
     private PostList postList = new PostList();
     private ListView currentPostList;
+    private Button complete_request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +44,83 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
         tvOfferedFare.setText(offeredFare);
 
         TextView tvDriverName = (TextView) findViewById(R.id.RideRequestDetailsPostDriverName);
-        String driverName = CurrentUser.getCurrentPost().getDriver().toString();
+        final String driverName = CurrentUser.getCurrentPost().getDriver().toString();
         tvDriverName.setText(driverName);
 
+        tvDriverName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RidersRequestDetailsPostUIActivity.this,ViewProfileUIActivity.class);
+                intent.putExtra("User",driverName);
+                startActivity(intent);
+            }
+        });
+
+        complete_request = (Button) findViewById(R.id.RideRequestDetailsCompleteRequestButton);
+        complete_request.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+
+               if (!enablePayment(CurrentUser.getCurrentPost())){
+                    Log.i("Error","Could not complete payment");
+                }
+
+//                int index = CurrentUser.getCurrentUser().getMyRequests().getPosts().indexOf(CurrentUser.getCurrentPost());
+//                CurrentUser.getCurrentUser().getMyRequests().getPosts().get(index).setStatus("Completed");
+                //  CurrentUser.getCurrentUser().getMyRequests().getPosts().remove(CurrentUser.getCurrentPost());
+                CurrentUser.getCurrentPost().setStatus("Completed");
+
+                try {
+                    PostListOnlineController.UpdatePostsTask upt = new PostListOnlineController.UpdatePostsTask();
+                    upt.execute(CurrentUser.getCurrentPost());
+                    upt.get();
+
+
+                    UserListOnlineController.UpdateUsersTask uut = new UserListOnlineController.UpdateUsersTask();
+                    uut.execute(CurrentUser.getCurrentUser());
+                    uut.get();
+
+                    Toast.makeText(RidersRequestDetailsPostUIActivity.this, "Completed request!!", Toast.LENGTH_SHORT).show();
+                    //adapter.notifyDataSetChanged();
+
+//
+                    Intent intent = new Intent(RidersRequestDetailsPostUIActivity.this,MainScreenUIActivity.class);
+                    startActivity(intent);
+
+                }
+                catch (Exception e) {
+                    Log.i("Error", "Unable to Update Post/User Information");
+                }
+            }
+        });
     }
 
+    public boolean enablePayment(Post p) {
+
+        // Build the dialog
+        AlertDialog.Builder paymentDialog = new AlertDialog.Builder(RidersRequestDetailsPostUIActivity.this);
+        paymentDialog.setTitle("Payment Options");
+        paymentDialog.setMessage("$"+ "  " + p.getFare().toString());
+        paymentDialog.setCancelable(false);
+
+        paymentDialog.setPositiveButton("Complete Transaction", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                try {
+//                    PostListOfflineController.getPostList(ProvideARideUIActivity.this).deletePost(postToRemove);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+
+                Toast.makeText(RidersRequestDetailsPostUIActivity.this, "Payment ", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        // Show the dialog
+        paymentDialog.show();
+        return true;
+    }
 
 }

@@ -94,6 +94,10 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
 
                             Toast.makeText(RidersRequestDetailsPreUIActivity.this, "OK", Toast.LENGTH_SHORT).show();
                             adapter.notifyDataSetChanged();
+
+                            Intent intent = new Intent(RidersRequestDetailsPreUIActivity.this,RidersRequestDetailsPostUIActivity.class);
+                            startActivity(intent);
+
                         }
                         catch (Exception e) {
                             Log.i("Error", "Unable to Update Post/User Information");

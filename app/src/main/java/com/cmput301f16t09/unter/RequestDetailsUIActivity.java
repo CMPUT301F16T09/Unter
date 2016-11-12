@@ -1,5 +1,6 @@
 package com.cmput301f16t09.unter;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -87,6 +88,15 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
 //        overlayItemArray.add(new OverlayItem("Starting Point", "This is the starting point", startPoint));
 //        overlayItemArray.add(new OverlayItem("Destination", "This is the detination point", destinationPoint));
 //        getRoadAsync();
+
+        poster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RequestDetailsUIActivity.this,ViewProfileUIActivity.class);
+                intent.putExtra("User",CurrentUser.getCurrentPost().getUsername());
+                startActivity(intent);
+            }
+        });
     }
 
     public void getRoadAsync() {
