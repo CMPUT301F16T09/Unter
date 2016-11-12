@@ -14,14 +14,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
-import org.osmdroid.bonuspack.routing.MapQuestRoadManager;
+import org.osmdroid.bonuspack.routing.OSRMRoadManager;
 import org.osmdroid.bonuspack.routing.Road;
 import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Overlay;
-import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.infowindow.BasicInfoWindow;
 
@@ -38,28 +37,25 @@ public class RequestARideUIActivity extends AppCompatActivity {
     private AutoCompleteTextView editStart;
     private AutoCompleteTextView editEnd;
     private EditText editFare;
+    Activity myActivity = this;
 
     RoadManager roadManager;
     MapView map;
     Road[] mRoads;
+    Geocoder coder;
+    IMapController mapController;
+
+    double latitude;
+    double longitude;
     GeoPoint startPoint;
     GeoPoint endPoint;
-    Geocoder coder;
-
-    double startLat;
-    double startLong;
-    double endLat;
-    double endLong;
-    Activity myActivity = this;
-    IMapController mapController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_request_aride_ui);
-
-        coder = new Geocoder(this, Locale.CANADA);
+        coder = new Geocoder(this, Locale.getDefault());
 
         map = (MapView) findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);
@@ -96,35 +92,18 @@ public class RequestARideUIActivity extends AppCompatActivity {
             Toast.makeText(this, "Please fill in end location", Toast.LENGTH_SHORT).show();
         } else {
 
-            try {
-//                List<Address> startAddress = coder.getFromLocationName(startLocation, 1, 51.0, -111.0, 54.0, -114.0);
-                List<Address> startAddress = coder.getFromLocationName(startLocation, 1);
-                startLat = startAddress.get(0).getLatitude();
-                startLong = startAddress.get(0).getLongitude();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-//                List<Address> endAddress = coder.getFromLocationName(endLocation, 1, 51.0, -111.0, 54.0, -114.0);
-                List<Address> endAddress = coder.getFromLocationName(endLocation, 1);
-                endLat = endAddress.get(0).getLatitude();
-                endLong = endAddress.get(0).getLongitude();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            startPoint = findCoords(startLocation);
+            endPoint = findCoords(endLocation);
 
-            startPoint = new GeoPoint(startLong, startLat);
-            endPoint = new GeoPoint(endLong, endLat);
-
-            double fare = getFareEstimate(startPoint, endPoint);
-            editFare.setText(Double.toString(fare));                //brings out fare estimate to users
+            //getFareAsync();
 
             mapController.setCenter(startPoint);
             // to get a key http://developer.mapquest.com/
-            roadManager = new MapQuestRoadManager("xPGrfmORuC6QJMSkF6SXGKYbBgTefNdm");
-            ArrayList<OverlayItem> overlayItemArray = new ArrayList<>();
-            overlayItemArray.add(new OverlayItem("Starting Point", "This is the starting point", startPoint));
-            overlayItemArray.add(new OverlayItem("Destination", "This is the destination point", endPoint));
+            //roadManager = new MapQuestRoadManager("xPGrfmORuC6QJMSkF6SXGKYbBgTefNdm");
+            roadManager = new OSRMRoadManager(this);
+//            ArrayList<OverlayItem> overlayItemArray = new ArrayList<>();
+//            overlayItemArray.add(new OverlayItem("Starting Point", "This is the starting point", startPoint));
+//            overlayItemArray.add(new OverlayItem("Destination", "This is the destination point", endPoint));
             getRoadAsync();
         }
     }
@@ -139,6 +118,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
         String endLocation = editEnd.getText().toString();
         String fare = editFare.getText().toString();
 
+
         if (startLocation.equals("") && endLocation.equals("")) {
             Toast.makeText(this, "Please fill in start and end locations", Toast.LENGTH_SHORT).show();
         }
@@ -149,51 +129,31 @@ public class RequestARideUIActivity extends AppCompatActivity {
             Toast.makeText(this, "Please fill in end location", Toast.LENGTH_SHORT).show();
         }
         else {
-
-            try {
-                List<Address> startAddress = coder.getFromLocationName(startLocation, 1);
-                startLat = startAddress.get(0).getLatitude();
-                startLong = startAddress.get(0).getLongitude();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                List<Address> endAddress = coder.getFromLocationName(endLocation, 1);
-                endLat = endAddress.get(0).getLatitude();
-                endLong = endAddress.get(0).getLongitude();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            startPoint = new GeoPoint(startLong, startLat);
-            endPoint = new GeoPoint(endLong, endLat);
-            //Nov 7th, 2016 - http://stackoverflow.com/questions/13576470/converting-an-address-into-geopoint
-            //Geocoder takes an string and finds an address that most closely resembles the string
-            //then latitude and longitude is extracted from the address
+            startPoint = findCoords(startLocation);
+            endPoint = findCoords(endLocation);
 
             PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
             Post newPost = new Post(startPoint, endPoint, fare, CurrentUser.getCurrentUser().getUsername());
             PostListOfflineController.addOfflinePost(newPost, RequestARideUIActivity.this);
             addPostOnline.execute(newPost);
             Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();
+
             finish();
         }
     }
-    
+
     public void getRoadAsync() {
         mRoads = null;
-        GeoPoint roadStartPoint = startPoint;
-        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>(2);
-        waypoints.add(roadStartPoint);
-        waypoints.add(endPoint);
-        new UpdateRoadTask().execute(waypoints);
+        ArrayList<GeoPoint> wayPoints = new ArrayList<>(2);
+        wayPoints.add(startPoint);
+        wayPoints.add(endPoint);
+        new UpdateRoadTask().execute(wayPoints);
     }
-
     private class UpdateRoadTask extends AsyncTask<Object, Void, Road[]> {
         protected Road[] doInBackground(Object... params) {
             @SuppressWarnings("unchecked")
-            ArrayList<GeoPoint> waypoints = (ArrayList<GeoPoint>) params[0];
-            return roadManager.getRoads(waypoints);
+            ArrayList<GeoPoint> wayPoints = (ArrayList<GeoPoint>) params[0];
+            return roadManager.getRoads(wayPoints);
         }
         @Override
         protected void onPostExecute(Road[] roads) {
@@ -204,34 +164,81 @@ public class RequestARideUIActivity extends AppCompatActivity {
                 Toast.makeText(map.getContext(), "Technical issue when getting the route", Toast.LENGTH_SHORT).show();
             else if (roads[0].mStatus > Road.STATUS_TECHNICAL_ISSUE) //functional issues
                 Toast.makeText(map.getContext(), "No possible route here", Toast.LENGTH_SHORT).show();
-            Polyline[] mRoadOverlays = new Polyline[roads.length];
+            //Polyline[] mRoadOverlays = new Polyline[roads.length];
             List<Overlay> mapOverlays = map.getOverlays();
             for (int i = 0; i < roads.length; i++) {
                 Polyline roadPolyline = RoadManager.buildRoadOverlay(roads[i]);
-                mRoadOverlays[i] = roadPolyline;
+               // mRoadOverlays[i] = roadPolyline;
                 String routeDesc = roads[i].getLengthDurationText(myActivity.getBaseContext(), -1);
                 roadPolyline.setTitle(getString(R.string.app_name) + " - " + routeDesc);
                 roadPolyline.setInfoWindow(new BasicInfoWindow(org.osmdroid.bonuspack.R.layout.bonuspack_bubble, map));
                 roadPolyline.setRelatedObject(i);
                 mapOverlays.add(0, roadPolyline);
+
                 map.invalidate();
                 //we insert the road overlays at the "bottom", just above the MapEventsOverlay,
                 //to avoid covering the other overlays.
             }
         }
     }
-    private double getFareEstimate(GeoPoint startPoint, GeoPoint endPoint) {
-        Location from = new Location("start");
-        Location to = new Location("end");
 
-        from.setLatitude(startPoint.getLatitude());
-        from.setLongitude(startPoint.getLongitude());
+    public void getFareAsync(){
+        ArrayList<GeoPoint> roadPoints = new ArrayList<>(2);
+        roadPoints.add(startPoint);
+        roadPoints.add(endPoint);
+        new FareCalculatingTask().execute(roadPoints);
+    }
+    private class FareCalculatingTask extends AsyncTask<ArrayList<GeoPoint>, Void, Road[]> {
 
-        to.setLatitude(endPoint.getLatitude());
-        to.setLongitude(endPoint.getLongitude());
+        protected Road[] doInBackground(ArrayList<GeoPoint>... lists) {
+            @SuppressWarnings("unchecked")
+            ArrayList<GeoPoint> startToEnd = lists[0];
+            return roadManager.getRoads(startToEnd);
+        }
 
-        double distance = from.distanceTo(to);
-        double fare = distance * 1.5; //will most probably do something else for the estimate
-        return fare;
+        @Override
+        protected void onPostExecute(Road[] roads) {
+
+            if (roads == null){return;}
+            double distance = 0.0;
+
+            for (int i = 0; i < roads.length; i++) {
+
+                Polyline roadPolyline = RoadManager.buildRoadOverlay(roads[i]);
+                List<GeoPoint> roadSegment = roadPolyline.getPoints();
+
+                for (int j = 0; j < roadSegment.size() - 1; j+= 2){
+                    GeoPoint geoStart = roadSegment.get(j);
+                    GeoPoint geoEnd = roadSegment.get(j + 1);
+
+                    Location start = new Location("start");
+                    start.setLatitude(geoStart.getLatitude());
+                    start.setLongitude(geoStart.getLongitude());
+
+                    Location end = new Location("end");
+                    end.setLatitude(geoEnd.getLatitude());
+                    end.setLongitude(geoEnd.getLongitude());
+
+                    distance += start.distanceTo(end);
+                }
+            }
+
+            double fare = distance / 1000 + 4.4;
+            editFare.setText(String.format("$%.2f", fare));
+        }
+    }
+
+    private GeoPoint findCoords(String address) {
+        //Nov 7th, 2016 - http://stackoverflow.com/questions/13576470/converting-an-address-into-geopoint
+        //Geocoder takes an string and finds an address that most closely resembles the string
+        //then latitude and longitude is extracted from the address
+        try {
+            List<Address> startAddress = coder.getFromLocationName(address, 1);
+            latitude = startAddress.get(0).getLatitude();
+            longitude = startAddress.get(0).getLongitude();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new GeoPoint(latitude, longitude);
     }
 }

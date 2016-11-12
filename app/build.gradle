@@ -42,5 +42,6 @@ dependencies {
     }
     compile 'com.jayway.android.robotium:robotium-solo:5.6.3'
     apply plugin: 'com.google.gms.google-services'
-    compile 'com.google.firebase:firebase-messaging:9.0.2'
+    compile 'com.google.firebase:firebase-messaging:9.8.0'
+    compile 'com.firebase:firebase-client-android:2.5.0'
 }
