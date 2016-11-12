@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
-import org.osmdroid.bonuspack.routing.MapQuestRoadManager;
+import org.osmdroid.bonuspack.routing.OSRMRoadManager;
 import org.osmdroid.bonuspack.routing.Road;
 import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -96,6 +96,10 @@ public class RequestARideUIActivity extends AppCompatActivity {
             Toast.makeText(this, "Please fill in end location", Toast.LENGTH_SHORT).show();
         } else {
 
+            //Nov 7th, 2016 - http://stackoverflow.com/questions/13576470/converting-an-address-into-geopoint
+            //Geocoder takes an string and finds an address that most closely resembles the string
+            //then latitude and longitude is extracted from the address
+
             try {
                 List<Address> startAddress = coder.getFromLocationName(startLocation, 1);
                 startLat = startAddress.get(0).getLatitude();
@@ -111,15 +115,19 @@ public class RequestARideUIActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            startPoint = new GeoPoint(startLong, startLat);
-            endPoint = new GeoPoint(endLong, endLat);
+//            startPoint = new GeoPoint(startLong, startLat);
+//            endPoint = new GeoPoint(endLong, endLat);
+
+            startPoint = new GeoPoint(startLat, startLong);
+            endPoint = new GeoPoint(endLat, endLong);
 
             double fare = getFareEstimate(startPoint, endPoint);
             editFare.setText(Double.toString(fare));                //brings out fare estimate to users
 
             mapController.setCenter(startPoint);
             // to get a key http://developer.mapquest.com/
-            roadManager = new MapQuestRoadManager("xPGrfmORuC6QJMSkF6SXGKYbBgTefNdm");
+            //roadManager = new MapQuestRoadManager("xPGrfmORuC6QJMSkF6SXGKYbBgTefNdm");
+            roadManager = new OSRMRoadManager(this);
             ArrayList<OverlayItem> overlayItemArray = new ArrayList<>();
             overlayItemArray.add(new OverlayItem("Starting Point", "This is the starting point", startPoint));
             overlayItemArray.add(new OverlayItem("Destination", "This is the destination point", endPoint));
@@ -148,6 +156,10 @@ public class RequestARideUIActivity extends AppCompatActivity {
         }
         else {
 
+            //Nov 7th, 2016 - http://stackoverflow.com/questions/13576470/converting-an-address-into-geopoint
+            //Geocoder takes an string and finds an address that most closely resembles the string
+            //then latitude and longitude is extracted from the address
+
             try {
                 List<Address> startAddress = coder.getFromLocationName(startLocation, 1);
                 startLat = startAddress.get(0).getLatitude();
@@ -165,9 +177,6 @@ public class RequestARideUIActivity extends AppCompatActivity {
 
             startPoint = new GeoPoint(startLong, startLat);
             endPoint = new GeoPoint(endLong, endLat);
-            //Nov 7th, 2016 - http://stackoverflow.com/questions/13576470/converting-an-address-into-geopoint
-            //Geocoder takes an string and finds an address that most closely resembles the string
-            //then latitude and longitude is extracted from the address
 
             PostListOfflineController pOffC = new PostListOfflineController();
             PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
@@ -187,7 +196,6 @@ public class RequestARideUIActivity extends AppCompatActivity {
         waypoints.add(endPoint);
         new UpdateRoadTask().execute(waypoints);
     }
-
     private class UpdateRoadTask extends AsyncTask<Object, Void, Road[]> {
         protected Road[] doInBackground(Object... params) {
             @SuppressWarnings("unchecked")
