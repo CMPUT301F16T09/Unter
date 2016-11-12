@@ -52,6 +52,7 @@
         android:layout_alignBottom="@+id/RideRequestDetailsPostStartLocation"
         android:textSize="20sp"
         android:textColor="@color/white"
+        android:singleLine="true"
         android:fontFamily="sans-serif-smallcaps" />
 
     <TextView
@@ -125,7 +126,10 @@
         android:fontFamily="sans-serif-smallcaps" />
 
     // Insert Map here
-
+    <org.osmdroid.views.MapView android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
+        android:layout_below="@+id/RideRequestDetailsPostDriver"/>
 
     <Button
         android:id="@+id/RideRequestDetailsCompleteRequestButton"

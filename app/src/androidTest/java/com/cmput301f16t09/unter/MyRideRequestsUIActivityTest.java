@@ -33,13 +33,27 @@ public class MyRideRequestsUIActivityTest extends ActivityInstrumentationTestCas
         solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "RossKappa");
         solo.clickOnButton("Login");
 
+        solo.clickOnButton("Request\nA Ride");
+        solo.enterText((EditText) solo.getView(R.id.RequestRideStartLocation), "Bob");
+        solo.enterText((EditText) solo.getView(R.id.RequestRideEndLocation), "Ross");
+        solo.clickOnButton("Get\nEstimate");
+        solo.clickOnButton("CONFIRM");
+
         solo.clickOnButton("My Ride\nRequests");
         solo.assertCurrentActivity("Wrong Activity",MyRideRequestsUIActivity.class);
 
+        solo.clickLongInList(0);
+        assertTrue(solo.waitForText("Delete This Post?"));
+        solo.clickOnButton("Cancel");
+
         solo.clickInList(0);
         solo.assertCurrentActivity("Wrong Activity",RidersRequestDetailsPreUIActivity.class);
+        solo.clickOnButton("Cancel Request");
 
         solo.goBack();
+        solo.clickOnButton("My Ride\nRequests");
+        solo.assertCurrentActivity("Wrong Activity",MyRideRequestsUIActivity.class);
+
         solo.goBack();
         solo.goBack();
     }

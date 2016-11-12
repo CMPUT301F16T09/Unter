@@ -36,33 +36,33 @@ public class RequestARideUIActivityTest extends ActivityInstrumentationTestCase2
         solo.clickOnButton("Request\nA Ride");
 
         solo.assertCurrentActivity("Wrong Activity", RequestARideUIActivity.class);
-        solo.clickOnButton("Get Estimate");
+        solo.clickOnButton("Get\nEstimate");
         assertTrue(solo.waitForText("Please fill in start and end locations"));
 
-        solo.enterText((EditText) solo.getView(R.id.editTextRequestRideStartLocation), "Bob");
+        solo.enterText((EditText) solo.getView(R.id.RequestRideStartLocation), "Bob");
         assertTrue(solo.waitForText("Bob"));
-        solo.clickOnButton("Get Estimate");
+        solo.clickOnButton("Get\nEstimate");
         assertTrue(solo.waitForText("Please fill in end location"));
         solo.clickOnButton("CONFIRM");
         assertTrue(solo.waitForText("Please fill in end location"));
 
-        solo.clearEditText((EditText) solo.getView(R.id.editTextRequestRideStartLocation));
+        solo.clearEditText((EditText) solo.getView(R.id.RequestRideStartLocation));
         assertTrue(solo.waitForText(""));
-        solo.clickOnButton("Get Estimate");
+        solo.clickOnButton("Get\nEstimate");
         assertTrue(solo.waitForText("Please fill in start and end locations"));
         solo.clickOnButton("CONFIRM");
         assertTrue(solo.waitForText("Please fill in start and end locations"));
 
-        solo.enterText((EditText) solo.getView(R.id.editTextRequestRideEndLocation), "Ross");
+        solo.enterText((EditText) solo.getView(R.id.RequestRideEndLocation), "Ross");
         assertTrue(solo.waitForText("Ross"));
-        solo.clickOnButton("Get Estimate");
+        solo.clickOnButton("Get\nEstimate");
         assertTrue(solo.waitForText("Please fill in start location"));
         solo.clickOnButton("CONFIRM");
         assertTrue(solo.waitForText("Please fill in start location"));
 
-        solo.enterText((EditText) solo.getView(R.id.editTextRequestRideStartLocation), "Bob");
+        solo.enterText((EditText) solo.getView(R.id.RequestRideStartLocation), "Bob");
         assertTrue(solo.waitForText("Bob"));
-        solo.clickOnButton("Get Estimate");
+        solo.clickOnButton("Get\nEstimate");
         assertTrue(solo.waitForText("No possible route here"));
         solo.clickOnButton("CONFIRM");
         assertTrue(solo.waitForText("Request Made"));

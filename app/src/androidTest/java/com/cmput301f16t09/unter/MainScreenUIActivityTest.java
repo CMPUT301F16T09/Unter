@@ -10,11 +10,11 @@ import com.robotium.solo.Solo;
 /**
  * Created by alvin on 11/9/2016.
  */
-public class MainScreenUIActivityTest extends ActivityInstrumentationTestCase2<MainScreenUIActivity>{
+public class MainScreenUIActivityTest extends ActivityInstrumentationTestCase2<MainGUIActivity>{
     private Solo solo;
 
     public MainScreenUIActivityTest() {
-        super(com.cmput301f16t09.unter.MainScreenUIActivity.class);
+        super(com.cmput301f16t09.unter.MainGUIActivity.class);
     }
 
     public void testStart() throws Exception{
@@ -28,6 +28,11 @@ public class MainScreenUIActivityTest extends ActivityInstrumentationTestCase2<M
 
     public void testRequestARideButton() {
 
+        solo.assertCurrentActivity("Wrong Activity", MainGUIActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.mainScreenUsername), "KappaRoss");
+        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "RossKappa");
+        solo.clickOnButton("Login");
+
         solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);
 
         solo.clickOnButton("Request\nA Ride");
@@ -35,9 +40,16 @@ public class MainScreenUIActivityTest extends ActivityInstrumentationTestCase2<M
 
         solo.goBack();
         solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);
+        solo.goBack();
+
     }
 
     public void testMyRideRequestButton() {
+
+        solo.assertCurrentActivity("Wrong Activity", MainGUIActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.mainScreenUsername), "KappaRoss");
+        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "RossKappa");
+        solo.clickOnButton("Login");
 
         solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);
 
@@ -46,9 +58,14 @@ public class MainScreenUIActivityTest extends ActivityInstrumentationTestCase2<M
 
         solo.goBack();
         solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);
+        solo.goBack();
     }
 
     public void testProvideARideButton() {
+        solo.assertCurrentActivity("Wrong Activity", MainGUIActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.mainScreenUsername), "KappaRoss");
+        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "RossKappa");
+        solo.clickOnButton("Login");
 
         solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);
 
@@ -57,9 +74,14 @@ public class MainScreenUIActivityTest extends ActivityInstrumentationTestCase2<M
 
         solo.goBack();
         solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);
+        solo.goBack();
     }
 
     public void testMyRideOffersButton() {
+        solo.assertCurrentActivity("Wrong Activity", MainGUIActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.mainScreenUsername), "KappaRoss");
+        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "RossKappa");
+        solo.clickOnButton("Login");
 
         solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);
 
@@ -68,6 +90,7 @@ public class MainScreenUIActivityTest extends ActivityInstrumentationTestCase2<M
 
         solo.goBack();
         solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);
+        solo.goBack();
     }
 
 }

@@ -53,6 +53,16 @@ public class MyRideOffersUIActivity extends AppCompatActivity {
 
         currentPostList.setAdapter(adapter);
 
+        currentPostList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos ,long id){
+
+                CurrentUser.setCurrentPost(postList.getPost(pos));
+                Intent RideOfferDetailsIntent = new Intent(MyRideOffersUIActivity.this,
+                        RideOfferDetailsUIActivity.class);
+                startActivity(RideOfferDetailsIntent);
+            }
+        });
+
         PostListOfflineController.getPostList(MyRideOffersUIActivity.this).addListener(new Listener() {
             @Override
             public void update()

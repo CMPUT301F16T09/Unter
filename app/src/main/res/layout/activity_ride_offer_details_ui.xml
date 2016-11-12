@@ -20,11 +20,9 @@
         android:textAlignment="center"
         android:fontFamily="sans-serif-smallcaps" />
 
-    // Insert mapView
-
     <org.osmdroid.views.MapView android:id="@+id/ride_offer_details_map"
         android:layout_width="400dp"
-        android:layout_height="300dp"
+        android:layout_height="330dp"
         android:layout_below="@+id/RideOfferDetails" />
 
     <TextView
@@ -49,9 +47,10 @@
         android:textSize="24sp"
         android:textColor="@color/white"
         android:textAlignment="textStart"
-        android:fontFamily="sans-serif-smallcaps"
-        android:clickable="true"
         android:textColorLink="@color/accent"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:clickable="true"
         android:onClick="viewProfile" />
 
     <TextView
@@ -76,6 +75,7 @@
         android:textSize="24sp"
         android:textColor="@color/white"
         android:textAlignment="textStart"
+        android:singleLine="true"
         android:fontFamily="sans-serif-smallcaps" />
 
     <TextView
@@ -100,6 +100,7 @@
         android:textSize="24sp"
         android:textColor="@color/white"
         android:textAlignment="textStart"
+        android:singleLine="true"
         android:fontFamily="sans-serif-smallcaps" />
 
 </RelativeLayout>
