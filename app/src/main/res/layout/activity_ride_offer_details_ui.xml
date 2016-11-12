@@ -11,7 +11,7 @@
     tools:context="com.cmput301f16t09.unter.RideOfferDetailsUIActivity">
 
     <TextView
-        android:id="@+id/textViewRideOfferDetails"
+        android:id="@+id/RideOfferDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Ride Offer\nDetails"
@@ -22,8 +22,13 @@
 
     // Insert mapView
 
+    <org.osmdroid.views.MapView android:id="@+id/ride_offer_details_map"
+        android:layout_width="400dp"
+        android:layout_height="300dp"
+        android:layout_below="@+id/RideOfferDetails" />
+
     <TextView
-        android:id="@+id/textViewRideOfferRider"
+        android:id="@+id/RideOfferRider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="460dp"
@@ -36,22 +41,21 @@
 
     // Needs to be changed
     <TextView
-        android:id="@+id/textViewRideOfferRiderName"
+        android:id="@+id/RideOfferRiderName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/textViewRideOfferRider"
-        android:layout_alignBaseline="@+id/textViewRideOfferRider"
-        android:text="RiderName"
+        android:layout_toEndOf="@+id/RideOfferRider"
+        android:layout_alignBaseline="@+id/RideOfferRider"
         android:textSize="24sp"
         android:textColor="@color/white"
         android:textAlignment="textStart"
         android:fontFamily="sans-serif-smallcaps" />
 
     <TextView
-        android:id="@+id/textViewRideOfferOfferedFare"
+        android:id="@+id/RideOfferOfferedFare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewRideOfferRider"
+        android:layout_below="@+id/RideOfferRider"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:text="Offered Fare: "
         android:textSize="24sp"
@@ -61,22 +65,21 @@
 
     // Needs to be changed
     <TextView
-        android:id="@+id/textViewRideOffer$$$"
+        android:id="@+id/RideOfferCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/textViewRideOfferOfferedFare"
-        android:layout_alignBaseline="@+id/textViewRideOfferOfferedFare"
-        android:text="$$$"
+        android:layout_toEndOf="@+id/RideOfferOfferedFare"
+        android:layout_alignBaseline="@+id/RideOfferOfferedFare"
         android:textSize="24sp"
         android:textColor="@color/white"
         android:textAlignment="textStart"
         android:fontFamily="sans-serif-smallcaps" />
 
     <TextView
-        android:id="@+id/textViewRideOfferStatus"
+        android:id="@+id/RideOfferStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewRideOfferOfferedFare"
+        android:layout_below="@+id/RideOfferOfferedFare"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:text="Status: "
         android:textSize="24sp"
@@ -86,12 +89,11 @@
 
     // Needs to be changed
     <TextView
-        android:id="@+id/textViewRideOfferStatusDesc"
+        android:id="@+id/RideOfferStatusDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textViewRideOfferStatus"
-        android:layout_toEndOf="@+id/textViewRideOfferStatus"
-        android:text="StatusDesc"
+        android:layout_alignBaseline="@+id/RideOfferStatus"
+        android:layout_toEndOf="@+id/RideOfferStatus"
         android:textSize="24sp"
         android:textColor="@color/white"
         android:textAlignment="textStart"

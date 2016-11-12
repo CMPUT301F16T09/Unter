@@ -12,7 +12,7 @@
     tools:context="com.cmput301f16t09.unter.CreateNewUserUIActivity">
 
     <TextView
-        android:id="@+id/textViewSignUp"
+        android:id="@+id/SignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -25,10 +25,10 @@
         android:fontFamily="sans-serif-smallcaps" />
 
     <EditText
-        android:id="@+id/editTextSignUpUsername"
+        android:id="@+id/SignUpUsername"
         android:layout_width="400dp"
         android:layout_height="48dp"
-        android:layout_below="@+id/textViewSignUp"
+        android:layout_below="@+id/SignUp"
         android:layout_marginTop="40dp"
         android:hint="Username"
         android:textSize="24sp"
@@ -38,11 +38,11 @@
         android:fontFamily="sans-serif-smallcaps"/>
 
     <EditText
-        android:id="@+id/editTextSignUpName"
+        android:id="@+id/SignUpName"
         android:layout_width="400dp"
         android:layout_height="48dp"
         android:layout_marginTop="5dp"
-        android:layout_below="@+id/editTextSignUpUsername"
+        android:layout_below="@+id/SignUpUsername"
         android:hint="First and Last Name"
         android:textSize="24sp"
         android:textColor="@color/TextColor"
@@ -52,10 +52,10 @@
         />
 
     <EditText
-        android:id="@+id/editTextSignUpPhoneNumber"
+        android:id="@+id/SignUpPhoneNumber"
         android:layout_width="400dp"
         android:layout_height="48dp"
-        android:layout_below="@+id/editTextSignUpName"
+        android:layout_below="@+id/SignUpName"
         android:layout_marginTop="5dp"
         android:hint="Phone number"
         android:textSize="24sp"
@@ -65,10 +65,10 @@
         />
 
     <EditText
-        android:id="@+id/editTextSignUpEmail"
+        android:id="@+id/SignUpEmail"
         android:layout_width="400dp"
         android:layout_height="48dp"
-        android:layout_below="@+id/editTextSignUpPhoneNumber"
+        android:layout_below="@+id/SignUpPhoneNumber"
         android:layout_marginTop="5dp"
         android:hint="Email"
         android:textSize="24sp"
@@ -78,10 +78,10 @@
         />
 
     <EditText
-        android:id="@+id/editTextSignUpPassword"
+        android:id="@+id/SignUpPassword"
         android:layout_width="400dp"
         android:layout_height="48dp"
-        android:layout_below="@+id/editTextSignUpEmail"
+        android:layout_below="@+id/SignUpEmail"
         android:layout_marginTop="5dp"
         android:hint="Password"
         android:textSize="24sp"
@@ -91,10 +91,10 @@
         android:fontFamily="sans-serif-smallcaps"/>
 
     <EditText
-        android:id="@+id/editTextSignUpConfirmPassword"
+        android:id="@+id/SignUpConfirmPassword"
         android:layout_width="400dp"
         android:layout_height="48dp"
-        android:layout_below="@+id/editTextSignUpPassword"
+        android:layout_below="@+id/SignUpPassword"
         android:layout_marginTop="5dp"
         android:hint="Confirm password"
         android:textSize="24sp"
