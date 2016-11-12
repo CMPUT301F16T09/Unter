@@ -115,14 +115,11 @@ public class RequestARideUIActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-//            startPoint = new GeoPoint(startLong, startLat);
-//            endPoint = new GeoPoint(endLong, endLat);
-
             startPoint = new GeoPoint(startLat, startLong);
             endPoint = new GeoPoint(endLat, endLong);
 
             double fare = getFareEstimate(startPoint, endPoint);
-            editFare.setText(Double.toString(fare));                //brings out fare estimate to users
+            editFare.setText(String.format("%.2f", fare));            //brings out fare estimate to users
 
             mapController.setCenter(startPoint);
             // to get a key http://developer.mapquest.com/
@@ -237,8 +234,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
         to.setLatitude(endPoint.getLatitude());
         to.setLongitude(endPoint.getLongitude());
 
-        double distance = from.distanceTo(to);
-        double fare = distance * 1.5; //will most probably do something else for the estimate
-        return fare;
+        double distance = ((from.distanceTo(to)) / 1000) + 4.4;
+        return distance;
     }
 }
