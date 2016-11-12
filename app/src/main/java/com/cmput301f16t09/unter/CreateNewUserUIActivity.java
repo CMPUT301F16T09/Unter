@@ -36,6 +36,8 @@ public class CreateNewUserUIActivity extends AppCompatActivity {
     }
 
     public void create_user(View v) {
+
+        Boolean foundEmail = false;
         // Fix up later if needed
         username = (EditText) findViewById(R.id.editTextSignUpUsername);
         name = (EditText) findViewById(R.id.editTextSignUpName);
@@ -58,7 +60,9 @@ public class CreateNewUserUIActivity extends AppCompatActivity {
                 searchUserListsTask = new UserListOnlineController.SearchUserListsTask();
                 searchUserListsTask.execute("email", input_index.get(3));
                 userlist = searchUserListsTask.get();
-                if (userlist.isEmpty()) {
+                // Searching emails requires regex to get the correct results, so looping through the results is an easy way out.
+                //if (userlist.isEmpty()) {
+                if (!userlist.contains(input_index.get(3))) {
                     if (input_index.get(5).equals(input_index.get(4))) {
                         User new_user = new User(input_index.get(1), input_index.get(0), input_index.get(3), input_index.get(2), input_index.get(4));
                         UserListOnlineController.AddUsersTask addUserTask = new UserListOnlineController.AddUsersTask();

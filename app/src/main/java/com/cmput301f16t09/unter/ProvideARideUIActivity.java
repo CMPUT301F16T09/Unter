@@ -90,8 +90,12 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                 CurrentUser.setCurrentPost(postList.getPost(position));
                 Boolean found = false;
                 postList.getPosts().clear();
+
+                // Why is this for loop here? -- Added in (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) &&
+                // To ensure that the posts with the user offer in it is not in the list
                 for(Post p : PostListOfflineController.getPostList(ProvideARideUIActivity.this).getPosts()) {
                     if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&
+                            (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) &&
                             (p.getStatus().equals("Pending Offer") || p.getStatus().equals("Pending Approval"))) {
                         postList.addPost(p);
                     }
@@ -105,12 +109,14 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                 }
                 if (found) {
                     Intent intent = new Intent(ProvideARideUIActivity.this, RequestDetailsUIActivity.class);
+                    adapter.notifyDataSetChanged();
                     startActivity(intent);
                 }
                 else {
                     CurrentUser.setCurrentPost(null);
                     Toast.makeText(ProvideARideUIActivity.this, "Selected Post Request Unavailable. Updated List.", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 
@@ -130,7 +136,9 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                 postList.getPosts().clear();
 
                 for(Post p : PostListOfflineController.getPostList(ProvideARideUIActivity.this).getPosts()) {
-                    if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername()))) {
+                    if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&
+                            (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) &&
+                            (p.getStatus().equals("Pending Offer") || p.getStatus().equals("Pending Approval"))) {
                         postList.addPost(p);
                     }
                 }

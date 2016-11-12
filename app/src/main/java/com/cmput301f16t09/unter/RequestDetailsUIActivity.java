@@ -176,7 +176,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
                 PostListOnlineController.UpdatePostsTask updatePostsTask = new PostListOnlineController.UpdatePostsTask();
                 updatePostsTask.execute(CurrentUser.getCurrentPost());
                 updatePostsTask.get();
-                PostListOfflineController.addOfflinePost(CurrentUser.getCurrentPost(), RequestDetailsUIActivity.this);
+//                PostListOfflineController.addOfflinePost(CurrentUser.getCurrentPost(), RequestDetailsUIActivity.this);
                 CurrentUser.getCurrentUser().getMyOffers().addPost(CurrentUser.getCurrentPost());
                 UserListOnlineController.UpdateUsersTask updateUserTask = new UserListOnlineController.UpdateUsersTask();
                 updateUserTask.execute(CurrentUser.getCurrentUser());

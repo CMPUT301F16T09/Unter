@@ -143,7 +143,7 @@ public class Post {
      *
      * @return the drive offers
      */
-    public ArrayList getDriverOffers() {
+    public ArrayList<String> getDriverOffers() {
         return this.driver_OfferList;
     }
 

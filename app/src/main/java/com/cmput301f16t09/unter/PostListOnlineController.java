@@ -10,6 +10,7 @@ import com.searchly.jestdroid.JestDroidClient;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import io.searchbox.core.Delete;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
@@ -173,6 +174,25 @@ public class PostListOnlineController {
         @Override
         protected Void doInBackground(Post... posts) {
             verifySettings();
+
+            for (Post post: posts) {
+
+                Delete index = new Delete.Builder(post.getId()).index("t09").type("post").build();
+
+                try {
+                    DocumentResult result = client.execute(index);
+                    if (result.isSucceeded()) {
+                        post.setId(result.getId());
+                    }
+                    else {
+                        Log.i("Error", "Elastic search was not able to delete the post.");
+                    }
+                }
+                catch (Exception e) {
+                    Log.i("Uhoh", "We failed to delete the post from elastic search!");
+                    e.printStackTrace();
+                }
+            }
             return null;
         }
     }

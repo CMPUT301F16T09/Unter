@@ -41,18 +41,19 @@ public class PostListOfflineController {
      */
     static public PostList getPostList(Context context) {
         if (postlist == null) {
-            try {
-                PostListOnlineController.GetPostsTask onlinePosts = new PostListOnlineController.GetPostsTask();
-                onlinePosts.execute("");
-                postlist = new PostList();
-                postlist.setPostList(onlinePosts.get());
-                saveOfflinePosts(context);
-            }
-            catch (Exception e) {
-                loadOfflinePosts(context);
-                Toast.makeText(context, "Cannot store posts", Toast.LENGTH_SHORT).show();
-                Log.i("Error", "Loading failed");
-            }
+            postlist = new PostList();
+        }
+        try {
+            PostListOnlineController.GetPostsTask onlinePosts = new PostListOnlineController.GetPostsTask();
+            onlinePosts.execute("");
+            postlist = new PostList();
+            postlist.setPostList(onlinePosts.get());
+            saveOfflinePosts(context);
+        }
+        catch (Exception e) {
+            loadOfflinePosts(context);
+            Toast.makeText(context, "Cannot store posts", Toast.LENGTH_SHORT).show();
+            Log.i("Error", "Loading failed");
         }
 
         return postlist;
@@ -131,5 +132,5 @@ public class PostListOfflineController {
 
         getPostList(context).addPost(offlinePost);
         saveOfflinePosts(context);
-    }
+}
 }

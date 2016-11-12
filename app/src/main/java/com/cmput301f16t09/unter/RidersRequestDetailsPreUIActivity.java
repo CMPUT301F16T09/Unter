@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,86 +23,81 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
-    ArrayList<String> potentialDrivers;
-
-    private PostList postList = new PostList();
-    private ListView potentialDriversListView;
-    ArrayAdapter<String> driversAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_riders_request_details_pre_ui);
-        potentialDriversListView = (ListView) findViewById(R.id.listViewMyRideRequests);
+        ListView potentialDriversListView = (ListView) findViewById(R.id.listViewRideRequestDetailsRiderOffers);
 
-        // Get All posts for the specific user
-        for(Post p : PostListOfflineController.getPostList(RidersRequestDetailsPreUIActivity.this).getPosts()) {
-            if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
-                postList.addPost(p);
+//        Get drivers instead of post
+
+        TextView tvCurrentStatus = (TextView) findViewById(R.id.RideRequestDetailsPreCurrentStatus);
+        String currentStatus = CurrentUser.getCurrentPost().getStatus();
+        tvCurrentStatus.setText(currentStatus);
+
+        TextView tvStartLocation = (TextView) findViewById(R.id.RideRequestDetailsPreStartLocationName);
+        String startLocation = CurrentUser.getCurrentPost().getStartLocation().toString();
+        tvStartLocation.setText(startLocation);
+
+        TextView tvEndLocation = (TextView) findViewById(R.id.RideRequestDetailsPreEndLocationName);
+        String endLocation = CurrentUser.getCurrentPost().getEndLocation().toString();
+        tvEndLocation.setText(endLocation);
+
+        TextView tvOfferedFare = (TextView) findViewById(R.id.RideRequestDetailsPreOfferedFare);
+        String offeredFare = CurrentUser.getCurrentPost().getFare();
+        tvOfferedFare.setText(offeredFare);
+
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, CurrentUser.getCurrentPost().getDriverOffers()) {
+
+            // Create the view for the habits. Habits name is red if it has not been completed before
+            // and green if it has been completed.
+            // Code to change text from: http://android--code.blogspot.ca/2015/08/android-listview-text-color.html
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView tv = (TextView) view.findViewById(android.R.id.text1);
+
+                tv.setText(CurrentUser.getCurrentPost().getDriverOffers().get(position));
+                tv.setTextColor(Color.WHITE);
+                return view;
             }
-        }
+        };
 
-//        TextView tvCurrentStatus = (TextView) findViewById(R.id.RideRequestDetailsPreCurrentStatus);
-//        String currentStatus = CurrentUser.getCurrentPost().getStatus().toString();
-//        tvCurrentStatus.setText(currentStatus);
-//
-//        TextView tvStartLocation = (TextView) findViewById(R.id.RideRequestDetailsPreStartLocationName);
-//        String startLocation = CurrentUser.getCurrentPost().getStartLocation().toString();
-//        tvStartLocation.setText(startLocation);
-//
-//        TextView tvEndLocation = (TextView) findViewById(R.id.RideRequestDetailsPreEndLocationName);
-//        String endLocation = CurrentUser.getCurrentPost().getEndLocation().toString();
-//        tvEndLocation.setText(endLocation);
-//
-//        TextView tvOfferedFare = (TextView) findViewById(R.id.RideRequestDetailsPreOfferedFare);
-//        String offeredFare = CurrentUser.getCurrentPost().getFare().toString();
-//        tvOfferedFare.setText(offeredFare);
 
-//        final ArrayAdapter<Post> adapter = new ArrayAdapter<Post>(this, android.R.layout.simple_list_item_1, postList.getPosts()) {
-//
-//            // Create the view for the habits. Habits name is red if it has not been completed before
-//            // and green if it has been completed.
-//            // Code to change text from: http://android--code.blogspot.ca/2015/08/android-listview-text-color.html
-//            @Override
-//            public View getView(int position, View convertView, ViewGroup parent) {
-//                View view = super.getView(position, convertView, parent);
-//                TextView tv = (TextView) view.findViewById(android.R.id.text1);
-//
-//                String startLocation = postList.getPost(position).getStartLocation().toString();
-//                String endLocation = postList.getPost(position).getEndLocation().toString();
-//                // Remove forTestUsername after
-////                String forTestUsername = postList.getPost(position).getDriverOffers();
-////                tv.setText("Username: " + forTestUsername);
-////                tv.setText(postList.getPost(position).getUsername());
-//                tv.setTextColor(Color.WHITE);
-//                return view;
-//            }
-//        };
-
-        driversAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,potentialDrivers);
-
-        potentialDriversListView.setAdapter(driversAdapter);
+        potentialDriversListView.setAdapter(adapter);
         //potentialDrivers = CurrentUser.getCurrentPost().getDriverOffers();
-        potentialDrivers = new ArrayList<String>(); //test
-        potentialDrivers.add("joker"); //test
-        potentialDrivers.add("kappaross"); //test
-
 
         potentialDriversListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                final int currDriver_pos = i;
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(RidersRequestDetailsPreUIActivity.this);
-                //String driverUsername = CurrentUser.getCurrentPost().getDriverOffers().get(currDriver_pos).toString(); //unsure about this
-                final String driverUsername = potentialDrivers.get(currDriver_pos);
+                final String driverUsername = CurrentUser.getCurrentPost().getDriverOffers().get(i); //unsure about this
 
                 builder.setMessage("Actions for Driver:         "+ driverUsername);
                 builder.setPositiveButton(R.string.choose_driver, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK button
-                        Toast.makeText(RidersRequestDetailsPreUIActivity.this, "OK", Toast.LENGTH_SHORT).show();
+                        CurrentUser.getCurrentPost().setStatus("Awaiting Completion");
+                        CurrentUser.getCurrentPost().pickDriver(driverUsername);
 
-                        //update postlist here
+                        try {
+                            PostListOnlineController.UpdatePostsTask upt = new PostListOnlineController.UpdatePostsTask();
+                            upt.execute(CurrentUser.getCurrentPost());
+                            upt.get();
+                            CurrentUser.getCurrentUser().getMyOffers().addPost(CurrentUser.getCurrentPost());
+
+                            UserListOnlineController.UpdateUsersTask uut = new UserListOnlineController.UpdateUsersTask();
+                            uut.execute(CurrentUser.getCurrentUser());
+                            uut.get();
+
+                            Toast.makeText(RidersRequestDetailsPreUIActivity.this, "OK", Toast.LENGTH_SHORT).show();
+                            adapter.notifyDataSetChanged();
+                        }
+                        catch (Exception e) {
+                            Log.i("Error", "Unable to Update Post/User Information");
+                        }
                     }
                 });
 
@@ -131,8 +127,23 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
 
-
+    public void cancelRequest(View v) {
+        try {
+            PostListOnlineController.DeletePostsTask upt = new PostListOnlineController.DeletePostsTask();
+            upt.execute(CurrentUser.getCurrentPost());
+            upt.get();
+            CurrentUser.getCurrentUser().getMyOffers().deletePost(CurrentUser.getCurrentPost());
+            UserListOnlineController.UpdateUsersTask uut = new UserListOnlineController.UpdateUsersTask();
+            uut.execute(CurrentUser.getCurrentUser());
+            uut.get();
+            Toast.makeText(RidersRequestDetailsPreUIActivity.this, "Successfully deleted the offer!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        catch (Exception e) {
+            Log.i("Error", "Deletion Error");
+        }
     }
 
 }
