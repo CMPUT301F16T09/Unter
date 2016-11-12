@@ -26,15 +26,15 @@ public class EditProfileUIActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile_ui);
         Toast.makeText(EditProfileUIActivity.this, CurrentUser.getCurrentUser().getName(), Toast.LENGTH_SHORT).show();
 
-        editName = (EditText) findViewById(R.id.editTextEditProfileName);
+        editName = (EditText) findViewById(R.id.EditProfileNameField);
         editName.setText(CurrentUser.getCurrentUser().getName());
-        editPhoneNumber = (EditText) findViewById(R.id.editTextEditProfilePhoneNumber);
+        editPhoneNumber = (EditText) findViewById(R.id.EditProfilePhoneNumberField);
         editPhoneNumber.setText(CurrentUser.getCurrentUser().getPhoneNumber());
-        editEmail = (EditText) findViewById(R.id.editTextEditProfileEmail);
+        editEmail = (EditText) findViewById(R.id.EditProfileEmailField);
         editEmail.setText(CurrentUser.getCurrentUser().getEmail());
-        editPassword = (EditText) findViewById(R.id.editTextEditProfilePassword);
+        editPassword = (EditText) findViewById(R.id.EditProfilePasswordField);
         editPassword.setText(CurrentUser.getCurrentUser().getPassword());
-        editConfirmPassword = (EditText) findViewById(R.id.editTextEditProfileConfirmPassword);
+        editConfirmPassword = (EditText) findViewById(R.id.EditProfileConfirmPasswordField);
     }
 
     @Override

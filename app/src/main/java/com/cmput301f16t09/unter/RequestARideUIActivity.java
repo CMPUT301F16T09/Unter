@@ -81,9 +81,9 @@ public class RequestARideUIActivity extends AppCompatActivity {
 
     public void getEstimate(View v) {
 
-        editStart = (AutoCompleteTextView) findViewById(R.id.editTextRequestRideStartLocation);
-        editEnd = (AutoCompleteTextView) findViewById(R.id.editTextRequestRideEndLocation);
-        editFare = (EditText) findViewById(R.id.editTextRequestRideEstimatedFare);
+        editStart = (AutoCompleteTextView) findViewById(R.id.RequestRideStartLocation);
+        editEnd = (AutoCompleteTextView) findViewById(R.id.RequestRideEndLocation);
+        editFare = (EditText) findViewById(R.id.RequestRideCost);
 
         String startLocation = editStart.getText().toString();
         String endLocation = editEnd.getText().toString();
@@ -131,9 +131,9 @@ public class RequestARideUIActivity extends AppCompatActivity {
 
     public void confirmRideRequest(View v) {
 
-        editStart = (AutoCompleteTextView) findViewById(R.id.editTextRequestRideStartLocation);
-        editEnd = (AutoCompleteTextView) findViewById(R.id.editTextRequestRideEndLocation);
-        editFare = (EditText) findViewById(R.id.editTextRequestRideEstimatedFare);
+        editStart = (AutoCompleteTextView) findViewById(R.id.RequestRideStartLocation);
+        editEnd = (AutoCompleteTextView) findViewById(R.id.RequestRideEndLocation);
+        editFare = (EditText) findViewById(R.id.RequestRideCost);
 
         String startLocation = editStart.getText().toString();
         String endLocation = editEnd.getText().toString();

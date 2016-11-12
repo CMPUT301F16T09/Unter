@@ -11,7 +11,7 @@
     tools:context="com.cmput301f16t09.unter.MyRideRequestsUIActivity">
 
     <TextView
-        android:id="@+id/textViewMyRideRequests"
+        android:id="@+id/MyRideRequests"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="My Ride Requests"
@@ -21,9 +21,9 @@
 
     <ListView
         android:id="@+id/listViewMyRideRequests"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewMyRideRequests"
+        android:layout_below="@+id/MyRideRequests"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

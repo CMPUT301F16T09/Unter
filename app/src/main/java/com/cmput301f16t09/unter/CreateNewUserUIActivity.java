@@ -39,12 +39,12 @@ public class CreateNewUserUIActivity extends AppCompatActivity {
 
         Boolean foundEmail = false;
         // Fix up later if needed
-        username = (EditText) findViewById(R.id.editTextSignUpUsername);
-        name = (EditText) findViewById(R.id.editTextSignUpName);
-        phone_number = (EditText) findViewById(R.id.editTextSignUpPhoneNumber);
-        email = (EditText) findViewById(R.id.editTextSignUpEmail);
-        password = (EditText) findViewById(R.id.editTextSignUpPassword);
-        confirm_password = (EditText) findViewById(R.id.editTextSignUpConfirmPassword);
+        username = (EditText) findViewById(R.id.SignUpUsername);
+        name = (EditText) findViewById(R.id.SignUpName);
+        phone_number = (EditText) findViewById(R.id.SignUpPhoneNumber);
+        email = (EditText) findViewById(R.id.SignUpEmail);
+        password = (EditText) findViewById(R.id.SignUpPassword);
+        confirm_password = (EditText) findViewById(R.id.SignUpConfirmPassword);
         input_index.add(0, username.getText().toString());
         input_index.add(1, name.getText().toString());
         input_index.add(2, phone_number.getText().toString());

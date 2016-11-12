@@ -12,7 +12,7 @@
 
 
     <TextView
-        android:id="@+id/textViewRequestDetails"
+        android:id="@+id/RequestDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -23,10 +23,10 @@
         android:fontFamily="sans-serif-smallcaps" />
 
     <TextView
-        android:id="@+id/textViewPostedBy"
+        android:id="@+id/RequestDetailsPostedBy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewRequestDetails"
+        android:layout_below="@id/RequestDetails"
         android:layout_marginTop="10dp"
         android:text="Posted By: "
         android:textSize="20sp"
@@ -35,11 +35,11 @@
 
      <!--Add in RiderName-->
     <TextView
-        android:id="@+id/textViewPostedByRiderName"
+        android:id="@+id/RequestDetailsPostedByRiderName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/textViewPostedBy"
-        android:layout_alignBaseline="@id/textViewPostedBy"
+        android:layout_toEndOf="@id/RequestDetailsPostedBy"
+        android:layout_alignBaseline="@id/RequestDetailsPostedBy"
         android:layout_marginTop="10dp"
         android:text="RiderName"
         android:textSize="20sp"
@@ -48,10 +48,10 @@
 
      <!--Insert map view-->
     <TextView
-        android:id="@+id/textViewRequestDetailsStartLocation"
+        android:id="@+id/RequestDetailsStartLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewPostedBy"
+        android:layout_below="@id/RequestDetailsPostedBy"
         android:layout_marginTop="300dp"
         android:text="Start Location: "
         android:textSize="20sp"
@@ -60,11 +60,11 @@
 
      <!--Add in Location-->
     <TextView
-        android:id="@+id/textViewRequestDetailsStartLocationName"
+        android:id="@+id/RequestDetailsStartLocationName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/textViewRequestDetailsStartLocation"
-        android:layout_alignBaseline="@id/textViewRequestDetailsStartLocation"
+        android:layout_toEndOf="@id/RequestDetailsStartLocation"
+        android:layout_alignBaseline="@id/RequestDetailsStartLocation"
         android:layout_marginTop="10dp"
         android:text="Location"
         android:textSize="20sp"
@@ -72,10 +72,10 @@
         android:fontFamily="sans-serif-smallcaps" />
 
     <TextView
-        android:id="@+id/textViewRequestDetailsEndLocation"
+        android:id="@+id/RequestDetailsEndLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewRequestDetailsStartLocation"
+        android:layout_below="@id/RequestDetailsStartLocation"
         android:text="End Location: "
         android:textSize="20sp"
         android:textColor="@color/white"
@@ -83,11 +83,11 @@
 
      <!--Add in Location-->
     <TextView
-        android:id="@+id/textViewRequestDetailsEndLocationName"
+        android:id="@+id/RequestDetailsEndLocationName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/textViewRequestDetailsEndLocation"
-        android:layout_alignBaseline="@id/textViewRequestDetailsEndLocation"
+        android:layout_toEndOf="@id/RequestDetailsEndLocation"
+        android:layout_alignBaseline="@id/RequestDetailsEndLocation"
         android:layout_marginTop="10dp"
         android:text="Location"
         android:textSize="20sp"
@@ -97,24 +97,23 @@
 
      <!--Add in Offered Fare-->
     <TextView
-        android:id="@+id/textViewRequestDetails$$$"
+        android:id="@+id/RequestDetailsCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewRequestDetailsEndLocation"
+        android:layout_below="@id/RequestDetailsEndLocation"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
-        android:text="$$$"
         android:textSize="20sp"
         android:textColor="@color/white"
         android:textAlignment="textEnd"
         android:fontFamily="sans-serif-smallcaps" />
 
     <TextView
-        android:id="@+id/textViewRequestDetailsFare"
+        android:id="@+id/RequestDetailsFare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toStartOf="@id/textViewRequestDetails$$$"
-        android:layout_alignBaseline="@id/textViewRequestDetails$$$"
+        android:layout_toStartOf="@id/RequestDetailsCost"
+        android:layout_alignBaseline="@id/RequestDetailsCost"
         android:layout_marginTop="10dp"
         android:text="Fare: "
         android:textSize="20sp"

@@ -12,7 +12,7 @@
     tools:context="com.cmput301f16t09.unter.EditProfileUIActivity">
 
     <TextView
-        android:id="@+id/textEditYourProfile"
+        android:id="@+id/EditYourProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -24,10 +24,10 @@
         android:fontFamily="sans-serif-smallcaps"/>
 
     <TextView
-        android:id="@+id/textViewProfileName"
+        android:id="@+id/EditProfileName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textEditYourProfile"
+        android:layout_below="@+id/EditYourProfile"
         android:layout_marginStart="0dp"
         android:layout_marginTop="20dp"
         android:text="@string/name"
@@ -36,11 +36,11 @@
         android:fontFamily="sans-serif-smallcaps" />
 
     <EditText
-        android:id="@+id/editTextEditProfileName"
+        android:id="@+id/EditProfileNameField"
         android:layout_width="350dp"
         android:layout_height="42dp"
-        android:layout_below="@+id/textViewProfileName"
-        android:layout_alignStart="@+id/textViewProfileName"
+        android:layout_below="@+id/EditProfileName"
+        android:layout_alignStart="@+id/EditProfileName"
         android:layout_marginStart="5dp"
         android:hint="Current Name"
         android:textSize="@dimen/input_text_size"
@@ -49,11 +49,11 @@
         android:fontFamily="sans-serif-smallcaps"/>
 
     <TextView
-        android:id="@+id/textViewProfilePhoneNumber"
+        android:id="@+id/EditProfilePhoneNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewProfileName"
-        android:layout_alignStart="@+id/textViewProfileName"
+        android:layout_below="@+id/EditProfileName"
+        android:layout_alignStart="@+id/EditProfileName"
         android:layout_marginTop="45dp"
         android:layout_centerHorizontal="true"
         android:text="@string/phone_number"
@@ -62,11 +62,11 @@
         android:fontFamily="sans-serif-smallcaps" />
 
     <EditText
-        android:id="@+id/editTextEditProfilePhoneNumber"
+        android:id="@+id/EditProfilePhoneNumberField"
         android:layout_width="350dp"
         android:layout_height="42dp"
-        android:layout_below="@+id/textViewProfilePhoneNumber"
-        android:layout_alignStart="@+id/textViewProfileName"
+        android:layout_below="@+id/EditProfilePhoneNumber"
+        android:layout_alignStart="@+id/EditProfileName"
         android:layout_marginStart="5dp"
         android:hint="Current Phone Number"
         android:textSize="@dimen/input_text_size"
@@ -75,11 +75,11 @@
         android:fontFamily="sans-serif-smallcaps"/>
 
     <TextView
-        android:id="@+id/textViewProfileEmail"
+        android:id="@+id/EditProfileEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewProfilePhoneNumber"
-        android:layout_alignStart="@+id/textViewProfileName"
+        android:layout_below="@+id/EditProfilePhoneNumber"
+        android:layout_alignStart="@+id/EditProfileName"
         android:layout_marginTop="45dp"
         android:layout_centerHorizontal="true"
         android:text="@string/email"
@@ -88,11 +88,11 @@
         android:fontFamily="sans-serif-smallcaps"/>
 
     <EditText
-        android:id="@+id/editTextEditProfileEmail"
+        android:id="@+id/EditProfileEmailField"
         android:layout_width="350dp"
         android:layout_height="42dp"
-        android:layout_below="@+id/textViewProfileEmail"
-        android:layout_alignStart="@+id/textViewProfileName"
+        android:layout_below="@+id/EditProfileEmail"
+        android:layout_alignStart="@+id/EditProfileName"
         android:layout_marginStart="5dp"
         android:hint="Current Email"
         android:textSize="@dimen/input_text_size"
@@ -101,11 +101,11 @@
         android:fontFamily="sans-serif-smallcaps"/>
 
     <TextView
-        android:id="@+id/textViewEditProfilePassword"
+        android:id="@+id/EditProfilePassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewProfileEmail"
-        android:layout_alignStart="@+id/textViewProfileName"
+        android:layout_below="@+id/EditProfileEmail"
+        android:layout_alignStart="@+id/EditProfileName"
         android:layout_marginTop="45dp"
         android:layout_centerHorizontal="true"
         android:text="@string/password"
@@ -114,11 +114,11 @@
         android:fontFamily="sans-serif-smallcaps"/>
 
     <EditText
-        android:id="@+id/editTextEditProfilePassword"
+        android:id="@+id/EditProfilePasswordField"
         android:layout_width="350dp"
         android:layout_height="42dp"
-        android:layout_below="@+id/textViewEditProfilePassword"
-        android:layout_alignStart="@+id/textViewProfileName"
+        android:layout_below="@+id/EditProfilePassword"
+        android:layout_alignStart="@+id/EditProfileName"
         android:layout_marginStart="5dp"
         android:hint="Current Password"
         android:textSize="@dimen/input_text_size"
@@ -128,11 +128,11 @@
         android:fontFamily="sans-serif-smallcaps"/>
 
     <TextView
-        android:id="@+id/textViewEditProfileConfirmPassword"
+        android:id="@+id/EditProfileConfirmPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewEditProfilePassword"
-        android:layout_alignStart="@+id/textViewProfileName"
+        android:layout_below="@+id/EditProfilePassword"
+        android:layout_alignStart="@+id/EditProfileName"
         android:layout_marginTop="45dp"
         android:layout_centerHorizontal="true"
         android:text="@string/confirm_password"
@@ -141,11 +141,11 @@
         android:fontFamily="sans-serif-smallcaps"/>
 
     <EditText
-        android:id="@+id/editTextEditProfileConfirmPassword"
+        android:id="@+id/EditProfileConfirmPasswordField"
         android:layout_width="350dp"
         android:layout_height="42dp"
-        android:layout_below="@+id/textViewEditProfileConfirmPassword"
-        android:layout_alignStart="@+id/textViewProfileEmail"
+        android:layout_below="@+id/EditProfileConfirmPassword"
+        android:layout_alignStart="@+id/EditProfileEmail"
         android:layout_marginStart="5dp"
         android:hint="Confirm password"
             android:textSize="@dimen/input_text_size"

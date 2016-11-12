@@ -56,13 +56,13 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_details_ui);
 
-        poster = (TextView) findViewById(R.id.textViewPostedByRiderName);
+        poster = (TextView) findViewById(R.id.RequestDetailsPostedByRiderName);
         poster.setText(CurrentUser.getCurrentPost().getUsername());
-        start_Location = (TextView) findViewById(R.id.textViewRequestDetailsStartLocationName);
+        start_Location = (TextView) findViewById(R.id.RequestDetailsStartLocationName);
         start_Location.setText(CurrentUser.getCurrentPost().getStartLocation().toString());
-        end_Location = (TextView) findViewById(R.id.textViewRequestDetailsEndLocationName);
+        end_Location = (TextView) findViewById(R.id.RequestDetailsEndLocationName);
         end_Location.setText(CurrentUser.getCurrentPost().getEndLocation().toString());
-        fare = (TextView) findViewById(R.id.textViewRequestDetails$$$);
+        fare = (TextView) findViewById(R.id.RequestDetailsCost);
         fare.setText(CurrentUser.getCurrentPost().getFare());
 //        map = (MapView) findViewById(R.id.request_details_map);
 //        map.setTileSource(TileSourceFactory.MAPNIK);

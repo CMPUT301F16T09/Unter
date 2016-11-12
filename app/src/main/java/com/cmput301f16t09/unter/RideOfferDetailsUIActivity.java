@@ -17,7 +17,7 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ride_offer_details_ui);
 
-        rider = (TextView) findViewById(R.id.textViewRideOfferRiderName);
+        rider = (TextView) findViewById(R.id.RideOfferRiderName);
         rider.setText("jellybean");
 //        rider.setOnClickListener(new View.OnClickListener() {
 //            @Override

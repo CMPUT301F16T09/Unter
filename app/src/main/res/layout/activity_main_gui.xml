@@ -62,18 +62,19 @@
         android:layout_below="@+id/password_title"
         android:layout_centerHorizontal="true"
         android:hint="@string/enter_password_login_hint"
-        android:inputType="textPassword"
-        android:textColorHint="@color/HintTextColor"
         android:gravity="center"
+        android:textSize="20sp"
+        android:textColorHint="@color/HintTextColor"
+        android:inputType="textPassword"
         android:fontFamily="sans-serif-smallcaps" />
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="@dimen/mainscreen_button_width"
         android:layout_height="@dimen/mainscreen_button_height"
-        android:layout_below="@+id/mainScreenPassword"
-        android:layout_marginTop="50dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="50dp"
+        android:layout_marginBottom="25dp"
         android:background="@color/white"
         android:text="@string/login"
         android:textSize="20sp"
@@ -85,11 +86,11 @@
         android:layout_width="@dimen/mainscreen_button_width"
         android:layout_height="@dimen/mainscreen_button_height"
         android:layout_alignTop="@+id/loginButton"
-        android:layout_marginStart="200dp"
         android:layout_below="@+id/mainScreenPassword"
+        android:layout_marginStart="200dp"
         android:background="@color/white"
         android:text="@string/create_new_user"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:fontFamily="sans-serif-smallcaps"
         android:onClick="createNewUser"/>
 
