@@ -27,7 +27,6 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService{
         Log.d(TAG, "New Token: " + refreshedToken);
 
         //You can save the token into third party server to do anything you want
-
         //sendRegistrationToServer(refreshedToken);
     }
 
