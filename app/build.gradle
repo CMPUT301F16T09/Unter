@@ -21,6 +21,15 @@ android {
     packagingOptions {
         pickFirst  'META-INF/maven/org.apache.commons/commons-lang3/pom.xml'
         pickFirst  'META-INF/maven/org.apache.commons/commons-lang3/pom.properties'
+        exclude 'META-INF/NOTICE' // will not include NOTICE file
+        exclude 'META-INF/LICENSE' // will not include LICENSE file
+        // as noted by @Vishnuvathsan you may also need to include
+        // variations on the file name. It depends on your dependencies.
+        // Some other common variations on notice and license file names
+        exclude 'META-INF/notice'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license'
+        exclude 'META-INF/license.txt'
     }
 }
 
@@ -41,7 +50,7 @@ dependencies {
         exclude module: 'commons-lang3'
     }
     compile 'com.jayway.android.robotium:robotium-solo:5.6.3'
-    apply plugin: 'com.google.gms.google-services'
+//    apply plugin: 'com.google.gms.google-services'
     compile 'com.google.firebase:firebase-messaging:9.8.0'
     compile 'com.firebase:firebase-client-android:2.5.0'
 }
