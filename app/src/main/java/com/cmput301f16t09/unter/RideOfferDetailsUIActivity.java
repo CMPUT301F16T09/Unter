@@ -11,29 +11,20 @@ import android.widget.Toast;
 public class RideOfferDetailsUIActivity extends AppCompatActivity {
 
     TextView rider ;
-
+    final String postOwner = CurrentUser.getCurrentPost().getUsername();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ride_offer_details_ui);
 
         rider = (TextView) findViewById(R.id.RideOfferRiderName);
-        rider.setText("jellybean");
-//        rider.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(RideOfferDetailsUIActivity.this,ViewProfileUIActivity.class);
-//                intent.putExtra("Rider","jellybean");
-//                setIntent(intent);
-//            }
-//        });
-
+        rider.setText(postOwner);
     }
 
     public void viewProfile(View v){
-        Toast.makeText(this, "Logging In", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,ViewProfileUIActivity.class);
-        intent.putExtra("User","jellybean");
+        String postOwner = CurrentUser.getCurrentPost().getUsername();
+        intent.putExtra("User",postOwner);
         startActivity(intent);
     }
 

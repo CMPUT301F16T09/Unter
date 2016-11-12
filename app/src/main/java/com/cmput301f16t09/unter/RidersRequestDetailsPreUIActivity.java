@@ -93,6 +93,10 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
 
                             Toast.makeText(RidersRequestDetailsPreUIActivity.this, "OK", Toast.LENGTH_SHORT).show();
                             adapter.notifyDataSetChanged();
+
+                            Intent intent = new Intent(RidersRequestDetailsPreUIActivity.this,RidersRequestDetailsPostUIActivity.class);
+                            startActivity(intent);
+
                             finish();
                         }
                         catch (Exception e) {

@@ -55,7 +55,7 @@ public class UserListOnlineController {
 
             //Just list top 10000 users
             //Replace with our indexes
-            String search_string = "{\"from\": 0, \"size\": 10000, \"query\": {\"match\": {\"" + search_parameters[0] + "\": \"" + search_parameters[1] + "\"}}}";
+            String search_string = "{\"from\": 0, \"size\": 10000, \"query\": {\"match_phrase\": {\"" + search_parameters[0] + "\": \"" + search_parameters[1] + "\"}}}";
 
             // assume that search_parameters[0] is the only search term we are interested in using
             //Add Indexing
