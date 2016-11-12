@@ -28,7 +28,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService{
 
         //You can save the token into third party server to do anything you want
 
-        sendRegistrationToServer(refreshedToken);
+        //sendRegistrationToServer(refreshedToken);
     }
 
     private void sendRegistrationToServer(String refreshedToken) {
