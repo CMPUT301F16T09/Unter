@@ -74,24 +74,24 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
                         CurrentUser.getCurrentPost().setStatus("Completed");
 
                         try {
-                            PostListOnlineController.UpdatePostsTask upt = new PostListOnlineController.UpdatePostsTask();
+                            PostListOnlineController.DeletePostsTask upt = new PostListOnlineController.DeletePostsTask();
                             upt.execute(CurrentUser.getCurrentPost());
                             upt.get();
 
+                            CurrentUser.getCurrentUser().getMyOffers().deletePost(CurrentUser.getCurrentPost());
 
                             UserListOnlineController.UpdateUsersTask uut = new UserListOnlineController.UpdateUsersTask();
                             uut.execute(CurrentUser.getCurrentUser());
                             uut.get();
+                            Toast.makeText(RidersRequestDetailsPostUIActivity.this, "Completed request", Toast.LENGTH_SHORT).show();
 
-                            Toast.makeText(RidersRequestDetailsPostUIActivity.this, "Completed request!!", Toast.LENGTH_SHORT).show();
-                            //adapter.notifyDataSetChanged();
+                            //bring to main menu ; clear android activity stack
 
-                            Intent intent = new Intent(RidersRequestDetailsPostUIActivity.this,MainScreenUIActivity.class);
-                            startActivity(intent);
 
+                           
                         }
                         catch (Exception e) {
-                            Log.i("Error", "Unable to Update Post/User Information");
+                            Log.i("Error", "Deletion upon completion Error");
                         }
                     }
                 });
