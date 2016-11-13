@@ -3,11 +3,10 @@ package com.cmput301f16t09.unter;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.location.Address;
 import android.location.Geocoder;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.util.List;
 import java.util.Locale;
 
 public class MyRideRequestsUIActivity extends AppCompatActivity {
@@ -66,8 +63,8 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
 //                    e.printStackTrace();
 //                }
 
-                String startLocation = postList.getPost(position).getStartLocation().toString();
-                String endLocation = postList.getPost(position).getEndLocation().toString();
+                String startLocation = postList.getPost(position).getStartAddress();
+                String endLocation = postList.getPost(position).getEndAddress();
 
                 tv.setText("Username: " + forTestUsername + "\nStart: " + startLocation +"\nEnd: " + endLocation);
 
