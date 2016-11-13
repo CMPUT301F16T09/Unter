@@ -2,8 +2,6 @@ package com.cmput301f16t09.unter;
 
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.content.Intent;
-import android.location.Location;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -20,8 +18,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.StringReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 

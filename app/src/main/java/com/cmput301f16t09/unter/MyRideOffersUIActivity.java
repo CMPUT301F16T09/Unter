@@ -2,18 +2,14 @@ package com.cmput301f16t09.unter;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MyRideOffersUIActivity extends AppCompatActivity {
 
@@ -40,8 +36,8 @@ public class MyRideOffersUIActivity extends AppCompatActivity {
                 View view = super.getView(position, convertView, parent);
                 TextView tv = (TextView) view.findViewById(android.R.id.text1);
 
-                String startLocation = postList.getPost(position).getStartLocation().toString();
-                String endLocation = postList.getPost(position).getEndLocation().toString();
+                String startLocation = postList.getPost(position).getStartAddress();
+                String endLocation = postList.getPost(position).getEndAddress();
                 // Remove forTestUsername after
                 String forTestUsername = postList.getPost(position).getUsername();
                 tv.setText("Username: " + forTestUsername + "\nStart: " + startLocation +"\nEnd: " + endLocation);
