@@ -66,8 +66,8 @@ public class ProvideARideUIActivity extends AppCompatActivity {
 //                    e.printStackTrace();
 //                }
 
-                String startLocation = postList.getPost(position).getStartAddress().toString();
-                String endLocation = postList.getPost(position).getEndAddress().toString();
+                String startLocation = postList.getPost(position).getStartAddress();
+                String endLocation = postList.getPost(position).getEndAddress();
                 // Remove forTestUsername after
                 tv.setText("Username: " + forTestUsername + "\nStart: " + startLocation +"\nEnd: " + endLocation);
 
