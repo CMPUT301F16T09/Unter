@@ -39,7 +39,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
     private EditText editFare;
     Activity myActivity = this;
 
-    RoadManager roadManager;
+    RoadManager roadManager, roadManager2;
     MapView map;
     Road[] mRoads;
     Geocoder coder;
@@ -95,16 +95,13 @@ public class RequestARideUIActivity extends AppCompatActivity {
             startPoint = findCoords(startLocation);
             endPoint = findCoords(endLocation);
 
-            //CurrentUser.getCurrentPost().setFare("FAKE fare");
-            //getFareAsync();
-
             mapController.setCenter(startPoint);
             // to get a key http://developer.mapquest.com/
             //roadManager = new MapQuestRoadManager("xPGrfmORuC6QJMSkF6SXGKYbBgTefNdm");
             roadManager = new OSRMRoadManager(this);
-//            ArrayList<OverlayItem> overlayItemArray = new ArrayList<>();
-//            overlayItemArray.add(new OverlayItem("Starting Point", "This is the starting point", startPoint));
-//            overlayItemArray.add(new OverlayItem("Destination", "This is the destination point", endPoint));
+            roadManager2 = new OSRMRoadManager(this);   //fixes fare calculating stuff for some weird reason
+
+            getFareAsync();
             getRoadAsync();
         }
     }
@@ -189,12 +186,12 @@ public class RequestARideUIActivity extends AppCompatActivity {
         roadPoints.add(endPoint);
         new FareCalculatingTask().execute(roadPoints);
     }
-    private class FareCalculatingTask extends AsyncTask<ArrayList<GeoPoint>, Void, Road[]> {
+    private class FareCalculatingTask extends AsyncTask<Object, Void, Road[]> {
 
-        protected Road[] doInBackground(ArrayList<GeoPoint>... lists) {
+        protected Road[] doInBackground(Object... points) {
             @SuppressWarnings("unchecked")
-            ArrayList<GeoPoint> startToEnd = lists[0];
-            return roadManager.getRoads(startToEnd);
+            ArrayList<GeoPoint> startToEnd = (ArrayList<GeoPoint>) points[0];
+            return roadManager2.getRoads(startToEnd);
         }
 
         @Override
@@ -208,7 +205,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
                 Polyline roadPolyline = RoadManager.buildRoadOverlay(roads[i]);
                 List<GeoPoint> roadSegment = roadPolyline.getPoints();
 
-                for (int j = 0; j < roadSegment.size() - 1; j+= 2){
+                for (int j = 0; j < roadSegment.size() - 1; j+= 1){
                     GeoPoint geoStart = roadSegment.get(j);
                     GeoPoint geoEnd = roadSegment.get(j + 1);
 
