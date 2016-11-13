@@ -18,23 +18,24 @@ import io.searchbox.core.SearchResult;
 import io.searchbox.core.Update;
 
 /**
- * The type User list online controller.
+ * The type UserList Online Controller for elastic search.
  */
 public class UserListOnlineController {
-    private static JestDroidClient client;
 
+    //Static variables for JestDroidClient and holding users.
+    private static JestDroidClient client;
     private static ArrayList<User> arrayUserList = null;
     private static UserList userList = new UserList();
 
     /**
-     * Gets user list.
+     * Gets userList from elastic search
      *
      * @return the user list
      */
     static public UserList getUserList() {
         if (arrayUserList == null) {
 
-            //Replace this with retrieval from location
+            // GetsUsersTask to obtain users from elasticsearch
             UserListOnlineController.GetUsersTask getUsersTask = new UserListOnlineController.GetUsersTask();
             getUsersTask.execute("");
             try {
@@ -50,7 +51,8 @@ public class UserListOnlineController {
     }
 
     /**
-     * The type Search user lists task.
+     * The type Search user lists task from elastic search.
+     * Searches for specified type and keyword.
      */
     public static class SearchUserListsTask extends AsyncTask<String, Void, ArrayList<User>> {
         @Override
@@ -59,12 +61,10 @@ public class UserListOnlineController {
 
             ArrayList<User> users = new ArrayList<User>();
 
-            //Just list top 10000 users
-            //Replace with our indexes
+            //Just list top 10000 users with type and keyword
             String search_string = "{\"from\": 0, \"size\": 10000, \"query\": {\"match_phrase\": {\"" + search_parameters[0] + "\": \"" + search_parameters[1] + "\"}}}";
 
-            // assume that search_parameters[0] is the only search term we are interested in using
-            //Add Indexing
+            //Add indexing and type
             Search search = new Search.Builder(search_string)
                     .addIndex("t09")
                     .addType("user")
@@ -87,7 +87,7 @@ public class UserListOnlineController {
     }
 
     /**
-     * The type Get users task.
+     * The type Get users task whih gets all users from elastic search.
      */
     public static class GetUsersTask extends AsyncTask<String, Void, ArrayList<User>> {
         @Override
@@ -96,8 +96,7 @@ public class UserListOnlineController {
 
             ArrayList<User> users = new ArrayList<User>();
 
-            // assume that search_parameters[0] is the only search term we are interested in using
-            //Add Indexing and such
+            //Add Indexing and type.
             Search search = new Search.Builder(search_parameters[0])
                     .addIndex("t09")
                     .addType("user")
@@ -122,7 +121,7 @@ public class UserListOnlineController {
     }
 
     /**
-     * The type Add users task.
+     * The type Add users task which adds a user to elastic search.
      */
     public static class AddUsersTask extends AsyncTask<User, Void, Void> {
 
@@ -131,12 +130,13 @@ public class UserListOnlineController {
             verifySettings();
 
             for (User user : users) {
-                //Add Indexing and such
+                //Add Indexing and type.
                 Index index = new Index.Builder(user).index("t09").type("user").build();
 
                 try {
                     DocumentResult result = client.execute(index);
                     if (result.isSucceeded()) {
+                        //Adds a id if successfully added to elastic search
                         user.setId(result.getId());
                     }
                     else {
@@ -155,7 +155,7 @@ public class UserListOnlineController {
     }
 
     /**
-     * The type Update users task.
+     * The type Update users task which updates a user on elastic search.
      */
     public static class UpdateUsersTask extends AsyncTask<User, Void, Void> {
 
@@ -164,14 +164,13 @@ public class UserListOnlineController {
             verifySettings();
 
             for (User user : users) {
-                //Add Indexing and such
+                //Add Indexing, type and id.
                 Index index = new Index.Builder(user).index("t09").type("user").id(user.getId()).build();
 
                 try {
                     DocumentResult result = client.execute(index);
                     if (!result.isSucceeded()) {
                         Log.i("Error", "Elastic search was not able to update the user.");
-                        System.out.println("Elastic search was not able to update the user.");
                     }
                 } catch (Exception e) {
                     Log.i("Uhoh", "We failed to update a user to elastic search!");
@@ -184,19 +183,12 @@ public class UserListOnlineController {
         }
     }
 
-//    public static class DeleteUsersTask extends AsyncTask<User, Void, Void> {
-//
-//        //Need to fill
-//        @Override
-//        protected Void doInBackground(User... Users) {
-//            verifySettings();
-//        }
-//    }
-
+    /**
+     * Verifies settings of the elastic search server
+     */
     private static void verifySettings() {
         // if the client hasn't been initialized then we should make it!
         if (client == null) {
-            //Replace with webserver
             DroidClientConfig.Builder builder = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080");
             DroidClientConfig config = builder.build();
 
@@ -205,6 +197,4 @@ public class UserListOnlineController {
             client = (JestDroidClient) factory.getObject();
         }
     }
-
-
 }

@@ -6,7 +6,7 @@ import org.osmdroid.util.GeoPoint;
 import java.util.ArrayList;
 
 /**
- * PostList is a class containing all the Posts created by one rider
+ * PostList is a class containing all the Posts created by one user
  */
 public class PostList {
     private ArrayList<Post> postList;
@@ -20,6 +20,10 @@ public class PostList {
         this.listeners = new ArrayList<Listener>();
     }
 
+    /**
+     *
+     * @return the listeners
+     */
     private ArrayList<Listener> getListeners() {
         if (this.listeners == null) {
             listeners = new ArrayList<Listener>();
@@ -41,17 +45,16 @@ public class PostList {
     /**
      * Add listener.
      *
-     * @param l the l
+     * @param l the listener
      */
 // Adds listener to the HabitList
     public void addListener(Listener l)
     {
         listeners.add(l);
-
     }
 
     /**
-     * Gets posts.
+     * Gets the posts.
      *
      * @return the posts
      */
@@ -60,7 +63,7 @@ public class PostList {
     }
 
     /**
-     * Add post.
+     * Add a post and notifies listeners.
      *
      * @param post the post
      */
@@ -70,7 +73,7 @@ public class PostList {
     }
 
     /**
-     * Delete post.
+     * Delete the post and notifies listeners
      *
      * @param post the post
      * @throws Exception the exception
@@ -83,7 +86,7 @@ public class PostList {
     /**
      * Gets post.
      *
-     * @param i the
+     * @param i the index
      * @return the post
      */
     public Post getPost(int i) {
@@ -91,7 +94,7 @@ public class PostList {
     }
 
     /**
-     * Search list post list.
+     * Search list post list for a keyword.
      *
      * @param keyword the keyword
      * @return the post list
@@ -101,22 +104,7 @@ public class PostList {
     }
 
     /**
-     * Modify post.
-     *
-     * @param post                  the post
-     * @param start_Custom_location the start location
-     * @param end_Custom_location   the end location
-     * @param status                the status
-     */
-    public void ModifyPost(Post post, GeoPoint start_Custom_location, GeoPoint end_Custom_location, String status) {
-        post.setStartLocation(start_Custom_location);
-        post.setEndLocation(end_Custom_location);
-        post.setStatus(status);
-        notifyListeners();
-    }
-
-    /**
-     * Sets post list.
+     * Sets post list and notifies listeners.
      *
      * @param postList the post list
      */
