@@ -44,7 +44,7 @@
         android:textColor="@color/white"
         android:fontFamily="sans-serif-smallcaps" />
 
-    <org.osmdroid.views.MapView android:id="@+id/map"
+    <org.osmdroid.views.MapView android:id="@+id/RequestDetailsMap"
         android:layout_width="400dp"
         android:layout_height="300dp"
         android:layout_below="@+id/RequestDetailsPostedBy"/>

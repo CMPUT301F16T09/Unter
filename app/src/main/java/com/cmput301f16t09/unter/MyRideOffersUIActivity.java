@@ -79,18 +79,18 @@ public class MyRideOffersUIActivity extends AppCompatActivity {
             }
         });
 
-        currentPostList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                final int currPost = i;
-                CurrentUser.setCurrentPost(postList.getPost(currPost));
-
-                Intent intent = new Intent(MyRideOffersUIActivity.this,RideOfferDetailsUIActivity.class);
-                startActivity(intent);
-
-                return false;
-            }
-        });
+//        currentPostList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                final int currPost = i;
+//                CurrentUser.setCurrentPost(postList.getPost(currPost));
+//
+//                Intent intent = new Intent(MyRideOffersUIActivity.this,RideOfferDetailsUIActivity.class);
+//                startActivity(intent);
+//
+//                return false;
+//            }
+//        });
 
 
 

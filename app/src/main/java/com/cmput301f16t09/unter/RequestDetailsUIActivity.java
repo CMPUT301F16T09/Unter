@@ -56,7 +56,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         fare = (TextView) findViewById(R.id.RequestDetailsCost);
         fare.setText(CurrentUser.getCurrentPost().getFare());
 
-        map = (MapView) findViewById(R.id.request_details_map);
+        map = (MapView) findViewById(R.id.RequestDetailsMap);
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);

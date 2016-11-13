@@ -32,6 +32,7 @@ public class PostListOfflineController {
     private static PostList postlist = null;
     private static final String FILENAME = "real_offline_posts.sav";
     // Create a second file and store into that for offline queue?
+    private static final String QUEUE_FILENAME = "queue_offline_posts.sav";
 //    private static PostList postListQueue = new PostList();
 
     /**
@@ -48,9 +49,14 @@ public class PostListOfflineController {
             onlinePosts.execute("");
             postlist = new PostList();
             postlist.setPostList(onlinePosts.get());
+
+            // If queue FILE offline list is not empty, add Posts to elastic search
+            // Clear queue FILE
+
             saveOfflinePosts(context);
         }
         catch (Exception e) {
+            // Add To Queue FILE
             loadOfflinePosts(context);
             Toast.makeText(context, "Cannot store posts", Toast.LENGTH_SHORT).show();
             Log.i("Error", "Loading failed");
@@ -103,6 +109,7 @@ public class PostListOfflineController {
 
     public static void saveOfflinePosts(Context context)
     {
+        // Also write to queue FILE
             try {
             // Open the FileOutputStream and BufferedWriter to write to FILENAME
             FileOutputStream fos = context.openFileOutput(FILENAME, context.MODE_PRIVATE);
