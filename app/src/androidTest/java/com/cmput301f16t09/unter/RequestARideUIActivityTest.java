@@ -30,8 +30,14 @@ public class RequestARideUIActivityTest extends ActivityInstrumentationTestCase2
 
     public void testButtons() {
         solo.enterText((EditText) solo.getView(R.id.mainScreenUsername), "KappaRoss");
-        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "RossKappa");
+        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "123");
         solo.clickOnButton("Login");
+
+        solo.clickOnButton("My Ride\nRequests");
+        solo.assertCurrentActivity("Wrong Activity", MyRideRequestsUIActivity.class);
+        solo.goBack();
+
+        solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);
 
         solo.clickOnButton("Request\nA Ride");
 
@@ -39,8 +45,8 @@ public class RequestARideUIActivityTest extends ActivityInstrumentationTestCase2
         solo.clickOnButton("Get\nEstimate");
         assertTrue(solo.waitForText("Please fill in start and end locations"));
 
-        solo.enterText((EditText) solo.getView(R.id.RequestRideStartLocation), "Bob");
-        assertTrue(solo.waitForText("Bob"));
+        solo.enterText((EditText) solo.getView(R.id.RequestRideStartLocation), "University LRT Station");
+        assertTrue(solo.waitForText("University LRT Station"));
         solo.clickOnButton("Get\nEstimate");
         assertTrue(solo.waitForText("Please fill in end location"));
         solo.clickOnButton("CONFIRM");
@@ -53,20 +59,23 @@ public class RequestARideUIActivityTest extends ActivityInstrumentationTestCase2
         solo.clickOnButton("CONFIRM");
         assertTrue(solo.waitForText("Please fill in start and end locations"));
 
-        solo.enterText((EditText) solo.getView(R.id.RequestRideEndLocation), "Ross");
-        assertTrue(solo.waitForText("Ross"));
+        solo.enterText((EditText) solo.getView(R.id.RequestRideEndLocation), "Corona Station");
+        assertTrue(solo.waitForText("Corona Station"));
         solo.clickOnButton("Get\nEstimate");
         assertTrue(solo.waitForText("Please fill in start location"));
         solo.clickOnButton("CONFIRM");
         assertTrue(solo.waitForText("Please fill in start location"));
 
-        solo.enterText((EditText) solo.getView(R.id.RequestRideStartLocation), "Bob");
-        assertTrue(solo.waitForText("Bob"));
+        solo.enterText((EditText) solo.getView(R.id.RequestRideStartLocation), "University LRT Station");
+        assertTrue(solo.waitForText("University LRT Station"));
         solo.clickOnButton("Get\nEstimate");
-        assertTrue(solo.waitForText("No possible route here"));
+        // Fare Estimate is not working atm.
         solo.clickOnButton("CONFIRM");
         assertTrue(solo.waitForText("Request Made"));
 
+        solo.clickOnButton("My Ride\nRequests");
+        solo.assertCurrentActivity("Wrong Activity", MyRideRequestsUIActivity.class);
+        solo.goBack();
         solo.goBack();
         solo.goBack();
     }

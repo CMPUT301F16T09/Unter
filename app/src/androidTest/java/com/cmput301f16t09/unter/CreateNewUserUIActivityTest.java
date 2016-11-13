@@ -41,8 +41,8 @@ public class CreateNewUserUIActivityTest extends ActivityInstrumentationTestCase
         solo.enterText((EditText) solo.getView(R.id.SignUpUsername), "KappaRoss");
         assertTrue(solo.waitForText("KappaRoss"));
 
-        solo.enterText((EditText) solo.getView(R.id.SignUpName), "Kappa Ross");
-        assertTrue(solo.waitForText("Kappa Ross"));
+        solo.enterText((EditText) solo.getView(R.id.SignUpName), "Bob Ross");
+        assertTrue(solo.waitForText("Bob Ross"));
 
         solo.enterText((EditText) solo.getView(R.id.SignUpPhoneNumber), "123 456 7890");
         assertTrue(solo.waitForText("123 456 7890"));
@@ -50,11 +50,11 @@ public class CreateNewUserUIActivityTest extends ActivityInstrumentationTestCase
         solo.enterText((EditText) solo.getView(R.id.SignUpEmail), "KappaRoss@Kappa.com");
         assertTrue(solo.waitForText("KappaRoss@Kappa.com"));
 
-        solo.enterText((EditText) solo.getView(R.id.SignUpPassword), "RossKappa");
-        assertTrue(solo.waitForText("RossKappa"));
+        solo.enterText((EditText) solo.getView(R.id.SignUpPassword), "123");
+        assertTrue(solo.waitForText("123"));
 
-        solo.enterText((EditText) solo.getView(R.id.SignUpConfirmPassword), "RossKappa");
-        assertTrue(solo.waitForText("RossKappa"));
+        solo.enterText((EditText) solo.getView(R.id.SignUpConfirmPassword), "123");
+        assertTrue(solo.waitForText("123"));
 
         solo.clickOnButton("C o n f i r m");
 

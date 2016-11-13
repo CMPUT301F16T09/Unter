@@ -52,6 +52,7 @@
         android:gravity="center"
         android:hint="@string/enter_username_login_hint"
         android:textSize="20sp"
+        android:textColor="@color/TextColor"
         android:textColorHint="@color/HintTextColor"
         android:fontFamily="sans-serif-smallcaps" />
 
@@ -64,6 +65,7 @@
         android:hint="@string/enter_password_login_hint"
         android:gravity="center"
         android:textSize="20sp"
+        android:textColor="@color/TextColor"
         android:textColorHint="@color/HintTextColor"
         android:inputType="textPassword"
         android:fontFamily="sans-serif-smallcaps" />
