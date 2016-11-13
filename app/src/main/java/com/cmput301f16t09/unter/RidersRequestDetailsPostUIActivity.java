@@ -60,67 +60,43 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
         complete_request.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                AlertDialog.Builder paymentDialog = new AlertDialog.Builder(RidersRequestDetailsPostUIActivity.this);
+                paymentDialog.setTitle("Payment Options");
+                paymentDialog.setMessage("$"+ "  " + CurrentUser.getCurrentPost().getFare().toString()); //make this to two decimal places
+                paymentDialog.setCancelable(false);
 
-               if (!enablePayment(CurrentUser.getCurrentPost())){
-                    Log.i("Error","Could not complete payment");
-                }
+                paymentDialog.setPositiveButton("Complete Transaction", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                      //  int index = CurrentUser.getCurrentUser().getMyRequests().getPosts().indexOf(CurrentUser.getCurrentPost());
+                       // CurrentUser.getCurrentUser().getMyRequests().getPosts().get(index).setStatus("Completed");
+                        CurrentUser.getCurrentUser().getMyRequests().getPosts().remove(CurrentUser.getCurrentPost());
+                        CurrentUser.getCurrentPost().setStatus("Completed");
 
-//                int index = CurrentUser.getCurrentUser().getMyRequests().getPosts().indexOf(CurrentUser.getCurrentPost());
-//                CurrentUser.getCurrentUser().getMyRequests().getPosts().get(index).setStatus("Completed");
-                //  CurrentUser.getCurrentUser().getMyRequests().getPosts().remove(CurrentUser.getCurrentPost());
-                CurrentUser.getCurrentPost().setStatus("Completed");
-
-                try {
-                    PostListOnlineController.UpdatePostsTask upt = new PostListOnlineController.UpdatePostsTask();
-                    upt.execute(CurrentUser.getCurrentPost());
-                    upt.get();
+                        try {
+                            PostListOnlineController.UpdatePostsTask upt = new PostListOnlineController.UpdatePostsTask();
+                            upt.execute(CurrentUser.getCurrentPost());
+                            upt.get();
 
 
-                    UserListOnlineController.UpdateUsersTask uut = new UserListOnlineController.UpdateUsersTask();
-                    uut.execute(CurrentUser.getCurrentUser());
-                    uut.get();
+                            UserListOnlineController.UpdateUsersTask uut = new UserListOnlineController.UpdateUsersTask();
+                            uut.execute(CurrentUser.getCurrentUser());
+                            uut.get();
 
-                    Toast.makeText(RidersRequestDetailsPostUIActivity.this, "Completed request!!", Toast.LENGTH_SHORT).show();
-                    //adapter.notifyDataSetChanged();
+                            Toast.makeText(RidersRequestDetailsPostUIActivity.this, "Completed request!!", Toast.LENGTH_SHORT).show();
+                            //adapter.notifyDataSetChanged();
 
-//
-                    Intent intent = new Intent(RidersRequestDetailsPostUIActivity.this,MainScreenUIActivity.class);
-                    startActivity(intent);
+                            Intent intent = new Intent(RidersRequestDetailsPostUIActivity.this,MainScreenUIActivity.class);
+                            startActivity(intent);
 
-                }
-                catch (Exception e) {
-                    Log.i("Error", "Unable to Update Post/User Information");
-                }
+                        }
+                        catch (Exception e) {
+                            Log.i("Error", "Unable to Update Post/User Information");
+                        }
+                    }
+                });
+                paymentDialog.show();
             }
         });
     }
-
-    public boolean enablePayment(Post p) {
-
-        // Build the dialog
-        AlertDialog.Builder paymentDialog = new AlertDialog.Builder(RidersRequestDetailsPostUIActivity.this);
-        paymentDialog.setTitle("Payment Options");
-        paymentDialog.setMessage("$"+ "  " + p.getFare().toString());
-        paymentDialog.setCancelable(false);
-
-        paymentDialog.setPositiveButton("Complete Transaction", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                try {
-//                    PostListOfflineController.getPostList(ProvideARideUIActivity.this).deletePost(postToRemove);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-
-                Toast.makeText(RidersRequestDetailsPostUIActivity.this, "Payment ", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        // Show the dialog
-        paymentDialog.show();
-        return true;
-    }
-
 }

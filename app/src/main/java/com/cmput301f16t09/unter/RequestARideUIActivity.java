@@ -95,6 +95,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
             startPoint = findCoords(startLocation);
             endPoint = findCoords(endLocation);
 
+            //CurrentUser.getCurrentPost().setFare("FAKE fare");
             //getFareAsync();
 
             mapController.setCenter(startPoint);
