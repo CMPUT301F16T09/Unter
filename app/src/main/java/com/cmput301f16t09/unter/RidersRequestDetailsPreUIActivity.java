@@ -1,26 +1,19 @@
 package com.cmput301f16t09.unter;
 
-import android.support.v7.app.AppCompatActivity;
-
-import android.graphics.Color;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 
 public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
 
@@ -37,11 +30,11 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
         tvCurrentStatus.setText(currentStatus);
 
         TextView tvStartLocation = (TextView) findViewById(R.id.RideRequestDetailsPreStartLocationName);
-        String startLocation = CurrentUser.getCurrentPost().getStartLocation().toString();
+        String startLocation = CurrentUser.getCurrentPost().getStartAddress();
         tvStartLocation.setText(startLocation);
 
         TextView tvEndLocation = (TextView) findViewById(R.id.RideRequestDetailsPreEndLocationName);
-        String endLocation = CurrentUser.getCurrentPost().getEndLocation().toString();
+        String endLocation = CurrentUser.getCurrentPost().getEndAddress();
         tvEndLocation.setText(endLocation);
 
         TextView tvOfferedFare = (TextView) findViewById(R.id.RideRequestDetailsPreOfferedFare);
