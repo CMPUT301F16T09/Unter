@@ -10,19 +10,26 @@ import java.util.ArrayList;
  */
 public class PostList {
     private ArrayList<Post> postList;
-    protected ArrayList<Listener> listeners;
+    private ArrayList<Listener> listeners;
 
     /**
      * Instantiates a new Post list.
      */
     public PostList() {
         this.postList = new ArrayList<Post>();
-        listeners = new ArrayList<Listener>();
+        this.listeners = new ArrayList<Listener>();
+    }
+
+    private ArrayList<Listener> getListeners() {
+        if (this.listeners == null) {
+            listeners = new ArrayList<Listener>();
+        }
+        return listeners;
     }
 
     public void notifyListeners()
     {
-        for (Listener l : listeners)
+        for (Listener l : getListeners())
         {
             l.update();
         }

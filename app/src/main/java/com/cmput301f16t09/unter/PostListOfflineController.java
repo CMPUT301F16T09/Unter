@@ -24,6 +24,7 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The type Post list offline controller.
@@ -41,13 +42,14 @@ public class PostListOfflineController {
      */
     static public PostList getPostList(Context context) {
         if (postlist == null) {
-            postlist = new PostList();
         }
+        postlist = new PostList();
         try {
             PostListOnlineController.GetPostsTask onlinePosts = new PostListOnlineController.GetPostsTask();
             onlinePosts.execute("");
-            postlist = new PostList();
-            postlist.setPostList(onlinePosts.get());
+//              postlist = new PostList();
+            postlist.getPosts().clear();
+            postlist.setPostList(onlinePosts.get(1000, TimeUnit.MILLISECONDS));
             saveOfflinePosts(context);
         }
         catch (Exception e) {
@@ -55,7 +57,6 @@ public class PostListOfflineController {
             Toast.makeText(context, "Cannot store posts", Toast.LENGTH_SHORT).show();
             Log.i("Error", "Loading failed");
         }
-
         return postlist;
     }
 
