@@ -31,12 +31,12 @@ public class ProvideARideUIActivityTest extends ActivityInstrumentationTestCase2
 
     public void testProvideARideButtons() {
         solo.enterText((EditText) solo.getView(R.id.mainScreenUsername), "KappaRoss");
-        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "RossKappa");
+        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "123");
         solo.clickOnButton("Login");
 
         solo.clickOnButton("Request\nA Ride");
-        solo.enterText((EditText) solo.getView(R.id.RequestRideStartLocation), "Bob");
-        solo.enterText((EditText) solo.getView(R.id.RequestRideEndLocation), "Ross");
+        solo.enterText((EditText) solo.getView(R.id.RequestRideStartLocation), "University LRT Station");
+        solo.enterText((EditText) solo.getView(R.id.RequestRideEndLocation), "Corona Station");
         solo.clickOnButton("CONFIRM");
 
         solo.clickOnButton("My Ride\nRequests");
@@ -61,6 +61,11 @@ public class ProvideARideUIActivityTest extends ActivityInstrumentationTestCase2
 
         solo.goBack();
         solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);
+        solo.clickOnButton("My Ride\nOffers");
+        solo.assertCurrentActivity("Wrong Activity", MyRideOffersUIActivity.class);
+        solo.goBack();
+        solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);
+
         solo.goBack();
         solo.assertCurrentActivity("Wrong Activity", MainGUIActivity.class);
     }

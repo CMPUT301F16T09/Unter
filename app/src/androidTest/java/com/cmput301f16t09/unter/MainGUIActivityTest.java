@@ -38,8 +38,8 @@ public class MainGUIActivityTest extends ActivityInstrumentationTestCase2<MainGU
         assertTrue(solo.waitForText("KappaRoss"));
 
 
-        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "RossKappa");
-        assertTrue(solo.waitForText("RossKappa"));
+        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "123");
+        assertTrue(solo.waitForText("123"));
 
         solo.clickOnButton("Login");
         solo.assertCurrentActivity("Wrong Activity, should be CreateNewUser", MainScreenUIActivity.class);

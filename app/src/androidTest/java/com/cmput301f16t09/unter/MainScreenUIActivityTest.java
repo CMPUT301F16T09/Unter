@@ -30,7 +30,7 @@ public class MainScreenUIActivityTest extends ActivityInstrumentationTestCase2<M
 
         solo.assertCurrentActivity("Wrong Activity", MainGUIActivity.class);
         solo.enterText((EditText) solo.getView(R.id.mainScreenUsername), "KappaRoss");
-        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "RossKappa");
+        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "123");
         solo.clickOnButton("Login");
 
         solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);
@@ -48,7 +48,7 @@ public class MainScreenUIActivityTest extends ActivityInstrumentationTestCase2<M
 
         solo.assertCurrentActivity("Wrong Activity", MainGUIActivity.class);
         solo.enterText((EditText) solo.getView(R.id.mainScreenUsername), "KappaRoss");
-        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "RossKappa");
+        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "123");
         solo.clickOnButton("Login");
 
         solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);
@@ -64,7 +64,7 @@ public class MainScreenUIActivityTest extends ActivityInstrumentationTestCase2<M
     public void testProvideARideButton() {
         solo.assertCurrentActivity("Wrong Activity", MainGUIActivity.class);
         solo.enterText((EditText) solo.getView(R.id.mainScreenUsername), "KappaRoss");
-        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "RossKappa");
+        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "123");
         solo.clickOnButton("Login");
 
         solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);
@@ -80,7 +80,7 @@ public class MainScreenUIActivityTest extends ActivityInstrumentationTestCase2<M
     public void testMyRideOffersButton() {
         solo.assertCurrentActivity("Wrong Activity", MainGUIActivity.class);
         solo.enterText((EditText) solo.getView(R.id.mainScreenUsername), "KappaRoss");
-        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "RossKappa");
+        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "123");
         solo.clickOnButton("Login");
 
         solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);

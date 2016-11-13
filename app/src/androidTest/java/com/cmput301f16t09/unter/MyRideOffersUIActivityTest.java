@@ -32,12 +32,12 @@ public class MyRideOffersUIActivityTest extends ActivityInstrumentationTestCase2
         solo.assertCurrentActivity("Wrong Activity", MainGUIActivity.class);
 
         solo.enterText((EditText) solo.getView(R.id.mainScreenUsername), "KappaRoss");
-        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "RossKappa");
+        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "123");
         solo.clickOnButton("Login");
 
         solo.clickOnButton("Request\nA Ride");
-        solo.enterText((EditText) solo.getView(R.id.RequestRideStartLocation), "University");
-        solo.enterText((EditText) solo.getView(R.id.RequestRideEndLocation), "The Devil's Den");
+        solo.enterText((EditText) solo.getView(R.id.RequestRideStartLocation), "University LRT Station");
+        solo.enterText((EditText) solo.getView(R.id.RequestRideEndLocation), "Corona Station");
         solo.clickOnButton("Get\nEstimate");
         solo.clickOnButton("CONFIRM");
 
@@ -56,6 +56,8 @@ public class MyRideOffersUIActivityTest extends ActivityInstrumentationTestCase2
         solo.assertCurrentActivity("Wrong Activity",ProvideARideUIActivity.class);
         solo.clickInList(0);
         solo.assertCurrentActivity("Wrong Activity", RequestDetailsUIActivity.class);
+        solo.clickOnText("kappaross");
+        solo.goBack();
 
         solo.clickOnButton("Offer Ride");
         solo.waitForText("Successfully sent the offer!");
@@ -66,7 +68,11 @@ public class MyRideOffersUIActivityTest extends ActivityInstrumentationTestCase2
         solo.clickOnButton("My Ride\nOffers");
         solo.clickInList(0);
         solo.assertCurrentActivity("Wrong Activity", RideOfferDetailsUIActivity.class);
+        solo.clickOnText("kappaross");
+        solo.goBack();
 
+        solo.goBack();
+        solo.assertCurrentActivity("Wrong Activity", MyRideOffersUIActivity.class);
         solo.goBack();
         solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);
         solo.goBack();
