@@ -47,7 +47,7 @@ public class CreateNewUserUIActivity extends AppCompatActivity {
         confirm_password = (EditText) findViewById(R.id.SignUpConfirmPassword);
         input_index.add(0, username.getText().toString());
         input_index.add(1, name.getText().toString());
-        input_index.add(2, phone_number.getText().toString());
+        input_index.add(2, phone_number.getText().toString().replaceAll("\\D",""));
         input_index.add(3, email.getText().toString());
         input_index.add(4, password.getText().toString());
         input_index.add(5, confirm_password.getText().toString());
