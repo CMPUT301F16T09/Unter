@@ -86,9 +86,11 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
                             Toast.makeText(RidersRequestDetailsPostUIActivity.this, "Completed request", Toast.LENGTH_SHORT).show();
 
                             //bring to main menu ; clear android activity stack
+                            Intent intent = new Intent(RidersRequestDetailsPostUIActivity.this,MainScreenUIActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
 
 
-                           
                         }
                         catch (Exception e) {
                             Log.i("Error", "Deletion upon completion Error");
