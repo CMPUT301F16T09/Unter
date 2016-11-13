@@ -68,9 +68,9 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
                 paymentDialog.setPositiveButton("Complete Transaction", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                      //  int index = CurrentUser.getCurrentUser().getMyRequests().getPosts().indexOf(CurrentUser.getCurrentPost());
-                       // CurrentUser.getCurrentUser().getMyRequests().getPosts().get(index).setStatus("Completed");
-                        CurrentUser.getCurrentUser().getMyRequests().getPosts().remove(CurrentUser.getCurrentPost());
+                        //int index = CurrentUser.getCurrentUser().getMyRequests().getPosts().indexOf(CurrentUser.getCurrentPost());
+                        //CurrentUser.getCurrentUser().getMyRequests().getPosts().get(index).setStatus("Completed");
+                       // CurrentUser.getCurrentUser().getMyRequests().getPosts().remove(CurrentUser.getCurrentPost());
                         CurrentUser.getCurrentPost().setStatus("Completed");
 
                         try {

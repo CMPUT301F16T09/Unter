@@ -37,12 +37,12 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
 
         currentPostList = (ListView) findViewById(R.id.listViewMyRideRequests);
 
-        // Get All posts for the specific user
-//        for(Post p : PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
-//            if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
-//                postList.addPost(p);
-//            }
-//        }
+//         Get All posts for the specific user
+        for(Post p : PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
+            if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
+                postList.addPost(p);
+            }
+        }
 
         adapter = new ArrayAdapter<Post>(this, android.R.layout.simple_list_item_1, postList.getPosts()) {
 
@@ -110,12 +110,12 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
 
         // Add a listener and define the update function to refresh the habits list when there
         // is a change in the dataset, then save the data to FILENAME
-        postList.addListener(new Listener() {
+        PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).addListener(new Listener() {
             @Override
             public void update()
             {
-                postList = new PostList();
-//                postList.getPosts().clear();
+//                postList = new PostList();
+                postList.getPosts().clear();
 
                 for(Post p : PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
                     if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
