@@ -66,12 +66,14 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         map.setMultiTouchControls(true);
         mapController = map.getController();
 
-        GeoPoint edmPoint = new GeoPoint(53.5444, -113.4909);
+        //GeoPoint edmPoint = new GeoPoint(53.5444, -113.4909);
         mapController.setZoom(15);
-        mapController.setCenter(edmPoint);
+        //mapController.setCenter(edmPoint);
 
         startPoint = CurrentUser.getCurrentPost().getStartLocation();
         endPoint = CurrentUser.getCurrentPost().getEndLocation();
+
+        mapController.setCenter(startPoint);
 
         // to get a key http://developer.mapquest.com/
         //roadManager = new MapQuestRoadManager("xPGrfmORuC6QJMSkF6SXGKYbBgTefNdm");
@@ -80,7 +82,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         ArrayList<OverlayItem> overlayItemArray;
         overlayItemArray = new ArrayList<>();
         overlayItemArray.add(new OverlayItem("Starting Point", "This is the starting point", startPoint));
-        overlayItemArray.add(new OverlayItem("Destination", "This is the detination point", endPoint));
+        overlayItemArray.add(new OverlayItem("Destination", "This is the destination point", endPoint));
         getRoadAsync();
 
         poster.setOnClickListener(new View.OnClickListener() {
