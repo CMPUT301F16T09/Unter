@@ -1,37 +1,27 @@
 package com.cmput301f16t09.unter;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.Menu;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
-import org.osmdroid.bonuspack.routing.MapQuestRoadManager;
 import org.osmdroid.bonuspack.routing.OSRMRoadManager;
 import org.osmdroid.bonuspack.routing.Road;
 import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.infowindow.BasicInfoWindow;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,29 +55,25 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         end_Location.setText(CurrentUser.getCurrentPost().getEndLocation().toString());
         fare = (TextView) findViewById(R.id.RequestDetailsCost);
         fare.setText(CurrentUser.getCurrentPost().getFare());
-//        map = (MapView) findViewById(R.id.request_details_map);
-//        map.setTileSource(TileSourceFactory.MAPNIK);
-//        map.setBuiltInZoomControls(true);
-//        map.setMultiTouchControls(true);
-//
-//
-//        startPoint = new GeoPoint(48.13, -1.63);
-//        destinationPoint = new GeoPoint(48.4, -1.9);
-//
-//        IMapController mapController = map.getController();
-//        mapController.setZoom(11);
-//        mapController.setCenter(startPoint);
-//
-//        // to get a key http://developer.mapquest.com/
-//        roadManager = new MapQuestRoadManager("xPGrfmORuC6QJMSkF6SXGKYbBgTefNdm");
-//        //roadManager = new OSRMRoadManager(myActivity);
-//
-//        ArrayList<OverlayItem> overlayItemArray;
-//        overlayItemArray = new ArrayList<>();
-//
-//        overlayItemArray.add(new OverlayItem("Starting Point", "This is the starting point", startPoint));
-//        overlayItemArray.add(new OverlayItem("Destination", "This is the detination point", destinationPoint));
-//        getRoadAsync();
+
+        map = (MapView) findViewById(R.id.request_details_map);
+        map.setTileSource(TileSourceFactory.MAPNIK);
+        map.setBuiltInZoomControls(true);
+        map.setMultiTouchControls(true);
+
+        IMapController mapController = map.getController();
+        mapController.setZoom(11);
+        mapController.setCenter(startPoint);
+
+        // to get a key http://developer.mapquest.com/
+        //roadManager = new MapQuestRoadManager("xPGrfmORuC6QJMSkF6SXGKYbBgTefNdm");
+        roadManager = new OSRMRoadManager(myActivity);
+
+        ArrayList<OverlayItem> overlayItemArray;
+        overlayItemArray = new ArrayList<>();
+        overlayItemArray.add(new OverlayItem("Starting Point", "This is the starting point", startPoint));
+        overlayItemArray.add(new OverlayItem("Destination", "This is the detination point", destinationPoint));
+        getRoadAsync();
 
         poster.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +95,6 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         waypoints.add(destinationPoint);
         new UpdateRoadTask().execute(waypoints);
     }
-
     private class UpdateRoadTask extends AsyncTask<Object, Void, Road[]> {
 
         protected Road[] doInBackground(Object... params) {
