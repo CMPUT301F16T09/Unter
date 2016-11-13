@@ -15,22 +15,26 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-
 /**
- * The type Riders request details pre ui activity.
+ * The type Riders request details pre ui activity. This activity displays a list of drivers that
+ * have offered a ride for the users ride request post. The user can view the user's profile who
+ * offered the post, cancel the post, or confirm an offer made by a user for the post. There is also
+ * basic information (no map) for the post.
+ * @author Daniel 
  */
 public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
 
+    /* Called when the activity is called and creates the activity. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_riders_request_details_pre_ui);
         ListView potentialDriversListView = (ListView) findViewById(R.id.listViewRideRequestDetailsRiderOffers);
 
-//        Get drivers instead of post
-
+        /**
+         * Get and display all of the information from the post that is stored in CurrentUser
+         * @see CurrentUser
+         */
         TextView tvCurrentStatus = (TextView) findViewById(R.id.RideRequestDetailsPreCurrentStatus);
         String currentStatus = CurrentUser.getCurrentPost().getStatus();
         tvCurrentStatus.setText(currentStatus);
@@ -47,6 +51,9 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
         String offeredFare = CurrentUser.getCurrentPost().getFare();
         tvOfferedFare.setText(offeredFare);
 
+        /**
+         * Create an adapter for the ListView that will display all of the posts.
+         */
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, CurrentUser.getCurrentPost().getDriverOffers()) {
 
             // Create the view for the habits. Habits name is red if it has not been completed before
@@ -63,10 +70,14 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
             }
         };
 
-
+        // Attach the adapter to the ListView
         potentialDriversListView.setAdapter(adapter);
         //potentialDrivers = CurrentUser.getCurrentPost().getDriverOffers();
 
+        /**
+         * If there is a long click on a post, the create a dialog fragment for the option to view
+         * that users profile, or to accept the offer made by the user.
+         */
         potentialDriversListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -74,6 +85,13 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(RidersRequestDetailsPreUIActivity.this);
                 final String driverUsername = CurrentUser.getCurrentPost().getDriverOffers().get(position); //unsure about this
 
+                /**
+                 * Setting up the dialog box for accepting the driver. The status is updated and
+                 * pushed onto elasticsearch. The screen directly changes to RidersRequestDetailsPostUIActivity
+                 * @see PostListOnlineController
+                 * @see CurrentUser
+                 * @see RidersRequestDetailsPostUIActivity
+                 */
                 builder.setMessage("Actions for Driver:         "+ driverUsername);
                 builder.setPositiveButton(R.string.choose_driver, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -104,6 +122,9 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
                     }
                 });
 
+                /**
+                 * Create a cancel button to close the dialog
+                 */
                 builder.setNegativeButton(R.string.cancel_button, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
@@ -112,11 +133,14 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
                     }
                 });
 
+                /**
+                 * Create a button to view the user's profile. The activity changes to
+                 * ViewProfileUIActivity, where the user's information will be displayed.
+                 * @see ViewProfileUIActivity
+                 */
                 builder.setNeutralButton(R.string.view_profile, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        // String driverUsername = CurrentUser.getCurrentPost().getDriverOffers().get(currDriver_pos).toString(); //unsure about this
-                        // String driverUsername = potentialDrivers.get(currDriver_pos);
                         Intent intent = new Intent(RidersRequestDetailsPreUIActivity.this, ViewProfileUIActivity.class);
                         intent.putExtra("User", driverUsername);
                         startActivity(intent);
@@ -133,8 +157,10 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
     }
 
     /**
-     * Cancel request.
-     *
+     * When the Cancel Request button is pressed, then delete the post from elastic search and from
+     * the current postlist. Update the user's information about current posts
+     * @see PostListOnlineController
+     * @see CurrentUser
      * @param v the v
      */
     public void cancelRequest(View v) {

@@ -29,17 +29,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-//import android.support.design.widget.FloatingActionButton;
-//import android.support.design.widget.Snackbar;
-
 /**
- * The type Request a ride ui activity.
+ * The Request a ride UI activity that allows riders to create a post for a ride. The Activity
+ * allows the user to specify start and end location, get an estimate for a fare based on the
+ * locations, or input their own fare. The locations can be displayed on the map when the Get Estimate
+ * button is pressed.
+ * @author Daniel
  */
 public class RequestARideUIActivity extends AppCompatActivity {
 
     private AutoCompleteTextView editStart;
     private AutoCompleteTextView editEnd;
     private EditText editFare;
+
     /**
      * The My activity.
      */
@@ -83,24 +85,33 @@ public class RequestARideUIActivity extends AppCompatActivity {
      */
     GeoPoint endPoint;
 
+    /** Called when the activity is created. */
+    /**
+     * When the activity is created, the user can interact with the TextView boxes available, get an
+     * estimated fare for the ride, and see the route to take on the map.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_request_aride_ui);
-        coder = new Geocoder(this, Locale.getDefault());
 
+        /* Set up the map information */
+        coder = new Geocoder(this, Locale.getDefault());
         map = (MapView) findViewById(R.id.RequestARideMap);
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
         mapController = map.getController();
 
+        /* Center the map on Edmonton */
         GeoPoint edmPoint = new GeoPoint(53.5444, -113.4909);
         mapController.setZoom(15);
         mapController.setCenter(edmPoint);
         
     }
+
+    /* Create the menu button on the activity to allow the user to edit their profile */
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -109,9 +120,10 @@ public class RequestARideUIActivity extends AppCompatActivity {
     }
 
     /**
-     * Gets estimate.
-     *
-     * @param v the v
+     * Get an estimated fare for the route from start location to end location based on distance.
+     * Pressing the Get Estimate button will update the map. The start and end locations are required
+     * before the estimate can be obtained.
+     * @param v the view
      */
     public void getEstimate(View v) {
 
@@ -148,7 +160,8 @@ public class RequestARideUIActivity extends AppCompatActivity {
     }
 
     /**
-     * Confirm ride request.
+     * Confirms and creates the ride request post with the inputted information. The start and end
+     * locations must be specified.
      *
      * @param v the v
      */
@@ -176,6 +189,12 @@ public class RequestARideUIActivity extends AppCompatActivity {
             startPoint = findCoords(startLocation);
             endPoint = findCoords(endLocation);
 
+            /**
+             * Add the post to elastic search and save the post to the offline data.
+             * @see PostListOfflineController
+             * @see PostListOnlineController
+             * @see Post
+             */
             PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
             Post newPost = new Post(startPoint, endPoint, startLocation, endLocation, fare, CurrentUser.getCurrentUser().getUsername());
             PostListOfflineController.addOfflinePost(newPost, RequestARideUIActivity.this);
@@ -187,7 +206,11 @@ public class RequestARideUIActivity extends AppCompatActivity {
     }
 
     /**
-     * Gets road async.
+     * Gets road async. Uses the points from the user and calls UpdateRoadTask to update and create
+     * the line on the map connecting start and end location.
+     *
+     * @see UpdateRoadTask
+     * @see GeoPoint
      */
     public void getRoadAsync() {
         mRoads = null;
@@ -196,6 +219,12 @@ public class RequestARideUIActivity extends AppCompatActivity {
         wayPoints.add(endPoint);
         new UpdateRoadTask().execute(wayPoints);
     }
+
+    /**
+     * Used to update and draw the road on the map.
+     * @see GeoPoint
+     * @see Polyline
+     */
     private class UpdateRoadTask extends AsyncTask<Object, Void, Road[]> {
         protected Road[] doInBackground(Object... params) {
             @SuppressWarnings("unchecked")
@@ -230,7 +259,9 @@ public class RequestARideUIActivity extends AppCompatActivity {
     }
 
     /**
-     * Get fare async.
+     * Used to get an estimate fare for the route. (Incomplete)
+     * @see FareCalculatingTask
+     * @see GeoPoint
      */
     public void getFareAsync(){
         ArrayList<GeoPoint> roadPoints = new ArrayList<>(2);
@@ -238,6 +269,11 @@ public class RequestARideUIActivity extends AppCompatActivity {
         roadPoints.add(endPoint);
         new FareCalculatingTask().execute(roadPoints);
     }
+
+    /**
+     *  Method used to calculate the fare based on the given points.
+     *  @see GeoPoint
+     */
     private class FareCalculatingTask extends AsyncTask<ArrayList<GeoPoint>, Void, Road[]> {
 
         protected Road[] doInBackground(ArrayList<GeoPoint>... lists) {
@@ -252,6 +288,10 @@ public class RequestARideUIActivity extends AppCompatActivity {
             if (roads == null){return;}
             double distance = 0.0;
 
+            /**
+             * Draws small segments of the Polyline and calculates the cost of the line based on the
+             * length of the line
+             */
             for (int i = 0; i < roads.length; i++) {
 
                 Polyline roadPolyline = RoadManager.buildRoadOverlay(roads[i]);
@@ -278,6 +318,11 @@ public class RequestARideUIActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Find and display the name of the lat/long GeoPoint based on the Geocoder.
+     * @param address
+     * @return GeoPoint
+     */
     private GeoPoint findCoords(String address) {
         //Nov 7th, 2016 - http://stackoverflow.com/questions/13576470/converting-an-address-into-geopoint
         //Geocoder takes an string and finds an address that most closely resembles the string

@@ -1,7 +1,7 @@
 package com.cmput301f16t09.unter;
 
 /**
- * Created by Daniel on 2016-10-22.
+ * Exception to be used in the future when listeners are implemented more concretely
  */
 public class ListenerNotInUserListException {
 }

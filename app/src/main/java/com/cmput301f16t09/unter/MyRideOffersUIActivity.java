@@ -11,27 +11,48 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+
 /**
- * The type My ride offers ui activity.
+ * The type My ride offers ui activity allows the user to view the offers made to multiple posts.
  */
 public class MyRideOffersUIActivity extends AppCompatActivity {
 
     private PostList postList = new PostList();
     private ListView currentPostList;
 
+    /** Called when the activity is created. */
+    /**
+     * Creates the screen where drivers can view the offers they have made. The screen contains a
+     * ListView that shows all of the offers. Clicking on the offer will change activities and
+     * provide more details for the offer.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_ride_offers_ui);
 
         currentPostList = (ListView) findViewById(R.id.listViewMyRideOffers);
-        // Get All posts for the specific user
-        for(Post p : PostListOfflineController.getPostList(MyRideOffersUIActivity.this).getPosts()) {
+
+        /**
+         * Get all of the posts and filter for the username of the CurrentUser to only display the
+         * posts that correlate to the user.
+         *
+         * @see CurrentUser
+         * @see PostList
+         * @see PostListOnlineController
+         * @see PostListOfflineController
+         */
+        for (Post p : PostListOfflineController.getPostList(MyRideOffersUIActivity.this).getPosts()) {
             if (p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) {
                 postList.addPost(p);
             }
         }
 
+        /**
+         * Adapter for posts that will be linked to the ListView for displaying posts
+         */
         final ArrayAdapter<Post> adapter = new ArrayAdapter<Post>(this, android.R.layout.simple_list_item_1, postList.getPosts()) {
 
             @Override
@@ -41,19 +62,25 @@ public class MyRideOffersUIActivity extends AppCompatActivity {
 
                 String startLocation = postList.getPost(position).getStartAddress();
                 String endLocation = postList.getPost(position).getEndAddress();
-                // Remove forTestUsername after
                 String forTestUsername = postList.getPost(position).getUsername();
-                tv.setText("Username: " + forTestUsername + "\nStart: " + startLocation +"\nEnd: " + endLocation);
-                // tv.setText(postList.getPost(position).getUsername());
+
+                tv.setText("Username: " + forTestUsername + "\nStart: " + startLocation + "\nEnd: " + endLocation);
                 tv.setTextColor(Color.WHITE);
                 return view;
             }
         };
 
+        // Set the adapter to the listview
         currentPostList.setAdapter(adapter);
 
-        currentPostList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            public void onItemClick(AdapterView<?> adapterView, View view, int pos ,long id){
+        /**
+         * If a post is clicked, store the post in CurrentUser and change activities to
+         * RideOfferDetailsUIActivity.
+         * @see CurrentUser
+         * @see RideOfferDetailsUIActivity
+         */
+        currentPostList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
 
                 CurrentUser.setCurrentPost(postList.getPost(pos));
                 Intent RideOfferDetailsIntent = new Intent(MyRideOffersUIActivity.this,
@@ -62,13 +89,17 @@ public class MyRideOffersUIActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * Add a listener to the post list in PostListOfflineController
+         *
+         * @see PostListOfflineController
+         */
         PostListOfflineController.getPostList(MyRideOffersUIActivity.this).addListener(new Listener() {
             @Override
-            public void update()
-            {
+            public void update() {
                 postList.getPosts().clear();
 
-                for(Post p : PostListOfflineController.getPostList(MyRideOffersUIActivity.this).getPosts()) {
+                for (Post p : PostListOfflineController.getPostList(MyRideOffersUIActivity.this).getPosts()) {
                     if (p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) {
                         postList.addPost(p);
                     }
@@ -77,23 +108,5 @@ public class MyRideOffersUIActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
-
-//        currentPostList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                final int currPost = i;
-//                CurrentUser.setCurrentPost(postList.getPost(currPost));
-//
-//                Intent intent = new Intent(MyRideOffersUIActivity.this,RideOfferDetailsUIActivity.class);
-//                startActivity(intent);
-//
-//                return false;
-//            }
-//        });
-
-
-
-    }//oncreate
-
-
-}//class
+    }
+}
