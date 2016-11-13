@@ -7,6 +7,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -162,11 +163,9 @@ public class RequestARideUIActivity extends AppCompatActivity {
                 Toast.makeText(map.getContext(), "Technical issue when getting the route", Toast.LENGTH_SHORT).show();
             else if (roads[0].mStatus > Road.STATUS_TECHNICAL_ISSUE) //functional issues
                 Toast.makeText(map.getContext(), "No possible route here", Toast.LENGTH_SHORT).show();
-            //Polyline[] mRoadOverlays = new Polyline[roads.length];
             List<Overlay> mapOverlays = map.getOverlays();
             for (int i = 0; i < roads.length; i++) {
                 Polyline roadPolyline = RoadManager.buildRoadOverlay(roads[i]);
-               // mRoadOverlays[i] = roadPolyline;
                 String routeDesc = roads[i].getLengthDurationText(myActivity.getBaseContext(), -1);
                 roadPolyline.setTitle(getString(R.string.app_name) + " - " + routeDesc);
                 roadPolyline.setInfoWindow(new BasicInfoWindow(org.osmdroid.bonuspack.R.layout.bonuspack_bubble, map));
@@ -236,6 +235,9 @@ public class RequestARideUIActivity extends AppCompatActivity {
             longitude = startAddress.get(0).getLongitude();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (IndexOutOfBoundsException e) {
+            Toast.makeText(this, "Invalid Location", Toast.LENGTH_SHORT).show();
+            Log.i("Error", "Can't find Location");
         }
         return new GeoPoint(latitude, longitude);
     }
