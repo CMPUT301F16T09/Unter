@@ -126,7 +126,7 @@
         android:fontFamily="sans-serif-smallcaps" />
 
     // Insert Map here
-    <org.osmdroid.views.MapView android:id="@+id/map"
+    <org.osmdroid.views.MapView android:id="@+id/RidersRequestDetailsPostMap"
         android:layout_width="match_parent"
         android:layout_height="330dp"
         android:layout_below="@+id/RideRequestDetailsPostDriver"/>

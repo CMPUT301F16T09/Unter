@@ -57,7 +57,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
         setContentView(R.layout.activity_request_aride_ui);
         coder = new Geocoder(this, Locale.getDefault());
 
-        map = (MapView) findViewById(R.id.map);
+        map = (MapView) findViewById(R.id.RequestARideMap);
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);

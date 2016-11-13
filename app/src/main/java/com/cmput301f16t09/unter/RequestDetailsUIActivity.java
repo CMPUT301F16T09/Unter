@@ -35,7 +35,8 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
     Activity myActivity = this;
     Road[] mRoads;
     GeoPoint startPoint;
-    GeoPoint destinationPoint;
+    GeoPoint endPoint;
+    IMapController mapController;
 
     TextView poster;
     TextView start_Location;
@@ -49,21 +50,28 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
 
         poster = (TextView) findViewById(R.id.RequestDetailsPostedByRiderName);
         poster.setText(CurrentUser.getCurrentPost().getUsername());
+
         start_Location = (TextView) findViewById(R.id.RequestDetailsStartLocationName);
-        start_Location.setText(CurrentUser.getCurrentPost().getStartLocation().toString());
+        start_Location.setText(CurrentUser.getCurrentPost().getStartAddress());
+
         end_Location = (TextView) findViewById(R.id.RequestDetailsEndLocationName);
-        end_Location.setText(CurrentUser.getCurrentPost().getEndLocation().toString());
+        end_Location.setText(CurrentUser.getCurrentPost().getEndAddress());
+
         fare = (TextView) findViewById(R.id.RequestDetailsCost);
         fare.setText(CurrentUser.getCurrentPost().getFare());
 
-        map = (MapView) findViewById(R.id.map);
+        map = (MapView) findViewById(R.id.RequestDetailsMap);
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
+        mapController = map.getController();
 
-        IMapController mapController = map.getController();
-        mapController.setZoom(11);
-        mapController.setCenter(startPoint);
+        GeoPoint edmPoint = new GeoPoint(53.5444, -113.4909);
+        mapController.setZoom(15);
+        mapController.setCenter(edmPoint);
+
+        startPoint = CurrentUser.getCurrentPost().getStartLocation();
+        endPoint = CurrentUser.getCurrentPost().getEndLocation();
 
         // to get a key http://developer.mapquest.com/
         //roadManager = new MapQuestRoadManager("xPGrfmORuC6QJMSkF6SXGKYbBgTefNdm");
@@ -72,7 +80,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         ArrayList<OverlayItem> overlayItemArray;
         overlayItemArray = new ArrayList<>();
         overlayItemArray.add(new OverlayItem("Starting Point", "This is the starting point", startPoint));
-        overlayItemArray.add(new OverlayItem("Destination", "This is the detination point", destinationPoint));
+        overlayItemArray.add(new OverlayItem("Destination", "This is the detination point", endPoint));
         getRoadAsync();
 
         poster.setOnClickListener(new View.OnClickListener() {
@@ -87,12 +95,11 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
 
     public void getRoadAsync() {
         mRoads = null;
-        GeoPoint roadStartPoint = startPoint;
 
         ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>(2);
-        waypoints.add(roadStartPoint);
+        waypoints.add(startPoint);
+        waypoints.add(endPoint);
 
-        waypoints.add(destinationPoint);
         new UpdateRoadTask().execute(waypoints);
     }
     private class UpdateRoadTask extends AsyncTask<Object, Void, Road[]> {
@@ -100,7 +107,6 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         protected Road[] doInBackground(Object... params) {
             @SuppressWarnings("unchecked")
             ArrayList<GeoPoint> waypoints = (ArrayList<GeoPoint>) params[0];
-
             return roadManager.getRoads(waypoints);
         }
 
@@ -132,8 +138,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }

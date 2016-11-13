@@ -87,7 +87,7 @@
         android:fontFamily="sans-serif-smallcaps"
         android:onClick = "getEstimate" />
 
-    <org.osmdroid.views.MapView android:id="@+id/map"
+    <org.osmdroid.views.MapView android:id="@+id/RequestARideMap"
         android:layout_width="400dp"
         android:layout_height="300dp"
         android:layout_below="@+id/RequestRideEstimatedFare"/>

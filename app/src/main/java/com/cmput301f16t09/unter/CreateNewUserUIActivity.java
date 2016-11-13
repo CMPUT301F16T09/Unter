@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.firebase.messaging.FirebaseMessaging;
-
 import java.util.ArrayList;
 
 public class CreateNewUserUIActivity extends AppCompatActivity {
@@ -73,7 +71,7 @@ public class CreateNewUserUIActivity extends AppCompatActivity {
                         addUserTask.execute(new_user);
                         addUserTask.get();
 
-                        FirebaseMessaging.getInstance().subscribeToTopic("user_"+input_index.get(0));
+//                        FirebaseMessaging.getInstance().subscribeToTopic("user_"+input_index.get(0));
 
                         finish();
                     }
