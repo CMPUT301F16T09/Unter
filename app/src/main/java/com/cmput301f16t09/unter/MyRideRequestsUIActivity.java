@@ -47,7 +47,7 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView tv = (TextView) view.findViewById(android.R.id.text1);
-                String forTestUsername = postList.getPost(position).getUsername();
+//                String forTestUsername = postList.getPost(position).getUsername();
 
 //                double startLat = postList.getPost(position).getStartLocation().getLatitude();
 //                double startLon = postList.getPost(position).getStartLocation().getLongitude();
@@ -66,7 +66,7 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
                 String startLocation = postList.getPost(position).getStartAddress();
                 String endLocation = postList.getPost(position).getEndAddress();
 
-                tv.setText("Username: " + forTestUsername + "\nStart: " + startLocation +"\nEnd: " + endLocation);
+                tv.setText("Start: " + startLocation +"\nEnd: " + endLocation);
 
                 // Remove forTestUsername after
                 // tv.setText(postList.getPost(position).getUsername());

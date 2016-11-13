@@ -1,26 +1,47 @@
 package com.cmput301f16t09.unter;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.osmdroid.api.IMapController;
+import org.osmdroid.bonuspack.routing.OSRMRoadManager;
+import org.osmdroid.bonuspack.routing.Road;
+import org.osmdroid.bonuspack.routing.RoadManager;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Overlay;
+import org.osmdroid.views.overlay.Polyline;
+import org.osmdroid.views.overlay.infowindow.BasicInfoWindow;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
 
     private PostList postList = new PostList();
     private ListView currentPostList;
     private Button complete_request;
+
+    MapView map;
+    GeoPoint startPoint;
+    GeoPoint endPoint;
+
+    RoadManager roadManager;
+    Activity myActivity = this;
+    Road[] mRoads;
+    IMapController mapController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +53,11 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
         tvCurrentStatus.setText(currentStatus);
 
         TextView tvStartLocation = (TextView) findViewById(R.id.RideRequestDetailsPostStartLocationName);
-        String startLocation = CurrentUser.getCurrentPost().getStartLocation().toString();
+        String startLocation = CurrentUser.getCurrentPost().getStartAddress();
         tvStartLocation.setText(startLocation);
 
         TextView tvEndLocation = (TextView) findViewById(R.id.RideRequestDetailsPostEndLocationName);
-        String endLocation = CurrentUser.getCurrentPost().getEndLocation().toString();
+        String endLocation = CurrentUser.getCurrentPost().getEndAddress();
         tvEndLocation.setText(endLocation);
 
         TextView tvOfferedFare = (TextView) findViewById(R.id.RideRequestDetailsPostOfferedFare);
@@ -46,6 +67,20 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
         TextView tvDriverName = (TextView) findViewById(R.id.RideRequestDetailsPostDriverName);
         final String driverName = CurrentUser.getCurrentPost().getDriver().toString();
         tvDriverName.setText(driverName);
+
+        map = (MapView) findViewById(R.id.RidersRequestDetailsPostMap);
+        map.setTileSource(TileSourceFactory.MAPNIK);
+        map.setBuiltInZoomControls(true);
+        map.setMultiTouchControls(true);
+        mapController = map.getController();
+        roadManager = new OSRMRoadManager(myActivity);
+
+        startPoint = CurrentUser.getCurrentPost().getStartLocation();
+        endPoint = CurrentUser.getCurrentPost().getEndLocation();
+
+        mapController.setCenter(startPoint);
+        mapController.setZoom(15);
+        getRoadAsync();
 
         tvDriverName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,5 +133,49 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
                 paymentDialog.show();
             }
         });
+    }
+
+    public void getRoadAsync() {
+        mRoads = null;
+
+        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>(2);
+        waypoints.add(startPoint);
+        waypoints.add(endPoint);
+
+        new UpdateRoadTask().execute(waypoints);
+    }
+    private class UpdateRoadTask extends AsyncTask<Object, Void, Road[]> {
+
+        protected Road[] doInBackground(Object... params) {
+            @SuppressWarnings("unchecked")
+            ArrayList<GeoPoint> waypoints = (ArrayList<GeoPoint>) params[0];
+            return roadManager.getRoads(waypoints);
+        }
+
+        @Override
+        protected void onPostExecute(Road[] roads) {
+            mRoads = roads;
+            if (roads == null)
+                return;
+            if (roads[0].mStatus == Road.STATUS_TECHNICAL_ISSUE)
+                Toast.makeText(map.getContext(), "Technical issue when getting the route", Toast.LENGTH_SHORT).show();
+            else if (roads[0].mStatus > Road.STATUS_TECHNICAL_ISSUE) //functional issues
+                Toast.makeText(map.getContext(), "No possible route here", Toast.LENGTH_SHORT).show();
+            Polyline[] mRoadOverlays = new Polyline[roads.length];
+            List<Overlay> mapOverlays = map.getOverlays();
+            for (int i = 0; i < roads.length; i++) {
+                Polyline roadPolyline = RoadManager.buildRoadOverlay(roads[i]);
+                mRoadOverlays[i] = roadPolyline;
+                String routeDesc = roads[i].getLengthDurationText(myActivity.getBaseContext(), -1);
+                roadPolyline.setTitle(getString(R.string.app_name) + " - " + routeDesc);
+                roadPolyline.setInfoWindow(new BasicInfoWindow(org.osmdroid.bonuspack.R.layout.bonuspack_bubble, map));
+                roadPolyline.setRelatedObject(i);
+
+                mapOverlays.add(0, roadPolyline);
+                map.invalidate();
+                //we insert the road overlays at the "bottom", just above the MapEventsOverlay,
+                //to avoid covering the other overlays.
+            }
+        }
     }
 }
