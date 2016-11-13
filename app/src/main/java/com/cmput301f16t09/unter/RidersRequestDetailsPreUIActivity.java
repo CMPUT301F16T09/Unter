@@ -15,6 +15,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
 public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
 
     @Override
@@ -138,6 +141,7 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
             uut.execute(CurrentUser.getCurrentUser());
             uut.get();
             Toast.makeText(RidersRequestDetailsPreUIActivity.this, "Successfully deleted the offer!", Toast.LENGTH_SHORT).show();
+
             finish();
         }
         catch (Exception e) {

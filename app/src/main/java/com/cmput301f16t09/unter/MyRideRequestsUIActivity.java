@@ -68,6 +68,7 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
 
                 tv.setText("Start: " + startLocation +"\nEnd: " + endLocation);
 
+
                 // Remove forTestUsername after
                 // tv.setText(postList.getPost(position).getUsername());
                 tv.setTextColor(Color.WHITE);
@@ -111,7 +112,6 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
             @Override
             public void update()
             {
-//                postList = new PostList();
                 postList.getPosts().clear();
 
                 for(Post p : PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
@@ -130,14 +130,18 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         postList.getPosts().clear();
+        // Probably increase this -- if needed.
+        try {
+            Thread.sleep(500);
+        }
+        catch (Exception e) {
+        }
         for(Post p : PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
             if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
                 postList.addPost(p);
             }
         }
-
         adapter.notifyDataSetChanged();
-//        postList.notifyListeners();
     }
 
     @Override
