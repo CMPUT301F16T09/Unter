@@ -70,28 +70,29 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //int index = CurrentUser.getCurrentUser().getMyRequests().getPosts().indexOf(CurrentUser.getCurrentPost());
                         //CurrentUser.getCurrentUser().getMyRequests().getPosts().get(index).setStatus("Completed");
-                       // CurrentUser.getCurrentUser().getMyRequests().getPosts().remove(CurrentUser.getCurrentPost());
+                        // CurrentUser.getCurrentUser().getMyRequests().getPosts().remove(CurrentUser.getCurrentPost());
                         CurrentUser.getCurrentPost().setStatus("Completed");
 
                         try {
-                            PostListOnlineController.UpdatePostsTask upt = new PostListOnlineController.UpdatePostsTask();
+                            PostListOnlineController.DeletePostsTask upt = new PostListOnlineController.DeletePostsTask();
                             upt.execute(CurrentUser.getCurrentPost());
                             upt.get();
 
+                            CurrentUser.getCurrentUser().getMyOffers().deletePost(CurrentUser.getCurrentPost());
 
                             UserListOnlineController.UpdateUsersTask uut = new UserListOnlineController.UpdateUsersTask();
                             uut.execute(CurrentUser.getCurrentUser());
                             uut.get();
+                            Toast.makeText(RidersRequestDetailsPostUIActivity.this, "Completed !", Toast.LENGTH_SHORT).show();
 
-                            Toast.makeText(RidersRequestDetailsPostUIActivity.this, "Completed request!!", Toast.LENGTH_SHORT).show();
-                            //adapter.notifyDataSetChanged();
-
-                            Intent intent = new Intent(RidersRequestDetailsPostUIActivity.this,MainScreenUIActivity.class);
+                            Intent intent = new Intent(RidersRequestDetailsPostUIActivity.this,
+                                    MainScreenUIActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
 
                         }
                         catch (Exception e) {
-                            Log.i("Error", "Unable to Update Post/User Information");
+                            Log.i("Error", "Completion Error");
                         }
                     }
                 });
