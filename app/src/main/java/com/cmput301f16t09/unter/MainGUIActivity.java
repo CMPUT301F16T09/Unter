@@ -29,12 +29,22 @@ public class MainGUIActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_gui);
     }
+
+    /**
+     * Test add.
+     */
     public void test_add() {
         setResult(RESULT_OK);
         User new_user = new User("Henry", "Popcorn_chicken", "KFC_lover@barnyard.com", "123-456-7890", "password");
         UserListOnlineController.AddUsersTask addUserTask = new UserListOnlineController.AddUsersTask();
         addUserTask.execute(new_user);
     }
+
+    /**
+     * Verify login.
+     *
+     * @param v the v
+     */
     public void verifyLogin(View v) {
         EditText usernameInput = (EditText) findViewById(R.id.mainScreenUsername);
         EditText passwordInput = (EditText) findViewById(R.id.mainScreenPassword);
@@ -65,6 +75,11 @@ public class MainGUIActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Create new user.
+     *
+     * @param v the v
+     */
     public void createNewUser(View v) {
 //        Intent intent = new Intent(MainGUIActivity.this, CreateNewUserUIActivity.class);
 //        startActivity(intent);

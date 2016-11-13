@@ -13,10 +13,18 @@ import com.robotium.solo.Solo;
 public class MainScreenUIActivityTest extends ActivityInstrumentationTestCase2<MainGUIActivity>{
     private Solo solo;
 
+    /**
+     * Instantiates a new Main screen ui activity test.
+     */
     public MainScreenUIActivityTest() {
         super(com.cmput301f16t09.unter.MainGUIActivity.class);
     }
 
+    /**
+     * Test start.
+     *
+     * @throws Exception the exception
+     */
     public void testStart() throws Exception{
         Activity activity = getActivity();
     }
@@ -26,6 +34,9 @@ public class MainScreenUIActivityTest extends ActivityInstrumentationTestCase2<M
         solo = new Solo(getInstrumentation(),getActivity());
     }
 
+    /**
+     * Test request a ride button.
+     */
     public void testRequestARideButton() {
 
         solo.assertCurrentActivity("Wrong Activity", MainGUIActivity.class);
@@ -44,6 +55,9 @@ public class MainScreenUIActivityTest extends ActivityInstrumentationTestCase2<M
 
     }
 
+    /**
+     * Test my ride request button.
+     */
     public void testMyRideRequestButton() {
 
         solo.assertCurrentActivity("Wrong Activity", MainGUIActivity.class);
@@ -61,6 +75,9 @@ public class MainScreenUIActivityTest extends ActivityInstrumentationTestCase2<M
         solo.goBack();
     }
 
+    /**
+     * Test provide a ride button.
+     */
     public void testProvideARideButton() {
         solo.assertCurrentActivity("Wrong Activity", MainGUIActivity.class);
         solo.enterText((EditText) solo.getView(R.id.mainScreenUsername), "KappaRoss");
@@ -77,6 +94,9 @@ public class MainScreenUIActivityTest extends ActivityInstrumentationTestCase2<M
         solo.goBack();
     }
 
+    /**
+     * Test my ride offers button.
+     */
     public void testMyRideOffersButton() {
         solo.assertCurrentActivity("Wrong Activity", MainGUIActivity.class);
         solo.enterText((EditText) solo.getView(R.id.mainScreenUsername), "KappaRoss");

@@ -24,15 +24,39 @@ import org.osmdroid.views.overlay.infowindow.BasicInfoWindow;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Ride offer details ui activity.
+ */
 public class RideOfferDetailsUIActivity extends AppCompatActivity {
 
+    /**
+     * The Road manager.
+     */
     RoadManager roadManager;
+    /**
+     * The Map.
+     */
     MapView map;
+    /**
+     * The M roads.
+     */
     Road[] mRoads;
+    /**
+     * The Map controller.
+     */
     IMapController mapController;
 
+    /**
+     * The My activity.
+     */
     Activity myActivity = this;
+    /**
+     * The Start point.
+     */
     GeoPoint startPoint;
+    /**
+     * The End point.
+     */
     GeoPoint endPoint;
 
     @Override
@@ -68,6 +92,11 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
         getRoadAsync();
     }
 
+    /**
+     * View profile.
+     *
+     * @param v the v
+     */
     public void viewProfile(View v){
         Intent intent = new Intent(this,ViewProfileUIActivity.class);
         String postOwner = CurrentUser.getCurrentPost().getUsername();
@@ -82,6 +111,9 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Gets road async.
+     */
     public void getRoadAsync() {
         mRoads = null;
         ArrayList<GeoPoint> wayPoints = new ArrayList<>(2);

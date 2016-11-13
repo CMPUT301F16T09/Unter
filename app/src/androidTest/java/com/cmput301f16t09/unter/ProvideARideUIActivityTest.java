@@ -15,11 +15,19 @@ import com.robotium.solo.Solo;
 public class ProvideARideUIActivityTest extends ActivityInstrumentationTestCase2<MainGUIActivity> {
     private Solo solo;
 
+    /**
+     * Instantiates a new Provide a ride ui activity test.
+     */
     public ProvideARideUIActivityTest() {
 //        super(com.cmput301f16t09.unter.RequestARideUIActivity.class);
         super(com.cmput301f16t09.unter.MainGUIActivity.class);
     }
 
+    /**
+     * Test start.
+     *
+     * @throws Exception the exception
+     */
     public void testStart() throws Exception{
         Activity activity = getActivity();
     }
@@ -29,6 +37,9 @@ public class ProvideARideUIActivityTest extends ActivityInstrumentationTestCase2
         solo = new Solo(getInstrumentation(),getActivity());
     }
 
+    /**
+     * Test provide a ride buttons.
+     */
     public void testProvideARideButtons() {
         solo.enterText((EditText) solo.getView(R.id.mainScreenUsername), "KappaRoss");
         solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "123");

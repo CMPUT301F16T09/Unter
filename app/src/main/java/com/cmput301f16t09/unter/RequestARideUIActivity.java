@@ -32,22 +32,55 @@ import java.util.Locale;
 //import android.support.design.widget.FloatingActionButton;
 //import android.support.design.widget.Snackbar;
 
+/**
+ * The type Request a ride ui activity.
+ */
 public class RequestARideUIActivity extends AppCompatActivity {
 
     private AutoCompleteTextView editStart;
     private AutoCompleteTextView editEnd;
     private EditText editFare;
+    /**
+     * The My activity.
+     */
     Activity myActivity = this;
 
+    /**
+     * The Road manager.
+     */
     RoadManager roadManager;
+    /**
+     * The Map.
+     */
     MapView map;
+    /**
+     * The M roads.
+     */
     Road[] mRoads;
+    /**
+     * The Coder.
+     */
     Geocoder coder;
+    /**
+     * The Map controller.
+     */
     IMapController mapController;
 
+    /**
+     * The Latitude.
+     */
     double latitude;
+    /**
+     * The Longitude.
+     */
     double longitude;
+    /**
+     * The Start point.
+     */
     GeoPoint startPoint;
+    /**
+     * The End point.
+     */
     GeoPoint endPoint;
 
     @Override
@@ -75,6 +108,11 @@ public class RequestARideUIActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Gets estimate.
+     *
+     * @param v the v
+     */
     public void getEstimate(View v) {
 
         editStart = (AutoCompleteTextView) findViewById(R.id.RequestRideStartLocation);
@@ -109,6 +147,11 @@ public class RequestARideUIActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Confirm ride request.
+     *
+     * @param v the v
+     */
     public void confirmRideRequest(View v) {
 
         editStart = (AutoCompleteTextView) findViewById(R.id.RequestRideStartLocation);
@@ -143,6 +186,9 @@ public class RequestARideUIActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Gets road async.
+     */
     public void getRoadAsync() {
         mRoads = null;
         ArrayList<GeoPoint> wayPoints = new ArrayList<>(2);
@@ -183,6 +229,9 @@ public class RequestARideUIActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Get fare async.
+     */
     public void getFareAsync(){
         ArrayList<GeoPoint> roadPoints = new ArrayList<>(2);
         roadPoints.add(startPoint);

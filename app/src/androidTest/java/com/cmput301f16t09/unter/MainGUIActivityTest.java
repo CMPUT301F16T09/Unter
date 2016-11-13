@@ -13,10 +13,19 @@ import com.robotium.solo.Solo;
 public class MainGUIActivityTest extends ActivityInstrumentationTestCase2<MainGUIActivity> {
 
     private Solo solo;
+
+    /**
+     * Instantiates a new Main gui activity test.
+     */
     public MainGUIActivityTest() {
         super(com.cmput301f16t09.unter.MainGUIActivity.class);
     }
 
+    /**
+     * Test start.
+     *
+     * @throws Exception the exception
+     */
     public void testStart() throws Exception{
         Activity activity = getActivity();
     }
@@ -26,6 +35,9 @@ public class MainGUIActivityTest extends ActivityInstrumentationTestCase2<MainGU
         solo = new Solo(getInstrumentation(),getActivity());
     }
 
+    /**
+     * Test login.
+     */
     public void testLogin() {
 
         solo.assertCurrentActivity("Wrong Activity", MainGUIActivity.class);
@@ -48,6 +60,9 @@ public class MainGUIActivityTest extends ActivityInstrumentationTestCase2<MainGU
         solo.assertCurrentActivity("Wrong Activity", MainGUIActivity.class);
     }
 
+    /**
+     * Test create user button.
+     */
     public void testCreateUserButton() {
         solo.assertCurrentActivity("Wrong Activity", MainGUIActivity.class);
 

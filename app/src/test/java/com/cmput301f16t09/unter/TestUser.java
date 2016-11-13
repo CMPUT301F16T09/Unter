@@ -4,6 +4,9 @@ import junit.framework.TestCase;
 
 import org.osmdroid.util.GeoPoint;
 
+/**
+ * The type Test user.
+ */
 public class TestUser extends TestCase{
     /**
      * US 3.03.01 Display Contact Info
@@ -157,10 +160,9 @@ public class TestUser extends TestCase{
     }
 
     /**
-     *US 1.01.01 Create Requests between two locations
-     *US 1.02.01
+     * US 1.01.01 Create Requests between two locations
+     * US 1.02.01
      */
-
     public void testAddtoMyRequests(){
         User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
         GeoPoint startLoc = new GeoPoint(53.52676, -113.52715);
@@ -175,8 +177,6 @@ public class TestUser extends TestCase{
     /**
      * US 1.04.01 Cancel Requests
      * US 1.07.01 Rider Confirms Completion
-     *
-     *
      */
     public void testDeleteFromMyRequests(){
         User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
@@ -192,7 +192,6 @@ public class TestUser extends TestCase{
 
     /**
      * US 5.01.01 Driver Accepts a Request
-     *
      */
     public void testAddtoMyOffers(){
         User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");

@@ -26,21 +26,57 @@ import org.osmdroid.views.overlay.infowindow.BasicInfoWindow;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Request details ui activity.
+ */
 public class RequestDetailsUIActivity extends AppCompatActivity {
 
-    // If the polyline disappears with zooming
+    /**
+     * The Road manager.
+     */
+// If the polyline disappears with zooming
     // http://stackoverflow.com/questions/35799907/route-polyline-dissapears-after-zoom-in-osmbonuspack
     RoadManager roadManager;
+    /**
+     * The Map.
+     */
     MapView map;
+    /**
+     * The My activity.
+     */
     Activity myActivity = this;
+    /**
+     * The M roads.
+     */
     Road[] mRoads;
+    /**
+     * The Start point.
+     */
     GeoPoint startPoint;
+    /**
+     * The End point.
+     */
     GeoPoint endPoint;
+    /**
+     * The Map controller.
+     */
     IMapController mapController;
 
+    /**
+     * The Poster.
+     */
     TextView poster;
+    /**
+     * The Start location.
+     */
     TextView start_Location;
+    /**
+     * The End location.
+     */
     TextView end_Location;
+    /**
+     * The Fare.
+     */
     TextView fare;
 
     @Override
@@ -95,6 +131,9 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Gets road async.
+     */
     public void getRoadAsync() {
         mRoads = null;
 
@@ -160,6 +199,11 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Confirm ride request.
+     *
+     * @param v the v
+     */
     public void confirm_ride_request(View v) {
         Boolean found = false;
         PostList temp;

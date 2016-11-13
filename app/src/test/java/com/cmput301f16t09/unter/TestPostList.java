@@ -5,8 +5,14 @@ import junit.framework.TestCase;
 import org.osmdroid.util.GeoPoint;
 
 
+/**
+ * The type Test post list.
+ */
 public class TestPostList extends TestCase {
 
+    /**
+     * Test get post.
+     */
     public void testGetPost(){
         PostList postList = new PostList();
 
@@ -90,6 +96,9 @@ public class TestPostList extends TestCase {
         }
     }
 
+    /**
+     * Test search list.
+     */
     public void testSearchList(){
         PostList postList = new PostList();
         assertTrue(postList.getPosts().size() == 0);

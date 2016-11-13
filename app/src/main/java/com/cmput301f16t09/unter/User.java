@@ -25,9 +25,6 @@ public class User {
      * @param email       the email
      * @param phoneNumber the phone number
      * @param password    the password
-     * @param myRequests  the myRequests PostList
-     * @param myOffers    the myOffers PostList
-     * @param documentId  the jest id
      */
     public User(String name, String username, String email, String phoneNumber, String password) {
         this.name = name.toLowerCase();
@@ -192,18 +189,38 @@ public class User {
         this.myOffers.addPost(post);
     }
 
+    /**
+     * Sets username.
+     *
+     * @param username the username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * Add ride request.
+     *
+     * @param rideRequest the ride request
+     */
     public void addRideRequest(Post rideRequest) {
         this.myRequests.addPost(rideRequest);
     }
 
+    /**
+     * Delete ride request.
+     *
+     * @param rideRequest the ride request
+     */
     public void deleteRideRequest(Post rideRequest) {
         this.myRequests.getPosts().remove(rideRequest);
     }
 
+    /**
+     * Delete offer reference.
+     *
+     * @param rideRequest the ride request
+     */
     public void deleteOfferReference(Post rideRequest) {
         this.myOffers.getPosts().remove(rideRequest);
     }

@@ -28,19 +28,43 @@ import org.osmdroid.views.overlay.infowindow.BasicInfoWindow;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Riders request details post ui activity.
+ */
 public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
 
     private PostList postList = new PostList();
     private ListView currentPostList;
     private Button complete_request;
 
+    /**
+     * The Map.
+     */
     MapView map;
+    /**
+     * The Start point.
+     */
     GeoPoint startPoint;
+    /**
+     * The End point.
+     */
     GeoPoint endPoint;
 
+    /**
+     * The Road manager.
+     */
     RoadManager roadManager;
+    /**
+     * The My activity.
+     */
     Activity myActivity = this;
+    /**
+     * The M roads.
+     */
     Road[] mRoads;
+    /**
+     * The Map controller.
+     */
     IMapController mapController;
 
     @Override
@@ -137,6 +161,9 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Gets road async.
+     */
     public void getRoadAsync() {
         mRoads = null;
 

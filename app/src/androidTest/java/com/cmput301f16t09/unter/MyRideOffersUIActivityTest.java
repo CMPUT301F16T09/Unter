@@ -14,11 +14,19 @@ import com.robotium.solo.Solo;
 public class MyRideOffersUIActivityTest extends ActivityInstrumentationTestCase2<MainGUIActivity> {
     private Solo solo;
 
+    /**
+     * Instantiates a new My ride offers ui activity test.
+     */
     public MyRideOffersUIActivityTest() {
 //        super(com.cmput301f16t09.unter.RequestARideUIActivity.class);
         super(com.cmput301f16t09.unter.MainGUIActivity.class);
     }
 
+    /**
+     * Test start.
+     *
+     * @throws Exception the exception
+     */
     public void testStart() throws Exception{
         Activity activity = getActivity();
     }
@@ -28,6 +36,9 @@ public class MyRideOffersUIActivityTest extends ActivityInstrumentationTestCase2
         solo = new Solo(getInstrumentation(),getActivity());
     }
 
+    /**
+     * Test my ride offer buttons.
+     */
     public void testMyRideOfferButtons() {
         solo.assertCurrentActivity("Wrong Activity", MainGUIActivity.class);
 

@@ -35,6 +35,7 @@ public class PostListOfflineController {
     /**
      * Gets post list.
      *
+     * @param context the context
      * @return the post list
      */
     static public PostList getPostList(Context context) {
@@ -99,6 +100,11 @@ public class PostListOfflineController {
         return postlist;
     }
 
+    /**
+     * Save offline posts.
+     *
+     * @param context the context
+     */
     public static void saveOfflinePosts(Context context)
     {
         // Also write to queue FILE
@@ -124,8 +130,8 @@ public class PostListOfflineController {
     /**
      * Add offline post.
      *
-     * @param offlinePost   the post
-     * @param context       the context
+     * @param offlinePost the post
+     * @param context     the context
      */
     public static void addOfflinePost(Post offlinePost, Context context) {
 

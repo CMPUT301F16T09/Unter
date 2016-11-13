@@ -7,12 +7,14 @@ import org.osmdroid.util.GeoPoint;
 import java.util.ArrayList;
 
 
+/**
+ * The type Test post.
+ */
 public class TestPost extends TestCase {
 
     /**
      * Test get start location.
      */
-
     public void testGetStartLocation() {
 
         User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
@@ -137,7 +139,6 @@ public class TestPost extends TestCase {
     /**
      * test get driver offer
      */
-
     public void testSetDriverOffers(){
 
         User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
@@ -155,6 +156,9 @@ public class TestPost extends TestCase {
         assertTrue((post.getDriverOffers() == driverOffers));
     }
 
+    /**
+     * Test get driver offers.
+     */
     public void testGetDriverOffers() {
 
         User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
@@ -191,6 +195,9 @@ public class TestPost extends TestCase {
 
     }
 
+    /**
+     * Test pick driver.
+     */
     public void testPickDriver() {
 
         User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");

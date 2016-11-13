@@ -11,10 +11,25 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/**
+ * The type View profile ui activity.
+ */
 public class ViewProfileUIActivity extends AppCompatActivity {
+    /**
+     * The Title.
+     */
     TextView title ;
+    /**
+     * The Ph number.
+     */
     TextView phNumber ;
+    /**
+     * The Name.
+     */
     TextView name ;
+    /**
+     * The Email.
+     */
     TextView email;
 
 

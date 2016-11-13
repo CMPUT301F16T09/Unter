@@ -18,6 +18,9 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
+/**
+ * The type My ride requests ui activity.
+ */
 public class MyRideRequestsUIActivity extends AppCompatActivity {
 
     private PostList postList = new PostList();
@@ -151,6 +154,11 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Create deletion dialog.
+     *
+     * @param post the post
+     */
     public void createDeletionDialog(Post post) {
 
         final Post postToRemove = post;

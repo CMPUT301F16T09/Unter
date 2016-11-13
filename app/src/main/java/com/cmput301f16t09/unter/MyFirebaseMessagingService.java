@@ -19,7 +19,6 @@ import java.util.Map;
 /**
  * Created by Salim Simon Akl on 2016-11-09.
  */
-
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
@@ -69,6 +68,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         notificationManager.notify(0 /*ID of notification*/, notifiBuilder.build());
     }
 
+    /**
+     * Send notification to user.
+     *
+     * @param user    the user
+     * @param message the message
+     */
     public static void sendNotificationToUser(User user, final String message) {
         Firebase ref = new Firebase(FIREBASE_URL);
         final Firebase notifications = ref.child("notificationRequests");

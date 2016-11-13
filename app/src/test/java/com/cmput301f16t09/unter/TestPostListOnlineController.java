@@ -6,8 +6,14 @@ import org.osmdroid.util.GeoPoint;
 
 import java.util.ArrayList;
 
+/**
+ * The type Test post list online controller.
+ */
 public class TestPostListOnlineController extends TestCase{
 
+    /**
+     * Test retrieve posts.
+     */
     public void testRetrievePosts() {
         try {
             PostList postlist = PostListOnlineController.getPostList();
@@ -17,6 +23,9 @@ public class TestPostListOnlineController extends TestCase{
         }
     }
 
+    /**
+     * Testadd post.
+     */
     public void testaddPost() {
         User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
         Post new_post = new Post(new GeoPoint(1234.0, 1234.0), new GeoPoint(1234.0, 1234.0), "1", "2", "50", "rider");
@@ -36,6 +45,9 @@ public class TestPostListOnlineController extends TestCase{
         }
     }
 
+    /**
+     * Testdelete post.
+     */
     public void testdeletePost() {
         User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
 
@@ -58,6 +70,9 @@ public class TestPostListOnlineController extends TestCase{
         }
     }
 
+    /**
+     * Testsearch post.
+     */
     public void testsearchPost() {
         User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
         User newUsr2 = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");

@@ -17,6 +17,9 @@ import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 import io.searchbox.core.Update;
 
+/**
+ * The type User list online controller.
+ */
 public class UserListOnlineController {
     private static JestDroidClient client;
 
@@ -46,6 +49,9 @@ public class UserListOnlineController {
         return userList;
     }
 
+    /**
+     * The type Search user lists task.
+     */
     public static class SearchUserListsTask extends AsyncTask<String, Void, ArrayList<User>> {
         @Override
         protected ArrayList<User> doInBackground(String... search_parameters) {
@@ -80,6 +86,9 @@ public class UserListOnlineController {
         }
     }
 
+    /**
+     * The type Get users task.
+     */
     public static class GetUsersTask extends AsyncTask<String, Void, ArrayList<User>> {
         @Override
         protected ArrayList<User> doInBackground(String... search_parameters) {
@@ -112,6 +121,9 @@ public class UserListOnlineController {
         }
     }
 
+    /**
+     * The type Add users task.
+     */
     public static class AddUsersTask extends AsyncTask<User, Void, Void> {
 
         @Override
@@ -142,6 +154,9 @@ public class UserListOnlineController {
         }
     }
 
+    /**
+     * The type Update users task.
+     */
     public static class UpdateUsersTask extends AsyncTask<User, Void, Void> {
 
         @Override

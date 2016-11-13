@@ -16,6 +16,9 @@ import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
+/**
+ * The type Post list online controller.
+ */
 public class PostListOnlineController {
     private static JestDroidClient client;
 
@@ -45,6 +48,9 @@ public class PostListOnlineController {
         return postList;
     }
 
+    /**
+     * The type Search post lists task.
+     */
     public static class SearchPostListsTask extends AsyncTask<String, Void, ArrayList<Post>> {
         @Override
         protected ArrayList<Post> doInBackground(String... search_parameters) {
@@ -82,6 +88,9 @@ public class PostListOnlineController {
         }
     }
 
+    /**
+     * The type Get posts task.
+     */
     public static class GetPostsTask extends AsyncTask<String, Void, ArrayList<Post>> {
         @Override
         protected ArrayList<Post> doInBackground(String... search_parameters) {
@@ -114,6 +123,9 @@ public class PostListOnlineController {
         }
     }
 
+    /**
+     * The type Add posts task.
+     */
     public static class AddPostsTask extends AsyncTask<Post, Void, Void> {
         @Override
         protected Void doInBackground(Post... posts) {
@@ -142,6 +154,9 @@ public class PostListOnlineController {
         }
     }
 
+    /**
+     * The type Update posts task.
+     */
     public static class UpdatePostsTask extends AsyncTask<Post, Void, Void> {
         @Override
         protected Void doInBackground(Post... posts) {
@@ -168,6 +183,9 @@ public class PostListOnlineController {
         }
     }
 
+    /**
+     * The type Delete posts task.
+     */
     public static class DeletePostsTask extends AsyncTask<Post, Void, Void> {
 
         //Need to fill

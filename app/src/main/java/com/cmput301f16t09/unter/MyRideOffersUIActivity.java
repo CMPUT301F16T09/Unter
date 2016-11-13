@@ -11,6 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * The type My ride offers ui activity.
+ */
 public class MyRideOffersUIActivity extends AppCompatActivity {
 
     private PostList postList = new PostList();

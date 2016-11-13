@@ -15,7 +15,6 @@ import io.searchbox.core.Index;
 /**
  * Created by Salim Simon Akl on 2016-11-09.
  */
-
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService{
     private static final String TAG = "MyFirebaseInsIDService";
 

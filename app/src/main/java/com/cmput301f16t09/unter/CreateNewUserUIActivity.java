@@ -10,6 +10,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/**
+ * The type Create new user ui activity.
+ */
 public class CreateNewUserUIActivity extends AppCompatActivity {
 
     // Can probably change this to two EditText?
@@ -34,6 +37,11 @@ public class CreateNewUserUIActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Create user.
+     *
+     * @param v the v
+     */
     public void create_user(View v) {
 
         Boolean foundEmail = false;

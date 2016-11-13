@@ -5,7 +5,6 @@ import java.util.ArrayList;
 /**
  * UserList is a class that keeps track of all the members of Unter
  */
-
 public class UserList {
     private ArrayList<User> userList;
 
@@ -67,17 +66,37 @@ public class UserList {
     }
 
 
+    /**
+     * Search by username user.
+     *
+     * @param username the username
+     * @return the user
+     */
     public User searchByUsername(String username) {
         return null;
     }
 
+    /**
+     * Add listener.
+     *
+     * @param l the l
+     */
     public void addListener(Listener l) {
     }
 
+    /**
+     * Gets listener.
+     *
+     * @param l the l
+     * @return the listener
+     */
     public long getListener(Listener l) {
         return 1;
     }
 
+    /**
+     * Delete listener.
+     */
     public void deleteListener() {
     }
 

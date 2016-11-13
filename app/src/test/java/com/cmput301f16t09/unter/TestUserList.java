@@ -3,10 +3,12 @@ package com.cmput301f16t09.unter;
 import junit.framework.TestCase;
 
 
+/**
+ * The type Test user list.
+ */
 public class TestUserList extends TestCase {
 
     /**
-     *
      * Test addUser to the actual UserList Model
      * US 3.01.01
      */
@@ -62,6 +64,9 @@ public class TestUserList extends TestCase {
         assertTrue(userList.getUserList().get(4).equals(user5));
     }
 
+    /**
+     * Test retrieve userby username.
+     */
     public void testRetrieveUserbyUsername(){
 
         UserList usrList = new UserList();
@@ -80,6 +85,9 @@ public class TestUserList extends TestCase {
 
     }
 
+    /**
+     * Test add listener.
+     */
     public void testAddListener(){
 //
 //        UserList usrList = new UserList();
@@ -90,6 +98,9 @@ public class TestUserList extends TestCase {
     }
 
 
+    /**
+     * Test delete listener.
+     */
     public void testDeleteListener(){
 
         UserList usrList = new UserList();
@@ -100,7 +111,14 @@ public class TestUserList extends TestCase {
 
     }
 
+    /**
+     * The Updated.
+     */
     int updated = 0;
+
+    /**
+     * Test notify listeners.
+     */
     public void testNotifyListeners(){
 //        UserList list = new UserList();
 //        Listener l = new Listener(){

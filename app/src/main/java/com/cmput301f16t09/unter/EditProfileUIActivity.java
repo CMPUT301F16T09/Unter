@@ -12,12 +12,30 @@ import android.widget.Toast;
 //import android.support.design.widget.FloatingActionButton;
 //import android.support.design.widget.Snackbar;
 
+/**
+ * The type Edit profile ui activity.
+ */
 public class EditProfileUIActivity extends AppCompatActivity {
 
+    /**
+     * The Edit name.
+     */
     EditText editName;
+    /**
+     * The Edit phone number.
+     */
     EditText editPhoneNumber;
+    /**
+     * The Edit email.
+     */
     EditText editEmail;
+    /**
+     * The Edit password.
+     */
     EditText editPassword;
+    /**
+     * The Edit confirm password.
+     */
     EditText editConfirmPassword;
 
     @Override
@@ -43,6 +61,11 @@ public class EditProfileUIActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Update profile.
+     *
+     * @param v the v
+     */
     public void updateProfile(View v) {
         UserListOnlineController uc = new UserListOnlineController();
         String newName = editName.getText().toString();

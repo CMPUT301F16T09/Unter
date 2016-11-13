@@ -17,6 +17,9 @@ public class ListViewActivity extends AppCompatActivity {
 
     private ListView currUserList;
     private ArrayAdapter<User> adapter;
+    /**
+     * The List of users.
+     */
     UserList listOfUsers = new UserList();
 
     @Override

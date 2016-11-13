@@ -18,6 +18,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The type Riders request details pre ui activity.
+ */
 public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
 
     @Override
@@ -129,6 +132,11 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Cancel request.
+     *
+     * @param v the v
+     */
     public void cancelRequest(View v) {
         try {
             PostListOnlineController.DeletePostsTask upt = new PostListOnlineController.DeletePostsTask();

@@ -12,6 +12,9 @@ import android.widget.Toast;
 //import android.support.design.widget.FloatingActionButton;
 //import android.support.design.widget.Snackbar;
 
+/**
+ * The type Main screen ui activity.
+ */
 public class MainScreenUIActivity extends AppCompatActivity {
 
 //    Button requestButton = (Button) findViewById(R.id.RequestARideButton);
@@ -40,21 +43,41 @@ public class MainScreenUIActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Request a ride.
+     *
+     * @param v the v
+     */
     public void requestARide(View v){
         Intent intent = new Intent(MainScreenUIActivity.this, RequestARideUIActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * My ride requests.
+     *
+     * @param v the v
+     */
     public void myRideRequests(View v){
         Intent requestARideIntent = new Intent(MainScreenUIActivity.this, MyRideRequestsUIActivity.class);
         startActivity(requestARideIntent);
     }
 
+    /**
+     * Provide a ride.
+     *
+     * @param v the v
+     */
     public void provideARide(View v){
         Intent requestARideIntent = new Intent(MainScreenUIActivity.this, ProvideARideUIActivity.class);
         startActivity(requestARideIntent);
     }
 
+    /**
+     * My ride offers.
+     *
+     * @param v the v
+     */
     public void myRideOffers(View v){
         Intent requestARideIntent = new Intent(MainScreenUIActivity.this, MyRideOffersUIActivity.class);
         startActivity(requestARideIntent);
