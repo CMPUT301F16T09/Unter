@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import io.searchbox.annotations.JestId;
 
 /**
- * a Post is a request created by riders, it contains the information that is inputted by
- * the rider to specify details of his/her request, this class contains the getter and setter
- * for all the information
+ * The type Post.
  */
 public class Post {
     private GeoPoint startLocation;
     private GeoPoint endLocation;
+    private String startAddress;
+    private String endAddress;
     private String status;
     private String fare;
     private ArrayList<String> driver_OfferList;
@@ -27,11 +27,17 @@ public class Post {
      *
      * @param startLocation the start location
      * @param endLocation   the end location
+     * @param startAddress  the start address
+     * @param endAddress    the end address
      * @param fare          the fare
+     * @param rider         the rider
      */
-    public Post(GeoPoint startLocation, GeoPoint endLocation, String fare, String rider) {
+    public Post(GeoPoint startLocation, GeoPoint endLocation, String startAddress, String endAddress,
+                String fare, String rider) {
         this.startLocation = startLocation;
         this.endLocation = endLocation;
+        this.startAddress = startAddress;
+        this.endAddress = endAddress;
         this.status = "Pending Offer";
         this.fare = fare;
         this.driver_OfferList = new ArrayList<String>();
@@ -95,6 +101,34 @@ public class Post {
     }
 
     /**
+     * Gets start address.
+     *
+     * @return the start address
+     */
+    public String getStartAddress() {return startAddress;}
+
+    /**
+     * Sets start address.
+     *
+     * @param address the address
+     */
+    public void setStartAddress(String address) {this.startAddress = address;}
+
+    /**
+     * Gets end address.
+     *
+     * @return the end address
+     */
+    public String getEndAddress() {return endAddress;}
+
+    /**
+     * Sets end address.
+     *
+     * @param address the address
+     */
+    public void setEndAddress(String address) {this.endAddress = address;}
+
+    /**
      * Gets status.
      *
      * @return the status
@@ -102,6 +136,7 @@ public class Post {
     public String getStatus() {
         return status;
     }
+
     /**
      * Sets status.
      *
@@ -139,17 +174,23 @@ public class Post {
     }
 
     /**
-     * Gets drive offers.
+     * Gets driver offers.
      *
-     * @return the drive offers
+     * @return the driver offers
      */
     public ArrayList<String> getDriverOffers() {
         return this.driver_OfferList;
     }
 
+    /**
+     * Gets driver.
+     *
+     * @return the driver
+     */
     public String getDriver() {
         return this.driver;
     }
+
     /**
      * Sets offers.
      *
@@ -170,6 +211,11 @@ public class Post {
         this.driver = driver;
     }
 
+    /**
+     * Gets username.
+     *
+     * @return the username
+     */
     public String getUsername() {
         return this.user;
     }
