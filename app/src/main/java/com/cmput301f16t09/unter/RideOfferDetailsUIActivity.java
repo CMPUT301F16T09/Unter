@@ -2,16 +2,16 @@ package com.cmput301f16t09.unter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.location.Geocoder;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
+import org.osmdroid.bonuspack.routing.OSRMRoadManager;
 import org.osmdroid.bonuspack.routing.Road;
 import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -23,9 +23,17 @@ import org.osmdroid.views.overlay.infowindow.BasicInfoWindow;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class RideOfferDetailsUIActivity extends AppCompatActivity {
+
+    RoadManager roadManager;
+    MapView map;
+    Road[] mRoads;
+    IMapController mapController;
+
+    Activity myActivity = this;
+    GeoPoint startPoint;
+    GeoPoint endPoint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +51,21 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
         TextView tvStatus = (TextView) findViewById(R.id.RideOfferStatusDesc);
         String statusDesc = CurrentUser.getCurrentPost().getStatus();
         tvStatus.setText(statusDesc);
+
+        map = (MapView) findViewById(R.id.ride_offer_details_map);
+        map.setTileSource(TileSourceFactory.MAPNIK);
+        map.setBuiltInZoomControls(true);
+        map.setMultiTouchControls(true);
+        mapController = map.getController();
+
+        roadManager = new OSRMRoadManager(myActivity);
+
+        startPoint = CurrentUser.getCurrentPost().getStartLocation();
+        endPoint = CurrentUser.getCurrentPost().getEndLocation();
+
+        mapController.setCenter(startPoint);
+        mapController.setZoom(15);
+        getRoadAsync();
     }
 
     public void viewProfile(View v){
@@ -57,5 +80,45 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
     {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    public void getRoadAsync() {
+        mRoads = null;
+        ArrayList<GeoPoint> wayPoints = new ArrayList<>(2);
+        wayPoints.add(startPoint);
+        wayPoints.add(endPoint);
+        new UpdateRoadTask().execute(wayPoints);
+    }
+    private class UpdateRoadTask extends AsyncTask<Object, Void, Road[]> {
+        protected Road[] doInBackground(Object... params) {
+            @SuppressWarnings("unchecked")
+            ArrayList<GeoPoint> wayPoints = (ArrayList<GeoPoint>) params[0];
+            return roadManager.getRoads(wayPoints);
+        }
+        @Override
+        protected void onPostExecute(Road[] roads) {
+            mRoads = roads;
+            if (roads == null)
+                return;
+            if (roads[0].mStatus == Road.STATUS_TECHNICAL_ISSUE)
+                Toast.makeText(map.getContext(), "Technical issue when getting the route", Toast.LENGTH_SHORT).show();
+            else if (roads[0].mStatus > Road.STATUS_TECHNICAL_ISSUE) //functional issues
+                Toast.makeText(map.getContext(), "No possible route here", Toast.LENGTH_SHORT).show();
+            //Polyline[] mRoadOverlays = new Polyline[roads.length];
+            List<Overlay> mapOverlays = map.getOverlays();
+            for (int i = 0; i < roads.length; i++) {
+                Polyline roadPolyline = RoadManager.buildRoadOverlay(roads[i]);
+                // mRoadOverlays[i] = roadPolyline;
+                String routeDesc = roads[i].getLengthDurationText(myActivity.getBaseContext(), -1);
+                roadPolyline.setTitle(getString(R.string.app_name) + " - " + routeDesc);
+                roadPolyline.setInfoWindow(new BasicInfoWindow(org.osmdroid.bonuspack.R.layout.bonuspack_bubble, map));
+                roadPolyline.setRelatedObject(i);
+                mapOverlays.add(0, roadPolyline);
+
+                map.invalidate();
+                //we insert the road overlays at the "bottom", just above the MapEventsOverlay,
+                //to avoid covering the other overlays.
+            }
+        }
     }
 }
