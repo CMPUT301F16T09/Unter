@@ -20,11 +20,18 @@ import java.util.Map;
  * Created by Salim Simon Akl on 2016-11-09.
  */
 
+/**
+ * Sends notifications to firebase console
+ */
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
     private static final String FIREBASE_URL = " unter-8d7e0.firebaseio.com";
 
+    /**
+     * Logs any recieved notification
+     * @param remoteMessage
+     */
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
@@ -43,14 +50,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
     }
 
-    /**
-     * Dispay the notification
-     *
-     * @param body
-     */
     private void sendNotification(String body) {
 
-        Intent intent = new Intent(this, MainGUIActivity.class);
+        Intent intent = new Intent(this, MainScreenUIActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0/*Request code*/, intent, PendingIntent.FLAG_ONE_SHOT);
@@ -69,6 +71,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         notificationManager.notify(0 /*ID of notification*/, notifiBuilder.build());
     }
 
+    /**
+     * Sends a notification to a user.
+     *
+     * @param user    the user that will receive the message
+     * @param message the message to send
+     */
     public static void sendNotificationToUser(User user, final String message) {
         Firebase ref = new Firebase(FIREBASE_URL);
         final Firebase notifications = ref.child("notificationRequests");

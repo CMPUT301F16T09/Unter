@@ -13,12 +13,16 @@ import java.io.IOException;
 import io.searchbox.core.Index;
 
 /**
- * Created by Salim Simon Akl on 2016-11-09.
+ * The type My firebase instance id service.
+ * Generates a token for each user and sends it to elasticsearch server
  */
-
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService{
     private static final String TAG = "MyFirebaseInsIDService";
 
+
+    /**
+     * Logs the new token
+     */
     @Override
     public void onTokenRefresh() {
         super.onTokenRefresh();
@@ -30,6 +34,10 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService{
         //sendRegistrationToServer(refreshedToken);
     }
 
+    /**
+     * Sends a generated token to elasticsearch
+     * @param refreshedToken
+     */
     private void sendRegistrationToServer(String refreshedToken) {
         //TODO send token to elasticsearch
         JestDroidClient client;

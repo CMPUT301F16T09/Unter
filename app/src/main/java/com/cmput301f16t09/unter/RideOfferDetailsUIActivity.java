@@ -24,13 +24,18 @@ import org.osmdroid.views.overlay.infowindow.BasicInfoWindow;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Ride offer details ui activity.
+ * The User sees the details of his ride offer in this activity
+ * details like the name of the user who made the request, the fare offered and the status of
+ * the request
+ */
 public class RideOfferDetailsUIActivity extends AppCompatActivity {
 
     RoadManager roadManager;
     MapView map;
     Road[] mRoads;
     IMapController mapController;
-
     Activity myActivity = this;
     GeoPoint startPoint;
     GeoPoint endPoint;
@@ -68,6 +73,11 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
         getRoadAsync();
     }
 
+    /**
+     * Views the profile of a certain user (this user's name is long clicked on by another user)
+     *
+     * @param v the v
+     */
     public void viewProfile(View v){
         Intent intent = new Intent(this,ViewProfileUIActivity.class);
         String postOwner = CurrentUser.getCurrentPost().getUsername();
@@ -76,12 +86,14 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
+    /**
+     * Calls upon the UpdateRoadTask to draw a given route in the Activities MapView
+     */
     public void getRoadAsync() {
         mRoads = null;
         ArrayList<GeoPoint> wayPoints = new ArrayList<>(2);
