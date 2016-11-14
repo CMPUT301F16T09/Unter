@@ -13,30 +13,46 @@ import android.widget.Toast;
 //import android.support.design.widget.Snackbar;
 
 /**
- * The type Edit profile ui activity.
+ * This activity is a 'View' used to display the current user info
+ * and allow edits to the current user's information.
+ * Note: Usernames cannot be changed.
+ * It can be navigated to via the 'hamburger' buttons on the top right.
  */
 public class EditProfileUIActivity extends AppCompatActivity {
 
     /**
-     * The Edit name.
-     */
+     * An android widget displaying the Name field of the current user.
+     * Names are of type String.
+     * @see CurrentUser
+     * @see User
+    */
     EditText editName;
     /**
-     * The Edit phone number.
+     * An android widget displaying the phone number of the current user.
+     * Phone numbers are of type String.
+     * @see CurrentUser
+     * @see User
      */
     EditText editPhoneNumber;
     /**
-     * The Edit email.
+     * An android widget displaying the email field of the current user.
+     * Emails are of type String.
+     * @see CurrentUser
+     * @see User
      */
     EditText editEmail;
     /**
-     * The Edit password.
+     * An android widget displaying the Password field of the current user.
+     * The 'password' has been set as inputType and will appear symbolically (.)
+     * @see CurrentUser
+     * @see User
      */
     EditText editPassword;
     /**
-     * The Edit confirm password.
+     * An android widget displaying a blank to be filled in by the user.
      */
     EditText editConfirmPassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +60,7 @@ public class EditProfileUIActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile_ui);
         Toast.makeText(EditProfileUIActivity.this, CurrentUser.getCurrentUser().getName(), Toast.LENGTH_SHORT).show();
 
+        //grabs the respective data from the android widgets and stores them in their respective object representations.
         editName = (EditText) findViewById(R.id.EditProfileNameField);
         editName.setText(CurrentUser.getCurrentUser().getName());
         editPhoneNumber = (EditText) findViewById(R.id.EditProfilePhoneNumberField);
@@ -62,9 +79,10 @@ public class EditProfileUIActivity extends AppCompatActivity {
     }
 
     /**
-     * Update profile.
+     * Update profile using Elastic search.
      *
-     * @param v the v
+     * @param v the view to be updated
+     * @see UserListOnlineController
      */
     public void updateProfile(View v) {
         UserListOnlineController uc = new UserListOnlineController();

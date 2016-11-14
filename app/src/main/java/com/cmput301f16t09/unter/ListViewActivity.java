@@ -12,14 +12,14 @@ import java.util.ArrayList;
 
 /**
  * Created by Kelly on 2016-11-04.
+ *
+ * This View class is used to simply
+ * display items in a list.
  */
 public class ListViewActivity extends AppCompatActivity {
 
     private ListView currUserList;
     private ArrayAdapter<User> adapter;
-    /**
-     * The List of users.
-     */
     UserList listOfUsers = new UserList();
 
     @Override

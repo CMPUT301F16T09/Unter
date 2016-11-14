@@ -29,7 +29,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The type Riders request details post ui activity.
+ * This 'View' displays the updated information after a rider selects a driver
+ * and can go on to complete the request, bringing up a dialog window to enable payment
+ * options.
+ *
+ * There is a map here to show the route to be taken.
  */
 public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
 
@@ -54,12 +58,10 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
      * The Road manager.
      */
     RoadManager roadManager;
-    /**
-     * The My activity.
-     */
+
     Activity myActivity = this;
     /**
-     * The M roads.
+     * The roads to be used for the route
      */
     Road[] mRoads;
     /**
@@ -106,6 +108,7 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
         mapController.setZoom(15);
         getRoadAsync();
 
+        //allows for the user to view the driver's user profile where they can phone or email them
         tvDriverName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,6 +118,8 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
             }
         });
 
+
+        //bring up dialog window for payment and also delete the post on elastic search once it has been completed
         complete_request = (Button) findViewById(R.id.RideRequestDetailsCompleteRequestButton);
         complete_request.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -162,7 +167,7 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
     }
 
     /**
-     * Gets road async.
+     * This task draws the route on the map 
      */
     public void getRoadAsync() {
         mRoads = null;
