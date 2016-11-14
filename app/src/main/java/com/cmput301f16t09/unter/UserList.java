@@ -5,7 +5,6 @@ import java.util.ArrayList;
 /**
  * UserList is a class that keeps track of all the members of Unter
  */
-
 public class UserList {
     private ArrayList<User> userList;
 
@@ -17,16 +16,16 @@ public class UserList {
     }
 
     /**
-     * Gets users.
+     * Gets users in the list.
      *
-     * @return the users
+     * @return the userlist
      */
     public ArrayList<User> getUserList() {
         return this.userList;
     }
 
     /**
-     * Sets user list.
+     * Sets userlist to the inputted list of users.
      *
      * @param userList the user list
      */
@@ -35,30 +34,30 @@ public class UserList {
     }
 
     /**
-     * Add user.
+     * Add a user to the list
      *
-     * @param user the user
+     * @param user the user to add
      */
     public void addUser(User user) {
         userList.add(user);
     }
 
     /**
-     * Delete user.
+     * Delete user from the list
      *
-     * @param user the user
+     * @param user the user to delete
      */
     public void deleteUser(User user) {
         this.userList.remove(user);
     }
 
     /**
-     * Modify user.
+     * Modify the users Name, Phone number and email
      *
-     * @param user         the user
-     * @param name         the name
-     * @param phone_number the phone number
-     * @param email        the email
+     * @param user         the user to edit
+     * @param name         the name to change to
+     * @param phone_number the phone number to change to
+     * @param email        the email to change to
      */
     public void ModifyUser(User user, String name, String phone_number, String email) {
         user.setName(name);
@@ -66,20 +65,37 @@ public class UserList {
         user.setEmail(email);
     }
 
-
+    /**
+     * Search by username user.
+     *
+     * @param username the username
+     * @return the user
+     */
     public User searchByUsername(String username) {
         return null;
     }
 
+    /**
+     * Add listener.
+     *
+     * @param l the l
+     */
     public void addListener(Listener l) {
     }
 
+    /**
+     * Gets listener.
+     *
+     * @param l the l
+     * @return the listener
+     */
     public long getListener(Listener l) {
         return 1;
     }
 
+    /**
+     * Delete listener.
+     */
     public void deleteListener() {
     }
-
-
 }
