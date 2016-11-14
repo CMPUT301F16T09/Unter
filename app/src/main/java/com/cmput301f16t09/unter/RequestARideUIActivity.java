@@ -141,6 +141,10 @@ public class RequestARideUIActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Taken from CMPUT 301 Fall 16 Lab 8 - Geolocation by Stephen Romansky
+     * Calls upon the UpdateRoadTask to draw a given route in the Activities MapView
+     */
     public void getRoadAsync() {
         mRoads = null;
         ArrayList<GeoPoint> wayPoints = new ArrayList<>(2);
