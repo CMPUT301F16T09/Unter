@@ -167,7 +167,7 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
     }
 
     /**
-     * This task draws the route on the map 
+     * This task draws the route on the map
      */
     public void getRoadAsync() {
         mRoads = null;
