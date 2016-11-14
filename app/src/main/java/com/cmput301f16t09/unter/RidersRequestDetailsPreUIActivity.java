@@ -20,7 +20,7 @@ import android.widget.Toast;
  * have offered a ride for the users ride request post. The user can view the user's profile who
  * offered the post, cancel the post, or confirm an offer made by a user for the post. There is also
  * basic information (no map) for the post.
- * @author Daniel 
+ * @author Daniel
  */
 public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
 
@@ -72,7 +72,6 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
 
         // Attach the adapter to the ListView
         potentialDriversListView.setAdapter(adapter);
-        //potentialDrivers = CurrentUser.getCurrentPost().getDriverOffers();
 
         /**
          * If there is a long click on a post, the create a dialog fragment for the option to view
