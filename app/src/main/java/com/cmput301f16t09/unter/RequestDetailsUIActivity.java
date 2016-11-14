@@ -27,7 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The type Request details ui activity.
+ * This is a 'View' that displays the information for a specific request.
+ * It is accessible by drivers once they select a request under 'Provide A Ride'
+ * Driver's can offer rides from this screen.
+ *
  */
 public class RequestDetailsUIActivity extends AppCompatActivity {
 
@@ -41,12 +44,10 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
      * The Map.
      */
     MapView map;
-    /**
-     * The My activity.
-     */
+
     Activity myActivity = this;
     /**
-     * The M roads.
+     * Roads used for the route.
      */
     Road[] mRoads;
     /**
@@ -63,7 +64,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
     IMapController mapController;
 
     /**
-     * The Poster.
+     * The owner of the request (rider).
      */
     TextView poster;
     /**
@@ -121,6 +122,8 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         overlayItemArray.add(new OverlayItem("Destination", "This is the destination point", endPoint));
         getRoadAsync();
 
+
+        //Brings the user to the rider's profile if their name is clicked.
         poster.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -201,9 +204,19 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
     }
 
     /**
-     * Confirm ride request.
+     * If the user decides to offer a ride for this request, The PostListOnlineController and UserListController
+     * will do the proper updates for the user and post objects.
      *
-     * @param v the v
+     * Changes the status of the post from 'Pending Offer' to 'Pending Approval' in the current User, in Persistent data and elastic search.
+     * An additional check is done to prevent user from offering a ride multiple times.
+     *
+     *
+     * @see PostListOnlineController
+     * @See PostListOfflineController
+     * @see UserListOnlineController
+     *
+     *
+     * @param v the current view
      */
     public void confirm_ride_request(View v) {
         Boolean found = false;

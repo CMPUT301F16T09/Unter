@@ -16,7 +16,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 /**
- * The type Main gui activity.
+ * A view that asks the user to input an existing users information
+ * or allow them to create a new user.
  */
 public class MainGUIActivity extends AppCompatActivity {
 
@@ -30,20 +31,13 @@ public class MainGUIActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_gui);
     }
 
-    /**
-     * Test add.
-     */
-    public void test_add() {
-        setResult(RESULT_OK);
-        User new_user = new User("Henry", "Popcorn_chicken", "KFC_lover@barnyard.com", "123-456-7890", "password");
-        UserListOnlineController.AddUsersTask addUserTask = new UserListOnlineController.AddUsersTask();
-        addUserTask.execute(new_user);
-    }
+
 
     /**
-     * Verify login.
+     * Verify login by using the UserListOnlineController class to query elastic search.
+     * @see com.cmput301f16t09.unter.UserListOnlineController.SearchUserListsTask
      *
-     * @param v the v
+     * @param v the current android view
      */
     public void verifyLogin(View v) {
         EditText usernameInput = (EditText) findViewById(R.id.mainScreenUsername);
@@ -76,9 +70,11 @@ public class MainGUIActivity extends AppCompatActivity {
     }
 
     /**
-     * Create new user.
+     * Create new user brings the user to another activity where they can
+     * create a new user.
+     * @see CreateNewUserUIActivity
      *
-     * @param v the v
+     * @param v the current android view
      */
     public void createNewUser(View v) {
 //        Intent intent = new Intent(MainGUIActivity.this, CreateNewUserUIActivity.class);

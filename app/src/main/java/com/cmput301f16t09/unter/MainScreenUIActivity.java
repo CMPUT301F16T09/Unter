@@ -13,7 +13,7 @@ import android.widget.Toast;
 //import android.support.design.widget.Snackbar;
 
 /**
- * The type Main screen ui activity.
+ * A view that allows the user to choose between rider activies or driver activities.
  */
 public class MainScreenUIActivity extends AppCompatActivity {
 
@@ -43,41 +43,27 @@ public class MainScreenUIActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * Request a ride.
-     *
-     * @param v the v
-     */
+
+    //The following methods bring the user to the appropriate activity upon selecting that button
+
+
     public void requestARide(View v){
         Intent intent = new Intent(MainScreenUIActivity.this, RequestARideUIActivity.class);
         startActivity(intent);
     }
 
-    /**
-     * My ride requests.
-     *
-     * @param v the v
-     */
     public void myRideRequests(View v){
         Intent requestARideIntent = new Intent(MainScreenUIActivity.this, MyRideRequestsUIActivity.class);
         startActivity(requestARideIntent);
     }
 
-    /**
-     * Provide a ride.
-     *
-     * @param v the v
-     */
+
     public void provideARide(View v){
         Intent requestARideIntent = new Intent(MainScreenUIActivity.this, ProvideARideUIActivity.class);
         startActivity(requestARideIntent);
     }
 
-    /**
-     * My ride offers.
-     *
-     * @param v the v
-     */
+
     public void myRideOffers(View v){
         Intent requestARideIntent = new Intent(MainScreenUIActivity.this, MyRideOffersUIActivity.class);
         startActivity(requestARideIntent);

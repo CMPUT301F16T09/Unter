@@ -1,32 +1,40 @@
 package com.cmput301f16t09.unter;
 
 /**
- * The type Current user.
+ * A model class that holds the Current User's most recently accessed information to be
+ * stored on their phone's local memory.
+ * Uses Lazy Singleton to allow for its information to be accessed from anywhere.
+ *
+ * currentPost is Post object that is set when the user selects a post from any ListView
  */
 public class CurrentUser {
     private static User currentUser = null;
     private static Post currentPost = null;
 
     /**
-     * Gets current user.
+     * Retrieves the user object representing the person who initially logged
+     * into the app and their information is recorded in this object.
      *
-     * @return the current user
+     * @return the current user object
      */
     public static User getCurrentUser() {
         return currentUser;
     }
 
     /**
-     * Sets current user.
+     * Upon login, changes the null object with a real user object once
+     * the user has logged into the app successfully.
      *
-     * @param newCurrentUser the new current user
+     * @param newCurrentUser the user object representing the current user to be swapped
      */
     public static void setCurrentUser(User newCurrentUser) {
         currentUser = newCurrentUser;
     }
 
     /**
-     * Gets current post.
+     * Gets the current post that the user has selected previously. Usually from a ListView.
+     * Used to prevent passing bundles inside intents very often between a listview and
+     * a specific posts details in two different activity screens.
      *
      * @return the current post
      */
@@ -35,7 +43,7 @@ public class CurrentUser {
     }
 
     /**
-     * Sets current post.
+     * Sets current post to be the one that user has selected for later retrieval.
      *
      * @param newCurrentPost the new current post
      */
