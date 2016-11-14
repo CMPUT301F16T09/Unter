@@ -11,11 +11,12 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 /**
- * The type Create new user ui activity.
+ * This is a "Create A New User" Activity.
+ * An Activity for new users to create a account for unter.
  */
 public class CreateNewUserUIActivity extends AppCompatActivity {
 
-    // Can probably change this to two EditText?
+    // Variables used to obtain/hold inputs from user.
     private EditText username;
     private EditText name;
     private EditText phone_number;
@@ -38,49 +39,51 @@ public class CreateNewUserUIActivity extends AppCompatActivity {
     }
 
     /**
-     * Create user.
+     * Creates user if passes checks of not existing username or email.
      *
-     * @param v the v
+     * @param v the View
      */
     public void create_user(View v) {
 
-        Boolean foundEmail = false;
-        // Fix up later if needed
+        // Obtaining user inputs
         username = (EditText) findViewById(R.id.SignUpUsername);
-        name = (EditText) findViewById(R.id.SignUpName);
-        phone_number = (EditText) findViewById(R.id.SignUpPhoneNumber);
-        email = (EditText) findViewById(R.id.SignUpEmail);
-        password = (EditText) findViewById(R.id.SignUpPassword);
-        confirm_password = (EditText) findViewById(R.id.SignUpConfirmPassword);
         input_index.add(0, username.getText().toString());
+
+        name = (EditText) findViewById(R.id.SignUpName);
         input_index.add(1, name.getText().toString());
+
+        phone_number = (EditText) findViewById(R.id.SignUpPhoneNumber);
         input_index.add(2, phone_number.getText().toString().replaceAll("\\D",""));
+
+        email = (EditText) findViewById(R.id.SignUpEmail);
         input_index.add(3, email.getText().toString());
+
+        password = (EditText) findViewById(R.id.SignUpPassword);
         input_index.add(4, password.getText().toString());
+
+        confirm_password = (EditText) findViewById(R.id.SignUpConfirmPassword);
         input_index.add(5, confirm_password.getText().toString());
 
         try {
+            // Trying to search for same username
             UserListOnlineController.SearchUserListsTask searchUserListsTask = new UserListOnlineController.SearchUserListsTask();
             searchUserListsTask.execute("username", input_index.get(0));
             ArrayList<User> userlist = searchUserListsTask.get();
+
+            // If no user with same username exists, search for same email
             if (userlist.isEmpty()) {
                 searchUserListsTask = new UserListOnlineController.SearchUserListsTask();
                 searchUserListsTask.execute("email", input_index.get(3));
                 userlist = searchUserListsTask.get();
-                // Searching emails requires regex to get the correct results, so looping through the results is an easy way out.
-                // if (!userlist.contains(input_index.get(3))) {
-                // Userlist is a array of users, can't use contains with string?
-                // Use this possibily if desired, but userlist.isEmpty() is better (probably)
-                // if (!userlist.get(0).getEmail().equals(input_index.get(3).toLowerCase())) {
+
+                // If no user with same email exists, create user with
                 if (userlist.isEmpty()) {
                     if (input_index.get(5).equals(input_index.get(4))) {
                         User new_user = new User(input_index.get(1), input_index.get(0), input_index.get(3), input_index.get(2), input_index.get(4));
                         UserListOnlineController.AddUsersTask addUserTask = new UserListOnlineController.AddUsersTask();
                         addUserTask.execute(new_user);
                         addUserTask.get();
-
 //                        FirebaseMessaging.getInstance().subscribeToTopic("user_"+input_index.get(0));
-
                         finish();
                     }
                     else {
