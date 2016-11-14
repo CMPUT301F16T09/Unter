@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * Created by Kelly on 2016-11-04.
  *
  * This View class is used to simply
- * display items in a list.
+ * display items in a list. Testing in Progress.
  */
 public class ListViewActivity extends AppCompatActivity {
 

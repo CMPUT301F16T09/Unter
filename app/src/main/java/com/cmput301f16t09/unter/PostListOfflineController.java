@@ -101,6 +101,7 @@ public class PostListOfflineController {
          */
         try
         {
+            // 2016-11-14
             // Getting file directory code to ensure file is created from:
             // stackoverflow.com/questions/5017292/how-to-create-a-file-on-android-internal-storage
             // Author: Audrius
@@ -114,8 +115,10 @@ public class PostListOfflineController {
             // Instantiate Gson
             Gson gson = new Gson();
 
+            // 2016-11-14
             // Type that Gson will convert the Json to
             // Code from http://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
+            // Author: Alex
             Type listType = new TypeToken<ArrayList<Post>>(){}.getType();
 
             // Allows Json reading to be more flexible to avoid crashing

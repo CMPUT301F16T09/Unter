@@ -37,8 +37,10 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
     /**
      * The Road manager.
      */
+    // 2016-11-14
     // If the polyline disappears with zooming
     // http://stackoverflow.com/questions/35799907/route-polyline-dissapears-after-zoom-in-osmbonuspack
+    // Author: croaton
     RoadManager roadManager;
     /**
      * The Map.

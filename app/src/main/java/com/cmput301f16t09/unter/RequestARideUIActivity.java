@@ -318,6 +318,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
         //Nov 7th, 2016 - http://stackoverflow.com/questions/13576470/converting-an-address-into-geopoint
         //Geocoder takes an string and finds an address that most closely resembles the string
         //then latitude and longitude is extracted from the address
+        //Author: Misha Bhardwaj
         try {
             List<Address> startAddress = coder.getFromLocationName(address, 1);
             latitude = startAddress.get(0).getLatitude();
