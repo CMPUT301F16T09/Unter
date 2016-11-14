@@ -26,6 +26,9 @@ import java.util.List;
 
 /**
  * The type Ride offer details ui activity.
+ * The User sees the details of his ride offer in this activity
+ * details like the name of the user who made the request, the fare offered and the status of
+ * the request
  */
 public class RideOfferDetailsUIActivity extends AppCompatActivity {
 
@@ -46,9 +49,6 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
      */
     IMapController mapController;
 
-    /**
-     * The My activity.
-     */
     Activity myActivity = this;
     /**
      * The Start point.
@@ -93,7 +93,7 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
     }
 
     /**
-     * View profile.
+     * Views the profile of a certain user (this user's name is long clicked on by another user)
      *
      * @param v the v
      */
@@ -105,14 +105,14 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     /**
-     * Gets road async.
+     * Taken from CMPUT 301 Fall 16 Lab 8 - Geolocation by Stephen Romansky
+     * Calls upon the UpdateRoadTask to draw a given route in the Activities MapView
      */
     public void getRoadAsync() {
         mRoads = null;

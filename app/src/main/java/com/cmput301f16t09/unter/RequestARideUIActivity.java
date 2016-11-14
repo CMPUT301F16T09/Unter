@@ -7,6 +7,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -48,12 +49,10 @@ public class RequestARideUIActivity extends AppCompatActivity {
     Activity myActivity = this;
 
     /**
-     * The Road manager.
+     * The Road Managers.
      */
-    RoadManager roadManager;
-    /**
-     * The Map.
-     */
+    RoadManager roadManager, roadManager2;
+
     MapView map;
     /**
      * The M roads.
@@ -145,16 +144,13 @@ public class RequestARideUIActivity extends AppCompatActivity {
             startPoint = findCoords(startLocation);
             endPoint = findCoords(endLocation);
 
-            //CurrentUser.getCurrentPost().setFare("FAKE fare");
-            //getFareAsync();
-
             mapController.setCenter(startPoint);
             // to get a key http://developer.mapquest.com/
             //roadManager = new MapQuestRoadManager("xPGrfmORuC6QJMSkF6SXGKYbBgTefNdm");
             roadManager = new OSRMRoadManager(this);
-//            ArrayList<OverlayItem> overlayItemArray = new ArrayList<>();
-//            overlayItemArray.add(new OverlayItem("Starting Point", "This is the starting point", startPoint));
-//            overlayItemArray.add(new OverlayItem("Destination", "This is the destination point", endPoint));
+            roadManager2 = new OSRMRoadManager(this);   //fixes fare calculating stuff for some weird reason
+
+            getFareAsync();
             getRoadAsync();
         }
     }
@@ -206,11 +202,8 @@ public class RequestARideUIActivity extends AppCompatActivity {
     }
 
     /**
-     * Gets road async. Uses the points from the user and calls UpdateRoadTask to update and create
-     * the line on the map connecting start and end location.
-     *
-     * @see UpdateRoadTask
-     * @see GeoPoint
+     * Taken from CMPUT 301 Fall 16 Lab 8 - Geolocation by Stephen Romansky
+     * Calls upon the UpdateRoadTask to draw a given route in the Activities MapView
      */
     public void getRoadAsync() {
         mRoads = null;
@@ -240,11 +233,9 @@ public class RequestARideUIActivity extends AppCompatActivity {
                 Toast.makeText(map.getContext(), "Technical issue when getting the route", Toast.LENGTH_SHORT).show();
             else if (roads[0].mStatus > Road.STATUS_TECHNICAL_ISSUE) //functional issues
                 Toast.makeText(map.getContext(), "No possible route here", Toast.LENGTH_SHORT).show();
-            //Polyline[] mRoadOverlays = new Polyline[roads.length];
             List<Overlay> mapOverlays = map.getOverlays();
             for (int i = 0; i < roads.length; i++) {
                 Polyline roadPolyline = RoadManager.buildRoadOverlay(roads[i]);
-               // mRoadOverlays[i] = roadPolyline;
                 String routeDesc = roads[i].getLengthDurationText(myActivity.getBaseContext(), -1);
                 roadPolyline.setTitle(getString(R.string.app_name) + " - " + routeDesc);
                 roadPolyline.setInfoWindow(new BasicInfoWindow(org.osmdroid.bonuspack.R.layout.bonuspack_bubble, map));
@@ -274,12 +265,12 @@ public class RequestARideUIActivity extends AppCompatActivity {
      *  Method used to calculate the fare based on the given points.
      *  @see GeoPoint
      */
-    private class FareCalculatingTask extends AsyncTask<ArrayList<GeoPoint>, Void, Road[]> {
+    private class FareCalculatingTask extends AsyncTask<Object, Void, Road[]> {
 
-        protected Road[] doInBackground(ArrayList<GeoPoint>... lists) {
+        protected Road[] doInBackground(Object... points) {
             @SuppressWarnings("unchecked")
-            ArrayList<GeoPoint> startToEnd = lists[0];
-            return roadManager.getRoads(startToEnd);
+            ArrayList<GeoPoint> startToEnd = (ArrayList<GeoPoint>) points[0];
+            return roadManager2.getRoads(startToEnd);
         }
 
         @Override
@@ -297,7 +288,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
                 Polyline roadPolyline = RoadManager.buildRoadOverlay(roads[i]);
                 List<GeoPoint> roadSegment = roadPolyline.getPoints();
 
-                for (int j = 0; j < roadSegment.size() - 1; j+= 2){
+                for (int j = 0; j < roadSegment.size() - 1; j+= 1){
                     GeoPoint geoStart = roadSegment.get(j);
                     GeoPoint geoEnd = roadSegment.get(j + 1);
 
@@ -333,6 +324,9 @@ public class RequestARideUIActivity extends AppCompatActivity {
             longitude = startAddress.get(0).getLongitude();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (IndexOutOfBoundsException e) {
+            Toast.makeText(this, "Invalid Location", Toast.LENGTH_SHORT).show();
+            Log.i("Error", "Can't find Location");
         }
         return new GeoPoint(latitude, longitude);
     }

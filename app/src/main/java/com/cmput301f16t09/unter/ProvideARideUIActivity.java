@@ -3,7 +3,6 @@ package com.cmput301f16t09.unter;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,24 +15,21 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Locale;
-
 /**
- * The type Provide a ride ui activity.
+ * Provide A Ride UI Activity is where the user sees all the Requests made (minus his/her own)
+ * and can choose to make a Ride offer for a Request
  */
 public class ProvideARideUIActivity extends AppCompatActivity {
 
     private PostList postList = new PostList();
     private ListView currentPostList;
-    private Geocoder coder;
     private ArrayAdapter<Post> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provide_aride_ui);
-
-        coder = new Geocoder(this, Locale.CANADA);
+;
         currentPostList = (ListView) findViewById(R.id.listViewProvideARide);
 
         for(Post p : PostListOfflineController.getPostList(ProvideARideUIActivity.this).getPosts()) {
@@ -53,7 +49,7 @@ public class ProvideARideUIActivity extends AppCompatActivity {
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView tv = (TextView) view.findViewById(android.R.id.text1);
-                String forTestUsername = postList.getPost(position).getUsername();
+                //String forTestUsername = postList.getPost(position).getUsername();
 
 //                double startLat = postList.getPost(position).getStartLocation().getLatitude();
 //                double startLon = postList.getPost(position).getStartLocation().getLongitude();
@@ -72,7 +68,7 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                 String startLocation = postList.getPost(position).getStartAddress();
                 String endLocation = postList.getPost(position).getEndAddress();
                 // Remove forTestUsername after
-                tv.setText("Username: " + forTestUsername + "\nStart: " + startLocation +"\nEnd: " + endLocation);
+                tv.setText("Start: " + startLocation +"\nEnd: " + endLocation);
 
 //                tv.setText(postList.getPost(position).getUsername());
                 tv.setTextColor(Color.WHITE);
@@ -164,16 +160,15 @@ public class ProvideARideUIActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     /**
-     * Create deletion dialog.
+     * Long clicking on a post will give the user the option to delete the post
      *
-     * @param post the post
+     * @param post the post to be deleted
      */
     public void createDeletionDialog(Post post) {
 

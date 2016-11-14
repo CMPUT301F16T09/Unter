@@ -34,7 +34,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
     /**
      * The Road manager.
      */
-// If the polyline disappears with zooming
+    // If the polyline disappears with zooming
     // http://stackoverflow.com/questions/35799907/route-polyline-dissapears-after-zoom-in-osmbonuspack
     RoadManager roadManager;
     /**
@@ -132,7 +132,8 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
     }
 
     /**
-     * Gets road async.
+     * Taken from CMPUT 301 Fall 16 Lab 8 - Geolocation by Stephen Romansky
+     * Calls upon the UpdateRoadTask to draw a given route in the Activities MapView
      */
     public void getRoadAsync() {
         mRoads = null;

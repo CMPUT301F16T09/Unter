@@ -20,11 +20,11 @@ public class User {
     /**
      * Instantiates a new User.
      *
-     * @param name        the name
-     * @param username    the username
-     * @param email       the email
-     * @param phoneNumber the phone number
-     * @param password    the password
+     * @param name        the name of the user
+     * @param username    the username of the user
+     * @param email       the email of the user
+     * @param phoneNumber the phone number of the user
+     * @param password    the password of the user
      */
     public User(String name, String username, String email, String phoneNumber, String password) {
         this.name = name.toLowerCase();
@@ -37,7 +37,7 @@ public class User {
     }
 
     /**
-     * Gets id.
+     * Returns the User's id.
      *
      * @return the id
      */
@@ -46,7 +46,7 @@ public class User {
     }
 
     /**
-     * Sets id.
+     * Changes User's id to the input of this method
      *
      * @param id the id
      */
@@ -55,7 +55,7 @@ public class User {
     }
 
     /**
-     * Gets name.
+     * Returns the User's name.
      *
      * @return the name
      */
@@ -64,7 +64,7 @@ public class User {
     }
 
     /**
-     * Sets name.
+     * Changes User's name to the input of the method
      *
      * @param name the name
      */
@@ -73,7 +73,7 @@ public class User {
     }
 
     /**
-     * Gets username.
+     * Returns the User's username.
      *
      * @return the username
      */
@@ -82,7 +82,7 @@ public class User {
     }
 
     /**
-     * Gets email.
+     * Returns the User's email.
      *
      * @return the email
      */
@@ -91,7 +91,7 @@ public class User {
     }
 
     /**
-     * Sets email.
+     * Changes User's email to the input of the method
      *
      * @param email the email
      */
@@ -100,7 +100,7 @@ public class User {
     }
 
     /**
-     * Gets phone number.
+     * Returns the User's phone number.
      *
      * @return the phone number
      */
@@ -109,7 +109,7 @@ public class User {
     }
 
     /**
-     * Sets phone number.
+     * Changes User's phone number to the input of the method
      *
      * @param phoneNumber the phone number
      */
@@ -118,7 +118,7 @@ public class User {
     }
 
     /**
-     * Gets password.
+     * Returns the User's password.
      *
      * @return the password
      */
@@ -127,7 +127,7 @@ public class User {
     }
 
     /**
-     * Sets password.
+     * Changes User's password to the input of the method
      *
      * @param password the password
      */
@@ -136,7 +136,7 @@ public class User {
     }
 
     /**
-     * Gets my requests.
+     * Returns the User's list of requests.
      *
      * @return the my requests
      */
@@ -145,7 +145,7 @@ public class User {
     }
 
     /**
-     * Gets my offers.
+     * Returns the User's list of offers.
      *
      * @return the my offers
      */
@@ -154,7 +154,7 @@ public class User {
     }
 
     /**
-     * Sets my requests.
+     * Changes User's my requests to the input of the method
      *
      * @param myRequests the my requests
      */
@@ -163,7 +163,7 @@ public class User {
     }
 
     /**
-     * Sets my offers.
+     * Changes User's my offers to the input of the method
      *
      * @param myOffers the my offers
      */
@@ -172,7 +172,7 @@ public class User {
     }
 
     /**
-     * Add request reference.
+     * Add the inputted request reference.
      *
      * @param post the post
      */
@@ -181,7 +181,7 @@ public class User {
     }
 
     /**
-     * Add offer reference.
+     * Add the inputted offer reference.
      *
      * @param post the post
      */
@@ -190,7 +190,7 @@ public class User {
     }
 
     /**
-     * Sets username.
+     * Changes User's username to the input of the method
      *
      * @param username the username
      */
@@ -199,7 +199,7 @@ public class User {
     }
 
     /**
-     * Add ride request.
+     * Add the inputted ride request.
      *
      * @param rideRequest the ride request
      */
@@ -208,7 +208,7 @@ public class User {
     }
 
     /**
-     * Delete ride request.
+     * Delete the inputted ride request.
      *
      * @param rideRequest the ride request
      */
@@ -217,13 +217,19 @@ public class User {
     }
 
     /**
-     * Delete offer reference.
+     * Delete the inputted offer reference.
      *
      * @param rideRequest the ride request
      */
     public void deleteOfferReference(Post rideRequest) {
         this.myOffers.getPosts().remove(rideRequest);
     }
+
+    /**
+     * Returns the username of the User
+     * same as @getUsername()
+     * @return output, the username of the user
+     */
 
     public String toString(){
         String output = getUsername();

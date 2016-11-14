@@ -16,16 +16,16 @@ public class UserList {
     }
 
     /**
-     * Gets users.
+     * Gets users in the list.
      *
-     * @return the users
+     * @return the userlist
      */
     public ArrayList<User> getUserList() {
         return this.userList;
     }
 
     /**
-     * Sets user list.
+     * Sets userlist to the inputted list of users.
      *
      * @param userList the user list
      */
@@ -34,37 +34,36 @@ public class UserList {
     }
 
     /**
-     * Add user.
+     * Add a user to the list
      *
-     * @param user the user
+     * @param user the user to add
      */
     public void addUser(User user) {
         userList.add(user);
     }
 
     /**
-     * Delete user.
+     * Delete user from the list
      *
-     * @param user the user
+     * @param user the user to delete
      */
     public void deleteUser(User user) {
         this.userList.remove(user);
     }
 
     /**
-     * Modify user.
+     * Modify the users Name, Phone number and email
      *
-     * @param user         the user
-     * @param name         the name
-     * @param phone_number the phone number
-     * @param email        the email
+     * @param user         the user to edit
+     * @param name         the name to change to
+     * @param phone_number the phone number to change to
+     * @param email        the email to change to
      */
     public void ModifyUser(User user, String name, String phone_number, String email) {
         user.setName(name);
         user.setPhoneNumber(phone_number);
         user.setEmail(email);
     }
-
 
     /**
      * Search by username user.
@@ -99,6 +98,4 @@ public class UserList {
      */
     public void deleteListener() {
     }
-
-
 }
