@@ -226,8 +226,8 @@ public class User {
     }
 
     /**
-     * Returns the username of the User same as getUsername()
-     * 
+     * Returns the username of the User
+     * same as @getUsername()
      * @return output, the username of the user
      */
 
