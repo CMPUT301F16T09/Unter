@@ -2,6 +2,7 @@ package com.cmput301f16t09.unter;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.net.ConnectivityManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -32,8 +33,8 @@ import java.util.concurrent.TimeUnit;
 public class PostListOfflineController {
     private static PostList postlist = null;
     private static final String FILENAME = "real_offline_posts.sav";
-//    private static final String QUEUE_FILENAME = "queue_offline_posts.sav";
-//    private static PostList postListQueue = new PostList();
+    private static final String QUEUE_FILENAME = "queue_offline_posts.sav";
+    private static PostList postListQueue = new PostList();
 
     /**
      * Gets post list.
@@ -187,7 +188,48 @@ public class PostListOfflineController {
          * @see #saveOfflinePosts(Context)
          * @see PostList
          */
+        if (!isNetworkAvailable(context)) {
+            saveOfflineQueuePosts(context);
+        }
+
         getPostList(context).addPost(offlinePost);
         saveOfflinePosts(context);
+    }
+
+    // 2016-11-15
+    // http://stackoverflow.com/questions/9570237/android-check-internet-connection
+    // Author: Jared Burrows
+    public static boolean isNetworkAvailable(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
+
+    public static void saveOfflineQueuePosts(Context context)
+    {
+        /**
+         * Try to open the file and write to it
+         * @see FileOutputStream
+         * @see BufferedWriter
+         * @see Gson
+         * @throws IOException that file cannot be opened or written to
+         */
+        try {
+            // Open the FileOutputStream and BufferedWriter to write to FILENAME
+            FileOutputStream fos = context.openFileOutput(QUEUE_FILENAME, context.MODE_PRIVATE);
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+
+            // Instantiate Gson
+            Gson gson = new Gson();
+
+            // Write the data in list to BufferedWriter
+            gson.toJson(postListQueue.getPosts(), bw);
+
+            // Flush the buffer to prevent memory leakage and close the OutputStream
+            bw.flush();
+            fos.close();
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
