@@ -166,7 +166,7 @@ public class TestUser extends TestCase{
         GeoPoint startLoc = new GeoPoint(53.52676, -113.52715);
         GeoPoint endLoc = new GeoPoint(53.54565, -113.49026);
         String myFare = "40.39";
-        Post rideRequest = new Post(startLoc,endLoc,myFare, newUsr);
+        Post rideRequest = new Post(startLoc,endLoc,"1", "2",myFare, "Rider");
         newUsr.addRideRequest(rideRequest);
         assertEquals(newUsr.getMyRequests().getPosts().size(),1);
 
@@ -183,7 +183,7 @@ public class TestUser extends TestCase{
         GeoPoint startLoc = new GeoPoint(53.52676, -113.52715);
         GeoPoint endLoc = new GeoPoint(53.54565, -113.49026);
         String myFare = "40.39";
-        Post rideRequest = new Post(startLoc,endLoc,myFare, newUsr);
+        Post rideRequest = new Post(startLoc,endLoc,"1", "2",myFare, "Rider");
         newUsr.addRideRequest(rideRequest);
         assertEquals(newUsr.getMyRequests().getPosts().size(),1);
         newUsr.deleteRideRequest(rideRequest);
@@ -199,7 +199,7 @@ public class TestUser extends TestCase{
         GeoPoint startLoc = new GeoPoint(53.52676, -113.52715);
         GeoPoint endLoc = new GeoPoint(53.54565, -113.49026);
         String myFare = "40.39";
-        Post a_request_i_accepted = new Post(startLoc,endLoc,myFare, newUsr);
+        Post a_request_i_accepted = new Post(startLoc,endLoc,"1", "2",myFare, "Rider");
         newUsr.addOfferReference(a_request_i_accepted);
         assertEquals(newUsr.getMyOffers().getPosts().size(),1);
     }
@@ -213,7 +213,7 @@ public class TestUser extends TestCase{
         GeoPoint startLoc = new GeoPoint(53.52676, -113.52715);
         GeoPoint endLoc = new GeoPoint(53.54565, -113.49026);
         String myFare = "40.39";
-        Post rideRequest = new Post(startLoc,endLoc,myFare, newUsr);
+        Post rideRequest = new Post(startLoc,endLoc,"1", "2",myFare, "Rider");
         newUsr.addOfferReference(rideRequest);
         assertEquals(newUsr.getMyRequests().getPosts().size(),1);
 
