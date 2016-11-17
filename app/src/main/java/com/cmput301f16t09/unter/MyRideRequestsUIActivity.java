@@ -111,22 +111,22 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
 
         // Add a listener and define the update function to refresh the habits list when there
         // is a change in the dataset, then save the data to FILENAME
-        PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).addListener(new Listener() {
-            @Override
-            public void update()
-            {
-                postList.getPosts().clear();
-
-                for(Post p : PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
-                    if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
-                        postList.addPost(p);
-                    }
-                }
-
-                adapter.notifyDataSetChanged();
-                PostListOfflineController.saveOfflinePosts(MyRideRequestsUIActivity.this);
-            }
-        });
+//        PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).addListener(new Listener() {
+//            @Override
+//            public void update()
+//            {
+//                postList.getPosts().clear();
+//
+//                for(Post p : PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
+//                    if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
+//                        postList.addPost(p);
+//                    }
+//                }
+//
+//                adapter.notifyDataSetChanged();
+//                PostListOfflineController.saveOfflinePosts(MyRideRequestsUIActivity.this);
+//            }
+//        });
     }
 
     @Override
@@ -147,11 +147,11 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
 
 
     /**

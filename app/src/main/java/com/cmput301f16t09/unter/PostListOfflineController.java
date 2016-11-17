@@ -58,12 +58,17 @@ public class PostListOfflineController {
          * @see #saveOfflinePosts(Context)
          */
         try {
-            PostListOnlineController.GetPostsTask onlinePosts = new PostListOnlineController.GetPostsTask();
-            onlinePosts.execute("");
-            // App crashes when using postlist.getposts().clear(), or if there is no list clearing statement
-            postlist = new PostList();
-            postlist.setPostList(onlinePosts.get(1000, TimeUnit.MILLISECONDS));
-            saveOfflinePosts(context);
+            if (isNetworkAvailable(context)) {
+                PostListOnlineController.GetPostsTask onlinePosts = new PostListOnlineController.GetPostsTask();
+                onlinePosts.execute("");
+                // App crashes when using postlist.getposts().clear(), or if there is no list clearing statement
+                postlist = new PostList();
+                postlist.setPostList(onlinePosts.get(1000, TimeUnit.MILLISECONDS));
+                saveOfflinePosts(context);
+            }
+            else {
+                loadOfflinePosts(context);
+            }
         }
 
         /**
@@ -127,7 +132,7 @@ public class PostListOfflineController {
             reader.setLenient(true);
 
             // save the posts from Gson into an ArrayList of Posts
-            ArrayList<Post> tempList = gson.fromJson(br_in, listType);
+             ArrayList<Post> tempList = gson.fromJson(br_in, listType);
 
             // Store the data into the main PostList
             postlist.setPostList(tempList);
@@ -189,6 +194,8 @@ public class PostListOfflineController {
          * @see PostList
          */
         if (!isNetworkAvailable(context)) {
+            loadOfflineQueuePosts(context);
+            postListQueue.addPost(offlinePost);
             saveOfflineQueuePosts(context);
         }
 
@@ -231,5 +238,59 @@ public class PostListOfflineController {
         catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static PostList loadOfflineQueuePosts(Context context)
+    {
+        Toast.makeText(context, "Offline", Toast.LENGTH_SHORT).show();
+
+        /**
+         * Try to load in files using Gson
+         * @see Gson
+         * @see ContextWrapper
+         * @see File
+         * @see FileInputStream
+         * @see BufferedReader
+         * @see JsonReader
+         */
+        try
+        {
+            // 2016-11-14
+            // Getting file directory code to ensure file is created from:
+            // stackoverflow.com/questions/5017292/how-to-create-a-file-on-android-internal-storage
+            // Author: Audrius
+            ContextWrapper cw = new ContextWrapper(context);
+            File dir = cw.getDir(QUEUE_FILENAME, context.MODE_PRIVATE);
+
+            // Open the file stream and buffer to load the data from FILENAME
+            FileInputStream fis = context.openFileInput(QUEUE_FILENAME);
+            BufferedReader br_in = new BufferedReader(new InputStreamReader(fis));
+
+            // Instantiate Gson
+            Gson gson = new Gson();
+
+            // 2016-11-14
+            // Type that Gson will convert the Json to
+            // Code from http://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
+            // Author: Alex
+            Type listType = new TypeToken<ArrayList<Post>>(){}.getType();
+
+            // Allows Json reading to be more flexible to avoid crashing
+            JsonReader reader = new JsonReader(br_in);
+            reader.setLenient(true);
+
+            // save the posts from Gson into an ArrayList of Posts
+            ArrayList<Post> tempList = gson.fromJson(br_in, listType);
+
+            // Store the data into the main PostList
+            postListQueue.setPostList(tempList);
+        }
+
+        // If there is no file, return error and create empty postlist
+        catch (FileNotFoundException f) {
+            Log.e("Error", "Could not load offline posts");
+            postlist = new PostList();
+        }
+        return postListQueue;
     }
 }

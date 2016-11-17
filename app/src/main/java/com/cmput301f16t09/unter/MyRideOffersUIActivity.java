@@ -94,19 +94,19 @@ public class MyRideOffersUIActivity extends AppCompatActivity {
          *
          * @see PostListOfflineController
          */
-        PostListOfflineController.getPostList(MyRideOffersUIActivity.this).addListener(new Listener() {
-            @Override
-            public void update() {
-                postList.getPosts().clear();
-
-                for (Post p : PostListOfflineController.getPostList(MyRideOffersUIActivity.this).getPosts()) {
-                    if (p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) {
-                        postList.addPost(p);
-                    }
-                }
-
-                adapter.notifyDataSetChanged();
-            }
-        });
+//        PostListOfflineController.getPostList(MyRideOffersUIActivity.this).addListener(new Listener() {
+//            @Override
+//            public void update() {
+//                postList.getPosts().clear();
+//
+//                for (Post p : PostListOfflineController.getPostList(MyRideOffersUIActivity.this).getPosts()) {
+//                    if (p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) {
+//                        postList.addPost(p);
+//                    }
+//                }
+//
+//                adapter.notifyDataSetChanged();
+//            }
+//        });
     }
 }
