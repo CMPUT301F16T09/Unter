@@ -18,7 +18,6 @@ import android.widget.TextView;
 public class MyRideOffersUIActivity extends AppCompatActivity {
 
     private PostList postList = new PostList();
-    private ListView currentPostList;
 
     /** Called when the activity is created. */
     /**
@@ -33,7 +32,7 @@ public class MyRideOffersUIActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_ride_offers_ui);
 
-        currentPostList = (ListView) findViewById(R.id.listViewMyRideOffers);
+        ListView currentPostList = (ListView) findViewById(R.id.listViewMyRideOffers);
 
         /**
          * Get all of the posts and filter for the username of the CurrentUser to only display the

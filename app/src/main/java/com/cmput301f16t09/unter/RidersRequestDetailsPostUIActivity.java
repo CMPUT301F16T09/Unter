@@ -39,35 +39,34 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
 
     private PostList postList = new PostList();
     private ListView currentPostList;
-    private Button complete_request;
 
     /**
      * The Map.
      */
-    MapView map;
+    private MapView map;
     /**
      * The Start point.
      */
-    GeoPoint startPoint;
+    private GeoPoint startPoint;
     /**
      * The End point.
      */
-    GeoPoint endPoint;
+    private GeoPoint endPoint;
 
     /**
      * The Road manager.
      */
-    RoadManager roadManager;
+    private RoadManager roadManager;
 
-    Activity myActivity = this;
+    private Activity myActivity = this;
     /**
      * The roads to be used for the route
      */
-    Road[] mRoads;
+    private Road[] mRoads;
     /**
      * The Map controller.
      */
-    IMapController mapController;
+    private IMapController mapController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +119,7 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
 
 
         //bring up dialog window for payment and also delete the post on elastic search once it has been completed
-        complete_request = (Button) findViewById(R.id.RideRequestDetailsCompleteRequestButton);
+        Button complete_request = (Button) findViewById(R.id.RideRequestDetailsCompleteRequestButton);
         complete_request.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 

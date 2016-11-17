@@ -231,8 +231,8 @@ public class User {
      * @return output, the username of the user
      */
 
-    public String toString(){
-        String output = getUsername();
-        return output;
-    }
+//    public String toString(){
+//        String output = getUsername();
+//        return output;
+//    }
 }

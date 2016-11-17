@@ -220,9 +220,7 @@ public class Post {
         return this.user;
     }
 
-    public String toString(){
-        //String output = "Rider: "+ getUsername()+ "Driver:"
-        String output= "this is a post";
-        return output;
-    }
+//    public String toString(){
+//        return "Rider: "+ getUsername()+ "Driver:";
+//    }
 }

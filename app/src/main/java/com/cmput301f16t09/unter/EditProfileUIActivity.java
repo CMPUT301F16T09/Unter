@@ -26,32 +26,32 @@ public class EditProfileUIActivity extends AppCompatActivity {
      * @see CurrentUser
      * @see User
     */
-    EditText editName;
+    private EditText editName;
     /**
      * An android widget displaying the phone number of the current user.
      * Phone numbers are of type String.
      * @see CurrentUser
      * @see User
      */
-    EditText editPhoneNumber;
+    private EditText editPhoneNumber;
     /**
      * An android widget displaying the email field of the current user.
      * Emails are of type String.
      * @see CurrentUser
      * @see User
      */
-    EditText editEmail;
+    private EditText editEmail;
     /**
      * An android widget displaying the Password field of the current user.
      * The 'password' has been set as inputType and will appear symbolically (.)
      * @see CurrentUser
      * @see User
      */
-    EditText editPassword;
+    private EditText editPassword;
     /**
      * An android widget displaying a blank to be filled in by the user.
      */
-    EditText editConfirmPassword;
+    private EditText editConfirmPassword;
 
 
     @Override

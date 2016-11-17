@@ -16,13 +16,6 @@ import java.util.ArrayList;
  */
 public class CreateNewUserUIActivity extends AppCompatActivity {
 
-    // Variables used to obtain/hold inputs from user.
-    private EditText username;
-    private EditText name;
-    private EditText phone_number;
-    private EditText email;
-    private EditText password;
-    private EditText confirm_password;
     private ArrayList<String> input_index = new ArrayList<>();
 
     @Override
@@ -44,6 +37,14 @@ public class CreateNewUserUIActivity extends AppCompatActivity {
      * @param v the View
      */
     public void create_user(View v) {
+
+        // Variables used to obtain/hold inputs from user.
+        EditText username;
+        EditText name;
+        EditText phone_number;
+        EditText email;
+        EditText password;
+        EditText confirm_password;
 
         // Obtaining user inputs
         username = (EditText) findViewById(R.id.SignUpUsername);
