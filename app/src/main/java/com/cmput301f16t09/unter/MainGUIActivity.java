@@ -2,6 +2,11 @@ package com.cmput301f16t09.unter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.wifi.WifiManager;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,9 +34,28 @@ public class MainGUIActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_gui);
+
+        // 2016-11-19
+        // http://stackoverflow.com/questions/5674518/does-broadcastreceiver-onreceive-always-run-in-the-ui-thread
+        // Author: Caner
+        HandlerThread handlerThread = new HandlerThread("WiFiConnectionThread");
+        handlerThread.start();
+        Looper looper = handlerThread.getLooper();
+        Handler handler = new Handler(looper);
+        if (handlerThread.isAlive()) {Log.i("WiFiConnectionThread","Working");}
+        WifiReceiver connected = new WifiReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION);
+        registerReceiver(connected, intentFilter, null, handler);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
 
+        CurrentUser.setCurrentUser(null);
+        CurrentUser.setCurrentPost(null);
+    }
 
     /**
      * Verify login by using the UserListOnlineController class to query elastic search.
@@ -55,7 +79,7 @@ public class MainGUIActivity extends AppCompatActivity {
             if (password.equals(currentUser.get(0).getPassword())){
                 Toast.makeText(this, "Logging In", Toast.LENGTH_SHORT).show();
                 CurrentUser.setCurrentUser(currentUser.get(0));
-                PostListOfflineController.getPostList(MainGUIActivity.this);
+                PostListMainController.getPostList(MainGUIActivity.this);
                 Intent intent = new Intent(MainGUIActivity.this, MainScreenUIActivity.class);
                 startActivity(intent);
             }
@@ -83,4 +107,5 @@ public class MainGUIActivity extends AppCompatActivity {
         Intent intent = new Intent(MainGUIActivity.this, CreateNewUserUIActivity.class);
         startActivity(intent);
     }
+
 }

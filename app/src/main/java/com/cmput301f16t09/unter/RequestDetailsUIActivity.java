@@ -223,7 +223,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
     public void confirm_ride_request(View v) {
         Boolean found = false;
         PostList temp;
-        for(Post p : PostListOfflineController.getPostList(RequestDetailsUIActivity.this).getPosts()) {
+        for(Post p : PostListMainController.getPostList(RequestDetailsUIActivity.this).getPosts()) {
             // Prob don't need the first check if this if statement.
             if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) && (p.getStatus().equals("Pending Offer") || p.getStatus().equals("Pending Approval")) && CurrentUser.getCurrentPost().getId().equals(p.getId())) {
                 found = true;
@@ -235,9 +235,10 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         }
         if (found) {
             try {
-                PostListOnlineController.UpdatePostsTask updatePostsTask = new PostListOnlineController.UpdatePostsTask();
-                updatePostsTask.execute(CurrentUser.getCurrentPost());
-                updatePostsTask.get();
+                PostListMainController.updatePosts(CurrentUser.getCurrentPost(), RequestDetailsUIActivity.this);
+//                PostListOnlineController.UpdatePostsTask updatePostsTask = new PostListOnlineController.UpdatePostsTask();
+//                updatePostsTask.execute(CurrentUser.getCurrentPost());
+//                updatePostsTask.get();
 //                PostListOfflineController.addOfflinePost(CurrentUser.getCurrentPost(), RequestDetailsUIActivity.this);
                 CurrentUser.getCurrentUser().getMyOffers().addPost(CurrentUser.getCurrentPost());
                 UserListOnlineController.UpdateUsersTask updateUserTask = new UserListOnlineController.UpdateUsersTask();

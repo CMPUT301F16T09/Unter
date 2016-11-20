@@ -110,6 +110,8 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
                             Toast.makeText(RidersRequestDetailsPreUIActivity.this, "OK", Toast.LENGTH_SHORT).show();
                             adapter.notifyDataSetChanged();
 
+                            PostListMainController.updateOfflinePosts(RidersRequestDetailsPreUIActivity.this);
+
                             Intent intent = new Intent(RidersRequestDetailsPreUIActivity.this,RidersRequestDetailsPostUIActivity.class);
                             startActivity(intent);
 

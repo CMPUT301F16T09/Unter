@@ -38,7 +38,7 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
         currentPostList = (ListView) findViewById(R.id.listViewMyRideRequests);
 
 //         Get All posts for the specific user
-        for(Post p : PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
+        for(Post p : PostListMainController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
             if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
                 postList.addPost(p);
             }
@@ -139,7 +139,7 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
         }
         catch (Exception e) {
         }
-        for(Post p : PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
+        for(Post p : PostListMainController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
             if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
                 postList.addPost(p);
             }
@@ -195,9 +195,9 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 // Save this change of data into FILENAME
-                PostListOfflineController.saveOfflinePosts(MyRideRequestsUIActivity.this);
+                PostListMainController.updateOfflinePosts(MyRideRequestsUIActivity.this);
                 postList.getPosts().clear();
-                for(Post p : PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
+                for(Post p : PostListMainController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
                     if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
                         postList.addPost(p);
                     }

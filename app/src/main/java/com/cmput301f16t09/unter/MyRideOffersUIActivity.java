@@ -44,7 +44,7 @@ public class MyRideOffersUIActivity extends AppCompatActivity {
          * @see PostListOnlineController
          * @see PostListOfflineController
          */
-        for (Post p : PostListOfflineController.getPostList(MyRideOffersUIActivity.this).getPosts()) {
+        for (Post p : PostListMainController.getPostList(MyRideOffersUIActivity.this).getPosts()) {
             if (p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) {
                 postList.addPost(p);
             }

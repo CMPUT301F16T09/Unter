@@ -112,4 +112,9 @@ public class PostList {
         this.postList = postList;
         notifyListeners();
     }
+
+//    public void updatePost(Post post) {
+//        postList.remove(post);
+//        postList.add(post);
+//    }
 }

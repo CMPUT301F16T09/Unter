@@ -1,0 +1,43 @@
+package com.cmput301f16t09.unter;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.util.Log;
+import android.widget.Toast;
+
+// 2016-11-19
+// http://stackoverflow.com/questions/6362314/wifi-connect-disconnect-listener
+// Author: warbi
+public class WifiReceiver extends BroadcastReceiver {
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        ConnectivityManager conMan = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = conMan.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.getState().name().equals("CONNECTED")) {
+            Log.d("WifiReceiver", "Have Wifi Connection");
+            Toast.makeText(context, "We Have WiFi", Toast.LENGTH_SHORT).show();
+            if (CurrentUser.getCurrentUser() != null) {
+                for (Post p : PostListMainController.getPostListQueue().getPosts()) {
+                    PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
+                    addPostOnline.execute(p);
+                }
+                // ADD CLEARING THE SAVE FILE
+                PostListMainController.clearPostListQueue();
+
+                for (Post p : PostListMainController.getPostListUpdate().getPosts()) {
+                    PostListMainController.updatePosts(p, context);
+                }
+                // ADD CLEARING THE SAVE FILE
+                PostListMainController.clearPostListUpdate();
+            }
+        }
+        else {
+            Log.d("WifiReceiver", "Don't have Wifi Connection");
+            Toast.makeText(context, "We Don't Have WiFi", Toast.LENGTH_SHORT).show();
+        }
+    }
+};
