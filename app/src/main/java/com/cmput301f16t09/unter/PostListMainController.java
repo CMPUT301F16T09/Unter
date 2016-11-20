@@ -14,8 +14,6 @@ public class PostListMainController {
     private static PostList postListMain = null;
     private static PostList postListQueue = new PostList();
     private static PostList postListUpdate = new PostList();
-    private static PostListOnlineController.AddPostsTask addOnlinePost = new PostListOnlineController.AddPostsTask();
-    private static PostListOnlineController.UpdatePostsTask updateOnlinePost = new PostListOnlineController.UpdatePostsTask();
 
     static public PostList getPostList(Context context) {
         /**
@@ -91,6 +89,7 @@ public class PostListMainController {
          * @see PostList
          */
         if (isNetworkAvailable(context)) {
+            PostListOnlineController.AddPostsTask addOnlinePost = new PostListOnlineController.AddPostsTask();
             addOnlinePost.execute(post);
         }
 
@@ -124,7 +123,7 @@ public class PostListMainController {
             PostListOfflineController.saveOfflinePosts("updateOffline", postListUpdate, context);
         }
 //        postListMain.updatePost(post);
-//        PostListOfflineController.saveOfflinePosts("mainOffline", postListMain, context);
+        PostListOfflineController.saveOfflinePosts("mainOffline", postListMain, context);
         // Also update main list.
     }
 

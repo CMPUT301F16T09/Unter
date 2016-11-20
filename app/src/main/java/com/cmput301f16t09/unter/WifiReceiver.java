@@ -19,7 +19,7 @@ public class WifiReceiver extends BroadcastReceiver {
         NetworkInfo netInfo = conMan.getActiveNetworkInfo();
         if (netInfo != null && netInfo.getState().name().equals("CONNECTED")) {
             Log.d("WifiReceiver", "Have Wifi Connection");
-            Toast.makeText(context, "We Have WiFi", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "WiFi Has Reconnected", Toast.LENGTH_SHORT).show();
             if (CurrentUser.getCurrentUser() != null) {
                 for (Post p : PostListMainController.getPostListQueue().getPosts()) {
                     PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
@@ -37,7 +37,7 @@ public class WifiReceiver extends BroadcastReceiver {
         }
         else {
             Log.d("WifiReceiver", "Don't have Wifi Connection");
-            Toast.makeText(context, "We Don't Have WiFi", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "WiFi Has Disconnected", Toast.LENGTH_SHORT).show();
         }
     }
 };
