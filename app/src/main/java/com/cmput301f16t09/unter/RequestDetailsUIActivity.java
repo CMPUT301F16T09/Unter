@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -222,13 +223,41 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
      */
     public void confirm_ride_request(View v) {
         Boolean found = false;
-        PostList temp;
+
+        try {
+            // Fix the finishing so it doesn't make a request
+            if (CurrentUser.getCurrentUser().getMyRequests().size() == 1) {
+                PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
+                searchPostListsTask.execute("documentId", CurrentUser.getCurrentUser().getMyRequests().get(0));
+                ArrayList<Post> temp = searchPostListsTask.get();
+                if (!temp.isEmpty()) {
+                    if (temp.get(0).getStatus().equals("Awaiting Completion")) {
+                        Toast.makeText(RequestDetailsUIActivity.this, "Please complete current request before offering a ride!", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }
+            }
+            if (CurrentUser.getCurrentUser().getMyOffers().size() == 1) {
+                PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
+                searchPostListsTask.execute("documentId", CurrentUser.getCurrentUser().getMyOffers().get(0));
+                ArrayList<Post> temp = searchPostListsTask.get();
+                if (!temp.isEmpty()) {
+                    if (temp.get(0).getStatus().equals("Awaiting Completion")) {
+                        Toast.makeText(RequestDetailsUIActivity.this, "Please complete current request before offering a ride!", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.i("Error", "Error with elastic search");
+        }
+
+        // Can probably change up to be faster?
         for(Post p : PostListOfflineController.getPostList(RequestDetailsUIActivity.this).getPosts()) {
             // Prob don't need the first check if this if statement.
-            if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) && (p.getStatus().equals("Pending Offer") || p.getStatus().equals("Pending Approval")) && CurrentUser.getCurrentPost().getId().equals(p.getId())) {
+            if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) && (p.getStatus().equals("Pending Approval")) && CurrentUser.getCurrentPost().getId().equals(p.getId())) {
                 found = true;
                 p.addDriverOffer(CurrentUser.getCurrentUser().getUsername());
-                p.setStatus("Pending Approval");
                 CurrentUser.setCurrentPost(p);
                 break;
             }
@@ -239,7 +268,8 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
                 updatePostsTask.execute(CurrentUser.getCurrentPost());
                 updatePostsTask.get();
 //                PostListOfflineController.addOfflinePost(CurrentUser.getCurrentPost(), RequestDetailsUIActivity.this);
-                CurrentUser.getCurrentUser().getMyOffers().addPost(CurrentUser.getCurrentPost());
+                // Most likely get updated copy of CurrentUser possibly?
+                CurrentUser.getCurrentUser().getMyOffers().add(CurrentUser.getCurrentPost().getId());
                 UserListOnlineController.UpdateUsersTask updateUserTask = new UserListOnlineController.UpdateUsersTask();
                 updateUserTask.execute(CurrentUser.getCurrentUser());
                 updateUserTask.get();

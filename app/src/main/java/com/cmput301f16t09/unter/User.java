@@ -1,5 +1,8 @@
 package com.cmput301f16t09.unter;
 
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+
 import io.searchbox.annotations.JestId;
 
 /**
@@ -12,8 +15,8 @@ public class User {
     private String email;
     private String phoneNumber;
     private String password;
-    private PostList myRequests;
-    private PostList myOffers;
+    private ArrayList<String> myRequests;
+    private ArrayList<String> myOffers;
     @JestId
     private String documentId;
 
@@ -32,8 +35,8 @@ public class User {
         this.email = email.toLowerCase();
         this.phoneNumber = phoneNumber;
         this.password = password;
-        this.myRequests = new PostList();
-        this.myOffers = new PostList();
+        this.myRequests = new ArrayList<String>();
+        this.myOffers = new ArrayList<String>();
     }
 
     /**
@@ -140,7 +143,7 @@ public class User {
      *
      * @return the my requests
      */
-    public PostList getMyRequests() {
+    public ArrayList<String> getMyRequests() {
         return myRequests;
     }
 
@@ -149,7 +152,7 @@ public class User {
      *
      * @return the my offers
      */
-    public PostList getMyOffers() {
+    public ArrayList<String> getMyOffers() {
         return myOffers;
     }
 
@@ -158,7 +161,7 @@ public class User {
      *
      * @param myRequests the my requests
      */
-    public void setMyRequests(PostList myRequests) {
+    public void setMyRequests(ArrayList<String> myRequests) {
         this.myRequests = myRequests;
     }
 
@@ -167,7 +170,7 @@ public class User {
      *
      * @param myOffers the my offers
      */
-    public void setMyOffers(PostList myOffers) {
+    public void setMyOffers(ArrayList<String> myOffers) {
         this.myOffers = myOffers;
     }
 
@@ -176,8 +179,8 @@ public class User {
      *
      * @param post the post
      */
-    public void addRequestReference(Post post) {
-        this.myRequests.addPost(post);
+    public void addRequestReference(String post) {
+        this.myRequests.add(post);
     }
 
     /**
@@ -185,8 +188,8 @@ public class User {
      *
      * @param post the post
      */
-    public void addOfferReference(Post post) {
-        this.myOffers.addPost(post);
+    public void addOfferReference(String post) {
+        this.myOffers.add(post);
     }
 
     /**
@@ -203,8 +206,8 @@ public class User {
      *
      * @param rideRequest the ride request
      */
-    public void addRideRequest(Post rideRequest) {
-        this.myRequests.addPost(rideRequest);
+    public void addRideRequest(String rideRequest) {
+        this.myRequests.add(rideRequest);
     }
 
     /**
@@ -212,8 +215,8 @@ public class User {
      *
      * @param rideRequest the ride request
      */
-    public void deleteRideRequest(Post rideRequest) {
-        this.myRequests.getPosts().remove(rideRequest);
+    public void deleteRideRequest(String rideRequest) {
+        this.myRequests.remove(rideRequest);
     }
 
     /**
@@ -221,8 +224,18 @@ public class User {
      *
      * @param rideRequest the ride request
      */
-    public void deleteOfferReference(Post rideRequest) {
-        this.myOffers.getPosts().remove(rideRequest);
+    public void deleteOfferReference(String rideRequest) {
+        this.myOffers.remove(rideRequest);
+    }
+
+    public void choosenAsDriver(String post) {
+        this.myOffers.clear();
+        this.myOffers.add(post);
+    }
+
+    public void choosenADriver(String post) {
+        this.myRequests.clear();
+        this.myRequests.add(post);
     }
 
     /**

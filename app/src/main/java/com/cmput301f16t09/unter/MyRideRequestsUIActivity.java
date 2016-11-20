@@ -7,6 +7,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The type My ride requests ui activity.
@@ -41,6 +45,25 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
                 postList.addPost(p);
             }
         }
+
+        //For faster searching later
+//        try {
+//            for (int i = 0; i < CurrentUser.getCurrentUser().getMyRequests().size(); i++) {
+//                PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
+//                searchPostListsTask.execute(CurrentUser.getCurrentUser().getMyRequests().get(i));
+//                ArrayList<Post> temp = searchPostListsTask.get();
+//                if (!temp.isEmpty()) {
+//                    postList.addPost(temp.get(0));
+//                }
+//            }
+//        }
+//        catch (Exception e){
+//                Log.i("Error", "Offline");
+//            }
+        // App crashes when using postlist.getposts().clear(), or if there is no list clearing statement
+
+
+
 
         adapter = new ArrayAdapter<Post>(this, android.R.layout.simple_list_item_1, postList.getPosts()) {
 
@@ -115,11 +138,20 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
             {
                 postList.getPosts().clear();
 
-                for(Post p : PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
-                    if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
-                        postList.addPost(p);
+                PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
+                searchPostListsTask.execute(CurrentUser.getCurrentUser().getMyRequests().toString());
+                // App crashes when using postlist.getposts().clear(), or if there is no list clearing statement
+                try {
+                    for(Post p : searchPostListsTask.get()) {
+                        if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
+                            postList.addPost(p);
+                        }
                     }
                 }
+                catch (Exception e){
+                    Log.i("Error", "Offline");
+                }
+
 
                 adapter.notifyDataSetChanged();
                 PostListOfflineController.saveOfflinePosts(MyRideRequestsUIActivity.this);
@@ -137,11 +169,28 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
         }
         catch (Exception e) {
         }
+
+        // App crashes when using postlist.getposts().clear(), or if there is no list clearing statement
+
         for(Post p : PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
             if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
                 postList.addPost(p);
             }
         }
+
+        // For faster searching later
+//        PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
+//        searchPostListsTask.execute(CurrentUser.getCurrentUser().getMyRequests().toString());
+//        try {
+//            for(Post p : searchPostListsTask.get()) {
+//                if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
+//                    postList.addPost(p);
+//                }
+//            }
+//        }
+//        catch (Exception e){
+//            Log.i("Error", "Offline");
+//        }
         adapter.notifyDataSetChanged();
     }
 
@@ -182,7 +231,7 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
                     deletePostsTask.execute(CurrentUser.getCurrentPost());
                     deletePostsTask.get();
 
-                    CurrentUser.getCurrentUser().getMyOffers().deletePost(CurrentUser.getCurrentPost());
+//                    CurrentUser.getCurrentUser().getMyOffers().deletePost(CurrentUser.getCurrentPost());
 
                     UserListOnlineController.UpdateUsersTask updateUsersTask = new UserListOnlineController.UpdateUsersTask();
                     updateUsersTask.execute(CurrentUser.getCurrentUser());

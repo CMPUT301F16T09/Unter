@@ -137,11 +137,20 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
                         CurrentUser.getCurrentPost().setStatus("Completed");
 
                         try {
+                            UserListOnlineController.SearchUserListsTask searchUserListsTask = new UserListOnlineController.SearchUserListsTask();
+                            searchUserListsTask.execute("username", driverName);
+                            User driver = searchUserListsTask.get().get(0);
+                            driver.getMyOffers().clear();
+
+                            UserListOnlineController.UpdateUsersTask updateUserListstask = new UserListOnlineController.UpdateUsersTask();
+                            updateUserListstask.execute(driver);
+                            updateUserListstask.get();
+
                             PostListOnlineController.DeletePostsTask upt = new PostListOnlineController.DeletePostsTask();
                             upt.execute(CurrentUser.getCurrentPost());
                             upt.get();
 
-                            CurrentUser.getCurrentUser().getMyOffers().deletePost(CurrentUser.getCurrentPost());
+                            CurrentUser.getCurrentUser().getMyRequests().clear();
 
                             UserListOnlineController.UpdateUsersTask uut = new UserListOnlineController.UpdateUsersTask();
                             uut.execute(CurrentUser.getCurrentUser());
