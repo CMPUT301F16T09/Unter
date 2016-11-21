@@ -196,7 +196,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
             PostListOfflineController.addOfflinePost(newPost, RequestARideUIActivity.this);
             addPostOnline.execute(newPost);
             Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();
-
+            CurrentUser.setRole("Rider");
             finish();
         }
     }

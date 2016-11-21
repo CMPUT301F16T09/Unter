@@ -9,4 +9,5 @@
     <!--Edit Profile text dimensions-->
     <dimen name="header_text_size">26sp</dimen>
     <dimen name="input_text_size">20sp</dimen>
+    <dimen name="smallHeader_text_size">22sp</dimen>
 </resources>
