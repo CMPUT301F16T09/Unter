@@ -7,7 +7,6 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -195,7 +194,7 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 // Save this change of data into FILENAME
-                PostListMainController.updateOfflinePosts(MyRideRequestsUIActivity.this);
+                PostListMainController.updateMainOfflinePosts(MyRideRequestsUIActivity.this);
                 postList.getPosts().clear();
                 for(Post p : PostListMainController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
                     if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {

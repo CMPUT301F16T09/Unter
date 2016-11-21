@@ -12,8 +12,9 @@ import java.util.concurrent.TimeUnit;
 public class PostListMainController {
 
     private static PostList postListMain = null;
-    private static PostList postListQueue = new PostList();
-    private static PostList postListUpdate = new PostList();
+    private static PostList postListQueue = null;
+    private static PostList postListUpdate = null;
+    private static PostList postListDelete = null;
 
     static public PostList getPostList(Context context) {
         /**
@@ -59,20 +60,46 @@ public class PostListMainController {
         return postListMain;
     }
 
-    static public PostList getPostListQueue() {
+    static public PostList getPostListQueue(Context context) {
+        if (postListQueue == null) {
+            postListQueue = new PostList();
+        }
+
+        PostListOfflineController.loadOfflinePosts("queueOffline", postListQueue, context);
         return postListQueue;
     }
 
-    static public PostList getPostListUpdate() {
+    static public PostList getPostListUpdate(Context context) {
+        if (postListUpdate == null) {
+            postListUpdate = new PostList();
+        }
+
+        PostListOfflineController.loadOfflinePosts("updateOffline", postListUpdate, context);
         return postListUpdate;
     }
 
-    static public void clearPostListQueue() {
-        postListQueue.getPosts().clear();
+    static public PostList getPostListDelete(Context context) {
+        if (postListDelete == null) {
+            postListDelete = new PostList();
+        }
+
+        PostListOfflineController.loadOfflinePosts("deleteOffline", postListDelete, context);
+        return postListDelete;
     }
 
-    static public void clearPostListUpdate() {
+    static public void clearPostListQueue(Context context) {
+        postListQueue.getPosts().clear();
+        PostListOfflineController.saveOfflinePosts("queueOffline", postListQueue, context);
+    }
+
+    static public void clearPostListUpdate(Context context) {
         postListUpdate.getPosts().clear();
+        PostListOfflineController.saveOfflinePosts("updateOffline", postListUpdate, context);
+    }
+
+    static public void clearPostListDelete(Context context) {
+        postListDelete.getPosts().clear();
+        PostListOfflineController.saveOfflinePosts("deleteOffline", postListDelete, context);
     }
 
     /**
@@ -94,8 +121,7 @@ public class PostListMainController {
         }
 
         else {
-            PostListOfflineController.loadOfflinePosts("queueOffline", postListQueue, context);
-            postListQueue.addPost(post);
+            getPostListQueue(context).addPost(post);
             PostListOfflineController.saveOfflinePosts("queueOffline", postListQueue, context);
         }
 
@@ -127,12 +153,41 @@ public class PostListMainController {
         // Also update main list.
     }
 
-    public static void updateOfflinePosts(Context context) {
+    public static void updateMainOfflinePosts(Context context) {
 
         // Get updated information for postListMain, not required for
         postListMain.getPosts();
         PostListOfflineController.saveOfflinePosts("mainOffline", postListMain, context);
 //        PostListOfflineController.saveOfflinePosts("queueOffline", postListQueue, context);
+    }
+
+    public static void deletePosts(Post post, Context context) {
+        try {
+            if (isNetworkAvailable(context)) {
+                PostListOnlineController.DeletePostsTask upt = new PostListOnlineController.DeletePostsTask();
+                upt.execute(post);
+                upt.get();
+            }
+
+            else {
+                // If postListQueue contains the post, then the post was made offline, so delete from
+                // postListMain
+
+                postListQueue.deletePost(post);
+                PostListOfflineController.saveOfflinePosts("queueOffline", postListQueue, context);
+                postListMain.deletePost(post);
+                PostListOfflineController.saveOfflinePosts("mainOffline", postListMain, context);
+
+                if (!postListQueue.getPosts().contains(post)) {
+                    postListDelete.addPost(post);
+                    PostListOfflineController.saveOfflinePosts("deleteOffline", postListDelete, context);
+                }
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static boolean isNetworkAvailable(final Context context) {

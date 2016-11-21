@@ -140,7 +140,7 @@ public class ProvideARideUIActivity extends AppCompatActivity {
 //                }
 //
 //                adapter.notifyDataSetChanged();
-//                PostListMainController.updateOfflinePosts(ProvideARideUIActivity.this);
+//                PostListMainController.updateMainOfflinePosts(ProvideARideUIActivity.this);
 //            }
 //        });
     }

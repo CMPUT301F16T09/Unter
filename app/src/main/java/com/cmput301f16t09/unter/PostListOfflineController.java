@@ -34,6 +34,7 @@ public class PostListOfflineController {
     private static final String FILENAME = "real_offline_posts.sav";
     private static final String QUEUE_FILENAME = "queue_offline_posts.sav";
     private static final String UPDATE_FILENAME = "update_offline_posts.sav";
+    private static final String DELETE_FILENAME = "delete_offline_posts.sav";
 
     /**
      * Load offline posts to postlist (file saved on real_offline_posts.sav).
@@ -73,6 +74,11 @@ public class PostListOfflineController {
             else if(saveType.equals("updateOffline")) {
                 dir = cw.getDir(UPDATE_FILENAME, context.MODE_PRIVATE);
                 fis = context.openFileInput(UPDATE_FILENAME);
+            }
+
+            else if(saveType.equals("deleteOffline")) {
+                dir = cw.getDir(DELETE_FILENAME, context.MODE_PRIVATE);
+                fis = context.openFileInput(DELETE_FILENAME);
             }
 
             else {
@@ -131,6 +137,14 @@ public class PostListOfflineController {
         try {
             if (saveType.equals("queueOffline")) {
                 fos = context.openFileOutput(QUEUE_FILENAME, context.MODE_PRIVATE);
+            }
+
+            else if(saveType.equals("updateOffline")) {
+                fos = context.openFileOutput(UPDATE_FILENAME, context.MODE_PRIVATE);
+            }
+
+            else if(saveType.equals("deleteOffline")) {
+                fos = context.openFileOutput(DELETE_FILENAME, context.MODE_PRIVATE);
             }
 
             else {

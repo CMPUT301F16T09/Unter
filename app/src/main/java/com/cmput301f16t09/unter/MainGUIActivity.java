@@ -80,6 +80,9 @@ public class MainGUIActivity extends AppCompatActivity {
                 Toast.makeText(this, "Logging In", Toast.LENGTH_SHORT).show();
                 CurrentUser.setCurrentUser(currentUser.get(0));
                 PostListMainController.getPostList(MainGUIActivity.this);
+                PostListMainController.getPostListQueue(MainGUIActivity.this);
+                PostListMainController.getPostListUpdate(MainGUIActivity.this);
+                PostListMainController.getPostListDelete(MainGUIActivity.this);
                 Intent intent = new Intent(MainGUIActivity.this, MainScreenUIActivity.class);
                 startActivity(intent);
             }

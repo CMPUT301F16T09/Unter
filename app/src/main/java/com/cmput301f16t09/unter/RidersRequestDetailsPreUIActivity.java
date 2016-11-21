@@ -110,7 +110,7 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
                             Toast.makeText(RidersRequestDetailsPreUIActivity.this, "OK", Toast.LENGTH_SHORT).show();
                             adapter.notifyDataSetChanged();
 
-                            PostListMainController.updateOfflinePosts(RidersRequestDetailsPreUIActivity.this);
+                            PostListMainController.updateMainOfflinePosts(RidersRequestDetailsPreUIActivity.this);
 
                             Intent intent = new Intent(RidersRequestDetailsPreUIActivity.this,RidersRequestDetailsPostUIActivity.class);
                             startActivity(intent);
@@ -166,9 +166,7 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
      */
     public void cancelRequest(View v) {
         try {
-            PostListOnlineController.DeletePostsTask upt = new PostListOnlineController.DeletePostsTask();
-            upt.execute(CurrentUser.getCurrentPost());
-            upt.get();
+            PostListMainController.deletePosts(CurrentUser.getCurrentPost(), RidersRequestDetailsPreUIActivity.this);
 
             CurrentUser.getCurrentUser().getMyOffers().deletePost(CurrentUser.getCurrentPost());
 
