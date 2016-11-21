@@ -16,6 +16,7 @@ public class User {
     private PostList myOffers;
     @JestId
     private String documentId;
+    private String vehicle;
 
     /**
      * Instantiates a new User.
@@ -34,6 +35,7 @@ public class User {
         this.password = password;
         this.myRequests = new PostList();
         this.myOffers = new PostList();
+        this.vehicle = "No vehicle information provided.";
     }
 
     /**
@@ -231,8 +233,16 @@ public class User {
      * @return output, the username of the user
      */
 
-    public String toString(){
-        String output = getUsername();
-        return output;
+//    public String toString(){
+//        String output = getUsername();
+//        return output;
+//    }
+
+    public void setVehicle(String vehicleInfo){
+        vehicle=vehicleInfo;
+    }
+
+    public String getVehicle(){
+        return vehicle;
     }
 }

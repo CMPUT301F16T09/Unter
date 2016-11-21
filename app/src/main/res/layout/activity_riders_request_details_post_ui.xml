@@ -20,7 +20,7 @@
         android:textColor="@color/white"
         android:fontFamily="sans-serif-smallcaps" />
 
-    // To be filled in with CurrentStatus
+    <!-- To be filled in with CurrentStatus-->
     <TextView
         android:id="@+id/RideRequestDetailsPostCurrentStatus"
         android:layout_width="wrap_content"
@@ -43,7 +43,7 @@
         android:textColor="@color/white"
         android:fontFamily="sans-serif-smallcaps" />
 
-    // To be filled in with StartLocationName
+    <!-- To be filled in with StartLocationName-->
     <TextView
         android:id="@+id/RideRequestDetailsPostStartLocationName"
         android:layout_width="wrap_content"
@@ -67,7 +67,7 @@
         android:singleLine="true"
         android:fontFamily="sans-serif-smallcaps" />
 
-    // To be filled in with EndLocationName
+    <!-- To be filled in with EndLocationName-->
     <TextView
         android:id="@+id/RideRequestDetailsPostEndLocationName"
         android:layout_width="wrap_content"

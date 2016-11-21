@@ -82,15 +82,15 @@
         android:id="@+id/SignUpPassword"
         android:layout_width="400dp"
         android:layout_height="48dp"
-        android:layout_below="@+id/SignUpEmail"
-        android:layout_marginTop="5dp"
         android:hint="Password"
         android:textSize="24sp"
         android:textColor="@color/TextColor"
         android:textColorHint="@color/HintTextColor"
         android:textAlignment="center"
         android:inputType="textPassword"
-        android:fontFamily="sans-serif-smallcaps"/>
+        android:fontFamily="sans-serif-smallcaps"
+        android:layout_below="@+id/SignUpVehicleInfo"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:id="@+id/SignUpConfirmPassword"
@@ -117,5 +117,17 @@
         android:background="@color/lightAccent"
         android:fontFamily="sans-serif-smallcaps"
         android:onClick="create_user"/>
+
+    <EditText
+        android:id="@+id/SignUpVehicleInfo"
+        android:layout_width="400dp"
+        android:layout_height="48dp"
+        android:hint="Driver Only: Vehicle Info"
+        android:textSize="24sp"
+        android:textColor="@color/TextColor"
+        android:textColorHint="@color/HintTextColor"
+        android:textAlignment="center"
+        android:layout_below="@+id/SignUpEmail"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

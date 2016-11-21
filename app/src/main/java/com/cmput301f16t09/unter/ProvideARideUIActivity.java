@@ -22,15 +22,14 @@ import android.widget.Toast;
 public class ProvideARideUIActivity extends AppCompatActivity {
 
     private PostList postList = new PostList();
-    private ListView currentPostList;
     private ArrayAdapter<Post> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provide_aride_ui);
-;
-        currentPostList = (ListView) findViewById(R.id.listViewProvideARide);
+
+        ListView currentPostList = (ListView) findViewById(R.id.listViewProvideARide);
 
         for(Post p : PostListMainController.getPostList(ProvideARideUIActivity.this).getPosts()) {
             if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&

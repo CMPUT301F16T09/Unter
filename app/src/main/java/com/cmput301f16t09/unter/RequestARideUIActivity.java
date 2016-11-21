@@ -194,7 +194,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
             Post newPost = new Post(startPoint, endPoint, startLocation, endLocation, fare, CurrentUser.getCurrentUser().getUsername());
             PostListMainController.addPost(newPost, RequestARideUIActivity.this);
             Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();
-
+            CurrentUser.setRole("Rider");
             finish();
         }
     }

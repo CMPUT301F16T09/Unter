@@ -16,19 +16,15 @@ import java.util.ArrayList;
  */
 public class CreateNewUserUIActivity extends AppCompatActivity {
 
-    // Variables used to obtain/hold inputs from user.
-    private EditText username;
-    private EditText name;
-    private EditText phone_number;
-    private EditText email;
-    private EditText password;
-    private EditText confirm_password;
+
+
     private ArrayList<String> input_index = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_user_ui);
+
     }
 
     @Override
@@ -44,6 +40,15 @@ public class CreateNewUserUIActivity extends AppCompatActivity {
      * @param v the View
      */
     public void create_user(View v) {
+
+        // Variables used to obtain/hold inputs from user.
+        EditText username;
+        EditText name;
+        EditText phone_number;
+        EditText email;
+        EditText password;
+        EditText confirm_password;
+        EditText vehicle;
 
         // Obtaining user inputs
         username = (EditText) findViewById(R.id.SignUpUsername);
@@ -64,6 +69,11 @@ public class CreateNewUserUIActivity extends AppCompatActivity {
         confirm_password = (EditText) findViewById(R.id.SignUpConfirmPassword);
         input_index.add(5, confirm_password.getText().toString());
 
+        vehicle = (EditText) findViewById(R.id.SignUpVehicleInfo);
+        input_index.add(6,vehicle.getText().toString());
+
+
+
         try {
             // Trying to search for same username
             UserListOnlineController.SearchUserListsTask searchUserListsTask = new UserListOnlineController.SearchUserListsTask();
@@ -80,6 +90,7 @@ public class CreateNewUserUIActivity extends AppCompatActivity {
                 if (userlist.isEmpty()) {
                     if (input_index.get(5).equals(input_index.get(4))) {
                         User new_user = new User(input_index.get(1), input_index.get(0), input_index.get(3), input_index.get(2), input_index.get(4));
+                        new_user.setVehicle(input_index.get(6));
                         UserListOnlineController.AddUsersTask addUserTask = new UserListOnlineController.AddUsersTask();
                         addUserTask.execute(new_user);
                         addUserTask.get();

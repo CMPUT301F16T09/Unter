@@ -26,32 +26,34 @@ public class EditProfileUIActivity extends AppCompatActivity {
      * @see CurrentUser
      * @see User
     */
-    EditText editName;
+    private EditText editName;
     /**
      * An android widget displaying the phone number of the current user.
      * Phone numbers are of type String.
      * @see CurrentUser
      * @see User
      */
-    EditText editPhoneNumber;
+    private EditText editPhoneNumber;
     /**
      * An android widget displaying the email field of the current user.
      * Emails are of type String.
      * @see CurrentUser
      * @see User
      */
-    EditText editEmail;
+    private EditText editEmail;
     /**
      * An android widget displaying the Password field of the current user.
      * The 'password' has been set as inputType and will appear symbolically (.)
      * @see CurrentUser
      * @see User
      */
-    EditText editPassword;
+    private EditText editPassword;
     /**
      * An android widget displaying a blank to be filled in by the user.
      */
-    EditText editConfirmPassword;
+    private EditText editConfirmPassword;
+
+    private EditText editVehicle;
 
 
     @Override
@@ -70,6 +72,8 @@ public class EditProfileUIActivity extends AppCompatActivity {
         editPassword = (EditText) findViewById(R.id.EditProfilePasswordField);
         editPassword.setText(CurrentUser.getCurrentUser().getPassword());
         editConfirmPassword = (EditText) findViewById(R.id.EditProfileConfirmPasswordField);
+        editVehicle = (EditText) findViewById(R.id.EditProfileVehicleInfoField);
+        editVehicle.setText(CurrentUser.getCurrentUser().getVehicle());
     }
 
     @Override
@@ -91,12 +95,14 @@ public class EditProfileUIActivity extends AppCompatActivity {
         String newEmail = editEmail.getText().toString();
         String newPassword = editPassword.getText().toString();
         String confirmPassword = editConfirmPassword.getText().toString();
+        String newVehicle = editVehicle.getText().toString();
 
         if (newPassword.equals(confirmPassword)){
             CurrentUser.getCurrentUser().setName(newName);
             CurrentUser.getCurrentUser().setEmail(newEmail);
             CurrentUser.getCurrentUser().setPhoneNumber(newNumber);
             CurrentUser.getCurrentUser().setPassword(newPassword);
+            CurrentUser.getCurrentUser().setVehicle(newVehicle);
             try {
                 UserListOnlineController.UpdateUsersTask updateUserListsTask = new UserListOnlineController.UpdateUsersTask();
                 updateUserListsTask.execute(CurrentUser.getCurrentUser());

@@ -32,6 +32,8 @@ public class ViewProfileUIActivity extends AppCompatActivity {
      */
     TextView email;
 
+    TextView vehicle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class ViewProfileUIActivity extends AppCompatActivity {
         phNumber = (TextView) findViewById(R.id.displayNumberTextView);
         name = (TextView) findViewById(R.id.displayNameTextView);
         email = (TextView) findViewById(R.id.displayEmailTextView);
+       // vehicle = (TextView) findViewById(R.id.)
 
         Bundle extras = getIntent().getExtras();
         String fetchThisUser = extras.getString("User");

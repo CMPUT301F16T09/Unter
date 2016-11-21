@@ -23,18 +23,16 @@ import java.util.Locale;
 public class MyRideRequestsUIActivity extends AppCompatActivity {
 
     private PostList postList = new PostList();
-    private Geocoder coder;
     private ArrayAdapter<Post> adapter;
-    private ListView currentPostList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_ride_requests_ui);
 
-        coder = new Geocoder(this, Locale.CANADA);
+        Geocoder coder = new Geocoder(this, Locale.CANADA);
 
-        currentPostList = (ListView) findViewById(R.id.listViewMyRideRequests);
+        ListView currentPostList = (ListView) findViewById(R.id.listViewMyRideRequests);
 
 //         Get All posts for the specific user
         for(Post p : PostListMainController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
@@ -159,8 +157,6 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
      * @param post the post
      */
     public void createDeletionDialog(Post post) {
-
-        final Post postToRemove = post;
 
         // Build the dialog
         AlertDialog.Builder deleteDialog = new AlertDialog.Builder(MyRideRequestsUIActivity.this);
