@@ -170,6 +170,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
         String startLocation = editStart.getText().toString();
         String endLocation = editEnd.getText().toString();
         String fare = editFare.getText().toString();
+        Boolean awaitingCompletion = false;
 
         try {
 
@@ -180,8 +181,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
                 ArrayList<Post> temp = searchPostListsTask.get();
                 if (!temp.isEmpty()) {
                     if (temp.get(0).getStatus().equals("Awaiting Completion")) {
-                        Toast.makeText(RequestARideUIActivity.this, "Please complete current request before making another!", Toast.LENGTH_SHORT).show();
-                        finish();
+                        awaitingCompletion = true;
                     }
                 }
             }
@@ -191,54 +191,57 @@ public class RequestARideUIActivity extends AppCompatActivity {
                 ArrayList<Post> temp = searchPostListsTask.get();
                 if (!temp.isEmpty()) {
                     if (temp.get(0).getStatus().equals("Awaiting Completion")) {
-                        Toast.makeText(RequestARideUIActivity.this, "Please complete current request before making another!", Toast.LENGTH_SHORT).show();
-                        finish();
+                        awaitingCompletion = true;
                     }
                 }
             }
         } catch (Exception e) {
             Log.i("Error", "Error with elastic search");
         }
-
-
-        if (startLocation.equals("") && endLocation.equals("")) {
-            Toast.makeText(this, "Please fill in start and end locations", Toast.LENGTH_SHORT).show();
-        }
-        else if (startLocation.equals("")) {
-            Toast.makeText(this, "Please fill in start location", Toast.LENGTH_SHORT).show();
-        }
-        else if (endLocation.equals("")) {
-            Toast.makeText(this, "Please fill in end location", Toast.LENGTH_SHORT).show();
+        if (awaitingCompletion == true) {
+            Toast.makeText(RequestARideUIActivity.this, "Please complete current request before making another!", Toast.LENGTH_SHORT).show();
+            finish();
         }
         else {
-            startPoint = findCoords(startLocation);
-            endPoint = findCoords(endLocation);
-
-            /**
-             * Add the post to elastic search and save the post to the offline data.
-             * @see PostListOfflineController
-             * @see PostListOnlineController
-             * @see Post
-             */
-
-            try {
-                PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
-                Post newPost = new Post(startPoint, endPoint, startLocation, endLocation, fare, CurrentUser.getCurrentUser().getUsername());
-                PostListOfflineController.addOfflinePost(newPost, RequestARideUIActivity.this);
-                addPostOnline.execute(newPost);
-                addPostOnline.get();
-                // Most likely get updated copy of CurrentUser possibly?
-                CurrentUser.getCurrentUser().getMyRequests().add(newPost.getId());
-                UserListOnlineController.UpdateUsersTask updateUserListstask = new UserListOnlineController.UpdateUsersTask();
-                updateUserListstask.execute(CurrentUser.getCurrentUser());
-                updateUserListstask.get();
-            } catch (Exception e) {
-                Log.i("Error", "Elastic search error");
+            if (startLocation.equals("") && endLocation.equals("")) {
+                Toast.makeText(this, "Please fill in start and end locations", Toast.LENGTH_SHORT).show();
             }
+            else if (startLocation.equals("")) {
+                Toast.makeText(this, "Please fill in start location", Toast.LENGTH_SHORT).show();
+            }
+            else if (endLocation.equals("")) {
+                Toast.makeText(this, "Please fill in end location", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                startPoint = findCoords(startLocation);
+                endPoint = findCoords(endLocation);
 
-            Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();
+                /**
+                 * Add the post to elastic search and save the post to the offline data.
+                 * @see PostListOfflineController
+                 * @see PostListOnlineController
+                 * @see Post
+                 */
 
-            finish();
+                try {
+                    PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
+                    Post newPost = new Post(startPoint, endPoint, startLocation, endLocation, fare, CurrentUser.getCurrentUser().getUsername());
+                    PostListOfflineController.addOfflinePost(newPost, RequestARideUIActivity.this);
+                    addPostOnline.execute(newPost);
+                    addPostOnline.get();
+                    // Most likely get updated copy of CurrentUser possibly?
+                    CurrentUser.getCurrentUser().getMyRequests().add(newPost.getId());
+                    UserListOnlineController.UpdateUsersTask updateUserListstask = new UserListOnlineController.UpdateUsersTask();
+                    updateUserListstask.execute(CurrentUser.getCurrentUser());
+                    updateUserListstask.get();
+                } catch (Exception e) {
+                    Log.i("Error", "Elastic search error");
+                }
+
+                Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();
+
+                finish();
+            }
         }
     }
 

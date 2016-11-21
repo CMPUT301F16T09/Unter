@@ -97,101 +97,125 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
                 builder.setPositiveButton(R.string.choose_driver, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK button
-
+                        Boolean awaitingCompletion = false;
                         try {
                             if (CurrentUser.getCurrentUser().getMyOffers().size() == 1) {
-                                PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
-                                searchPostListsTask.execute("documentId", CurrentUser.getCurrentUser().getMyOffers().get(0));
-                                ArrayList<Post> temp = searchPostListsTask.get();
+                                PostListOnlineController.SearchPostListsTask searchPostListsTask1 = new PostListOnlineController.SearchPostListsTask();
+                                searchPostListsTask1.execute("documentId", CurrentUser.getCurrentUser().getMyOffers().get(0));
+                                ArrayList<Post> temp = searchPostListsTask1.get();
                                 if (!temp.isEmpty()) {
                                     if (temp.get(0).getStatus().equals("Awaiting Completion")) {
-                                        Toast.makeText(RidersRequestDetailsPreUIActivity.this, "Please complete current driver offer before selecting a rider", Toast.LENGTH_SHORT).show();
-                                        finish();
+                                        awaitingCompletion = true;
                                     }
                                 }
                             }
-                            // Cycle through lists of potential drivers and remove the post from
-                            // their offer list because a rider has been chosen.
-                            for (int i = 0; i < CurrentUser.getCurrentPost().getDriverOffers().size(); i++){
-                                if (!driverUsername.equals(CurrentUser.getCurrentPost().getDriverOffers().get(i))) {
-                                    UserListOnlineController.SearchUserListsTask searchUserListsTask = new UserListOnlineController.SearchUserListsTask();
-                                    searchUserListsTask.execute("username", CurrentUser.getCurrentPost().getDriverOffers().get(i));
-                                    User driver = searchUserListsTask.get().get(0);
-                                    driver.getMyOffers().remove(CurrentUser.getCurrentPost().getId());
-                                    UserListOnlineController.UpdateUsersTask updateUserListstask = new UserListOnlineController.UpdateUsersTask();
-                                    updateUserListstask.execute(driver);
-                                    updateUserListstask.get();
+                            if (awaitingCompletion == true) {
+                                Toast.makeText(RidersRequestDetailsPreUIActivity.this, "Please complete current driver offer before selecting a rider", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                            else {
+                                // Cycle through lists of potential drivers and remove the post from
+                                // their offer list because a rider has been chosen.
+                                for (int i = 0; i < CurrentUser.getCurrentPost().getDriverOffers().size(); i++){
+                                    if (!driverUsername.equals(CurrentUser.getCurrentPost().getDriverOffers().get(i))) {
+                                        UserListOnlineController.SearchUserListsTask searchUserListsTask1 = new UserListOnlineController.SearchUserListsTask();
+                                        searchUserListsTask1.execute("username", CurrentUser.getCurrentPost().getDriverOffers().get(i));
+                                        User driver = searchUserListsTask1.get().get(0);
+                                        driver.getMyOffers().remove(CurrentUser.getCurrentPost().getId());
+                                        UserListOnlineController.UpdateUsersTask updateUserListstask1 = new UserListOnlineController.UpdateUsersTask();
+                                        updateUserListstask1.execute(driver);
+                                        updateUserListstask1.get();
+                                    }
                                 }
-                            }
 
-                            // Go to all other requests made by user and delete them.
-                            for (int i = 0; i < CurrentUser.getCurrentUser().getMyRequests().size(); i++){
-                                if (!CurrentUser.getCurrentUser().getMyRequests().get(i).equals(CurrentUser.getCurrentPost().getId())) {
-                                    PostListOnlineController.DeletePostsTaskId deletePostsTaskid = new PostListOnlineController.DeletePostsTaskId();
-                                    deletePostsTaskid.execute(CurrentUser.getCurrentUser().getMyRequests().get(i));
-                                    deletePostsTaskid.get();
+                                // Go to all other requests made by user and delete them.
+                                for (int i = 0; i < CurrentUser.getCurrentUser().getMyRequests().size(); i++){
+                                    if (!CurrentUser.getCurrentUser().getMyRequests().get(i).equals(CurrentUser.getCurrentPost().getId())) {
+                                        PostListOnlineController.SearchPostListsTask searchPostListsTask2 = new PostListOnlineController.SearchPostListsTask();
+                                        searchPostListsTask2.execute("documentId", CurrentUser.getCurrentUser().getMyRequests().get(i));
+                                        ArrayList<Post> templist = searchPostListsTask2.get();
+                                        if (!templist.isEmpty()) {
+                                            for (int j = 0; j < templist.get(0).getDriverOffers().size(); j++){
+                                                UserListOnlineController.SearchUserListsTask searchUserListsTask2 = new UserListOnlineController.SearchUserListsTask();
+                                                searchUserListsTask2.execute("username", CurrentUser.getCurrentPost().getDriverOffers().get(j));
+                                                User driver2 = searchUserListsTask2.get().get(0);
+                                                driver2.getMyOffers().remove(templist.get(0).getId());
+                                                UserListOnlineController.UpdateUsersTask updateUserListstask2 = new UserListOnlineController.UpdateUsersTask();
+                                                updateUserListstask2.execute(driver2);
+                                                updateUserListstask2.get();
+                                            }
+                                        }
+                                        PostListOnlineController.DeletePostsTaskId deletePostsTaskid1 = new PostListOnlineController.DeletePostsTaskId();
+                                        deletePostsTaskid1.execute(CurrentUser.getCurrentUser().getMyRequests().get(i));
+                                        deletePostsTaskid1.get();
+                                    }
                                 }
-                            }
 
-                            // Set the selected post set it's status to Awaiting Completion
-                            CurrentUser.getCurrentPost().setStatus("Awaiting Completion");
-                            CurrentUser.getCurrentPost().pickDriver(driverUsername);
+                                // Set the selected post set it's status to Awaiting Completion
+                                CurrentUser.getCurrentPost().setStatus("Awaiting Completion");
+                                CurrentUser.getCurrentPost().pickDriver(driverUsername);
 
-                            // Update that selected post in elastic search
-                            PostListOnlineController.UpdatePostsTask upt = new PostListOnlineController.UpdatePostsTask();
-                            upt.execute(CurrentUser.getCurrentPost());
-                            upt.get();
+                                // Update that selected post in elastic search
+                                PostListOnlineController.UpdatePostsTask updatePostsTask2 = new PostListOnlineController.UpdatePostsTask();
+                                updatePostsTask2.execute(CurrentUser.getCurrentPost());
+                                updatePostsTask2.get();
 
-                            // Get the chosen driver from elastic search
-                            UserListOnlineController.SearchUserListsTask searchUserListsTask = new UserListOnlineController.SearchUserListsTask();
-                            searchUserListsTask.execute("username", driverUsername);
-                            User driver = searchUserListsTask.get().get(0);
+                                // Get the chosen driver from elastic search
+                                UserListOnlineController.SearchUserListsTask searchUserListsTask3 = new UserListOnlineController.SearchUserListsTask();
+                                searchUserListsTask3.execute("username", driverUsername);
+                                User driver3 = searchUserListsTask3.get().get(0);
 
-                            // Delete all of the offers of the driver on each post that
-                            // the driver has offered to.
-                            for (int i = 0; i < driver.getMyOffers().size(); i++){
-                                if (!driver.getMyOffers().get(i).equals(CurrentUser.getCurrentPost().getId())) {
-                                    PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
-                                    searchPostListsTask.execute("documentId", driver.getMyOffers().get(i));
-                                    Post temp = searchPostListsTask.get().get(0);
-                                    temp.getDriverOffers().remove(driverUsername);
-                                    PostListOnlineController.UpdatePostsTask updatePostsTask = new PostListOnlineController.UpdatePostsTask();
-                                    updatePostsTask.execute(temp);
-                                    updatePostsTask.get();
+                                // Delete all of the offers of the driver on each post that
+                                // the driver has offered to.
+                                for (int i = 0; i < driver3.getMyOffers().size(); i++){
+                                    if (!driver3.getMyOffers().get(i).equals(CurrentUser.getCurrentPost().getId())) {
+                                        PostListOnlineController.SearchPostListsTask searchPostListsTask3 = new PostListOnlineController.SearchPostListsTask();
+                                        searchPostListsTask3.execute("documentId", driver3.getMyOffers().get(i));
+                                        ArrayList<Post> templist2 = searchPostListsTask3.get();
+                                        if(!templist2.isEmpty()) {
+                                            templist2.get(0).getDriverOffers().remove(driverUsername);
+                                            PostListOnlineController.UpdatePostsTask updatePostsTask3 = new PostListOnlineController.UpdatePostsTask();
+                                            updatePostsTask3.execute(templist2.get(0));
+                                            updatePostsTask3.get();
+                                        }
+                                    }
                                 }
+
+                                // Set's the chosen's driver MyOffers list to only that one post
+                                driver3.choosenAsDriver(CurrentUser.getCurrentPost().getId());
+                                UserListOnlineController.UpdateUsersTask updateUsersTask3 = new UserListOnlineController.UpdateUsersTask();
+                                updateUsersTask3.execute(driver3);
+                                updateUsersTask3.get();
+
+                                // Delete all of the offers of the user on each post that
+                                // the user has offered to.
+                                for (int i = 0; i < CurrentUser.getCurrentUser().getMyOffers().size(); i++){
+                                    PostListOnlineController.SearchPostListsTask searchPostListsTask4 = new PostListOnlineController.SearchPostListsTask();
+                                    searchPostListsTask4.execute("documentId", CurrentUser.getCurrentUser().getMyOffers().get(i));
+                                    ArrayList<Post> templist3 = searchPostListsTask4.get();
+                                    if (!templist3.isEmpty()) {
+                                        templist3.get(0).getDriverOffers().remove(CurrentUser.getCurrentUser().getUsername());
+                                        PostListOnlineController.UpdatePostsTask updatePostsTask4 = new PostListOnlineController.UpdatePostsTask();
+                                        updatePostsTask4.execute(templist3.get(0));
+                                        updatePostsTask4.get();
+                                    }
+
+                                }
+
+                                // Finalize choosing a request and clear out MyOffers
+                                CurrentUser.getCurrentUser().choosenADriver(CurrentUser.getCurrentPost().getId());
+                                CurrentUser.getCurrentUser().getMyOffers().clear();
+                                UserListOnlineController.UpdateUsersTask updateUsersTask4 = new UserListOnlineController.UpdateUsersTask();
+                                updateUsersTask4.execute(CurrentUser.getCurrentUser());
+                                updateUsersTask4.get();
+                                Toast.makeText(RidersRequestDetailsPreUIActivity.this, "OK", Toast.LENGTH_SHORT).show();
+                                adapter.notifyDataSetChanged();
+
+                                Intent intent = new Intent(RidersRequestDetailsPreUIActivity.this,RidersRequestDetailsPostUIActivity.class);
+                                startActivity(intent);
+
+                                finish();
                             }
-
-                            // Set's the chosen's driver MyOffers list to only that one post
-                            driver.choosenAsDriver(CurrentUser.getCurrentPost().getId());
-                            UserListOnlineController.UpdateUsersTask uut = new UserListOnlineController.UpdateUsersTask();
-                            uut.execute(driver);
-                            uut.get();
-
-                            // Delete all of the offers of the user on each post that
-                            // the user has offered to.
-                            for (int i = 0; i < CurrentUser.getCurrentUser().getMyOffers().size(); i++){
-                                PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
-                                searchPostListsTask.execute("documentId", CurrentUser.getCurrentUser().getMyOffers().get(i));
-                                Post temp = searchPostListsTask.get().get(0);
-                                temp.getDriverOffers().remove(CurrentUser.getCurrentUser().getUsername());
-                                PostListOnlineController.UpdatePostsTask updatePostsTask = new PostListOnlineController.UpdatePostsTask();
-                                updatePostsTask.execute(temp);
-                                updatePostsTask.get();
-                            }
-
-                            // Finalize choosing a request and clear out MyOffers
-                            CurrentUser.getCurrentUser().choosenADriver(CurrentUser.getCurrentPost().getId());
-                            CurrentUser.getCurrentUser().getMyOffers().clear();
-                            UserListOnlineController.UpdateUsersTask updateUsersTask = new UserListOnlineController.UpdateUsersTask();
-                            updateUsersTask.execute(CurrentUser.getCurrentUser());
-                            updateUsersTask.get();
-                            Toast.makeText(RidersRequestDetailsPreUIActivity.this, "OK", Toast.LENGTH_SHORT).show();
-                            adapter.notifyDataSetChanged();
-
-                            Intent intent = new Intent(RidersRequestDetailsPreUIActivity.this,RidersRequestDetailsPostUIActivity.class);
-                            startActivity(intent);
-
-                            finish();
                         }
                         catch (Exception e) {
                             Log.i("Error", "Unable to Update Post/User Information");
