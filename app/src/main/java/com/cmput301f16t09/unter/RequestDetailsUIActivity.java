@@ -278,11 +278,20 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
                     UserListOnlineController.UpdateUsersTask updateUserTask = new UserListOnlineController.UpdateUsersTask();
                     updateUserTask.execute(CurrentUser.getCurrentUser());
                     updateUserTask.get();
+                    NotificationOnlineController.AddNotificationsTask addNotificationsTask = new NotificationOnlineController.AddNotificationsTask();
+                    Notification notification = new Notification(CurrentUser.getCurrentPost().getUsername(), "You have a new driver request on Post to location: " + CurrentUser.getCurrentPost().getEndAddress() + " from: " + CurrentUser.getCurrentUser().getUsername() + " with vehicle: " + CurrentUser.getCurrentUser().getVehicle());
+                    addNotificationsTask.execute(notification);
+                    addNotificationsTask.get();
                     Toast.makeText(RequestDetailsUIActivity.this, "Successfully sent the offer!", Toast.LENGTH_SHORT).show();
                 }
                 catch (Exception e){
                     Toast.makeText(RequestDetailsUIActivity.this, "Sorry, Could not update the database", Toast.LENGTH_SHORT).show();
                 }
+            }
+            try {
+                Thread.sleep(1000);
+            }
+            catch (Exception e) {
             }
             finish();
         }

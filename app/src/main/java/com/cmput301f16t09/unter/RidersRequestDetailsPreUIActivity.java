@@ -208,13 +208,19 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
                                 UserListOnlineController.UpdateUsersTask updateUsersTask4 = new UserListOnlineController.UpdateUsersTask();
                                 updateUsersTask4.execute(CurrentUser.getCurrentUser());
                                 updateUsersTask4.get();
+
+                                NotificationOnlineController.AddNotificationsTask addNotificationsTask = new NotificationOnlineController.AddNotificationsTask();
+                                Notification notification = new Notification(driverUsername, "You have a confirmation of driving " + CurrentUser.getCurrentUser().getUsername() + " from" + CurrentUser.getCurrentPost().getStartAddress() + " to " + CurrentUser.getCurrentPost().getEndAddress());
+                                addNotificationsTask.execute(notification);
+                                addNotificationsTask.get();
+
                                 Toast.makeText(RidersRequestDetailsPreUIActivity.this, "OK", Toast.LENGTH_SHORT).show();
                                 adapter.notifyDataSetChanged();
 
                                 Intent intent = new Intent(RidersRequestDetailsPreUIActivity.this,RidersRequestDetailsPostUIActivity.class);
                                 startActivity(intent);
                                 try {
-                                    Thread.sleep(500);
+                                    Thread.sleep(1000);
                                 }
                                 catch (Exception e) {
                                 }
@@ -294,6 +300,11 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
             updateUserListstask.get();
 
             Toast.makeText(RidersRequestDetailsPreUIActivity.this, "Successfully deleted the post!", Toast.LENGTH_SHORT).show();
+            try {
+                Thread.sleep(1000);
+            }
+            catch (Exception e) {
+            }
             finish();
 
 //            CurrentUser.decreasePostCount();

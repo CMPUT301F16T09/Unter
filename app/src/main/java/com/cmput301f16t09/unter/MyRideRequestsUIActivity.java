@@ -163,12 +163,6 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
         super.onResume();
         postList.getPosts().clear();
         // Probably increase this -- if needed.
-        try {
-            Thread.sleep(500);
-        }
-        catch (Exception e) {
-        }
-
         for(Post p : PostListMainController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
             if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
                 postList.addPost(p);

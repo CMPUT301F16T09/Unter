@@ -1,22 +1,11 @@
 package com.cmput301f16t09.unter;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Looper;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 //import android.support.design.widget.FloatingActionButton;
 //import android.support.design.widget.Snackbar;
@@ -52,8 +41,9 @@ public class MainScreenUIActivity extends AppCompatActivity {
 
         else if(item.getItemId() == R.id.refresh){
 
-
-            NotificationController.findNotifications(MainScreenUIActivity.this);
+            Intent notificationsIntent = new Intent(MainScreenUIActivity.this, NotificationsActivity.class);
+            startActivity(notificationsIntent);
+//            NotificationOnlineController.findNotifications(MainScreenUIActivity.this);
             return true;
         }
         return super.onOptionsItemSelected(item);
