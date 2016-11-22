@@ -31,7 +31,7 @@ public class ProvideARideUIActivity extends AppCompatActivity {
 
         ListView currentPostList = (ListView) findViewById(R.id.listViewProvideARide);
 
-        for(Post p : PostListOfflineController.getPostList(ProvideARideUIActivity.this).getPosts()) {
+        for(Post p : PostListMainController.getPostList(ProvideARideUIActivity.this).getPosts()) {
             if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&
                     (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) &&
                     p.getStatus().equals("Pending Approval")) {
@@ -88,8 +88,7 @@ public class ProvideARideUIActivity extends AppCompatActivity {
 
                 // Why is this for loop here? -- Added in (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) &&
                 // To ensure that the posts with the user offer in it is not in the list
-                // Can probably change up to be faster?
-                for(Post p : PostListOfflineController.getPostList(ProvideARideUIActivity.this).getPosts()) {
+                for(Post p : PostListMainController.getPostList(ProvideARideUIActivity.this).getPosts()) {
                     if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&
                             (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) &&
                             p.getStatus().equals("Pending Approval")) {
@@ -125,31 +124,30 @@ public class ProvideARideUIActivity extends AppCompatActivity {
             }
         });
 
-        PostListOfflineController.getPostList(ProvideARideUIActivity.this).addListener(new Listener() {
-            @Override
-            public void update()
-            {
-                postList.getPosts().clear();
-
-                for(Post p : PostListOfflineController.getPostList(ProvideARideUIActivity.this).getPosts()) {
-                    if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&
-                            (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) &&
-                             p.getStatus().equals("Pending Approval")) {
-                        postList.addPost(p);
-                    }
-                }
-
-                adapter.notifyDataSetChanged();
-                PostListOfflineController.saveOfflinePosts(ProvideARideUIActivity.this);
-            }
-        });
+//        PostListMainController.getPostList(ProvideARideUIActivity.this).addListener(new Listener() {
+//            @Override
+//            public void update()
+//            {
+//                postList.getPosts().clear();
+//                for(Post p : PostListMainController.getPostList(ProvideARideUIActivity.this).getPosts()) {
+//                    if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&
+//                            (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) &&
+//                             p.getStatus().equals("Pending Approval")) {
+//                        postList.addPost(p);
+//                    }
+//                }
+//
+//                adapter.notifyDataSetChanged();
+//                PostListMainController.updateMainOfflinePosts(ProvideARideUIActivity.this);
+//            }
+//        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
         postList.getPosts().clear();
-        for(Post p : PostListOfflineController.getPostList(ProvideARideUIActivity.this).getPosts()) {
+        for(Post p : PostListMainController.getPostList(ProvideARideUIActivity.this).getPosts()) {
             if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&
                     (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) &&
                     p.getStatus().equals("Pending Approval")) {
@@ -193,7 +191,7 @@ public class ProvideARideUIActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 try {
-                    PostListOfflineController.getPostList(ProvideARideUIActivity.this).deletePost(postToRemove);
+                    PostListMainController.getPostList(ProvideARideUIActivity.this).deletePost(postToRemove);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

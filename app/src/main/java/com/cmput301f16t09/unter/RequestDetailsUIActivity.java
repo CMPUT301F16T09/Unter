@@ -256,7 +256,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         }
         else {
             // Can probably change up to be faster?
-            for(Post p : PostListOfflineController.getPostList(RequestDetailsUIActivity.this).getPosts()) {
+            for(Post p : PostListMainController.getPostList(RequestDetailsUIActivity.this).getPosts()) {
                 // Prob don't need the first check if this if statement.
                 if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) && (p.getStatus().equals("Pending Approval")) && CurrentUser.getCurrentPost().getId().equals(p.getId())) {
                     found = true;
@@ -267,9 +267,10 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
             }
             if (found) {
                 try {
-                    PostListOnlineController.UpdatePostsTask updatePostsTask = new PostListOnlineController.UpdatePostsTask();
-                    updatePostsTask.execute(CurrentUser.getCurrentPost());
-                    updatePostsTask.get();
+//                    PostListOnlineController.UpdatePostsTask updatePostsTask = new PostListOnlineController.UpdatePostsTask();
+//                    updatePostsTask.execute(CurrentUser.getCurrentPost());
+//                    updatePostsTask.get();
+                    PostListMainController.updatePosts(CurrentUser.getCurrentPost(), RequestDetailsUIActivity.this);
 //                PostListOfflineController.addOfflinePost(CurrentUser.getCurrentPost(), RequestDetailsUIActivity.this);
 
                     // Most likely get updated copy of CurrentUser possibly?

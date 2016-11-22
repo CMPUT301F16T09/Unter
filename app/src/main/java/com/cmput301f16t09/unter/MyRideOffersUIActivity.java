@@ -43,8 +43,8 @@ public class MyRideOffersUIActivity extends AppCompatActivity {
          * @see PostListOnlineController
          * @see PostListOfflineController
          */
-        // Prob can make this faster by search w/ myoffers
-        for (Post p : PostListOfflineController.getPostList(MyRideOffersUIActivity.this).getPosts()) {
+
+        for (Post p : PostListMainController.getPostList(MyRideOffersUIActivity.this).getPosts()) {
             if (p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) {
                 postList.addPost(p);
             }
@@ -94,19 +94,19 @@ public class MyRideOffersUIActivity extends AppCompatActivity {
          *
          * @see PostListOfflineController
          */
-        PostListOfflineController.getPostList(MyRideOffersUIActivity.this).addListener(new Listener() {
-            @Override
-            public void update() {
-                postList.getPosts().clear();
-
-                for (Post p : PostListOfflineController.getPostList(MyRideOffersUIActivity.this).getPosts()) {
-                    if (p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) {
-                        postList.addPost(p);
-                    }
-                }
-
-                adapter.notifyDataSetChanged();
-            }
-        });
+//        PostListOfflineController.getPostList(MyRideOffersUIActivity.this).addListener(new Listener() {
+//            @Override
+//            public void update() {
+//                postList.getPosts().clear();
+//
+//                for (Post p : PostListOfflineController.getPostList(MyRideOffersUIActivity.this).getPosts()) {
+//                    if (p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) {
+//                        postList.addPost(p);
+//                    }
+//                }
+//
+//                adapter.notifyDataSetChanged();
+//            }
+//        });
     }
 }

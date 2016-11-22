@@ -2,6 +2,7 @@ package com.cmput301f16t09.unter;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.net.ConnectivityManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -30,55 +31,10 @@ import java.util.concurrent.TimeUnit;
  * @author Daniel
  */
 public class PostListOfflineController {
-    private static PostList postlist = null;
     private static final String FILENAME = "real_offline_posts.sav";
-//    private static final String QUEUE_FILENAME = "queue_offline_posts.sav";
-//    private static PostList postListQueue = new PostList();
-
-    /**
-     * Gets post list.
-     *
-     * @param context the context of the activity
-     * @return the post list
-     */
-    static public PostList getPostList(Context context) {
-        /**
-         * Create a new list if the list has not been initialized
-         * @see PostList
-         */
-        if (postlist == null) {
-            postlist = new PostList();
-        }
-
-        /**
-         * Try to fetch posts from elasticsearch server using PostListOnlineController. Also saves
-         * posts to offline file (real_offline_posts.sav)
-         * @see PostListOnlineController
-         * @see #saveOfflinePosts(Context)
-         */
-        try {
-            PostListOnlineController.GetPostsTask onlinePosts = new PostListOnlineController.GetPostsTask();
-            onlinePosts.execute("");
-            // App crashes when using postlist.getposts().clear(), or if there is no list clearing statement
-            postlist = new PostList();
-            postlist.setPostList(onlinePosts.get(1000, TimeUnit.MILLISECONDS));
-            saveOfflinePosts(context);
-        }
-
-        /**
-         * If fetching from elasticsearch fails, read data from file (offline behaviour)
-         * @param e
-         * @see #loadOfflinePosts(Context)
-         */
-        //
-        catch (Exception e) {
-            // Add To Queue FILE
-            loadOfflinePosts(context);
-            Toast.makeText(context, "Cannot load posts from elasticsearch", Toast.LENGTH_SHORT).show();
-            Log.i("Error", "Loading failed");
-        }
-        return postlist;
-    }
+    private static final String QUEUE_FILENAME = "queue_offline_posts.sav";
+    private static final String UPDATE_FILENAME = "update_offline_posts.sav";
+    private static final String DELETE_FILENAME = "delete_offline_posts.sav";
 
     /**
      * Load offline posts to postlist (file saved on real_offline_posts.sav).
@@ -86,10 +42,11 @@ public class PostListOfflineController {
      * @param context the context of the activity
      * @return the post list
      */
-    public static PostList loadOfflinePosts(Context context)
+    public static PostList loadOfflinePosts(String saveType, PostList postList, Context context)
     {
         Toast.makeText(context, "Offline", Toast.LENGTH_SHORT).show();
-
+        File dir;
+        FileInputStream fis;
         /**
          * Try to load in files using Gson
          * @see Gson
@@ -106,10 +63,32 @@ public class PostListOfflineController {
             // stackoverflow.com/questions/5017292/how-to-create-a-file-on-android-internal-storage
             // Author: Audrius
             ContextWrapper cw = new ContextWrapper(context);
-            File dir = cw.getDir(FILENAME, context.MODE_PRIVATE);
+
+            // If the string is queueOffline, then the data is stored in an offline queue, otherwise
+            // it is stored to the main list ("mainOffline")
+            if (saveType.equals("queueOffline")) {
+                dir = cw.getDir(QUEUE_FILENAME, context.MODE_PRIVATE);
+                fis = context.openFileInput(QUEUE_FILENAME);
+            }
+
+            else if(saveType.equals("updateOffline")) {
+                dir = cw.getDir(UPDATE_FILENAME, context.MODE_PRIVATE);
+                fis = context.openFileInput(UPDATE_FILENAME);
+            }
+
+            else if(saveType.equals("deleteOffline")) {
+                dir = cw.getDir(DELETE_FILENAME, context.MODE_PRIVATE);
+                fis = context.openFileInput(DELETE_FILENAME);
+            }
+
+            else {
+                dir = cw.getDir(FILENAME, context.MODE_PRIVATE);
+                fis = context.openFileInput(FILENAME);
+
+            }
+
 
             // Open the file stream and buffer to load the data from FILENAME
-            FileInputStream fis = context.openFileInput(FILENAME);
             BufferedReader br_in = new BufferedReader(new InputStreamReader(fis));
 
             // Instantiate Gson
@@ -126,18 +105,18 @@ public class PostListOfflineController {
             reader.setLenient(true);
 
             // save the posts from Gson into an ArrayList of Posts
-            ArrayList<Post> tempList = gson.fromJson(br_in, listType);
+             ArrayList<Post> tempList = gson.fromJson(br_in, listType);
 
             // Store the data into the main PostList
-            postlist.setPostList(tempList);
+            postList.setPostList(tempList);
         }
 
         // If there is no file, return error and create empty postlist
         catch (FileNotFoundException f) {
             Log.e("Error", "Could not load offline posts");
-            postlist = new PostList();
+            postList = new PostList();
         }
-        return postlist;
+        return postList;
     }
 
     /**
@@ -145,8 +124,9 @@ public class PostListOfflineController {
      *
      * @param context the context of the activity
      */
-    public static void saveOfflinePosts(Context context)
+    public static void saveOfflinePosts(String saveType, PostList postList, Context context)
     {
+        FileOutputStream fos;
         /**
          * Try to open the file and write to it
          * @see FileOutputStream
@@ -155,39 +135,38 @@ public class PostListOfflineController {
          * @throws IOException that file cannot be opened or written to
          */
         try {
-        // Open the FileOutputStream and BufferedWriter to write to FILENAME
-        FileOutputStream fos = context.openFileOutput(FILENAME, context.MODE_PRIVATE);
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+            if (saveType.equals("queueOffline")) {
+                fos = context.openFileOutput(QUEUE_FILENAME, context.MODE_PRIVATE);
+            }
 
-        // Instantiate Gson
-        Gson gson = new Gson();
+            else if(saveType.equals("updateOffline")) {
+                fos = context.openFileOutput(UPDATE_FILENAME, context.MODE_PRIVATE);
+            }
 
-        // Write the data in list to BufferedWriter
-        gson.toJson(postlist.getPosts(), bw);
+            else if(saveType.equals("deleteOffline")) {
+                fos = context.openFileOutput(DELETE_FILENAME, context.MODE_PRIVATE);
+            }
 
-        // Flush the buffer to prevent memory leakage and close the OutputStream
-        bw.flush();
-        fos.close();
+            else {
+                fos = context.openFileOutput(FILENAME, context.MODE_PRIVATE);
+
+            }
+            // Open the FileOutputStream and BufferedWriter to write to FILENAME
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+
+            // Instantiate Gson
+            Gson gson = new Gson();
+
+            // Write the data in list to BufferedWriter
+            gson.toJson(postList.getPosts(), bw);
+
+            // Flush the buffer to prevent memory leakage and close the OutputStream
+            bw.flush();
+            fos.close();
         }
         catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    /**
-     * Add offline post.
-     *
-     * @param offlinePost the post
-     * @param context     the context of the activity
-     */
-    public static void addOfflinePost(Post offlinePost, Context context) {
-        /**
-         * Get the post list and add the post to elastic search (if online) and save to offline file
-         * @see #getPostList(Context)
-         * @see #saveOfflinePosts(Context)
-         * @see PostList
-         */
-        getPostList(context).addPost(offlinePost);
-        saveOfflinePosts(context);
-    }
 }

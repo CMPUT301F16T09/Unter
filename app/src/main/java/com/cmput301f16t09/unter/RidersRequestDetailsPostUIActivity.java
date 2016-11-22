@@ -157,6 +157,8 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
                             uut.get();
                             Toast.makeText(RidersRequestDetailsPostUIActivity.this, "Completed request", Toast.LENGTH_SHORT).show();
 
+                            PostListMainController.updateMainOfflinePosts(RidersRequestDetailsPostUIActivity.this);
+
                             //bring to main menu ; clear android activity stack
                             Intent intent = new Intent(RidersRequestDetailsPostUIActivity.this,MainScreenUIActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);

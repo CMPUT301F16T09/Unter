@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -40,7 +39,7 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
         ListView currentPostList = (ListView) findViewById(R.id.listViewMyRideRequests);
 
 //         Get All posts for the specific user
-        for(Post p : PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
+        for(Post p : PostListMainController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
             if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
                 postList.addPost(p);
             }
@@ -132,31 +131,31 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
 
         // Add a listener and define the update function to refresh the habits list when there
         // is a change in the dataset, then save the data to FILENAME
-        PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).addListener(new Listener() {
-            @Override
-            public void update()
-            {
-                postList.getPosts().clear();
-
-                PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
-                searchPostListsTask.execute(CurrentUser.getCurrentUser().getMyRequests().toString());
-                // App crashes when using postlist.getposts().clear(), or if there is no list clearing statement
-                try {
-                    for(Post p : searchPostListsTask.get()) {
-                        if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
-                            postList.addPost(p);
-                        }
-                    }
-                }
-                catch (Exception e){
-                    Log.i("Error", "Offline");
-                }
-
-
-                adapter.notifyDataSetChanged();
-                PostListOfflineController.saveOfflinePosts(MyRideRequestsUIActivity.this);
-            }
-        });
+//        PostListMainController.getPostList(MyRideRequestsUIActivity.this).addListener(new Listener() {
+//            @Override
+//            public void update()
+//            {
+//                postList.getPosts().clear();
+//
+//                PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
+//                searchPostListsTask.execute(CurrentUser.getCurrentUser().getMyRequests().toString());
+//                // App crashes when using postlist.getposts().clear(), or if there is no list clearing statement
+//                try {
+//                    for(Post p : searchPostListsTask.get()) {
+//                        if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
+//                            postList.addPost(p);
+//                        }
+//                    }
+//                }
+//                catch (Exception e){
+//                    Log.i("Error", "Offline");
+//                }
+//
+//
+//                adapter.notifyDataSetChanged();
+//                PostListMainController.updateMainOfflinePosts(ProvideARideUIActivity.this);
+//            }
+//        });
     }
 
     @Override
@@ -170,9 +169,7 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
         catch (Exception e) {
         }
 
-        // App crashes when using postlist.getposts().clear(), or if there is no list clearing statement
-
-        for(Post p : PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
+        for(Post p : PostListMainController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
             if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
                 postList.addPost(p);
             }
@@ -194,11 +191,11 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
 
 
     /**
@@ -240,9 +237,9 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 // Save this change of data into FILENAME
-                PostListOfflineController.saveOfflinePosts(MyRideRequestsUIActivity.this);
+                PostListMainController.updateMainOfflinePosts(MyRideRequestsUIActivity.this);
                 postList.getPosts().clear();
-                for(Post p : PostListOfflineController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
+                for(Post p : PostListMainController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
                     if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
                         postList.addPost(p);
                     }

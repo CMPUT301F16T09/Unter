@@ -224,11 +224,11 @@ public class RequestARideUIActivity extends AppCompatActivity {
                  */
 
                 try {
-                    PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
                     Post newPost = new Post(startPoint, endPoint, startLocation, endLocation, fare, CurrentUser.getCurrentUser().getUsername());
-                    PostListOfflineController.addOfflinePost(newPost, RequestARideUIActivity.this);
-                    addPostOnline.execute(newPost);
-                    addPostOnline.get();
+                    PostListMainController.addPost(newPost, RequestARideUIActivity.this);
+//                    PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
+//                    addPostOnline.execute(newPost);
+//                    addPostOnline.get();
                     // Most likely get updated copy of CurrentUser possibly?
                     CurrentUser.getCurrentUser().getMyRequests().add(newPost.getId());
                     UserListOnlineController.UpdateUsersTask updateUserListstask = new UserListOnlineController.UpdateUsersTask();
@@ -241,6 +241,13 @@ public class RequestARideUIActivity extends AppCompatActivity {
                 Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();
                 finish();
             }
+            /**
+             * Add the post to elastic search and save the post to the offline data.
+             * @see PostListOfflineController
+             * @see PostListOnlineController
+             * @see Post
+             */
+
         }
     }
 
