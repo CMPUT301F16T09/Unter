@@ -18,6 +18,22 @@ public class CurrentUser {
     private static Post currentPost = null;
     public static ArrayList<String> notificationList = null;
 
+    public static void updateCurrentUser() {
+        try {
+            UserListOnlineController.SearchUserListsTask searchUserListsTask = new UserListOnlineController.SearchUserListsTask();
+            searchUserListsTask.execute("username", CurrentUser.getCurrentUser().getUsername());
+            ArrayList<User> templist = searchUserListsTask.get();
+            if (!templist.isEmpty()) {
+                CurrentUser.setCurrentUser(templist.get(0));
+            }
+            else {
+                Log.i("Error", "Cannot update current user");
+            }
+        } catch (Exception e){
+            Log.i("Error", "Cannot update current user");
+        }
+    }
+
     /**
      * Retrieves the user object representing the person who initially logged
      * into the app and their information is recorded in this object.

@@ -99,6 +99,7 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
                         // User clicked OK button
                         Boolean awaitingCompletion = false;
                         try {
+                            CurrentUser.updateCurrentUser();
                             if (CurrentUser.getCurrentUser().getMyOffers().size() == 1) {
                                 PostListOnlineController.SearchPostListsTask searchPostListsTask1 = new PostListOnlineController.SearchPostListsTask();
                                 searchPostListsTask1.execute("documentId", CurrentUser.getCurrentUser().getMyOffers().get(0));
@@ -276,6 +277,7 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
      */
     public void cancelRequest(View v) {
         try {
+            CurrentUser.updateCurrentUser();
             // Remove all of the offers attached to the driver's myoffers list
             // Update each user
             for (String username : CurrentUser.getCurrentPost().getDriverOffers()) {

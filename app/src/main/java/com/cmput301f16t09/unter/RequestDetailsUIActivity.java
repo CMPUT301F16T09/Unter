@@ -215,7 +215,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
      *
      *
      * @see PostListOnlineController
-     * @See PostListOfflineController
+     * @see PostListOfflineController
      * @see UserListOnlineController
      *
      *
@@ -226,7 +226,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         Boolean found = false;
         Boolean awaitingCompletion = false;
         try {
-            // Fix the finishing so it doesn't make a request
+            CurrentUser.updateCurrentUser();
             if (CurrentUser.getCurrentUser().getMyRequests().size() == 1) {
                 PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
                 searchPostListsTask.execute("documentId", CurrentUser.getCurrentUser().getMyRequests().get(0));
