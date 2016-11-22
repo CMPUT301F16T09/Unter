@@ -43,6 +43,7 @@
     <string name="choose_driver">Choose this Driver</string>
     <string name="view_profile">View Profile</string>
     <string name="cancel_button">Cancel</string>
+    <string name="title_activity_notification">NotificationActivity</string>
 
 
 </resources>

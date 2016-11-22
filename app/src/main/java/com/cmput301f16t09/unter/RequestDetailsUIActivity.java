@@ -284,9 +284,6 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
                     Toast.makeText(RequestDetailsUIActivity.this, "Sorry, Could not update the database", Toast.LENGTH_SHORT).show();
                 }
             }
-            else {
-                Toast.makeText(RequestDetailsUIActivity.this, "Sorry, Post is unavailable to offer ride to.", Toast.LENGTH_SHORT).show();
-            }
             finish();
         }
     }

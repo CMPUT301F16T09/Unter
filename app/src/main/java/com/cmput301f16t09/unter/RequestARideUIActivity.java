@@ -247,7 +247,6 @@ public class RequestARideUIActivity extends AppCompatActivity {
              * @see PostListOnlineController
              * @see Post
              */
-
         }
     }
 

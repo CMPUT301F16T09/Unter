@@ -295,6 +295,15 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
 
             Toast.makeText(RidersRequestDetailsPreUIActivity.this, "Successfully deleted the post!", Toast.LENGTH_SHORT).show();
             finish();
+
+//            CurrentUser.decreasePostCount();
+//            if (CurrentUser.postCount=0){
+//                CurrentUser.setRole("User");
+//            }
+//            else{
+//                CurrentUser.setRole("Rider");
+//            }
+
         }
         catch (Exception e) {
             Log.i("Error", "Unable to Update Post/User Information");

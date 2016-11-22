@@ -1,5 +1,11 @@
 package com.cmput301f16t09.unter;
 
+import android.app.Notification;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A model class that holds the Current User's most recently accessed information to be
  * stored on their phone's local memory.
@@ -10,6 +16,7 @@ package com.cmput301f16t09.unter;
 public class CurrentUser {
     private static User currentUser = null;
     private static Post currentPost = null;
+    public static ArrayList<String> notificationList = null;
 
     /**
      * Retrieves the user object representing the person who initially logged
@@ -51,4 +58,12 @@ public class CurrentUser {
         currentPost = newCurrentPost;
     }
 
+    public static ArrayList<String> getNotificationList(){
+        if (notificationList == null){
+            return new ArrayList<String>();
+        }
+        else{
+            return notificationList;
+        }
+    }
 }

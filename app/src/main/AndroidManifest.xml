@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cmput301f16t09.unter" >
+    package="com.cmput301f16t09.unter">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -16,8 +16,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-        <activity android:name=".MainGUIActivity" >
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainGUIActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -68,6 +68,7 @@
             android:label="@string/title_activity_riders_request_details_pre_ui" />
         <activity android:name=".ViewProfileUIActivity" />
 
+<<<<<<< HEAD
         <!--activity<service android:name=".MyFirebaseMessagingService">-->
             <!--<intent-filter>-->
                 <!--<action android:name="com.google.firebase.MESSAGING_EVENT"/>-->
@@ -78,6 +79,20 @@
                 <!--<action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>-->
             <!--</intent-filter>-->
         <!--</service>-->
+=======
+        <service android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".NotificationsActivity"></activity>
+>>>>>>> origin/kelly-newStuff
     </application>
 
 </manifest>
