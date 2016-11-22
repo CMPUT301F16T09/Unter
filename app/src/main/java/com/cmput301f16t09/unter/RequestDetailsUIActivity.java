@@ -222,7 +222,6 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
      */
     public void confirm_ride_request(View v) {
 
-        CurrentUser.setRole("Driver");
         Boolean found = false;
         PostList temp;
         for(Post p : PostListOfflineController.getPostList(RequestDetailsUIActivity.this).getPosts()) {
@@ -250,7 +249,6 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
             }
             catch (Exception e){
                 Toast.makeText(RequestDetailsUIActivity.this, "Sorry, Could not update the database", Toast.LENGTH_SHORT).show();
-                CurrentUser.setRole("User");
 
             }
         }

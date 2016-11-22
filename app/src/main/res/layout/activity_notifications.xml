@@ -8,19 +8,20 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/background"
-    tools:context="com.cmput301f16t09.unter.MyRideRequestsUIActivity">
+    tools:context="com.cmput301f16t09.unter.NotificationsActivity">
+
 
     <TextView
         android:id="@+id/myNotifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="My Ride Requests"
+        android:text="Notifications"
         android:textSize="42sp"
         android:textColor="@color/white"
         android:fontFamily="sans-serif-smallcaps" />
 
     <ListView
-        android:id="@+id/listViewMyRideRequests"
+        android:id="@+id/listViewNotifications"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/myNotifications"

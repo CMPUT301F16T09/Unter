@@ -176,6 +176,15 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
             Toast.makeText(RidersRequestDetailsPreUIActivity.this, "Successfully deleted the offer!", Toast.LENGTH_SHORT).show();
 
             finish();
+
+//            CurrentUser.decreasePostCount();
+//            if (CurrentUser.postCount=0){
+//                CurrentUser.setRole("User");
+//            }
+//            else{
+//                CurrentUser.setRole("Rider");
+//            }
+
         }
         catch (Exception e) {
             Log.i("Error", "Deletion Error");

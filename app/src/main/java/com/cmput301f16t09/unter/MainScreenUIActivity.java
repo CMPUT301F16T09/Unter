@@ -1,7 +1,11 @@
 package com.cmput301f16t09.unter;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,6 +42,13 @@ public class MainScreenUIActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.edit_profile) {
             Intent requestARideIntent = new Intent(MainScreenUIActivity.this, EditProfileUIActivity.class);
             startActivity(requestARideIntent);
+            return true;
+        }
+
+        else if(item.getItemId() == R.id.refresh){
+
+
+            NotificationController.findNotifications(MainScreenUIActivity.this);
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -1,5 +1,6 @@
 package com.cmput301f16t09.unter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -107,7 +108,11 @@ public class EditProfileUIActivity extends AppCompatActivity {
                 UserListOnlineController.UpdateUsersTask updateUserListsTask = new UserListOnlineController.UpdateUsersTask();
                 updateUserListsTask.execute(CurrentUser.getCurrentUser());
                 updateUserListsTask.get();
-                Toast.makeText(EditProfileUIActivity.this, "Your information was updated!" , Toast.LENGTH_SHORT).show();
+
+
+               // Toast.makeText(EditProfileUIActivity.this, "Your information was updated!" , Toast.LENGTH_SHORT).show();
+
+
             } catch(Exception e) {
                 Log.i("Error", "Could not update");
                 Toast.makeText(EditProfileUIActivity.this, "Could not update!" , Toast.LENGTH_SHORT).show();
