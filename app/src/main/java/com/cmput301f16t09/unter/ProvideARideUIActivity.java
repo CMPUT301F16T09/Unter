@@ -30,7 +30,6 @@ public class ProvideARideUIActivity extends AppCompatActivity {
         setContentView(R.layout.activity_provide_aride_ui);
 
         ListView currentPostList = (ListView) findViewById(R.id.listViewProvideARide);
-
         for(Post p : PostListMainController.getPostList(ProvideARideUIActivity.this).getPosts()) {
             if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&
                     (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) &&
