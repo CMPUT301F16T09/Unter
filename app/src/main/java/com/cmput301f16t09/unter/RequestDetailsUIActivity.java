@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -222,41 +223,70 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
      */
     public void confirm_ride_request(View v) {
 
-        CurrentUser.setRole("Driver");
         Boolean found = false;
-        PostList temp;
-        for(Post p : PostListOfflineController.getPostList(RequestDetailsUIActivity.this).getPosts()) {
-            // Prob don't need the first check if this if statement.
-            if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) && (p.getStatus().equals("Pending Offer") || p.getStatus().equals("Pending Approval")) && CurrentUser.getCurrentPost().getId().equals(p.getId())) {
-                found = true;
-                p.addDriverOffer(CurrentUser.getCurrentUser().getUsername());
-                p.setStatus("Pending Approval");
-                CurrentUser.setCurrentPost(p);
-                break;
+        Boolean awaitingCompletion = false;
+        try {
+            // Fix the finishing so it doesn't make a request
+            if (CurrentUser.getCurrentUser().getMyRequests().size() == 1) {
+                PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
+                searchPostListsTask.execute("documentId", CurrentUser.getCurrentUser().getMyRequests().get(0));
+                ArrayList<Post> temp = searchPostListsTask.get();
+                if (!temp.isEmpty()) {
+                    if (temp.get(0).getStatus().equals("Awaiting Completion")) {
+                        awaitingCompletion = true;
+                    }
+                }
             }
+            if (CurrentUser.getCurrentUser().getMyOffers().size() == 1) {
+                PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
+                searchPostListsTask.execute("documentId", CurrentUser.getCurrentUser().getMyOffers().get(0));
+                ArrayList<Post> temp = searchPostListsTask.get();
+                if (!temp.isEmpty()) {
+                    if (temp.get(0).getStatus().equals("Awaiting Completion")) {
+                        awaitingCompletion = true;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.i("Error", "Error with elastic search");
         }
-        if (found) {
-            try {
-                PostListOnlineController.UpdatePostsTask updatePostsTask = new PostListOnlineController.UpdatePostsTask();
-                updatePostsTask.execute(CurrentUser.getCurrentPost());
-                updatePostsTask.get();
-//                PostListOfflineController.addOfflinePost(CurrentUser.getCurrentPost(), RequestDetailsUIActivity.this);
-                CurrentUser.getCurrentUser().getMyOffers().addPost(CurrentUser.getCurrentPost());
-                UserListOnlineController.UpdateUsersTask updateUserTask = new UserListOnlineController.UpdateUsersTask();
-                updateUserTask.execute(CurrentUser.getCurrentUser());
-                updateUserTask.get();
-                Toast.makeText(RequestDetailsUIActivity.this, "Successfully sent the offer!", Toast.LENGTH_SHORT).show();
-
-            }
-            catch (Exception e){
-                Toast.makeText(RequestDetailsUIActivity.this, "Sorry, Could not update the database", Toast.LENGTH_SHORT).show();
-                CurrentUser.setRole("User");
-
-            }
+        if (awaitingCompletion == true) {
+            Toast.makeText(RequestDetailsUIActivity.this, "Please complete current request before offering a ride!", Toast.LENGTH_SHORT).show();
+            finish();
         }
         else {
-            Toast.makeText(RequestDetailsUIActivity.this, "Sorry, Post is unavailable to offer ride to.", Toast.LENGTH_SHORT).show();
+            // Can probably change up to be faster?
+            for(Post p : PostListOfflineController.getPostList(RequestDetailsUIActivity.this).getPosts()) {
+                // Prob don't need the first check if this if statement.
+                if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) && (p.getStatus().equals("Pending Approval")) && CurrentUser.getCurrentPost().getId().equals(p.getId())) {
+                    found = true;
+                    p.addDriverOffer(CurrentUser.getCurrentUser().getUsername());
+                    CurrentUser.setCurrentPost(p);
+                    break;
+                }
+            }
+            if (found) {
+                try {
+                    PostListOnlineController.UpdatePostsTask updatePostsTask = new PostListOnlineController.UpdatePostsTask();
+                    updatePostsTask.execute(CurrentUser.getCurrentPost());
+                    updatePostsTask.get();
+//                PostListOfflineController.addOfflinePost(CurrentUser.getCurrentPost(), RequestDetailsUIActivity.this);
+
+                    // Most likely get updated copy of CurrentUser possibly?
+                    CurrentUser.getCurrentUser().getMyOffers().add(CurrentUser.getCurrentPost().getId());
+                    UserListOnlineController.UpdateUsersTask updateUserTask = new UserListOnlineController.UpdateUsersTask();
+                    updateUserTask.execute(CurrentUser.getCurrentUser());
+                    updateUserTask.get();
+                    Toast.makeText(RequestDetailsUIActivity.this, "Successfully sent the offer!", Toast.LENGTH_SHORT).show();
+                }
+                catch (Exception e){
+                    Toast.makeText(RequestDetailsUIActivity.this, "Sorry, Could not update the database", Toast.LENGTH_SHORT).show();
+                }
+            }
+            else {
+                Toast.makeText(RequestDetailsUIActivity.this, "Sorry, Post is unavailable to offer ride to.", Toast.LENGTH_SHORT).show();
+            }
+            finish();
         }
-        finish();
     }
 }

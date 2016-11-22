@@ -38,7 +38,7 @@ public class Post {
         this.endLocation = endLocation;
         this.startAddress = startAddress;
         this.endAddress = endAddress;
-        this.status = "Pending Offer";
+        this.status = "Pending Approval";
         this.fare = fare;
         this.driver_OfferList = new ArrayList<String>();
         this.user = rider;

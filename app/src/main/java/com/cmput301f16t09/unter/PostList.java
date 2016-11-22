@@ -112,4 +112,9 @@ public class PostList {
         this.postList = postList;
         notifyListeners();
     }
+
+    public void pickPost(Post post) {
+        this.postList.clear();
+        this.postList.add(post);
+    }
 }

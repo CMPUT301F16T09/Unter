@@ -208,6 +208,35 @@ public class PostListOnlineController {
         }
     }
 
+
+    /**
+     * The type Delete posts task from elastic search.
+     */
+    public static class DeletePostsTaskId extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... posts) {
+            verifySettings();
+
+            for (String post: posts) {
+                // Adds index, type and id of post to be deleted.
+                Delete index = new Delete.Builder(post).index("t09").type("post").build();
+
+                try {
+                    DocumentResult result = client.execute(index);
+                    if (!result.isSucceeded()) {
+                        Log.i("Error", "Elastic search was not able to delete the post.");
+                    }
+                }
+                catch (Exception e) {
+                    Log.i("Uhoh", "We failed to delete the post from elastic search!");
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+    }
+
     /**
      * Verifies settings of the elastic search server
      */

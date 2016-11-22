@@ -10,7 +10,6 @@ package com.cmput301f16t09.unter;
 public class CurrentUser {
     private static User currentUser = null;
     private static Post currentPost = null;
-    private static String role = "User";
 
     /**
      * Retrieves the user object representing the person who initially logged
@@ -50,13 +49,6 @@ public class CurrentUser {
      */
     public static void setCurrentPost(Post newCurrentPost) {
         currentPost = newCurrentPost;
-    }
-
-    public static void setRole(String newRole){
-        role = newRole;
-    }
-    public static String getRole(){
-        return role;
     }
 
 }

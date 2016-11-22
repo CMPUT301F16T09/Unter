@@ -34,7 +34,7 @@ public class ProvideARideUIActivity extends AppCompatActivity {
         for(Post p : PostListOfflineController.getPostList(ProvideARideUIActivity.this).getPosts()) {
             if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&
                     (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) &&
-                    (p.getStatus().equals("Pending Offer") || p.getStatus().equals("Pending Approval"))) {
+                    p.getStatus().equals("Pending Approval")) {
                 postList.addPost(p);
             }
         }
@@ -88,10 +88,11 @@ public class ProvideARideUIActivity extends AppCompatActivity {
 
                 // Why is this for loop here? -- Added in (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) &&
                 // To ensure that the posts with the user offer in it is not in the list
+                // Can probably change up to be faster?
                 for(Post p : PostListOfflineController.getPostList(ProvideARideUIActivity.this).getPosts()) {
                     if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&
                             (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) &&
-                            (p.getStatus().equals("Pending Offer") || p.getStatus().equals("Pending Approval"))) {
+                            p.getStatus().equals("Pending Approval")) {
                         postList.addPost(p);
                     }
                 }
@@ -133,7 +134,7 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                 for(Post p : PostListOfflineController.getPostList(ProvideARideUIActivity.this).getPosts()) {
                     if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&
                             (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) &&
-                            (p.getStatus().equals("Pending Offer") || p.getStatus().equals("Pending Approval"))) {
+                             p.getStatus().equals("Pending Approval")) {
                         postList.addPost(p);
                     }
                 }
@@ -151,7 +152,7 @@ public class ProvideARideUIActivity extends AppCompatActivity {
         for(Post p : PostListOfflineController.getPostList(ProvideARideUIActivity.this).getPosts()) {
             if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&
                     (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) &&
-                    (p.getStatus().equals("Pending Offer") || p.getStatus().equals("Pending Approval"))) {
+                    p.getStatus().equals("Pending Approval")) {
                 postList.addPost(p);
             }
         }
