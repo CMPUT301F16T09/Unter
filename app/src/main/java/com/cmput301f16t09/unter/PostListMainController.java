@@ -6,13 +6,15 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import com.cmput301f16t09.unter.PostListOfflineController.*;
 
 public class PostListMainController {
 
     private static PostList postListMain = null;
-    private static PostList postListQueue = null;
+    private static PostList postListQueue =  null;
     private static PostList postListUpdate = null;
     private static PostList postListDelete = null;
 
@@ -32,7 +34,7 @@ public class PostListMainController {
          * @see #saveOfflinePosts(Context)
          */
         try {
-            if (isNetworkAvailable(context)) {
+            if (WifiReceiver.isNetworkAvailable(context)) {
                 PostListOnlineController.GetPostsTask onlinePosts = new PostListOnlineController.GetPostsTask();
                 onlinePosts.execute("");
                 // App crashes when using postListMain.getposts().clear(), or if there is no list clearing statement
@@ -61,9 +63,14 @@ public class PostListMainController {
     }
 
     static public PostList getPostListQueue(Context context) {
-        if (postListQueue == null) {
-            postListQueue = new PostList();
+        if (postListQueue != null) {
+            if (postListQueue.getPosts() == null) {
+                setPostListQueue(new PostList());
+            }
+        } else {
+            setPostListQueue(new PostList());
         }
+
 
         PostListOfflineController.loadOfflinePosts("queueOffline", postListQueue, context);
         return postListQueue;
@@ -115,7 +122,7 @@ public class PostListMainController {
          * @see #saveOfflinePosts(Context)
          * @see PostList
          */
-        if (isNetworkAvailable(context)) {
+        if (WifiReceiver.isNetworkAvailable(context)) {
             PostListOnlineController.AddPostsTask addOnlinePost = new PostListOnlineController.AddPostsTask();
             addOnlinePost.execute(post);
         }
@@ -131,7 +138,7 @@ public class PostListMainController {
     }
 
     public static void updatePosts(Post post, Context context) {
-        if (isNetworkAvailable(context)) {
+        if (WifiReceiver.isNetworkAvailable(context)) {
             try {
                 PostListOnlineController.UpdatePostsTask updatePostsTask = new PostListOnlineController.UpdatePostsTask();
                 updatePostsTask.execute(post);
@@ -163,7 +170,7 @@ public class PostListMainController {
 
     public static void deletePosts(Post post, Context context) {
         try {
-            if (isNetworkAvailable(context)) {
+            if (WifiReceiver.isNetworkAvailable(context)) {
                 PostListOnlineController.DeletePostsTask upt = new PostListOnlineController.DeletePostsTask();
                 upt.execute(post);
                 upt.get();
@@ -190,8 +197,8 @@ public class PostListMainController {
 
     }
 
-    public static boolean isNetworkAvailable(final Context context) {
-        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+    public static void setPostListQueue(PostList pl) {
+        postListQueue = pl;
     }
+
 }

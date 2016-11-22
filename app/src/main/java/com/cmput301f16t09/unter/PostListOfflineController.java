@@ -3,6 +3,7 @@ package com.cmput301f16t09.unter;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.net.ConnectivityManager;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -67,23 +68,43 @@ public class PostListOfflineController {
             // If the string is queueOffline, then the data is stored in an offline queue, otherwise
             // it is stored to the main list ("mainOffline")
             if (saveType.equals("queueOffline")) {
-                dir = cw.getDir(QUEUE_FILENAME, context.MODE_PRIVATE);
-                fis = context.openFileInput(QUEUE_FILENAME);
+                String path = Environment.getExternalStorageDirectory() + "/" + QUEUE_FILENAME;
+                File f = new File(path);
+                if (!f.exists()) {
+                    f.createNewFile();
+                }
+//                dir = cw.getDir(QUEUE_FILENAME, context.MODE_PRIVATE);
+                fis = new FileInputStream(path);
             }
 
             else if(saveType.equals("updateOffline")) {
-                dir = cw.getDir(UPDATE_FILENAME, context.MODE_PRIVATE);
-                fis = context.openFileInput(UPDATE_FILENAME);
+                String path = Environment.getExternalStorageDirectory() + "/" + UPDATE_FILENAME;
+                File f = new File(path);
+                if (!f.exists()) {
+                    f.createNewFile();
+                }
+//                dir = cw.getDir(UPDATE_FILENAME, context.MODE_PRIVATE);
+                fis = context.openFileInput(path);
             }
 
             else if(saveType.equals("deleteOffline")) {
-                dir = cw.getDir(DELETE_FILENAME, context.MODE_PRIVATE);
-                fis = context.openFileInput(DELETE_FILENAME);
+                String path = Environment.getExternalStorageDirectory() + "/" + DELETE_FILENAME;
+                File f = new File(path);
+                if (!f.exists()) {
+                    f.createNewFile();
+                }
+//                dir = cw.getDir(DELETE_FILENAME, context.MODE_PRIVATE);
+                fis = context.openFileInput(path);
             }
 
             else {
-                dir = cw.getDir(FILENAME, context.MODE_PRIVATE);
-                fis = context.openFileInput(FILENAME);
+                String path = Environment.getExternalStorageDirectory() + "/" + FILENAME;
+                File f = new File(path);
+                if (!f.exists()) {
+                    f.createNewFile();
+                }
+//                dir = cw.getDir(FILENAME, context.MODE_PRIVATE);
+                fis = context.openFileInput(path);
 
             }
 
@@ -109,12 +130,17 @@ public class PostListOfflineController {
 
             // Store the data into the main PostList
             postList.setPostList(tempList);
+
+            br_in.close();
+            fis.close();
         }
 
         // If there is no file, return error and create empty postlist
         catch (FileNotFoundException f) {
             Log.e("Error", "Could not load offline posts");
             postList = new PostList();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return postList;
     }
@@ -136,20 +162,42 @@ public class PostListOfflineController {
          */
         try {
             if (saveType.equals("queueOffline")) {
-                fos = context.openFileOutput(QUEUE_FILENAME, context.MODE_PRIVATE);
+                String path = Environment.getExternalStorageDirectory() + "/" + QUEUE_FILENAME;
+                File f = new File(path);
+                if (!f.exists()) {
+                    f.createNewFile();
+                }
+                fos = new FileOutputStream(path);
             }
 
             else if(saveType.equals("updateOffline")) {
-                fos = context.openFileOutput(UPDATE_FILENAME, context.MODE_PRIVATE);
+                String path = Environment.getExternalStorageDirectory() + "/" + UPDATE_FILENAME;
+                File f = new File(path);
+                if (!f.exists()) {
+                    f.createNewFile();
+                }
+                fos = context.openFileOutput(Environment.getExternalStorageDirectory() +
+                        "/" + UPDATE_FILENAME, context.MODE_PRIVATE);
             }
 
             else if(saveType.equals("deleteOffline")) {
-                fos = context.openFileOutput(DELETE_FILENAME, context.MODE_PRIVATE);
+                File f = new File(Environment.getExternalStorageDirectory() +
+                        "/" + UPDATE_FILENAME);
+                if (!f.exists()) {
+                    f.createNewFile();
+                }
+                fos = context.openFileOutput(Environment.getExternalStorageDirectory() +
+                        "/" + DELETE_FILENAME, context.MODE_PRIVATE);
             }
 
             else {
-                fos = context.openFileOutput(FILENAME, context.MODE_PRIVATE);
-
+                File f = new File(Environment.getExternalStorageDirectory() +
+                        "/" + FILENAME);
+                if (!f.exists()) {
+                    f.createNewFile();
+                }
+                fos = context.openFileOutput(Environment.getExternalStorageDirectory() +
+                        "/" + FILENAME, context.MODE_PRIVATE);
             }
             // Open the FileOutputStream and BufferedWriter to write to FILENAME
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
@@ -162,6 +210,8 @@ public class PostListOfflineController {
 
             // Flush the buffer to prevent memory leakage and close the OutputStream
             bw.flush();
+
+            bw.close();
             fos.close();
         }
         catch (IOException e) {
