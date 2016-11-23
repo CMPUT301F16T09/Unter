@@ -18,6 +18,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
 //import android.support.design.widget.FloatingActionButton;
 //import android.support.design.widget.Snackbar;
 
@@ -74,8 +77,18 @@ public class MainScreenUIActivity extends AppCompatActivity {
 
 
     public void provideARide(View v){
-        Intent requestARideIntent = new Intent(MainScreenUIActivity.this, ProvideARideUIActivity.class);
-        startActivity(requestARideIntent);
+//        Intent requestARideIntent = new Intent(MainScreenUIActivity.this, ProvideARideUIActivity.class);
+//        startActivity(requestARideIntent);
+
+        try {
+            SearchEngine.SearchKeyword sk = new SearchEngine.SearchKeyword();
+            sk.execute("19.1033902");
+            PostList pl = new PostList();
+            pl.setPostList(sk.get());
+            pl.getPosts();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

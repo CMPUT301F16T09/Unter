@@ -74,7 +74,9 @@ public class PostListOfflineController {
                     f.createNewFile();
                 }
 //                dir = cw.getDir(QUEUE_FILENAME, context.MODE_PRIVATE);
-                fis = new FileInputStream(path);
+//                fis = new FileInputStream(path);
+                fis = context.openFileInput(QUEUE_FILENAME);
+
             }
 
             else if(saveType.equals("updateOffline")) {
@@ -167,7 +169,8 @@ public class PostListOfflineController {
                 if (!f.exists()) {
                     f.createNewFile();
                 }
-                fos = new FileOutputStream(path);
+                fos = context.openFileOutput(QUEUE_FILENAME, context.MODE_PRIVATE);
+//                fos = new FileOutputStream(path);
             }
 
             else if(saveType.equals("updateOffline")) {
