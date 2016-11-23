@@ -279,7 +279,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
                     updateUserTask.execute(CurrentUser.getCurrentUser());
                     updateUserTask.get();
                     NotificationOnlineController.AddNotificationsTask addNotificationsTask = new NotificationOnlineController.AddNotificationsTask();
-                    Notification notification = new Notification(CurrentUser.getCurrentPost().getUsername(), "You have a new driver request on Post to location: " + CurrentUser.getCurrentPost().getEndAddress() + " from: " + CurrentUser.getCurrentUser().getUsername() + " with vehicle: " + CurrentUser.getCurrentUser().getVehicle());
+                    Notification notification = new Notification(CurrentUser.getCurrentPost().getUsername(), "You have a new driver request for " + CurrentUser.getCurrentPost().getEndAddress() + " from: " + CurrentUser.getCurrentUser().getUsername() + " with vehicle: " + CurrentUser.getCurrentUser().getVehicle());
                     addNotificationsTask.execute(notification);
                     addNotificationsTask.get();
                     Toast.makeText(RequestDetailsUIActivity.this, "Successfully sent the offer!", Toast.LENGTH_SHORT).show();

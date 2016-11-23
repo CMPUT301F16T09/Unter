@@ -34,30 +34,69 @@ public class NotificationOnlineController {
     //Static variables for JestDroidClient and holding notificationss.
     private static JestDroidClient client;
     private static ArrayList<Notification> arrayNotificationList = null;
-    private static NotificationList notificationList = new NotificationList();
+    static final private ArrayList<Notification> templist = new ArrayList<Notification>();
+    private static int mID = 0;
 
-    /**
-     * Gets notificationList from elastic search
-     *
-     * @return the notification list
-     */
-    static public NotificationList getNotificationList() {
-        if (arrayNotificationList == null) {
-
-            // GetsSearchNotificationListsTask to obtain Notifications from elasticsearch
-            NotificationOnlineController.SearchNotificationListsTask getNotificationsTask = new NotificationOnlineController.SearchNotificationListsTask();
-            getNotificationsTask.execute("username", CurrentUser.getCurrentUser().getUsername());
-            try {
-                arrayNotificationList = getNotificationsTask.get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-            notificationList.setNotificationList(arrayNotificationList);
-        }
-        return notificationList;
+    public static ArrayList<Notification> getList(){
+        return templist;
     }
+
+    public static void findNotifications(){
+        //any status changes are placed into current user notification list
+
+        templist.clear();
+
+        try {
+            NotificationOnlineController.SearchNotificationListsTask searchNotificationListsTask = new NotificationOnlineController.SearchNotificationListsTask();
+            searchNotificationListsTask.execute("username", CurrentUser.getCurrentUser().getUsername());
+            templist.addAll(searchNotificationListsTask.get());
+
+        } catch (Exception e) {
+            Log.i("Error", "Error trying to obtain notification");
+        }
+
+
+    }
+
+    public static void createNotifications(Context c){
+
+        findNotifications();
+
+        Intent resultIntent = new Intent(c,NotificationsActivity.class);
+        //resultIntent.setAction(Intent.ACTION_MAIN);
+        // resultIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        resultIntent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(c.getApplicationContext(), 0, resultIntent, 0);
+
+
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(c.getApplicationContext())
+                        .setAutoCancel(true)
+                        .setSmallIcon(R.drawable.ic_menu_compass)
+                        .setContentTitle("Unter")
+                        .setContentText("There has been a status change!")
+                ;
+
+        mBuilder.setContentIntent(pendingIntent);
+        NotificationManager mNotificationManager = (NotificationManager) c.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        //http://stackoverflow.com/questions/16885706/click-on-notification-to-go-current-activity
+        if (templist.isEmpty()){
+            Toast.makeText(c, "No new notifications!", Toast.LENGTH_SHORT).show();
+        }
+        else {
+           // for (Notification n : templist) {
+                mBuilder.setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText("There are " +  templist.size() + " new updates to your open posts.")
+                );
+                android.app.Notification N = mBuilder.build();
+                mNotificationManager.notify(0, N);
+           // }
+        }
+
+    }
+
+
 
     /**
      * The type Search notification lists task from elastic search.
@@ -172,25 +211,5 @@ public class NotificationOnlineController {
         }
     }
 
-    //query elastic search for updates
-//    public static void findNotifications(Context c){
-//        //any status changes are placed into current user notification list
-//
-//        CurrentUser.getNotificationList().clear();
-//        CurrentUser.getNotificationList().add("Dummy notification");
-//
-//        Intent intent = new Intent();
-//        PendingIntent pendingIntent = PendingIntent.getActivity(c.getApplicationContext(),0,intent,0);
-//        NotificationCompat.Builder mBuilder =
-//                new NotificationCompat.Builder(c.getApplicationContext())
-//                        .setSmallIcon(R.drawable.bonuspack_bubble)
-//                        //  .setTicker("Ticker!!")
-//                        .setContentTitle("My notification")
-//                        .setContentText("Hello World!");
-//        mBuilder.setContentIntent(pendingIntent);
-//        NotificationManager mNotificationManager = (NotificationManager) c.getSystemService(Context.NOTIFICATION_SERVICE);
-//        // mId allows you to update the notification later on.
-//        mNotificationManager.notify(0, mBuilder.build());
-//
-//    }
+
 }

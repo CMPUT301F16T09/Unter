@@ -12,22 +12,9 @@
     tools:context="com.cmput301f16t09.unter.MainScreenUIActivity">
 
     <TextView
-        android:id="@+id/MainScreenWelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/welcome"
-        android:textSize="80sp"
-        android:textColor="@color/TextColor"
-        android:textAlignment="center"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
         android:id="@+id/MainScreenRider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/MainScreenWelcome"
         android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
         android:text="@string/rider"
@@ -39,7 +26,6 @@
         android:id="@+id/MainScreenRequestARideButton"
         android:layout_width="160dp"
         android:layout_height="100dp"
-        android:layout_below="@+id/MainScreenWelcome"
         android:layout_marginStart="5dp"
         android:layout_marginTop="120dp"
         android:text="@string/request_a_ride"
@@ -51,7 +37,6 @@
         android:id="@+id/MainScreenMyRideRequestsButton"
         android:layout_width="160dp"
         android:layout_height="100dp"
-        android:layout_below="@+id/MainScreenWelcome"
         android:layout_toEndOf="@+id/MainScreenRequestARideButton"
         android:layout_alignBottom="@+id/MainScreenRequestARideButton"
         android:layout_marginTop="120dp"
@@ -101,5 +86,18 @@
         android:textColor="@color/background"
         android:fontFamily="sans-serif-smallcaps"
         android:onClick="myRideOffers"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Notifications"
+        android:id="@+id/NotificationButton"
+        android:layout_marginBottom="51dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/MainScreenDriver"
+        android:layout_alignStart="@+id/MainScreenDriver"
+        android:fontFamily="sans-serif-smallcaps"
+        android:onClick="viewNotifications" />
 
 </RelativeLayout>

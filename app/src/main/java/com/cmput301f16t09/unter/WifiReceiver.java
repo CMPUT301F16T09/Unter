@@ -21,6 +21,8 @@ public class WifiReceiver extends BroadcastReceiver {
 
         if (netInfo != null && netInfo.getState().name().equals("CONNECTED")) {
 
+            NotificationOnlineController.createNotifications(context);
+
             Log.d("WifiReceiver", "Have Wifi Connection");
             Toast.makeText(context, "WiFi Has Reconnected", Toast.LENGTH_SHORT).show();
 

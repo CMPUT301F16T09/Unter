@@ -39,11 +39,11 @@ public class MainScreenUIActivity extends AppCompatActivity {
             return true;
         }
 
-        else if(item.getItemId() == R.id.refresh){
+        else if(item.getItemId() == R.id.log_out){
 
-            Intent notificationsIntent = new Intent(MainScreenUIActivity.this, NotificationsActivity.class);
-            startActivity(notificationsIntent);
-//            NotificationOnlineController.findNotifications(MainScreenUIActivity.this);
+            Intent intent = new Intent(MainScreenUIActivity.this,MainGUIActivity.class);
+            startActivity(intent);
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -51,6 +51,11 @@ public class MainScreenUIActivity extends AppCompatActivity {
 
     //The following methods bring the user to the appropriate activity upon selecting that button
 
+
+    public void viewNotifications(View v){
+        Intent intent = new Intent(MainScreenUIActivity.this,NotificationsActivity.class);
+        startActivity(intent);
+    }
 
     public void requestARide(View v){
         Intent intent = new Intent(MainScreenUIActivity.this, RequestARideUIActivity.class);
@@ -72,8 +77,5 @@ public class MainScreenUIActivity extends AppCompatActivity {
     public void myRideOffers(View v){
         Intent requestARideIntent = new Intent(MainScreenUIActivity.this, MyRideOffersUIActivity.class);
         startActivity(requestARideIntent);
-
-//        Intent requestARideIntent = new Intent(MainScreenUIActivity.this, RidersRequestDetailsPreUIActivity.class);
-//        startActivity(requestARideIntent);
     }
 }

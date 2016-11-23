@@ -85,6 +85,8 @@ public class MainGUIActivity extends AppCompatActivity {
 //                PostListMainController.getPostListDelete(MainGUIActivity.this);
                 Intent intent = new Intent(MainGUIActivity.this, MainScreenUIActivity.class);
                 startActivity(intent);
+
+                finish();
             }
             else {
                 Toast.makeText(this, "Invalid Username/Password", Toast.LENGTH_SHORT).show();

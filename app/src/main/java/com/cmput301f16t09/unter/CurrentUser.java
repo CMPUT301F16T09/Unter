@@ -16,7 +16,7 @@ import java.util.List;
 public class CurrentUser {
     private static User currentUser = null;
     private static Post currentPost = null;
-    public static ArrayList<String> notificationList = null;
+
 
     /**
      * Retrieves the user object representing the person who initially logged
@@ -58,12 +58,4 @@ public class CurrentUser {
         currentPost = newCurrentPost;
     }
 
-    public static ArrayList<String> getNotificationList(){
-        if (notificationList == null){
-            return new ArrayList<String>();
-        }
-        else{
-            return notificationList;
-        }
-    }
 }

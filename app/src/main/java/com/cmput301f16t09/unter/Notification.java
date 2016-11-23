@@ -3,7 +3,7 @@ package com.cmput301f16t09.unter;
 import io.searchbox.annotations.JestId;
 
 /**
- * Created by Wookiez on 11/21/2016.
+ * Created by Kevin on 11/21/2016.
  */
 
 public class Notification {
@@ -40,5 +40,9 @@ public class Notification {
 
     public void setId(String documentId) {
         this.documentId = documentId;
+    }
+
+    public String toString(){
+        return notification;
     }
 }

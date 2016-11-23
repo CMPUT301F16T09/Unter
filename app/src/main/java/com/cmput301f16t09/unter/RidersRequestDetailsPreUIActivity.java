@@ -210,7 +210,7 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
                                 updateUsersTask4.get();
 
                                 NotificationOnlineController.AddNotificationsTask addNotificationsTask = new NotificationOnlineController.AddNotificationsTask();
-                                Notification notification = new Notification(driverUsername, "You have a confirmation of driving " + CurrentUser.getCurrentUser().getUsername() + " from" + CurrentUser.getCurrentPost().getStartAddress() + " to " + CurrentUser.getCurrentPost().getEndAddress());
+                                Notification notification = new Notification(driverUsername, "You have a confirmation of driving " + CurrentUser.getCurrentUser().getUsername() + " from " + CurrentUser.getCurrentPost().getStartAddress() + " to " + CurrentUser.getCurrentPost().getEndAddress());
                                 addNotificationsTask.execute(notification);
                                 addNotificationsTask.get();
 
@@ -306,14 +306,6 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
             catch (Exception e) {
             }
             finish();
-
-//            CurrentUser.decreasePostCount();
-//            if (CurrentUser.postCount=0){
-//                CurrentUser.setRole("User");
-//            }
-//            else{
-//                CurrentUser.setRole("Rider");
-//            }
 
         }
         catch (Exception e) {

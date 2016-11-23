@@ -181,7 +181,7 @@
         android:id="@+id/EditProfileVehicleInfoField"
         android:layout_width="350dp"
         android:layout_height="42dp"
-        android:hint="Current Password"
+        android:hint="Current Vehicle"
         android:textSize="@dimen/input_text_size"
         android:textColor="@color/TextColor"
         android:textColorHint="@color/HintTextColor"
