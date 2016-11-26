@@ -126,6 +126,17 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
 
                     getFareAsync();
                     getRoadAsync();
+                } else{
+
+                    startLocation = startAddresses.get(position);
+                    startPoint = getCoords(startLocation);
+                    mapController.setCenter(startPoint);
+
+                    Marker startMarker = new Marker(map);
+                    startMarker.setPosition(startPoint);
+                    startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                    map.getOverlays().add(startMarker);
+                    map.invalidate();
                 }
             }
         });
@@ -155,6 +166,17 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
 
                     getFareAsync();
                     getRoadAsync();
+                } else {
+
+                    endLocation = endAddresses.get(position);
+                    endPoint = getCoords(endLocation);
+                    mapController.setCenter(endPoint);
+
+                    Marker endMarker = new Marker(map);
+                    endMarker.setPosition(endPoint);
+                    endMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                    map.getOverlays().add(endMarker);
+                    map.invalidate();
                 }
             }
         });
@@ -215,21 +237,6 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         protected Road[] doInBackground(Object... params) {
             @SuppressWarnings("unchecked")
             ArrayList<GeoPoint> wayPoints = (ArrayList<GeoPoint>) params[0];
-
-            Marker startMarker = new Marker(map);
-            startMarker.setPosition(startPoint);
-            startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-//            startMarker.setIcon(getDrawable(R.mipmap.ic_launcher));
-//            startMarker.setTitle("Start point");
-
-
-
-            Marker endMarker = new Marker(map);
-            endMarker.setPosition(endPoint);
-            endMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-//            endMarker.setIcon(getDrawable(R.mipmap.ic_launcher));
-//            endMarker.setTitle("End point");
-
             return roadManager.getRoads(wayPoints);
         }
         @Override
@@ -253,6 +260,17 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
                 roadPolyline.setRelatedObject(0);
 
                 mapOverlays.clear();
+
+                Marker startMarker = new Marker(map);
+                startMarker.setPosition(startPoint);
+                startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                mapOverlays.add(startMarker);
+
+                Marker endMarker = new Marker(map);
+                endMarker.setPosition(endPoint);
+                endMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                mapOverlays.add(endMarker);
+
                 mapOverlays.add(0, roadPolyline);
                 //mapOverlays.add(roadPolyline);
                 map.invalidate();
@@ -387,6 +405,13 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
             case R.id.menu_departure:
                 editFare = (EditText) findViewById(R.id.RequestRideCost);
                 startPoint = clicked;
+
+                Marker startMarker = new Marker(map);
+                startMarker.setPosition(startPoint);
+                startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                map.getOverlays().add(startMarker);
+                map.invalidate();
+
                 startLocation = reverseGeocode(startPoint);
 //                Log.d("START POINT", startPoint.toDoubleString());
 //                Log.d("CLICKED", clicked.toDoubleString());
@@ -405,6 +430,12 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
 //                Log.d("START POINT", endPoint.toDoubleString());
 //                Log.d("CLICKED", clicked.toDoubleString());
 
+                Marker endMarker = new Marker(map);
+                endMarker.setPosition(endPoint);
+                endMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                map.getOverlays().add(endMarker);
+                map.invalidate();
+
                 if (startPoint != null) {
                     getFareAsync();
                     getRoadAsync();
@@ -417,7 +448,7 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         }
     }
 
-public String reverseGeocode(GeoPoint point){
+    public String reverseGeocode(GeoPoint point){
     String address = "None";
 
     try {
