@@ -187,8 +187,7 @@
         android:textColorHint="@color/HintTextColor"
         android:fontFamily="sans-serif-smallcaps"
         android:layout_below="@+id/EditProfileVehicleInfo"
-        android:layout_alignStart="@+id/EditProfilePasswordField"
-        android:text="Current Vehicle" />
+        android:layout_alignStart="@+id/EditProfilePasswordField" />
 
 
 </RelativeLayout>

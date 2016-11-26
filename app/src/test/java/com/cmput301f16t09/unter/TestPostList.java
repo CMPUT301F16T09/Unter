@@ -16,13 +16,13 @@ public class TestPostList extends TestCase {
     public void testGetPost(){
         PostList postList = new PostList();
 
-        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password", "");
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
         Post newPost = new Post(start, end, "1", "2", "$4", "rider");
         postList.addPost(newPost);
 
-        User rider2 = new User("Joe", "MoJoe JoeJoe", "joe@joemail.com", "780-joe-joey", "joeisthebest");
+        User rider2 = new User("Joe", "MoJoe JoeJoe", "joe@joemail.com", "780-joe-joey", "joeisthebest", "");
         GeoPoint start2 = new GeoPoint(5.0, 3.0);
         GeoPoint end2 = new GeoPoint(3.0, 5.0);
         Post newPost2 = new Post(start, end, "1", "2", "$4", "rider");
@@ -38,7 +38,7 @@ public class TestPostList extends TestCase {
         PostList postList = new PostList();
         assertTrue(postList.getPosts().size() == 0);
 
-        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password", "");
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
         Post newPost = new Post(start, end, "1", "2", "$4", "rider");
@@ -56,7 +56,7 @@ public class TestPostList extends TestCase {
         PostList postList = new PostList();
         assertTrue(postList.getPosts().size() == 0);
 
-        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password", "");
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
         Post newPost = new Post(start, end, "1", "2", "$4", "rider");
@@ -76,7 +76,7 @@ public class TestPostList extends TestCase {
         PostList postList = new PostList();
         assertTrue(postList.getPosts().size() == 0);
 
-        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password", "");
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
         Post newPost = new Post(start, end, "1", "2", "$4", "rider");
@@ -103,13 +103,13 @@ public class TestPostList extends TestCase {
         PostList postList = new PostList();
         assertTrue(postList.getPosts().size() == 0);
 
-        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password", "");
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
         Post newPost = new Post(start, end, "1", "2", "$4", "rider");
         postList.addPost(newPost);
 
-        User rider2 = new User("Joe", "MoJoe JoeJoe", "joe@joemail.com", "780-joe-joey", "joeisthebest");
+        User rider2 = new User("Joe", "MoJoe JoeJoe", "joe@joemail.com", "780-joe-joey", "joeisthebest", "");
         GeoPoint start2 = new GeoPoint(5.0, 3.0);
         GeoPoint end2 = new GeoPoint(3.0, 5.0);
         Post newPost2 = new Post(start, end, "1", "2", "$4", "rider");

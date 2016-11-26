@@ -174,7 +174,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
 
         try {
 
-            // Fix the finishing so it doesn't make a request
+            CurrentUser.updateCurrentUser();
             if (CurrentUser.getCurrentUser().getMyRequests().size() == 1) {
                 PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
                 searchPostListsTask.execute("documentId", CurrentUser.getCurrentUser().getMyRequests().get(0));

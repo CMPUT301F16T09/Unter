@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -66,7 +68,9 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
 
         TextView tvRiderName = (TextView) findViewById(R.id.RideOfferRiderName);
         String riderName = CurrentUser.getCurrentPost().getUsername();
-        tvRiderName.setText(riderName);
+        SpannableString content = new SpannableString(riderName);
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        tvRiderName.setText(content);
 
         TextView tvOfferedFare = (TextView) findViewById(R.id.RideOfferCost);
         String offeredFare = CurrentUser.getCurrentPost().getFare();
@@ -100,7 +104,8 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
     public void viewProfile(View v){
         Intent intent = new Intent(this,ViewProfileUIActivity.class);
         String postOwner = CurrentUser.getCurrentPost().getUsername();
-        intent.putExtra("User",postOwner);
+        intent.putExtra("User", postOwner);
+        intent.putExtra("isRestricted", true);
         startActivity(intent);
     }
 

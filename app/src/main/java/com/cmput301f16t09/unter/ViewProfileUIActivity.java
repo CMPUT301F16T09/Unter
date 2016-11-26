@@ -44,10 +44,11 @@ public class ViewProfileUIActivity extends AppCompatActivity {
         phNumber = (TextView) findViewById(R.id.displayNumberTextView);
         name = (TextView) findViewById(R.id.displayNameTextView);
         email = (TextView) findViewById(R.id.displayEmailTextView);
-       // vehicle = (TextView) findViewById(R.id.)
+        vehicle = (TextView) findViewById(R.id.displayVehicleTextView);
 
         Bundle extras = getIntent().getExtras();
         String fetchThisUser = extras.getString("User");
+        Boolean isRestricted = extras.getBoolean("isRestricted");
 
         title.setText(fetchThisUser);
 
@@ -60,6 +61,12 @@ public class ViewProfileUIActivity extends AppCompatActivity {
             name.setText(fetched.getName());
             phNumber.setText(fetched.getPhoneNumber());
             email.setText(fetched.getEmail());
+            if (isRestricted) {
+                vehicle.setText("Restricted");
+            }
+            else {
+                vehicle.setText(fetched.getVehicle());
+            }
         }
         catch(Exception e){
         }

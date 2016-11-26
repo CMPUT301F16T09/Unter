@@ -89,8 +89,7 @@ public class CreateNewUserUIActivity extends AppCompatActivity {
                 // If no user with same email exists, create user with
                 if (userlist.isEmpty()) {
                     if (input_index.get(5).equals(input_index.get(4))) {
-                        User new_user = new User(input_index.get(1), input_index.get(0), input_index.get(3), input_index.get(2), input_index.get(4));
-                        new_user.setVehicle(input_index.get(6));
+                        User new_user = new User(input_index.get(1), input_index.get(0), input_index.get(3), input_index.get(2), input_index.get(4), input_index.get(6));
                         UserListOnlineController.AddUsersTask addUserTask = new UserListOnlineController.AddUsersTask();
                         addUserTask.execute(new_user);
                         addUserTask.get();

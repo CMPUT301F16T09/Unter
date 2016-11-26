@@ -45,7 +45,7 @@
         android:layout_toEndOf="@+id/RideOfferRider"
         android:layout_alignBaseline="@+id/RideOfferRider"
         android:textSize="24sp"
-        android:textColor="@color/white"
+        android:textColor="@color/light_blue"
         android:textAlignment="textStart"
         android:textColorLink="@color/accent"
         android:fontFamily="sans-serif-smallcaps"

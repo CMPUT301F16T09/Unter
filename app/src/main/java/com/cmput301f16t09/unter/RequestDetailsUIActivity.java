@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -89,7 +91,9 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         setContentView(R.layout.activity_request_details_ui);
 
         poster = (TextView) findViewById(R.id.RequestDetailsPostedByRiderName);
-        poster.setText(CurrentUser.getCurrentPost().getUsername());
+        SpannableString content = new SpannableString(CurrentUser.getCurrentPost().getUsername());
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        poster.setText(content);
 
         start_Location = (TextView) findViewById(R.id.RequestDetailsStartLocationName);
         start_Location.setText(CurrentUser.getCurrentPost().getStartAddress());
@@ -132,6 +136,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(RequestDetailsUIActivity.this,ViewProfileUIActivity.class);
                 intent.putExtra("User",CurrentUser.getCurrentPost().getUsername());
+                intent.putExtra("isRestricted", true);
                 startActivity(intent);
             }
         });
@@ -215,7 +220,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
      *
      *
      * @see PostListOnlineController
-     * @See PostListOfflineController
+     * @see PostListOfflineController
      * @see UserListOnlineController
      *
      *
@@ -226,7 +231,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         Boolean found = false;
         Boolean awaitingCompletion = false;
         try {
-            // Fix the finishing so it doesn't make a request
+            CurrentUser.updateCurrentUser();
             if (CurrentUser.getCurrentUser().getMyRequests().size() == 1) {
                 PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
                 searchPostListsTask.execute("documentId", CurrentUser.getCurrentUser().getMyRequests().get(0));
@@ -252,6 +257,10 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         }
         if (awaitingCompletion == true) {
             Toast.makeText(RequestDetailsUIActivity.this, "Please complete current request before offering a ride!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        else if (CurrentUser.getCurrentUser().getVehicle().equals("")) {
+            Toast.makeText(RequestDetailsUIActivity.this, "Please provide information about vehicle before offer a ride!", Toast.LENGTH_SHORT).show();
             finish();
         }
         else {
