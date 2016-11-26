@@ -281,12 +281,10 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
                 updateUserListstask.execute(driver);
                 updateUserListstask.get();
             }
-//            PostListMainController.deletePosts(CurrentUser.getCurrentPost(), RidersRequestDetailsPreUIActivity.this);
 
             // Deletes the post from the elastic search database
-            PostListOnlineController.DeletePostsTaskId deletePostsTaskid = new PostListOnlineController.DeletePostsTaskId();
-            deletePostsTaskid.execute(CurrentUser.getCurrentPost().getId());
-            deletePostsTaskid.get();
+            PostListMainController.deletePosts(CurrentUser.getCurrentPost(), RidersRequestDetailsPreUIActivity.this);
+
 
             CurrentUser.getCurrentUser().getMyRequests().remove(CurrentUser.getCurrentPost().getId());
             UserListOnlineController.UpdateUsersTask updateUserListstask = new UserListOnlineController.UpdateUsersTask();
