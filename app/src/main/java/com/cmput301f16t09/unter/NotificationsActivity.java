@@ -57,7 +57,27 @@ public class NotificationsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(NotificationsActivity.this, "Searching online for notifications..", Toast.LENGTH_SHORT).show();
                 NotificationOnlineController.findNotifications();
-                templist=NotificationOnlineController.getList();
+            }
+        });
+
+        Button clearAllNotifcations = (Button) findViewById(R.id.ClearAllButton);
+        clearAllNotifcations.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (templist.isEmpty()){
+                Toast.makeText(NotificationsActivity.this, "No notifications to delete!", Toast.LENGTH_SHORT).show();
+                }
+                for (Notification n : templist){
+                    try {
+                        NotificationOnlineController.DeleteNotificationsTask deleteNotificationsTask = new NotificationOnlineController.DeleteNotificationsTask();
+                        deleteNotificationsTask.execute(n);
+                        deleteNotificationsTask.get();
+                        templist.remove(n);
+                        adapter.notifyDataSetChanged();
+                    } catch(Exception e) {
+                        Log.i("Error", "Error trying to delete notification");
+                    }
+                }
+
             }
         });
 

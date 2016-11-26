@@ -25,7 +25,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/myNotifications"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentStart="false"
+        android:layout_above="@+id/ClearAllButton"
+        android:layout_alignParentEnd="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -35,5 +37,13 @@
         android:id="@+id/RefreshButton"
         android:layout_alignParentTop="true"
         android:layout_alignEnd="@+id/listViewNotifications" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear All"
+        android:id="@+id/ClearAllButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
