@@ -126,19 +126,19 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
                 Toast.makeText(map.getContext(), "No possible route here", Toast.LENGTH_SHORT).show();
             Polyline[] mRoadOverlays = new Polyline[roads.length];
             List<Overlay> mapOverlays = map.getOverlays();
-            for (int i = 0; i < roads.length; i++) {
-                Polyline roadPolyline = RoadManager.buildRoadOverlay(roads[i]);
-                mRoadOverlays[i] = roadPolyline;
-                String routeDesc = roads[i].getLengthDurationText(myActivity.getBaseContext(), -1);
+            //for (int i = 0; i < roads.length; i++) {
+                Polyline roadPolyline = RoadManager.buildRoadOverlay(roads[0]);
+                mRoadOverlays[0] = roadPolyline;
+                String routeDesc = roads[0].getLengthDurationText(myActivity.getBaseContext(), -1);
                 roadPolyline.setTitle(getString(R.string.app_name) + " - " + routeDesc);
                 roadPolyline.setInfoWindow(new BasicInfoWindow(org.osmdroid.bonuspack.R.layout.bonuspack_bubble, map));
-                roadPolyline.setRelatedObject(i);
+                roadPolyline.setRelatedObject(0);
 
                 mapOverlays.add(0, roadPolyline);
                 map.invalidate();
                 //we insert the road overlays at the "bottom", just above the MapEventsOverlay,
                 //to avoid covering the other overlays.
-            }
+
         }
     }
 
