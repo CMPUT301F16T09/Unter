@@ -17,7 +17,7 @@ public class TestPost extends TestCase {
      */
     public void testGetStartLocation() {
 
-        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password", "");
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
@@ -31,7 +31,7 @@ public class TestPost extends TestCase {
      */
     public void testSetStartLocation() {
 
-        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password", "");
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
@@ -48,7 +48,7 @@ public class TestPost extends TestCase {
      */
     public void testGetEndLocation() {
 
-        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password", "");
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
@@ -62,7 +62,7 @@ public class TestPost extends TestCase {
      */
     public void testSetEndLocation() {
 
-        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password", "");
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
@@ -79,7 +79,7 @@ public class TestPost extends TestCase {
      */
     public void testSetStatus() {
 
-        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password", "");
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
@@ -95,7 +95,7 @@ public class TestPost extends TestCase {
      */
     public void testGetStatus() {
 
-        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password", "");
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
@@ -111,7 +111,7 @@ public class TestPost extends TestCase {
      */
     public void testGetFare() {
 
-        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password", "");
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
@@ -125,7 +125,7 @@ public class TestPost extends TestCase {
      */
     public void testSetFare() {
 
-        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password", "");
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
@@ -141,7 +141,7 @@ public class TestPost extends TestCase {
      */
     public void testSetDriverOffers(){
 
-        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password", "");
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
@@ -161,7 +161,7 @@ public class TestPost extends TestCase {
      */
     public void testGetDriverOffers() {
 
-        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password", "");
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
@@ -181,7 +181,7 @@ public class TestPost extends TestCase {
      */
     public void testAddDriverOffer() {
 
-        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password", "");
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
@@ -200,7 +200,7 @@ public class TestPost extends TestCase {
      */
     public void testPickDriver() {
 
-        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password");
+        User rider = new User("Kevin", "sandman", "kevin@email.com", "780-431-5274", "password", "");
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);

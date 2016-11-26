@@ -255,6 +255,7 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(RidersRequestDetailsPreUIActivity.this, ViewProfileUIActivity.class);
                         intent.putExtra("User", driverUsername);
+                        intent.putExtra("isRestricted", false);
                         startActivity(intent);
 
                         Toast.makeText(RidersRequestDetailsPreUIActivity.this, "viewing profile", Toast.LENGTH_SHORT).show();

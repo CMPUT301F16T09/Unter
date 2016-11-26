@@ -18,7 +18,7 @@ public class TestUser extends TestCase{
         String email = "alvin@email.com";
         String phoneNumber = "780-123-4567";
         String password = "password";
-        User user = new User(name, username, email, phoneNumber, password);
+        User user = new User(name, username, email, phoneNumber, password, "");
 
         assertFalse(user.getName().equals("Alvin"));
         assertTrue(user.getName().equals("alvin"));
@@ -34,7 +34,7 @@ public class TestUser extends TestCase{
         String email = "alvin@email.com";
         String phoneNumber = "780-123-4567";
         String password = "password";
-        User user = new User(name, username, email, phoneNumber, password);
+        User user = new User(name, username, email, phoneNumber, password, "");
         assertFalse(user.getUsername().equals("AlvinEhh"));
         assertTrue(user.getUsername().equals("alvinehh"));
 
@@ -51,7 +51,7 @@ public class TestUser extends TestCase{
         String email = "alvin@email.com";
         String phoneNumber = "780-123-4567";
         String password = "password";
-        User user = new User(name, username, email, phoneNumber, password);
+        User user = new User(name, username, email, phoneNumber, password, "");
         assertTrue(user.getPhoneNumber().equals("780-123-4567"));
     }
 
@@ -66,7 +66,7 @@ public class TestUser extends TestCase{
         String email = "alViN@email.com";
         String phoneNumber = "780-123-4567";
         String password = "password";
-        User user = new User(name, username, email, phoneNumber, password);
+        User user = new User(name, username, email, phoneNumber, password, "");
         assertFalse(user.getEmail().equals("alViN@email.com"));
         assertTrue(user.getEmail().equals("alvin@email.com"));
     }
@@ -80,7 +80,7 @@ public class TestUser extends TestCase{
         String email = "alvin@email.com";
         String phoneNumber = "780-123-4567";
         String password = "paSSword";
-        User user = new User(name, username, email, phoneNumber, password);
+        User user = new User(name, username, email, phoneNumber, password, "");
         assertTrue(user.getPassword().equals("paSSword"));
         assertFalse(user.getPassword().equals("password"));
     }
@@ -95,7 +95,7 @@ public class TestUser extends TestCase{
         String email = "alvin@email.com";
         String phoneNumber = "780-123-4567";
         String password = "password";
-        User user = new User(name, username, email, phoneNumber, password);
+        User user = new User(name, username, email, phoneNumber, password, "");
         assertTrue(user.getName().equals("alvin"));
         user.setName("KeVin");
         assertFalse(user.getName().equals("alvin"));
@@ -113,7 +113,7 @@ public class TestUser extends TestCase{
         String email = "alvin@email.com";
         String phoneNumber = "780-123-4567";
         String password = "password";
-        User user = new User(name, username, email, phoneNumber, password);
+        User user = new User(name, username, email, phoneNumber, password, "");
         assertTrue(user.getPhoneNumber().equals("780-123-4567"));
         user.setPhoneNumber("780-345-6789");
         assertFalse(user.getPhoneNumber().equals("780-123-4567"));
@@ -130,7 +130,7 @@ public class TestUser extends TestCase{
         String email = "alvin@email.com";
         String phoneNumber = "780-123-4567";
         String password = "password";
-        User user = new User(name, username, email, phoneNumber, password);
+        User user = new User(name, username, email, phoneNumber, password, "");
         assertTrue(user.getEmail().equals("alvin@email.com"));
         user.setEmail("kevin@Email.com");
         assertFalse(user.getEmail().equals("alvin@email.com"));
@@ -151,7 +151,7 @@ public class TestUser extends TestCase{
         String email = "alvin@email.com";
         String phoneNumber = "780-123-4567";
         String password = "password";
-        User user = new User(name, username, email, phoneNumber, password);
+        User user = new User(name, username, email, phoneNumber, password, "");
         assertTrue(user.getPassword().equals("password"));
         user.setPassword("12345Aa");
         assertFalse(user.getPassword().equals("password"));
@@ -164,13 +164,13 @@ public class TestUser extends TestCase{
      * US 1.02.01
      */
     public void testAddtoMyRequests(){
-        User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
+        User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password", "");
         GeoPoint startLoc = new GeoPoint(53.52676, -113.52715);
         GeoPoint endLoc = new GeoPoint(53.54565, -113.49026);
         String myFare = "40.39";
         Post rideRequest = new Post(startLoc,endLoc,"1", "2",myFare, "Rider");
-        newUsr.addRideRequest(rideRequest);
-        assertEquals(newUsr.getMyRequests().getPosts().size(),1);
+        newUsr.addRideRequest(rideRequest.getId());
+        assertEquals(newUsr.getMyRequests().size(),1);
 
     }
 
@@ -179,28 +179,28 @@ public class TestUser extends TestCase{
      * US 1.07.01 Rider Confirms Completion
      */
     public void testDeleteFromMyRequests(){
-        User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
+        User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password", "");
         GeoPoint startLoc = new GeoPoint(53.52676, -113.52715);
         GeoPoint endLoc = new GeoPoint(53.54565, -113.49026);
         String myFare = "40.39";
         Post rideRequest = new Post(startLoc,endLoc,"1", "2",myFare, "Rider");
-        newUsr.addRideRequest(rideRequest);
-        assertEquals(newUsr.getMyRequests().getPosts().size(),1);
-        newUsr.deleteRideRequest(rideRequest);
-        assertEquals(newUsr.getMyRequests().getPosts().size(),0);
+        newUsr.addRideRequest(rideRequest.getId());
+        assertEquals(newUsr.getMyRequests().size(),1);
+        newUsr.deleteRideRequest(rideRequest.getId());
+        assertEquals(newUsr.getMyRequests().size(),0);
     }
 
     /**
      * US 5.01.01 Driver Accepts a Request
      */
     public void testAddtoMyOffers(){
-        User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
+        User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password", "");
         GeoPoint startLoc = new GeoPoint(53.52676, -113.52715);
         GeoPoint endLoc = new GeoPoint(53.54565, -113.49026);
         String myFare = "40.39";
         Post a_request_i_accepted = new Post(startLoc,endLoc,"1", "2",myFare, "Rider");
-        newUsr.addOfferReference(a_request_i_accepted);
-        assertEquals(newUsr.getMyOffers().getPosts().size(),1);
+        newUsr.addOfferReference(a_request_i_accepted.getId());
+        assertEquals(newUsr.getMyOffers().size(),1);
     }
 
     /**
@@ -208,15 +208,15 @@ public class TestUser extends TestCase{
      * details outlined in "call dibs" in glossary
      */
     public void testDeleteFromMyOffers(){
-        User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
+        User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password", "");
         GeoPoint startLoc = new GeoPoint(53.52676, -113.52715);
         GeoPoint endLoc = new GeoPoint(53.54565, -113.49026);
         String myFare = "40.39";
         Post rideRequest = new Post(startLoc,endLoc,"1", "2",myFare, "Rider");
-        newUsr.addOfferReference(rideRequest);
-        assertEquals(newUsr.getMyRequests().getPosts().size(),1);
+        newUsr.addOfferReference(rideRequest.getId());
+        assertEquals(newUsr.getMyRequests().size(),1);
 
-        newUsr.deleteOfferReference(rideRequest);
-        assertEquals(newUsr.getMyOffers().getPosts().size(),0);
+        newUsr.deleteOfferReference(rideRequest.getId());
+        assertEquals(newUsr.getMyOffers().size(),0);
     }
 }

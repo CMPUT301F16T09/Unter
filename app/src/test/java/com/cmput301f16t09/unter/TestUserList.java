@@ -13,11 +13,11 @@ public class TestUserList extends TestCase {
      * US 3.01.01
      */
     public void testAddUser() {
-        User user = new User("Alvin", "AlvinEhh", "alvin@EmAil.com", "780-123-4567", "password");
-        User user2 = new User("Kevin", "SwaGMasTer", "KeVin@EmAil.com", "780-541-6364", "password");
-        User user3 = new User("Daniel", "DtrAn32", "KeLLy@EmAil.com", "780-654-1342", "password");
-        User user4 = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
-        User user5 = new User("Simon", "SiMooooN", "SimoN@EmAil.com", "780-623-9812", "password");
+        User user = new User("Alvin", "AlvinEhh", "alvin@EmAil.com", "780-123-4567", "password", "");
+        User user2 = new User("Kevin", "SwaGMasTer", "KeVin@EmAil.com", "780-541-6364", "password", "");
+        User user3 = new User("Daniel", "DtrAn32", "KeLLy@EmAil.com", "780-654-1342", "password", "");
+        User user4 = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password", "");
+        User user5 = new User("Simon", "SiMooooN", "SimoN@EmAil.com", "780-623-9812", "password", "");
 
         UserList userList = new UserList();
         assertTrue(userList.getUserList().isEmpty());
@@ -38,11 +38,11 @@ public class TestUserList extends TestCase {
      * Test get users.
      */
     public void testGetUsers() {
-        User user = new User("Alvin", "AlvinEhh", "alvin@EmAil.com", "780-123-4567", "password");
-        User user2 = new User("Kevin", "SwaGMasTer", "KeVin@EmAil.com", "780-541-6364", "password");
-        User user3 = new User("Daniel", "DtrAn32", "KeLLy@EmAil.com", "780-654-1342", "password");
-        User user4 = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password");
-        User user5 = new User("Simon", "SiMooooN", "SimoN@EmAil.com", "780-623-9812", "password");
+        User user = new User("Alvin", "AlvinEhh", "alvin@EmAil.com", "780-123-4567", "password", "");
+        User user2 = new User("Kevin", "SwaGMasTer", "KeVin@EmAil.com", "780-541-6364", "password", "");
+        User user3 = new User("Daniel", "DtrAn32", "KeLLy@EmAil.com", "780-654-1342", "password", "");
+        User user4 = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password", "");
+        User user5 = new User("Simon", "SiMooooN", "SimoN@EmAil.com", "780-623-9812", "password", "");
 
         UserList userList = new UserList();
         assertTrue(userList.getUserList().isEmpty());
@@ -70,7 +70,7 @@ public class TestUserList extends TestCase {
     public void testRetrieveUserbyUsername(){
 
         UserList usrList = new UserList();
-        User jellykelly = new User("Kelly", "JellYKeLly", "jellykelly@example.com", "780-653-1241", "kelly's password");
+        User jellykelly = new User("Kelly", "JellYKeLly", "jellykelly@example.com", "780-653-1241", "kelly's password", "");
 
         User testEmptyList = usrList.searchByUsername(jellykelly.getUsername());
         //assertEquals(testEmptyList instanceof NonexistantUserException);

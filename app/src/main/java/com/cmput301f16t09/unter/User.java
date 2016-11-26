@@ -30,13 +30,13 @@ public class User {
      * @param phoneNumber the phone number of the user
      * @param password    the password of the user
      */
-    public User(String name, String username, String email, String phoneNumber, String password) {
+    public User(String name, String username, String email, String phoneNumber, String password, String vehicle) {
         this.name = name.toLowerCase();
         this.username = username.toLowerCase();
         this.email = email.toLowerCase();
         this.phoneNumber = phoneNumber;
         this.password = password;
-        this.vehicle = "No vehicle information provided.";
+        this.vehicle = vehicle;
         this.myRequests = new ArrayList<String>();
         this.myOffers = new ArrayList<String>();
     }

@@ -7,6 +7,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -91,7 +93,9 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
 
         TextView tvDriverName = (TextView) findViewById(R.id.RideRequestDetailsPostDriverName);
         final String driverName = CurrentUser.getCurrentPost().getDriver().toString();
-        tvDriverName.setText(driverName);
+        SpannableString content = new SpannableString(driverName);
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        tvDriverName.setText(content);
 
         map = (MapView) findViewById(R.id.RidersRequestDetailsPostMap);
         map.setTileSource(TileSourceFactory.MAPNIK);
@@ -113,6 +117,7 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(RidersRequestDetailsPostUIActivity.this,ViewProfileUIActivity.class);
                 intent.putExtra("User",driverName);
+                intent.putExtra("isRestricted", false);
                 startActivity(intent);
             }
         });

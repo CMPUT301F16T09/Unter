@@ -90,7 +90,6 @@ public class EditProfileUIActivity extends AppCompatActivity {
      * @see UserListOnlineController
      */
     public void updateProfile(View v) {
-        UserListOnlineController uc = new UserListOnlineController();
         String newName = editName.getText().toString();
         String newNumber = editPhoneNumber.getText().toString();
         String newEmail = editEmail.getText().toString();
@@ -108,10 +107,7 @@ public class EditProfileUIActivity extends AppCompatActivity {
                 UserListOnlineController.UpdateUsersTask updateUserListsTask = new UserListOnlineController.UpdateUsersTask();
                 updateUserListsTask.execute(CurrentUser.getCurrentUser());
                 updateUserListsTask.get();
-
-
-               // Toast.makeText(EditProfileUIActivity.this, "Your information was updated!" , Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(EditProfileUIActivity.this, "Your information was updated!" , Toast.LENGTH_SHORT).show();
 
             } catch(Exception e) {
                 Log.i("Error", "Could not update");
@@ -122,5 +118,11 @@ public class EditProfileUIActivity extends AppCompatActivity {
         else {
             Toast.makeText(EditProfileUIActivity.this, "Your password did not confirm!" , Toast.LENGTH_SHORT).show();
         }
+        try {
+            Thread.sleep(1000);
+        }
+        catch (Exception e) {
+        }
+        finish();
     }
 }
