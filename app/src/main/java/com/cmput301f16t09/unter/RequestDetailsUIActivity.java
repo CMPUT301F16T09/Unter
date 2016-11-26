@@ -31,7 +31,7 @@ import java.util.List;
  * This is a 'View' that displays the information for a specific request.
  * It is accessible by drivers once they select a request under 'Provide A Ride'
  * Driver's can offer rides from this screen.
- *
+ * Notifications are created here
  */
 public class RequestDetailsUIActivity extends AppCompatActivity {
 
@@ -279,7 +279,9 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
                     updateUserTask.execute(CurrentUser.getCurrentUser());
                     updateUserTask.get();
                     NotificationOnlineController.AddNotificationsTask addNotificationsTask = new NotificationOnlineController.AddNotificationsTask();
-                    Notification notification = new Notification(CurrentUser.getCurrentPost().getUsername(), "You have a new driver request for " + CurrentUser.getCurrentPost().getEndAddress() + " from: " + CurrentUser.getCurrentUser().getUsername() + " with vehicle: " + CurrentUser.getCurrentUser().getVehicle());
+                    String msg = CurrentUser.getCurrentUser().getUsername() + " wants to be your driver for route " + CurrentUser.getCurrentPost().getStartAddress() + " -> " + CurrentUser.getCurrentPost().getEndAddress() +  ", in a " + CurrentUser.getCurrentUser().getVehicle() + " .";
+                    Notification notification = new Notification(CurrentUser.getCurrentPost().getUsername(), msg);
+                    notification.setPostType("request"); //request
                     addNotificationsTask.execute(notification);
                     addNotificationsTask.get();
                     Toast.makeText(RequestDetailsUIActivity.this, "Successfully sent the offer!", Toast.LENGTH_SHORT).show();

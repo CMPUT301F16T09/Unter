@@ -21,6 +21,7 @@ public class MainScreenUIActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen_ui);
+        NotificationOnlineController.createNotifications(MainScreenUIActivity.this);
     }
 
     @Override
@@ -50,7 +51,6 @@ public class MainScreenUIActivity extends AppCompatActivity {
     }
 
     //The following methods bring the user to the appropriate activity upon selecting that button
-
 
     public void viewNotifications(View v){
         Intent intent = new Intent(MainScreenUIActivity.this,NotificationsActivity.class);

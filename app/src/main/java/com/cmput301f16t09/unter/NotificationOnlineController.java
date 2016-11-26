@@ -34,28 +34,26 @@ public class NotificationOnlineController {
     //Static variables for JestDroidClient and holding notificationss.
     private static JestDroidClient client;
     private static ArrayList<Notification> arrayNotificationList = null;
-    static final private ArrayList<Notification> templist = new ArrayList<Notification>();
-    private static int mID = 0;
+    static final private ArrayList<Notification> list = new ArrayList<Notification>();
+//    private static int mID = 0;
 
     public static ArrayList<Notification> getList(){
-        return templist;
+        return list;
     }
 
     public static void findNotifications(){
-        //any status changes are placed into current user notification list
+        //any status changes are placed into notification list
 
-        templist.clear();
+        list.clear();
 
         try {
             NotificationOnlineController.SearchNotificationListsTask searchNotificationListsTask = new NotificationOnlineController.SearchNotificationListsTask();
             searchNotificationListsTask.execute("username", CurrentUser.getCurrentUser().getUsername());
-            templist.addAll(searchNotificationListsTask.get());
+            list.addAll(searchNotificationListsTask.get());
 
         } catch (Exception e) {
             Log.i("Error", "Error trying to obtain notification");
         }
-
-
     }
 
     public static void createNotifications(Context c){
@@ -81,13 +79,14 @@ public class NotificationOnlineController {
         NotificationManager mNotificationManager = (NotificationManager) c.getSystemService(Context.NOTIFICATION_SERVICE);
 
         //http://stackoverflow.com/questions/16885706/click-on-notification-to-go-current-activity
-        if (templist.isEmpty()){
+        //David Wasser, Nov 22 2016
+        if (list.isEmpty()){
             Toast.makeText(c, "No new notifications!", Toast.LENGTH_SHORT).show();
         }
         else {
            // for (Notification n : templist) {
                 mBuilder.setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText("There are " +  templist.size() + " new updates to your open posts.")
+                        .bigText("There are " +  list.size() + " new updates to your open posts.")
                 );
                 android.app.Notification N = mBuilder.build();
                 mNotificationManager.notify(0, N);

@@ -12,10 +12,12 @@ public class Notification {
     private String notification;
     @JestId
     private String documentId;
+    private String postType ;
 
     public Notification(String user, String notification_message) {
         this.username = user;
         this.notification = notification_message;
+        this.postType = "";
     }
 
     public String getUsername() {
@@ -44,5 +46,13 @@ public class Notification {
 
     public String toString(){
         return notification;
+    }
+
+    public String getPostType(){
+        return postType;
+    }
+
+    public void setPostType(String type){
+        this.postType=type;
     }
 }

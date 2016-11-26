@@ -22,6 +22,7 @@ import java.util.ArrayList;
  * have offered a ride for the users ride request post. The user can view the user's profile who
  * offered the post, cancel the post, or confirm an offer made by a user for the post. There is also
  * basic information (no map) for the post.
+ * Notifications are created here
  * @author Daniel
  */
 public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
@@ -210,7 +211,9 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
                                 updateUsersTask4.get();
 
                                 NotificationOnlineController.AddNotificationsTask addNotificationsTask = new NotificationOnlineController.AddNotificationsTask();
-                                Notification notification = new Notification(driverUsername, "You have a confirmation of driving " + CurrentUser.getCurrentUser().getUsername() + " from " + CurrentUser.getCurrentPost().getStartAddress() + " to " + CurrentUser.getCurrentPost().getEndAddress());
+                                String msg = "You have been selected to drive" + CurrentUser.getCurrentUser().getUsername() + " from " + CurrentUser.getCurrentPost().getStartAddress() + " to " + CurrentUser.getCurrentPost().getEndAddress() + " !";
+                                Notification notification = new Notification(driverUsername, msg);
+                                notification.setPostType("offer"); //offer
                                 addNotificationsTask.execute(notification);
                                 addNotificationsTask.get();
 
