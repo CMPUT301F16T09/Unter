@@ -81,7 +81,7 @@ public class NotificationOnlineController {
         //http://stackoverflow.com/questions/16885706/click-on-notification-to-go-current-activity
         //David Wasser, Nov 22 2016
         if (list.isEmpty()){
-            Toast.makeText(c, "No new notifications!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(c, "No new notifications!", Toast.LENGTH_SHORT).show();
         }
         else {
            // for (Notification n : templist) {
