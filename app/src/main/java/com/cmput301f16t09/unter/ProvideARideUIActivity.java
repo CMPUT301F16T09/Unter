@@ -2,16 +2,23 @@ package com.cmput301f16t09.unter;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,11 +30,23 @@ public class ProvideARideUIActivity extends AppCompatActivity {
 
     private PostList postList = new PostList();
     private ArrayAdapter<Post> adapter;
+    private ListView mDrawerList;
+    private ArrayAdapter<String> mAdapter;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private DrawerLayout mDrawerLayout;
+    private String mActivityTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provide_aride_ui);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        mActivityTitle = getTitle().toString();
+
+        setupDrawer();
 
         ListView currentPostList = (ListView) findViewById(R.id.listViewProvideARide);
 
@@ -48,21 +67,6 @@ public class ProvideARideUIActivity extends AppCompatActivity {
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView tv = (TextView) view.findViewById(android.R.id.text1);
-                //String forTestUsername = postList.getPost(position).getUsername();
-
-//                double startLat = postList.getPost(position).getStartLocation().getLatitude();
-//                double startLon = postList.getPost(position).getStartLocation().getLongitude();
-//                double endLat = postList.getPost(position).getEndLocation().getLatitude();
-//                double endLon = postList.getPost(position).getEndLocation().getLongitude();
-//
-//                try {
-//                    List<Address> startAddress = coder.getFromLocation(startLat, startLon, 1);
-//                    List<Address> endAddress = coder.getFromLocation(endLat, endLon, 1);
-//                    tv.setText("Username: " + forTestUsername + "\nStart: " + startAddress.get(0).getAddressLine(0) +"\nEnd: " + endAddress.get(0).getAddressLine(0));
-//
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
 
                 String startLocation = postList.getPost(position).getStartAddress();
                 String endLocation = postList.getPost(position).getEndAddress();
@@ -112,16 +116,6 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                     CurrentUser.setCurrentPost(null);
                     Toast.makeText(ProvideARideUIActivity.this, "Selected Post Request Unavailable. Updated List.", Toast.LENGTH_SHORT).show();
                 }
-
-            }
-        });
-
-        currentPostList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long id) {
-                final Post postToRemove = postList.getPosts().get(pos);
-                createDeletionDialog(postToRemove);
-                return true;
             }
         });
 
@@ -160,49 +154,58 @@ public class ProvideARideUIActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public void onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawers();
+        }
     }
 
-    /**
-     * Long clicking on a post will give the user the option to delete the post
-     *
-     * @param post the post to be deleted
-     */
-    public void createDeletionDialog(Post post) {
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
 
-        final Post postToRemove = post;
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
 
-        // Build the dialog
-        AlertDialog.Builder deleteDialog = new AlertDialog.Builder(ProvideARideUIActivity.this);
-        deleteDialog.setMessage("Delete This Post?");
-        deleteDialog.setCancelable(true);
-        deleteDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+    private void setupDrawer() {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.string.drawer_open, R.string.drawer_close) {
 
-            // Don't do anything if Cancel is clicked, which closes the dialog
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
-        });
 
-        // If delete is pressed
-        deleteDialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-                try {
-                    PostListOfflineController.getPostList(ProvideARideUIActivity.this).deletePost(postToRemove);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                Toast.makeText(ProvideARideUIActivity.this, "Post Deleted", Toast.LENGTH_SHORT).show();
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
-        });
+        };
 
-        // Show the dialog
-        deleteDialog.show();
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        // Activate the navigation drawer toggle
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

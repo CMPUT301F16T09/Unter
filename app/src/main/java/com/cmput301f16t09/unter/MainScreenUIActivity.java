@@ -48,25 +48,25 @@ public class MainScreenUIActivity extends AppCompatActivity {
 
 
     public void requestARide(View v){
-        Intent intent = new Intent(MainScreenUIActivity.this, RequestARideUIActivity.class);
-        startActivity(intent);
+        Intent requestARideIntent = new Intent(MainScreenUIActivity.this, RequestARideUIActivity.class);
+        startActivity(requestARideIntent);
     }
 
     public void myRideRequests(View v){
-        Intent requestARideIntent = new Intent(MainScreenUIActivity.this, MyRideRequestsUIActivity.class);
-        startActivity(requestARideIntent);
+        Intent myRideRequestsIntent = new Intent(MainScreenUIActivity.this, MyRideRequestsUIActivity.class);
+        startActivity(myRideRequestsIntent);
     }
 
 
     public void provideARide(View v){
-        Intent requestARideIntent = new Intent(MainScreenUIActivity.this, ProvideARideUIActivity.class);
-        startActivity(requestARideIntent);
+        Intent provideARideIntent = new Intent(MainScreenUIActivity.this, ProvideARideUIActivity.class);
+        startActivity(provideARideIntent);
     }
 
 
     public void myRideOffers(View v){
-        Intent requestARideIntent = new Intent(MainScreenUIActivity.this, MyRideOffersUIActivity.class);
-        startActivity(requestARideIntent);
+        Intent myRideOffersIntent = new Intent(MainScreenUIActivity.this, MyRideOffersUIActivity.class);
+        startActivity(myRideOffersIntent);
 
 //        Intent requestARideIntent = new Intent(MainScreenUIActivity.this, RidersRequestDetailsPreUIActivity.class);
 //        startActivity(requestARideIntent);
