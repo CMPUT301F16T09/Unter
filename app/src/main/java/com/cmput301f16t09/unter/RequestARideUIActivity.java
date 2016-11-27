@@ -184,38 +184,47 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
 
     public void confirmRideRequest(View v) {
 
-//        startLocation = editStart.getText().toString();
-//        endLocation = editEnd.getText().toString();
 
-//
-//        if (startLocation.equals("") && endLocation.equals("")) {
-//            Toast.makeText(this, "Please fill in start and end locations", Toast.LENGTH_SHORT).show();
-//        }
-//        else if (startLocation.equals("")) {
-//            Toast.makeText(this, "Please fill in start location", Toast.LENGTH_SHORT).show();
-//        }
-//        else if (endLocation.equals("")) {
-//            Toast.makeText(this, "Please fill in end location", Toast.LENGTH_SHORT).show();
-//        }
-//        else {
-//            startPoint = getCoords(startLocation);
-//            endPoint = getCoords(endLocation);
+        if (startLocation == null && endLocation == null) {
+            Toast.makeText(this, "Please specify your start and end locations", Toast.LENGTH_SHORT).show();
+        }
+        else if (startLocation == null || startLocation.isEmpty()) {
+            Toast.makeText(this, "Please specify your start location", Toast.LENGTH_SHORT).show();
+        }
+        else if (endLocation == null || endLocation.isEmpty()) {
+            Toast.makeText(this, "Please specify your end location", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            startPoint = getCoords(startLocation);
+            endPoint = getCoords(endLocation);
 
-        editFare = (EditText) findViewById(R.id.RequestRideCost);
-        String fare = editFare.getText().toString();
+            editFare = (EditText) findViewById(R.id.RequestRideCost);
+            String fare = editFare.getText().toString();
 
-        Log.d("START LOCATION", startLocation);
-        Log.d("END END LOCATION", endLocation);
+            Log.d("START", startLocation);
+            Log.d("END", endLocation);
 
-        PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
-        Post newPost = new Post(startPoint, endPoint, startLocation, endLocation, fare, CurrentUser.getCurrentUser().getUsername());
-        PostListOfflineController.addOfflinePost(newPost, RequestARideUIActivity.this);
-        addPostOnline.execute(newPost);
-        Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();
+            Post newPost = new Post(startPoint, endPoint, startLocation, endLocation, fare, CurrentUser.getCurrentUser().getUsername());
 
-        finish();
+            try {
+                PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
+                addPostOnline.execute(newPost);
+                addPostOnline.get();
+            }
+            catch (Exception e){
+            }
+            PostListOfflineController.addOfflinePost(newPost, RequestARideUIActivity.this);
+            //addPostOffline.execute(newPost);
+            Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();
+            try {
+                Thread.sleep(1000);
+            }
+            catch (Exception e) {
+            }
+
+            finish();
+        }
     }
-
     /**
      * Taken from CMPUT 301 Fall 16 Lab 8 - Geolocation by Stephen Romansky
      * Calls upon the UpdateRoadTask to draw a given route in the Activities MapView
@@ -398,6 +407,7 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         inflater.inflate(R.menu.map_menu, menu);
     }
 
+
     @Override
     public boolean onContextItemSelected(MenuItem item){
         switch (item.getItemId()){
@@ -409,6 +419,7 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
                 Marker startMarker = new Marker(map);
                 startMarker.setPosition(startPoint);
                 startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                
                 map.getOverlays().add(startMarker);
                 map.invalidate();
 
