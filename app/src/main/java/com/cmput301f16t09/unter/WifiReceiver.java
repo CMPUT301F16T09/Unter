@@ -54,4 +54,9 @@ public class WifiReceiver extends BroadcastReceiver {
             Toast.makeText(context, "WiFi Has Disconnected", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public static boolean isNetworkAvailable(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
 };

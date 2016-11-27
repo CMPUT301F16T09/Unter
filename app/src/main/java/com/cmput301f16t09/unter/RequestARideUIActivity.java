@@ -185,7 +185,6 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         editEnd.setThreshold(9);
         editEnd.showDropDown();
 
-
         editEnd.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
