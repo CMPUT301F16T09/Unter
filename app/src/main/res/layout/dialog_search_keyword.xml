@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <Button
+    android:text="Confirm"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="25dp"
+    android:id="@+id/searchKeywordConfirm"
+    android:layout_below="@+id/searchKeyword"
+    android:layout_alignStart="@+id/searchKeyword" />
+
+    <EditText
+        android:id="@+id/searchKeyword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_marginTop="35dp"
+        android:hint="enter keyword"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/searchKeywordCancel"
+        android:layout_alignEnd="@+id/searchKeyword"
+        android:layout_alignBottom="@+id/searchKeywordConfirm"
+        android:layout_alignBaseline="@+id/searchKeywordConfirm"
+        android:text="Cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+</RelativeLayout>

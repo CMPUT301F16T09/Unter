@@ -18,11 +18,11 @@
         tools:context="com.cmput301f16t09.unter.ProvideARideUIActivity">
 
         <TextView
-            android:id="@+id/ProvideARide"
+            android:id="@+id/ProvideARideSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Provide A Ride"
-            android:textSize="42sp"
+            android:textSize="24sp"
             android:textColor="@color/white"
             android:fontFamily="sans-serif-smallcaps" />
 
@@ -30,7 +30,7 @@
             android:id="@+id/listViewProvideARide"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ProvideARide"
+            android:layout_below="@+id/ProvideARideSearch"
             android:layout_centerHorizontal="true" />
 
     </RelativeLayout>

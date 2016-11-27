@@ -1,5 +1,6 @@
 package com.cmput301f16t09.unter;
 
+import android.app.Dialog;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +21,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -40,6 +43,7 @@ public class ProvideARideUIActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
+    private TextView tvSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,8 @@ public class ProvideARideUIActivity extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.nvView);
         mActivityTitle = getTitle().toString();
+
+        tvSearch = (TextView) findViewById(R.id.ProvideARideSearch);
 
         addDrawerItems();
         setupDrawer();
@@ -215,33 +221,57 @@ public class ProvideARideUIActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if (position==0){
+                if (position == 0) {
                     Toast.makeText(ProvideARideUIActivity.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
-                    AlertDialog.Builder keywordDialog = new AlertDialog.Builder(ProvideARideUIActivity.this);
-                    keywordDialogialog.setTitle("Search By Keyword");
-                    paymentDialog.setMessage("$"+ "  " + CurrentUser.getCurrentPost().getFare().toString()); //make this to two decimal places
-                    paymentDialog.setCancelable(false);
+                    final Dialog dialog = new Dialog(ProvideARideUIActivity.this);
+                    dialog.setTitle("Search by Keyword");
+                    dialog.setContentView(R.layout.dialog_search_keyword);
+                    dialog.show();
 
-                    paymentDialog.setPositiveButton("Complete Transaction", new DialogInterface.OnClickListener() {
+                    final EditText editText = (EditText) dialog.findViewById(R.id.searchKeyword);
+                    Button searchKeywordConfirm = (Button) dialog.findViewById(R.id.searchKeywordConfirm);
+                    Button searchKeywordCancel = (Button) dialog.findViewById(R.id.searchKeywordCancel);
+
+                    searchKeywordConfirm.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            //int index = CurrentUser.getCurrentUser().getMyRequests().getPosts().indexOf(CurrentUser.getCurrentPost());
-                            //CurrentUser.getCurrentUser().getMyRequests().getPosts().get(index).setStatus("Completed");
-                            // CurrentUser.getCurrentUser().getMyRequests().getPosts().remove(CurrentUser.getCurrentPost());
-                            CurrentUser.getCurrentPost().setStatus("Completed");
+                        public void onClick(View v) {
+                           String keyword = editText.getText().toString();
+                            if (keyword.length()==0) {
+                                // add toast
+                            }
+                            tvSearch.setText("Searching by Keyword: " + keyword);
+                                // Implement search method
 
-
+                            onBackPressed();
+                            dialog.cancel();
                         }
                     });
-                    paymentDialog.show();
+
+                    searchKeywordCancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.cancel();
+                        }
+                    });
+
+                } else if (position == 1) {
+                    Dialog dialog = new Dialog(ProvideARideUIActivity.this);
+                    dialog.setTitle("Search by Keyword");
+                    dialog.setContentView(R.layout.dialog_search_keyword);
+                    dialog.show();
+
+                    final EditText editText = (EditText) dialog.findViewById(R.id.searchKeyword);
+                    Button searchKeywordConfirm = (Button) dialog.findViewById(R.id.searchKeywordConfirm);
+                    Button searchKeywordCancel = (Button) dialog.findViewById(R.id.searchKeywordCancel);
+
+                } else if (position == 2) {
+
+                } else if (position == 3) {
+                } else {
+                } //position ==4
+
             }
-                else if (position==1){}
-                else if (position==2){}
-                else if (position==3){}
-                else {} //position ==4
-
-
-
+        });
     }
 
 
