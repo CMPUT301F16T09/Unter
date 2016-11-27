@@ -44,7 +44,6 @@ public class PostListOfflineController {
      */
     public static PostList loadOfflinePosts(String saveType, PostList postList, Context context)
     {
-        Toast.makeText(context, "Offline", Toast.LENGTH_SHORT).show();
         File dir;
         FileInputStream fis;
         /**

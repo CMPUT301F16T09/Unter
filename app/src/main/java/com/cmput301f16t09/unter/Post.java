@@ -3,6 +3,7 @@ package com.cmput301f16t09.unter;
 import org.osmdroid.util.GeoPoint;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import io.searchbox.annotations.JestId;
 
@@ -223,4 +224,5 @@ public class Post {
 //    public String toString(){
 //        return "Rider: "+ getUsername()+ "Driver:";
 //    }
+
 }

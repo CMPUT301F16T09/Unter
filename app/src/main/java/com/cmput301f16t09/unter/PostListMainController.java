@@ -164,24 +164,38 @@ public class PostListMainController {
     public static void deletePosts(Post post, Context context) {
         try {
             if (isNetworkAvailable(context)) {
-                PostListOnlineController.DeletePostsTask upt = new PostListOnlineController.DeletePostsTask();
-                upt.execute(post);
-                upt.get();
+//                PostListOnlineController.DeletePostsTask upt = new PostListOnlineController.DeletePostsTask();
+//                upt.execute(post);
+//                upt.get();
+                PostListOnlineController.DeletePostsTaskId deletePostsTaskid = new PostListOnlineController.DeletePostsTaskId();
+                deletePostsTaskid.execute(post.getId());
+                deletePostsTaskid.get();
             }
 
             else {
                 // If postListQueue contains the post, then the post was made offline, so delete from
                 // postListMain
+                Boolean offlinePostMade = false;
 
-                postListQueue.deletePost(post);
+                for (Post p : postListQueue.getPosts()) {
+                    if (p.getStartLocation().equals(post.getStartLocation()) &&
+                            p.getEndLocation().equals(post.getEndLocation()) &&
+                            p.getFare().equals(post.getFare())) {
+                        offlinePostMade = true;
+                        postListQueue.deletePost(p);
+                        break;
+                    }
+                }
                 PostListOfflineController.saveOfflinePosts("queueOffline", postListQueue, context);
-                postListMain.deletePost(post);
-                PostListOfflineController.saveOfflinePosts("mainOffline", postListMain, context);
 
-                if (!postListQueue.getPosts().contains(post)) {
+                if (!offlinePostMade) {
                     postListDelete.addPost(post);
                     PostListOfflineController.saveOfflinePosts("deleteOffline", postListDelete, context);
                 }
+
+                postListMain.deletePost(post);
+                PostListOfflineController.saveOfflinePosts("mainOffline", postListMain, context);
+
             }
         }
         catch (Exception e) {
@@ -194,4 +208,5 @@ public class PostListMainController {
         final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
+
 }
