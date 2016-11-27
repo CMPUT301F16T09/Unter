@@ -19,22 +19,6 @@ public class WifiReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         ConnectivityManager conMan = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = conMan.getActiveNetworkInfo();
-        final Context c = context;
-
-        // Create the Handler object (on the main thread by default)
-         final Handler handler = new Handler();
-        // Define the code block to be executed
-        final Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                // Do something here on the main thread
-                Log.d("Handlers", "Called on main thread");
-                // Repeat this the same runnable code block again another 2 seconds
-                Toast.makeText(c, "periodic notification check", Toast.LENGTH_SHORT).show();
-                NotificationOnlineController.createNotifications(c);
-                handler.postDelayed(this, 30000);
-            }
-        };
 
         if (netInfo != null && netInfo.getState().name().equals("CONNECTED")) {
 
@@ -42,11 +26,6 @@ public class WifiReceiver extends BroadcastReceiver {
 
             Log.d("WifiReceiver", "Have Wifi Connection");
             Toast.makeText(context, "WiFi Has Reconnected", Toast.LENGTH_SHORT).show();
-
-
-            // Start the initial runnable task by posting through the handler
-            handler.post(r);
-            r.run();
 
             if (CurrentUser.getCurrentUser() != null) {
 
@@ -74,11 +53,41 @@ public class WifiReceiver extends BroadcastReceiver {
         else {
             Log.d("WifiReceiver", "Don't have Wifi Connection");
             Toast.makeText(context, "WiFi Has Disconnected", Toast.LENGTH_SHORT).show();
+        }
+
+
+        final Context c = context;
+        final Handler handler = new Handler();
+        final Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                Log.d("Handlers", "Called on main thread");
+                Toast.makeText(c, "periodic notification check", Toast.LENGTH_SHORT).show();
+                NotificationOnlineController.createNotifications(c);
+                handler.postDelayed(this, 30000);
+            }
+        };
+
+
+        if (!(c instanceof MainGUIActivity)&(isNetworkAvailable(c))){
+            handler.post(r);
+            r.run();
+        }
+
+        if (!isNetworkAvailable(c)){
             handler.removeCallbacks(r);
         }
+
+
+    } //on receive
+
+    public boolean isNetworkAvailable(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
-};
+}
 
 
 //https://guides.codepath.com/android/Repeating-Periodic-Tasks
 //http://stackoverflow.com/questions/6242268/repeat-a-task-with-a-time-delay/6242292#6242292
+

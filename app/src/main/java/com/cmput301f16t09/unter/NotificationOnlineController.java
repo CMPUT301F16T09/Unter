@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -36,6 +37,9 @@ public class NotificationOnlineController {
     private static ArrayList<Notification> arrayNotificationList = null;
     static final private ArrayList<Notification> list = new ArrayList<Notification>();
 //    private static int mID = 0;
+
+
+
 
     public static ArrayList<Notification> getList(){
         return list;
