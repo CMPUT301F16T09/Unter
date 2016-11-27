@@ -22,7 +22,7 @@
 
     <AutoCompleteTextView
         android:id="@+id/RequestRideStartLocation"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="42dp"
         android:layout_below="@+id/RequestARide"
         android:layout_marginTop="5dp"
@@ -34,7 +34,7 @@
 
     <AutoCompleteTextView
         android:id="@+id/RequestRideEndLocation"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="42dp"
         android:layout_below="@+id/RequestRideStartLocation"
         android:textSize="@dimen/input_text_size"
@@ -73,19 +73,30 @@
         android:text="CONFIRM"
         android:textSize="20sp"
         android:fontFamily="sans-serif-smallcaps"
-        android:onClick="confirmRideRequest" />
+        android:onClick="confirmRideRequest"
+        android:layout_alignParentStart="true" />
 
     <Button
-        android:id="@+id/GetEstimateButton"
-        android:layout_width="175dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/RequestARideConfirmButton"
-        android:text = "Get\nEstimate"
-        android:textSize="20sp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:onClick = "getEstimate" />
+        android:text="find"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_alignTop="@+id/RequestRideStartLocation"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/findStart"
+        android:layout_toEndOf="@+id/RequestRideStartLocation"
+        android:onClick="completeStartAddress"
+        android:elevation="0dp" />
+
+    <Button
+        android:text="find"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_below="@+id/findStart"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/findEnd"
+        android:layout_toEndOf="@+id/RequestRideEndLocation"
+        android:onClick="completeEndAddress"
+        android:elevation="0dp" />
 
     <org.osmdroid.views.MapView android:id="@+id/RequestARideMap"
         android:layout_width="400dp"
