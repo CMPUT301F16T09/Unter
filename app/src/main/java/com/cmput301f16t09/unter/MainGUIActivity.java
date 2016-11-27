@@ -1,6 +1,7 @@
 package com.cmput301f16t09.unter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
@@ -83,6 +84,13 @@ public class MainGUIActivity extends AppCompatActivity {
 //                PostListMainController.getPostListQueue(MainGUIActivity.this);
 //                PostListMainController.getPostListUpdate(MainGUIActivity.this);
 //                PostListMainController.getPostListDelete(MainGUIActivity.this);
+
+                HandlerThread thread = new HandlerThread("Poll Notifications");
+                thread.start();
+                if (thread.isAlive()) {Log.i("Polling","Polling Thread is working");}
+
+
+
                 Intent intent = new Intent(MainGUIActivity.this, MainScreenUIActivity.class);
                 startActivity(intent);
 
