@@ -35,14 +35,12 @@
 
     </RelativeLayout>
 
-    <android.support.design.widget.NavigationView
+    <ListView
         android:id="@+id/nvView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="#606060"
-        app:itemTextColor="@color/TextColor"
-        app:menu="@menu/drawer_view"
-        app:headerLayout="@layout/provide_aride_header"/>
+        app:itemTextColor="@color/TextColor"/>
 
 </android.support.v4.widget.DrawerLayout>

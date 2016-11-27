@@ -3,19 +3,19 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/nav_first_fragment"
+            android:id="@+id/searchKeyword"
             android:title="Keyword" />
 
         <item
-            android:id="@+id/nav_second_fragment"
+            android:id="@+id/searchGeolocation"
             android:title="Geolocation"/>
 
         <item
-            android:id="@+id/nav_third_fragment"
+            android:id="@+id/searchFare"
             android:title="Fare" />
 
         <item
-            android:id="@+id/nav_fourth_fragment"
+            android:id="@+id/searchFareKM"
             android:title="Fare/km" />
 
     </group>

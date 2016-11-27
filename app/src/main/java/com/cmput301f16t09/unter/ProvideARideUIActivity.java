@@ -1,16 +1,19 @@
 package com.cmput301f16t09.unter;
 
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +28,8 @@ import android.widget.Toast;
 /**
  * Provide A Ride UI Activity is where the user sees all the Requests made (minus his/her own)
  * and can choose to make a Ride offer for a Request
+ * How to do nav bars
+ * http://blog.teamtreehouse.com/add-navigation-drawer-android
  */
 public class ProvideARideUIActivity extends AppCompatActivity {
 
@@ -39,14 +44,18 @@ public class ProvideARideUIActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Provide A Ride");
         setContentView(R.layout.activity_provide_aride_ui);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.nvView);
         mActivityTitle = getTitle().toString();
 
+        addDrawerItems();
         setupDrawer();
+//        setUpNavigationView();
 
         ListView currentPostList = (ListView) findViewById(R.id.listViewProvideARide);
 
@@ -158,6 +167,9 @@ public class ProvideARideUIActivity extends AppCompatActivity {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawers();
         }
+        else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -172,17 +184,20 @@ public class ProvideARideUIActivity extends AppCompatActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
+
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.string.drawer_open, R.string.drawer_close) {
 
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle("Search Options");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
+                getSupportActionBar().setTitle("Provide A Ride");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
@@ -190,6 +205,45 @@ public class ProvideARideUIActivity extends AppCompatActivity {
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
+
+    private void addDrawerItems() {
+        String[] osArray = { "Keyword", "Geolocation", "Fare", "Fare/km", "Address" };
+        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
+        mDrawerList.setAdapter(mAdapter);
+
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position==0){
+                    Toast.makeText(ProvideARideUIActivity.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder keywordDialog = new AlertDialog.Builder(ProvideARideUIActivity.this);
+                    keywordDialogialog.setTitle("Search By Keyword");
+                    paymentDialog.setMessage("$"+ "  " + CurrentUser.getCurrentPost().getFare().toString()); //make this to two decimal places
+                    paymentDialog.setCancelable(false);
+
+                    paymentDialog.setPositiveButton("Complete Transaction", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            //int index = CurrentUser.getCurrentUser().getMyRequests().getPosts().indexOf(CurrentUser.getCurrentPost());
+                            //CurrentUser.getCurrentUser().getMyRequests().getPosts().get(index).setStatus("Completed");
+                            // CurrentUser.getCurrentUser().getMyRequests().getPosts().remove(CurrentUser.getCurrentPost());
+                            CurrentUser.getCurrentPost().setStatus("Completed");
+
+
+                        }
+                    });
+                    paymentDialog.show();
+            }
+                else if (position==1){}
+                else if (position==2){}
+                else if (position==3){}
+                else {} //position ==4
+
+
+
+    }
+
 
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
