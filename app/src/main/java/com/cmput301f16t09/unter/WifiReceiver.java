@@ -81,3 +81,4 @@ public class WifiReceiver extends BroadcastReceiver {
 
 
 //https://guides.codepath.com/android/Repeating-Periodic-Tasks
+//http://stackoverflow.com/questions/6242268/repeat-a-task-with-a-time-delay/6242292#6242292
