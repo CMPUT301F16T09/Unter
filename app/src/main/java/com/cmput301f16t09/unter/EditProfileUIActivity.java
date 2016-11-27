@@ -61,6 +61,7 @@ public class EditProfileUIActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile_ui);
+        this.setTitle("Edit your Profile");
         Toast.makeText(EditProfileUIActivity.this, CurrentUser.getCurrentUser().getName(), Toast.LENGTH_SHORT).show();
 
         //grabs the respective data from the android widgets and stores them in their respective object representations.
@@ -77,11 +78,6 @@ public class EditProfileUIActivity extends AppCompatActivity {
         editVehicle.setText(CurrentUser.getCurrentUser().getVehicle());
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
     /**
      * Update profile using Elastic search.
@@ -120,7 +116,7 @@ public class EditProfileUIActivity extends AppCompatActivity {
         }
 
         else {
-            Toast.makeText(EditProfileUIActivity.this, "Your password did not confirm!" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditProfileUIActivity.this, "Your passwords did not confirm!" , Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -64,7 +64,7 @@ public class WifiReceiver extends BroadcastReceiver {
                 Log.d("Handlers", "Called on main thread");
                 Toast.makeText(c, "periodic notification check", Toast.LENGTH_SHORT).show();
                 NotificationOnlineController.createNotifications(c);
-                handler.postDelayed(this, 30000);
+                handler.postDelayed(this, 10000);
             }
         };
 

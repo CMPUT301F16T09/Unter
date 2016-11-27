@@ -28,6 +28,7 @@ public class ProvideARideUIActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provide_aride_ui);
+        this.setTitle("Provide a Ride");
 
         ListView currentPostList = (ListView) findViewById(R.id.listViewProvideARide);
 
@@ -157,11 +158,6 @@ public class ProvideARideUIActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
     /**
      * Long clicking on a post will give the user the option to delete the post

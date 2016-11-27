@@ -11,23 +11,14 @@
     tools:context="com.cmput301f16t09.unter.NotificationsActivity">
 
 
-    <TextView
-        android:id="@+id/myNotifications"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Notifications"
-        android:textSize="42sp"
-        android:textColor="@color/white"
-        android:fontFamily="sans-serif-smallcaps" />
-
     <ListView
         android:id="@+id/listViewNotifications"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/myNotifications"
         android:layout_alignParentStart="false"
         android:layout_above="@+id/ClearAllButton"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/RefreshButton" />
 
     <Button
         style="?android:attr/buttonStyleSmall"

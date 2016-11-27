@@ -22,6 +22,7 @@ public class MainScreenUIActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen_ui);
         NotificationOnlineController.createNotifications(MainScreenUIActivity.this);
+        this.setTitle("Main Screen");
     }
 
     @Override

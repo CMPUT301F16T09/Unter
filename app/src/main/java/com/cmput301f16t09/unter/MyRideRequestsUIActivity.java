@@ -33,6 +33,7 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_ride_requests_ui);
+        this.setTitle("My Ride Requests");
 
         Geocoder coder = new Geocoder(this, Locale.CANADA);
 

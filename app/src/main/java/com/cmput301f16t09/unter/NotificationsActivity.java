@@ -25,6 +25,7 @@ public class NotificationsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifications);
+        this.setTitle("Notifications");
 
         final ListView notificationsLV = (ListView) findViewById(R.id.listViewNotifications);
 
@@ -118,6 +119,6 @@ public class NotificationsActivity extends AppCompatActivity {
         }
     }
 
-    }
+}
 
 

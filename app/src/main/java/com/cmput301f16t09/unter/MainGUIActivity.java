@@ -22,7 +22,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 /**
- * A view that asks the user to input an existing users information
+ * A view that asks the user to input an existing user's information
  * or allow them to create a new user.
  */
 public class MainGUIActivity extends AppCompatActivity {
@@ -39,6 +39,10 @@ public class MainGUIActivity extends AppCompatActivity {
         // 2016-11-19
         // http://stackoverflow.com/questions/5674518/does-broadcastreceiver-onreceive-always-run-in-the-ui-thread
         // Author: Caner
+
+        /**
+         *
+         */
         HandlerThread handlerThread = new HandlerThread("WiFiConnectionThread");
         handlerThread.start();
         Looper looper = handlerThread.getLooper();

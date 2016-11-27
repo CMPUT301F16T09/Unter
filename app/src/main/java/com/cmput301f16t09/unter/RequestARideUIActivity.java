@@ -110,13 +110,6 @@ public class RequestARideUIActivity extends AppCompatActivity {
         
     }
 
-    /* Create the menu button on the activity to allow the user to edit their profile */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
     /**
      * Get an estimated fare for the route from start location to end location based on distance.

@@ -27,13 +27,6 @@ public class CreateNewUserUIActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
     /**
      * Creates user if passes checks of not existing username or email.
      *

@@ -31,6 +31,7 @@ public class MyRideOffersUIActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_ride_offers_ui);
+        this.setTitle("My Ride Offers");
 
         ListView currentPostList = (ListView) findViewById(R.id.listViewMyRideOffers);
 
