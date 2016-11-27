@@ -31,7 +31,6 @@ public class MainGUIActivity extends AppCompatActivity {
     private EditText mainScreenUsername;
     private EditText mainScreenPassword;
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_gui);
@@ -39,15 +38,7 @@ public class MainGUIActivity extends AppCompatActivity {
         // 2016-11-19
         // http://stackoverflow.com/questions/5674518/does-broadcastreceiver-onreceive-always-run-in-the-ui-thread
         // Author: Caner
-        HandlerThread handlerThread = new HandlerThread("WiFiConnectionThread");
-        handlerThread.start();
-        Looper looper = handlerThread.getLooper();
-        Handler handler = new Handler(looper);
-        if (handlerThread.isAlive()) {Log.i("WiFiConnectionThread","Working");}
-        WifiReceiver connected = new WifiReceiver();
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION);
-        registerReceiver(connected, intentFilter, null, handler);
+
     }
 
     @Override
@@ -57,6 +48,7 @@ public class MainGUIActivity extends AppCompatActivity {
         CurrentUser.setCurrentUser(null);
         CurrentUser.setCurrentPost(null);
     }
+
 
     /**
      * Verify login by using the UserListOnlineController class to query elastic search.

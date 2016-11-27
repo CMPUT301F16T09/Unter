@@ -38,9 +38,6 @@ public class NotificationOnlineController {
     static final private ArrayList<Notification> list = new ArrayList<Notification>();
 //    private static int mID = 0;
 
-
-
-
     public static ArrayList<Notification> getList(){
         return list;
     }
@@ -117,7 +114,7 @@ public class NotificationOnlineController {
 
             //Add indexing and type
             Search search = new Search.Builder(search_string)
-                    .addIndex("t09test2")
+                    .addIndex("t09test22")
                     .addType("notification")
                     .build();
 
@@ -148,7 +145,7 @@ public class NotificationOnlineController {
 
             for (Notification notification : notifications) {
                 //Add Indexing and type.
-                Index index = new Index.Builder(notification).index("t09test2").type("notification").build();
+                Index index = new Index.Builder(notification).index("t09test22").type("notification").build();
 
                 try {
                     DocumentResult result = client.execute(index);
@@ -182,7 +179,7 @@ public class NotificationOnlineController {
 
             for (Notification notification: notifications) {
                 // Adds index, type and id of notification to be deleted.
-                Delete index = new Delete.Builder(notification.getId()).index("t09test2").type("notification").build();
+                Delete index = new Delete.Builder(notification.getId()).index("t09test22").type("notification").build();
 
                 try {
                     DocumentResult result = client.execute(index);

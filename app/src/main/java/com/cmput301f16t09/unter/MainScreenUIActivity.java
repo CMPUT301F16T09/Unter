@@ -1,8 +1,14 @@
 package com.cmput301f16t09.unter;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,14 +22,35 @@ import android.view.View;
 public class MainScreenUIActivity extends AppCompatActivity {
 
 //    Button requestButton = (Button) findViewById(R.id.RequestARideButton);
-
+    WifiReceiver connected;
+    HandlerThread handlerThread = new HandlerThread("WiFiConnectionThread");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen_ui);
+
+        handlerThread.start();
+        Looper looper = handlerThread.getLooper();
+        Handler handler = new Handler(looper);
+        if (handlerThread.isAlive()) {
+            Log.i("WiFiConnectionThread","Working");}
+        connected = new WifiReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION);
+        registerReceiver(connected, intentFilter, null, handler);
+
         NotificationOnlineController.createNotifications(MainScreenUIActivity.this);
+        WifiReceiver.polling(MainScreenUIActivity.this);
     }
 
+        @Override
+    public void onDestroy() {
+        connected.abortBroadcast();
+        connected = null;
+        handlerThread.quit();
+        unregisterReceiver(connected);
+        super.onDestroy();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {

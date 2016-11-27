@@ -15,67 +15,59 @@ import android.widget.Toast;
 // Author: warbi
 public class WifiReceiver extends BroadcastReceiver {
 
+    private static boolean prevConnected = true;
+    final static Handler handler = new Handler();
+
+
     @Override
     public void onReceive(Context context, Intent intent) {
         ConnectivityManager conMan = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = conMan.getActiveNetworkInfo();
 
         if (netInfo != null && netInfo.getState().name().equals("CONNECTED")) {
+            if (!prevConnected) {
+                NotificationOnlineController.createNotifications(context);
 
-            NotificationOnlineController.createNotifications(context);
+                Log.d("WifiReceiver", "Have Wifi Connection");
+                Toast.makeText(context, "WiFi Has Reconnected", Toast.LENGTH_SHORT).show();
 
-            Log.d("WifiReceiver", "Have Wifi Connection");
-            Toast.makeText(context, "WiFi Has Reconnected", Toast.LENGTH_SHORT).show();
+                if (CurrentUser.getCurrentUser() != null) {
 
-            if (CurrentUser.getCurrentUser() != null) {
+                    for (Post p : PostListMainController.getPostListQueue(context).getPosts()) {
+                        PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
+                        addPostOnline.execute(p);
+                    }
+                    // ADD CLEARING THE SAVE FILE
+                    PostListMainController.clearPostListQueue(context);
 
-                for (Post p : PostListMainController.getPostListQueue(context).getPosts()) {
-                    PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
-                    addPostOnline.execute(p);
+                    for (Post p : PostListMainController.getPostListUpdate(context).getPosts()) {
+                        PostListMainController.updatePosts(p, context);
+                    }
+                    // ADD CLEARING THE SAVE FILE
+                    PostListMainController.clearPostListUpdate(context);
+
+                    for (Post p : PostListMainController.getPostListDelete(context).getPosts()) {
+                        PostListMainController.deletePosts(p, context);
+                    }
+                    // ADD CLEARING THE SAVE FILE
+                    PostListMainController.clearPostListDelete(context);
+
+                    polling(context);
                 }
-                // ADD CLEARING THE SAVE FILE
-                PostListMainController.clearPostListQueue(context);
-
-                for (Post p : PostListMainController.getPostListUpdate(context).getPosts()) {
-                    PostListMainController.updatePosts(p, context);
-                }
-                // ADD CLEARING THE SAVE FILE
-                PostListMainController.clearPostListUpdate(context);
-
-                for (Post p : PostListMainController.getPostListDelete(context).getPosts()) {
-                    PostListMainController.deletePosts(p, context);
-                }
-                // ADD CLEARING THE SAVE FILE
-                PostListMainController.clearPostListDelete(context);
+                prevConnected = true;
             }
         }
 
         else {
-            Log.d("WifiReceiver", "Don't have Wifi Connection");
-            Toast.makeText(context, "WiFi Has Disconnected", Toast.LENGTH_SHORT).show();
-        }
+            if (prevConnected) {
+                Log.d("WifiReceiver", "Don't have Wifi Connection");
+                Toast.makeText(context, "WiFi Has Disconnected", Toast.LENGTH_SHORT).show();
 
+                polling(context);
 
-        final Context c = context;
-        final Handler handler = new Handler();
-        final Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                Log.d("Handlers", "Called on main thread");
-                Toast.makeText(c, "periodic notification check", Toast.LENGTH_SHORT).show();
-                NotificationOnlineController.createNotifications(c);
-                handler.postDelayed(this, 30000);
+                prevConnected = false;
+
             }
-        };
-
-
-        if ((!(c instanceof MainGUIActivity))&&(isNetworkAvailable(c))){
-            handler.post(r);
-            r.run();
-        }
-
-        if (!isNetworkAvailable(c)){
-            handler.removeCallbacks(r);
         }
 
 
@@ -84,6 +76,28 @@ public class WifiReceiver extends BroadcastReceiver {
     public static boolean isNetworkAvailable(final Context context) {
         final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
+
+    public static void polling(Context context) {
+        final Context c = context;
+        final Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                if (WifiReceiver.isNetworkAvailable(c)) {
+                    Log.d("Handlers", "Called on main thread");
+                    Toast.makeText(c, "periodic notification check", Toast.LENGTH_SHORT).show();
+                    NotificationOnlineController.createNotifications(c);
+                }
+                handler.postDelayed(this, 30000);
+            }
+        };
+
+        if (WifiReceiver.isNetworkAvailable(context)) {
+            handler.post(r);
+        }
+        if (!WifiReceiver.isNetworkAvailable(c)) {
+            handler.removeCallbacks(r);
+        }
     }
 }
 
