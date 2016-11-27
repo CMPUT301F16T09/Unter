@@ -65,7 +65,7 @@ public class PostListOnlineController {
 
             //Add Indexing and type
             Search search = new Search.Builder(search_string)
-                    .addIndex("t09test")
+                    .addIndex("t09test2")
                     .addType("post")
                     .build();
 
@@ -99,7 +99,7 @@ public class PostListOnlineController {
 
             //Add Indexing and type
             Search search = new Search.Builder(search_parameters[0])
-                    .addIndex("t09test")
+                    .addIndex("t09test2")
                     .addType("post")
                     .build();
 
@@ -131,7 +131,7 @@ public class PostListOnlineController {
 
             for (Post post: posts) {
                 //Add Indexing and type
-                Index index = new Index.Builder(post).index("t09test").type("post").build();
+                Index index = new Index.Builder(post).index("t09test2").type("post").build();
 
                 try {
                     DocumentResult result = client.execute(index);
@@ -163,7 +163,7 @@ public class PostListOnlineController {
 
             for (Post post: posts) {
                 //Add Indexing, type and id of post
-                Index index = new Index.Builder(post).index("t09test").type("post").id(post.getId()).build();
+                Index index = new Index.Builder(post).index("t09test2").type("post").id(post.getId()).build();
 
                 try {
                     DocumentResult result = client.execute(index);
@@ -191,7 +191,7 @@ public class PostListOnlineController {
 
             for (Post post: posts) {
                 // Adds index, type and id of post to be deleted.
-                Delete index = new Delete.Builder(post.getId()).index("t09test").type("post").build();
+                Delete index = new Delete.Builder(post.getId()).index("t09test2").type("post").build();
 
                 try {
                     DocumentResult result = client.execute(index);
@@ -220,7 +220,7 @@ public class PostListOnlineController {
 
             for (String post: posts) {
                 // Adds index, type and id of post to be deleted.
-                Delete index = new Delete.Builder(post).index("t09test").type("post").build();
+                Delete index = new Delete.Builder(post).index("t09test2").type("post").build();
 
                 try {
                     DocumentResult result = client.execute(index);

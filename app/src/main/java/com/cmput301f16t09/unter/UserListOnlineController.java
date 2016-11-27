@@ -66,7 +66,7 @@ public class UserListOnlineController {
 
             //Add indexing and type
             Search search = new Search.Builder(search_string)
-                    .addIndex("t09test")
+                    .addIndex("t09test2")
                     .addType("user")
                     .build();
 
@@ -98,7 +98,7 @@ public class UserListOnlineController {
 
             //Add Indexing and type.
             Search search = new Search.Builder(search_parameters[0])
-                    .addIndex("t09test")
+                    .addIndex("t09test2")
                     .addType("user")
                     .build();
 
@@ -131,7 +131,7 @@ public class UserListOnlineController {
 
             for (User user : users) {
                 //Add Indexing and type.
-                Index index = new Index.Builder(user).index("t09test").type("user").build();
+                Index index = new Index.Builder(user).index("t09test2").type("user").build();
 
                 try {
                     DocumentResult result = client.execute(index);
@@ -165,7 +165,7 @@ public class UserListOnlineController {
 
             for (User user : users) {
                 //Add Indexing, type and id.
-                Index index = new Index.Builder(user).index("t09test").type("user").id(user.getId()).build();
+                Index index = new Index.Builder(user).index("t09test2").type("user").id(user.getId()).build();
 
                 try {
                     DocumentResult result = client.execute(index);

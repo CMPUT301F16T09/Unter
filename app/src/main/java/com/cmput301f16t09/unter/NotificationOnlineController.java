@@ -113,7 +113,7 @@ public class NotificationOnlineController {
 
             //Add indexing and type
             Search search = new Search.Builder(search_string)
-                    .addIndex("t09test")
+                    .addIndex("t09test2")
                     .addType("notification")
                     .build();
 
@@ -144,7 +144,7 @@ public class NotificationOnlineController {
 
             for (Notification notification : notifications) {
                 //Add Indexing and type.
-                Index index = new Index.Builder(notification).index("t09test").type("notification").build();
+                Index index = new Index.Builder(notification).index("t09test2").type("notification").build();
 
                 try {
                     DocumentResult result = client.execute(index);
@@ -178,7 +178,7 @@ public class NotificationOnlineController {
 
             for (Notification notification: notifications) {
                 // Adds index, type and id of notification to be deleted.
-                Delete index = new Delete.Builder(notification.getId()).index("t09test").type("notification").build();
+                Delete index = new Delete.Builder(notification.getId()).index("t09test2").type("notification").build();
 
                 try {
                     DocumentResult result = client.execute(index);
