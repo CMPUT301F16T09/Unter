@@ -140,23 +140,28 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         editFare = (EditText) findViewById(R.id.RequestRideCost);
         endLocation = editEnd.getText().toString();
 
-        startAddresses = findAddresses(editStart.getText().toString());
-        startAdapter = new ArrayAdapter<>(this, R.layout.start_addresses, startAddresses);
+        if (WifiReceiver.isNetworkAvailable(RequestARideUIActivity.this)) {
+            startAddresses = findAddresses(editStart.getText().toString());
+            startAdapter = new ArrayAdapter<>(this, R.layout.start_addresses, startAddresses);
 
-        editStart.setAdapter(startAdapter);
-        editStart.showDropDown();
+            editStart.setAdapter(startAdapter);
+            editStart.showDropDown();
+        } else {
+            Toast.makeText(this, "Tap on map while offline", Toast.LENGTH_SHORT).show();
+
+        }
 
         editStart.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (!endLocation.isEmpty()){
+                if (!endLocation.isEmpty()) {
                     startLocation = startAddresses.get(position);
                     startPoint = getCoords(startLocation);
                     endPoint = getCoords(editEnd.getText().toString());
 
                     getFareAsync();
                     getRoadAsync();
-                } else{
+                } else {
 
                     startLocation = startAddresses.get(position);
                     startPoint = getCoords(startLocation);
@@ -178,13 +183,16 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         editFare = (EditText) findViewById(R.id.RequestRideCost);
         startLocation = editStart.getText().toString();
 
-        endAddresses = findAddresses(editEnd.getText().toString());
-        endAdapter = new ArrayAdapter<>(this, R.layout.end_addresses, endAddresses);
+        if (WifiReceiver.isNetworkAvailable(RequestARideUIActivity.this)) {
+            endAddresses = findAddresses(editEnd.getText().toString());
+            endAdapter = new ArrayAdapter<>(this, R.layout.end_addresses, endAddresses);
 
-        editEnd.setAdapter(endAdapter);
-        editEnd.setThreshold(9);
-        editEnd.showDropDown();
-
+            editEnd.setAdapter(endAdapter);
+            editEnd.setThreshold(9);
+            editEnd.showDropDown();
+        } else {
+            Toast.makeText(this, "Tap on map while offline", Toast.LENGTH_SHORT).show();
+        }
 
         editEnd.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -258,8 +266,8 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
                 Toast.makeText(this, "Please specify your end location", Toast.LENGTH_SHORT).show();
             }
             else {
-                startPoint = getCoords(startLocation);
-                endPoint = getCoords(endLocation);
+//                startPoint = getCoords(startLocation);
+//                endPoint = getCoords(endLocation);
 
                 editFare = (EditText) findViewById(R.id.RequestRideCost);
                 String fare = editFare.getText().toString();
@@ -315,7 +323,12 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         wayPoints.add(endPoint);
 
         mapController.setCenter(startPoint);
-        new UpdateRoadTask().execute(wayPoints);
+
+        if (WifiReceiver.isNetworkAvailable(RequestARideUIActivity.this)){
+            new UpdateRoadTask().execute(wayPoints);
+        } else{
+            Toast.makeText(this, "Cannot draw road Offline", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -379,7 +392,13 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         ArrayList<GeoPoint> roadPoints = new ArrayList<>(2);
         roadPoints.add(startPoint);
         roadPoints.add(endPoint);
-        new FareCalculatingTask().execute(roadPoints);
+
+        if(WifiReceiver.isNetworkAvailable(RequestARideUIActivity.this)) {
+            new FareCalculatingTask().execute(roadPoints);
+        }
+        else {
+            Toast.makeText(this, "Cannot estimate fare offline", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -515,7 +534,11 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
                 map.getOverlays().add(startMarker);
                 map.invalidate();
 
-                startLocation = reverseGeocode(startPoint);
+                if (WifiReceiver.isNetworkAvailable(RequestARideUIActivity.this)) {
+                    startLocation = reverseGeocode(startPoint);
+                } else {
+                    startLocation = startPoint.toDoubleString();
+                }
 //                Log.d("START POINT", startPoint.toDoubleString());
 //                Log.d("CLICKED", clicked.toDoubleString());
 
@@ -529,7 +552,12 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
             case R.id.menu_destination:
                 editFare = (EditText) findViewById(R.id.RequestRideCost);
                 endPoint = clicked;
-                endLocation = reverseGeocode(endPoint);
+
+                if(WifiReceiver.isNetworkAvailable(RequestARideUIActivity.this)) {
+                    endLocation = reverseGeocode(endPoint);
+                } else {
+                    endLocation = endPoint.toDoubleString();
+                }
 //                Log.d("START POINT", endPoint.toDoubleString());
 //                Log.d("CLICKED", clicked.toDoubleString());
 
