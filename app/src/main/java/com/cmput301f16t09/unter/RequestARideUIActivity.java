@@ -31,7 +31,6 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Overlay;
-import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.infowindow.BasicInfoWindow;
 
@@ -63,19 +62,14 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
      */
     Activity myActivity = this;
 
-
     String startLocation, endLocation;
     ArrayList<String> startAddresses, endAddresses;
     ArrayAdapter<String> startAdapter, endAdapter;
+    GeoPoint startPoint, endPoint, clicked;
+    Marker startMarker, endMarker;
 
-    ArrayList<OverlayItem> overlayItemArray;
     RoadManager roadManager, roadManager2;
-
     MapView map;
-    /**
-     * The M roads.
-     */
-    Road[] mRoads;
     /**
      * The Coder.
      */
@@ -84,8 +78,6 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
      * The Map controller.
      */
     IMapController mapController;
-
-    GeoPoint startPoint, endPoint;
 
     Button find;
 
@@ -110,15 +102,13 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         map.setMaxZoomLevel(18);
         mapController = map.getController();
 
-        /* Center the map on Edmonton */
+        /* set the map to view the centre of Edmonton */
         GeoPoint edmPoint = new GeoPoint(53.5444, -113.4909);
         mapController.setZoom(15);
         mapController.setCenter(edmPoint);
 
         roadManager = new OSRMRoadManager(this);
         roadManager2 = new OSRMRoadManager(this);
-
-        overlayItemArray = new ArrayList<>();
 
         //To use MapEventsReceiver methods, we add a MapEventsOverlay:
         MapEventsOverlay overlay = new MapEventsOverlay(this);
@@ -148,29 +138,23 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
             editStart.showDropDown();
         } else {
             Toast.makeText(this, "Tap on map while offline", Toast.LENGTH_SHORT).show();
-
         }
 
         editStart.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (!endLocation.isEmpty()) {
-                    startLocation = startAddresses.get(position);
-                    startPoint = getCoords(startLocation);
-                    endPoint = getCoords(editEnd.getText().toString());
 
+                startLocation = startAddresses.get(position);
+                startPoint = geocode(startLocation);
+                startMarker = updateMarker(startMarker, startPoint, "Departure:\n" + startLocation);
+
+                if (!endLocation.isEmpty()) {
+                    endPoint = geocode(editEnd.getText().toString());
                     getFareAsync();
                     getRoadAsync();
+
                 } else {
-
-                    startLocation = startAddresses.get(position);
-                    startPoint = getCoords(startLocation);
                     mapController.setCenter(startPoint);
-
-                    Marker startMarker = new Marker(map);
-                    startMarker.setPosition(startPoint);
-                    startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                    map.getOverlays().add(startMarker);
                     map.invalidate();
                 }
             }
@@ -182,6 +166,7 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         editEnd = (AutoCompleteTextView) findViewById(R.id.RequestRideEndLocation);
         editFare = (EditText) findViewById(R.id.RequestRideCost);
         startLocation = editStart.getText().toString();
+
 
         if (WifiReceiver.isNetworkAvailable(RequestARideUIActivity.this)) {
             endAddresses = findAddresses(editEnd.getText().toString());
@@ -197,24 +182,18 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         editEnd.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (!startLocation.isEmpty()) {
-                    startPoint = getCoords(startLocation);
-                    endLocation = endAddresses.get(position);
-                    endPoint = getCoords(endLocation);
 
+                endLocation = endAddresses.get(position);
+                endPoint = geocode(endLocation);
+                endMarker = updateMarker(endMarker, endPoint, "Destination:\n" + endLocation);
+
+                if (!startLocation.isEmpty()) {
+                    startPoint = geocode(startLocation);
                     getFareAsync();
                     getRoadAsync();
                 }
                 else {
-
-                    endLocation = endAddresses.get(position);
-                    endPoint = getCoords(endLocation);
                     mapController.setCenter(endPoint);
-
-                    Marker endMarker = new Marker(map);
-                    endMarker.setPosition(endPoint);
-                    endMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                    map.getOverlays().add(endMarker);
                     map.invalidate();
                 }
             }
@@ -237,6 +216,7 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
                     }
                 }
             }
+
             if (CurrentUser.getCurrentUser().getMyOffers().size() == 1) {
                 PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
                 searchPostListsTask.execute("documentId", CurrentUser.getCurrentUser().getMyOffers().get(0));
@@ -255,6 +235,8 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
             finish();
         }
         else {
+            editFare = (EditText) findViewById(R.id.RequestRideCost);
+            String fare = editFare.getText().toString();
 
             if (startLocation == null && endLocation == null) {
                 Toast.makeText(this, "Please specify your start and end locations", Toast.LENGTH_SHORT).show();
@@ -265,12 +247,14 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
             else if (endLocation == null || endLocation.isEmpty()) {
                 Toast.makeText(this, "Please specify your end location", Toast.LENGTH_SHORT).show();
             }
+            else if (fare.isEmpty()){
+                Toast.makeText(this, "Please specify your offered fare", Toast.LENGTH_SHORT).show();
+            }
             else {
-//                startPoint = getCoords(startLocation);
-//                endPoint = getCoords(endLocation);
+//                startPoint = geocode(startLocation);
+//                endPoint = geocode(endLocation);
 
-                editFare = (EditText) findViewById(R.id.RequestRideCost);
-                String fare = editFare.getText().toString();
+
 
                 Log.d("START", startLocation);
                 Log.d("END", endLocation);
@@ -313,10 +297,6 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
      * Calls upon the UpdateRoadTask to draw a given route in the Activities MapView
      */
     public void getRoadAsync() {
-        mRoads = null;
-
-        overlayItemArray.add(new OverlayItem("Starting Point", "This is the starting point", startPoint));
-        overlayItemArray.add(new OverlayItem("Destination", "This is the destination point", endPoint));
 
         ArrayList<GeoPoint> wayPoints = new ArrayList<>(2);
         wayPoints.add(startPoint);
@@ -336,50 +316,43 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
      * @see GeoPoint
      * @see Polyline
      */
-    private class UpdateRoadTask extends AsyncTask<Object, Void, Road[]> {
-        protected Road[] doInBackground(Object... params) {
+    private class UpdateRoadTask extends AsyncTask<Object, Void, Road> {
+
+        protected Road doInBackground(Object... params) {
             @SuppressWarnings("unchecked")
             ArrayList<GeoPoint> wayPoints = (ArrayList<GeoPoint>) params[0];
-            return roadManager.getRoads(wayPoints);
+            return roadManager.getRoad(wayPoints);
         }
         @Override
-        protected void onPostExecute(Road[] roads) {
-            mRoads = roads;
-            if (roads == null)
+        protected void onPostExecute(Road road) {
+
+            if (road == null)
                 return;
-            if (roads[0].mStatus == Road.STATUS_TECHNICAL_ISSUE)
+            if (road.mStatus == Road.STATUS_TECHNICAL_ISSUE)
                 Toast.makeText(map.getContext(), "Technical issue when getting the route", Toast.LENGTH_SHORT).show();
-            else if (roads[0].mStatus > Road.STATUS_TECHNICAL_ISSUE) //functional issues
+            else if (road.mStatus > Road.STATUS_TECHNICAL_ISSUE) //functional issues
                 Toast.makeText(map.getContext(), "No possible route here", Toast.LENGTH_SHORT).show();
 
-            Polyline[] mRoadOverlays = new Polyline[roads.length];
             List<Overlay> mapOverlays = map.getOverlays();
 
-            //for (int i = 0; i < roads.length; i++) {
-                Polyline roadPolyline = RoadManager.buildRoadOverlay(roads[0]);
-                String routeDesc = roads[0].getLengthDurationText(myActivity.getBaseContext(), -1);
-                roadPolyline.setTitle(getString(R.string.app_name) + " - " + routeDesc);
-                roadPolyline.setInfoWindow(new BasicInfoWindow(org.osmdroid.bonuspack.R.layout.bonuspack_bubble, map));
-                roadPolyline.setRelatedObject(0);
+            Polyline roadPolyline = RoadManager.buildRoadOverlay(road);
+            String routeDesc = road.getLengthDurationText(myActivity.getBaseContext(), -1);
+            roadPolyline.setTitle(getString(R.string.app_name) + " - " + routeDesc);
+            roadPolyline.setInfoWindow(new BasicInfoWindow(org.osmdroid.bonuspack.R.layout.bonuspack_bubble, map));
+            roadPolyline.setRelatedObject(0);
 
-                mapOverlays.clear();
+            mapOverlays.clear();
 
-                Marker startMarker = new Marker(map);
-                startMarker.setPosition(startPoint);
-                startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                mapOverlays.add(startMarker);
+            //startMarker = updateMarker(startMarker, startPoint, "Departure:\n" + startLocation);
+            //endMarker = updateMarker(endMarker, endPoint, "Destination:\n" + endLocation);
 
-                Marker endMarker = new Marker(map);
-                endMarker.setPosition(endPoint);
-                endMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                mapOverlays.add(endMarker);
+            mapOverlays.add(startMarker);
+            mapOverlays.add(endMarker);
+            mapOverlays.add(0, roadPolyline);
 
-                mapOverlays.add(0, roadPolyline);
-                //mapOverlays.add(roadPolyline);
-                map.invalidate();
-                //we insert the road overlays at the "bottom", just above the MapEventsOverlay,
-                //to avoid covering the other overlays.
-
+            map.invalidate();
+            //we insert the road overlays at the "bottom", just above the MapEventsOverlay,
+            //to avoid covering the other overlays.
         }
     }
 
@@ -405,41 +378,38 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
      *  Method used to calculate the fare based on the given points.
      *  @see GeoPoint
      */
-    private class FareCalculatingTask extends AsyncTask<Object, Void, Road[]> {
 
-        protected Road[] doInBackground(Object... points) {
+    private class FareCalculatingTask extends AsyncTask<Object, Void, Road> {
+
+        protected Road doInBackground(Object... points) {
             @SuppressWarnings("unchecked")
             ArrayList<GeoPoint> startToEnd = (ArrayList<GeoPoint>) points[0];
-            return roadManager2.getRoads(startToEnd);
+            return roadManager2.getRoad(startToEnd);
         }
 
         @Override
-        protected void onPostExecute(Road[] roads) {
+        protected void onPostExecute(Road road) {
 
-            if (roads == null){return;}
+            if (road == null){return;}
             double distance = 0.0;
 
+            Polyline roadPolyline = RoadManager.buildRoadOverlay(road);
+            List<GeoPoint> roadSegment = roadPolyline.getPoints();
 
-            //for (int i = 0; i < roads.length; i++) {
+            for (int j = 0; j < roadSegment.size() - 1; j+= 1){
+                GeoPoint geoStart = roadSegment.get(j);
+                GeoPoint geoEnd = roadSegment.get(j + 1);
 
-                Polyline roadPolyline = RoadManager.buildRoadOverlay(roads[0]);
-                List<GeoPoint> roadSegment = roadPolyline.getPoints();
+                Location start = new Location("start");
+                start.setLatitude(geoStart.getLatitude());
+                start.setLongitude(geoStart.getLongitude());
 
-                for (int j = 0; j < roadSegment.size() - 1; j+= 1){
-                    GeoPoint geoStart = roadSegment.get(j);
-                    GeoPoint geoEnd = roadSegment.get(j + 1);
+                Location end = new Location("end");
+                end.setLatitude(geoEnd.getLatitude());
+                end.setLongitude(geoEnd.getLongitude());
 
-                    Location start = new Location("start");
-                    start.setLatitude(geoStart.getLatitude());
-                    start.setLongitude(geoStart.getLongitude());
-
-                    Location end = new Location("end");
-                    end.setLatitude(geoEnd.getLatitude());
-                    end.setLongitude(geoEnd.getLongitude());
-
-                    distance += start.distanceTo(end);
-                }
-
+                distance += start.distanceTo(end);
+            }
 
             double fare = distance / 1000 + 4.4;
             editFare.setText(String.format("$%.2f", fare));
@@ -468,7 +438,7 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         }
         return stringAddresses;
     }
-    private GeoPoint getCoords(String location){
+    private GeoPoint geocode(String location){
 
         double latitude, longitude;
         latitude = 0.0;
@@ -485,10 +455,24 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
 
         return new GeoPoint(latitude, longitude);
     }
+    public String reverseGeocode(GeoPoint point){
+        String address = "None";
+
+        try {
+            List<Address> addresses = coder.getFromLocation(point.getLatitude(),
+                    point.getLongitude(), 1);
+            address = addresses.get(0).getAddressLine(0) + ", " + addresses.get(0).getAddressLine(1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return address;
+    }
 
     //https://github.com/MKergall/osmbonuspack/blob/master/OSMNavigator/src/main/java/com/osmnavigator/MapActivity.java
     //date: November 25th, 2016, author: MKergall
-    // lines 1385 - 1434
+    // singleTapConfirmHelper, longPressHelper, onCreateContextMenu and onContextItemSelected
+    // inspired from lines 1385 - 1434
 
     @Override
     public boolean singleTapConfirmedHelper(GeoPoint p) {
@@ -496,8 +480,6 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         //DO NOTHING
         return true;
     }
-
-    GeoPoint clicked;
 
     @Override
     public boolean longPressHelper(GeoPoint p) {
@@ -511,13 +493,11 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-                                    ContextMenu.ContextMenuInfo menuInfo){
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.map_menu, menu);
     }
-
 
     @Override
     public boolean onContextItemSelected(MenuItem item){
@@ -527,20 +507,18 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
                 editFare = (EditText) findViewById(R.id.RequestRideCost);
                 startPoint = clicked;
 
-                Marker startMarker = new Marker(map);
-                startMarker.setPosition(startPoint);
-                startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                
-                map.getOverlays().add(startMarker);
-                map.invalidate();
-
                 if (WifiReceiver.isNetworkAvailable(RequestARideUIActivity.this)) {
                     startLocation = reverseGeocode(startPoint);
                 } else {
-                    startLocation = startPoint.toDoubleString();
+                    //startLocation = startPoint.toDoubleString();
+                    startLocation = String.format("%.2f", startPoint.getLatitude()) + ", "
+                                  + String.format("%.2f", startPoint.getLongitude());
                 }
 //                Log.d("START POINT", startPoint.toDoubleString());
 //                Log.d("CLICKED", clicked.toDoubleString());
+
+                startMarker = updateMarker(startMarker, startPoint, "Departure:\n" + startLocation);
+                map.invalidate();
 
                 if (endPoint != null) {
                     getFareAsync();
@@ -556,15 +534,13 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
                 if(WifiReceiver.isNetworkAvailable(RequestARideUIActivity.this)) {
                     endLocation = reverseGeocode(endPoint);
                 } else {
-                    endLocation = endPoint.toDoubleString();
+                    endLocation = String.format("%.2f", endPoint.getLatitude()) + ", "
+                                + String.format("%.2f", endPoint.getLongitude());
                 }
 //                Log.d("START POINT", endPoint.toDoubleString());
 //                Log.d("CLICKED", clicked.toDoubleString());
 
-                Marker endMarker = new Marker(map);
-                endMarker.setPosition(endPoint);
-                endMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                map.getOverlays().add(endMarker);
+                endMarker = updateMarker(endMarker, endPoint, "Destination:\n" + endLocation);
                 map.invalidate();
 
                 if (startPoint != null) {
@@ -579,17 +555,19 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         }
     }
 
-    public String reverseGeocode(GeoPoint point){
-    String address = "None";
+    //https://github.com/MKergall/osmbonuspack/blob/master/OSMNavigator/src/main/java/com/osmnavigator/MapActivity.java
+    //date: November 27th, 2016, author: MKergall
+    //updateMarker inspired from lines 758 - 753 (the method called updateItineraryMarker)
 
-    try {
-        List<Address> addresses = coder.getFromLocation(point.getLatitude(),
-                                                        point.getLongitude(), 1);
-        address = addresses.get(0).getAddressLine(0) + ", " + addresses.get(0).getAddressLine(1);
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
+    public Marker updateMarker(Marker marker, GeoPoint p, String title){
 
-    return address;
+        if (marker == null){
+            marker = new Marker(map);
+            marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+            map.getOverlays().add(marker);
+        }
+        marker.setPosition(p);
+        marker.setTitle(title);
+        return marker;
     }
 }
