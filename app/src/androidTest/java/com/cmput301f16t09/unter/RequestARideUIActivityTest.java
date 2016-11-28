@@ -51,38 +51,24 @@ public class RequestARideUIActivityTest extends ActivityInstrumentationTestCase2
         solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);
 
         solo.clickOnButton("Request\nA Ride");
-
         solo.assertCurrentActivity("Wrong Activity", RequestARideUIActivity.class);
-        solo.clickOnButton("Get\nEstimate");
+
+        solo.clickOnButton("Confirm");
         assertTrue(solo.waitForText("Please fill in start and end locations"));
 
         solo.enterText((EditText) solo.getView(R.id.RequestRideStartLocation), "University LRT Station");
         assertTrue(solo.waitForText("University LRT Station"));
-        solo.clickOnButton("Get\nEstimate");
-        assertTrue(solo.waitForText("Please fill in end location"));
-        solo.clickOnButton("CONFIRM");
-        assertTrue(solo.waitForText("Please fill in end location"));
-
-        solo.clearEditText((EditText) solo.getView(R.id.RequestRideStartLocation));
-        assertTrue(solo.waitForText(""));
-        solo.clickOnButton("Get\nEstimate");
-        assertTrue(solo.waitForText("Please fill in start and end locations"));
-        solo.clickOnButton("CONFIRM");
-        assertTrue(solo.waitForText("Please fill in start and end locations"));
+        solo.clickOnButton("Find\nStart");
+        solo.clickOnMenuItem("University LRT Station\nEdmonton, AB T6G 2P8");
+        solo.clickOnButton("Confirm");
+        assertTrue(solo.waitForText("Please specify your end location"));
 
         solo.enterText((EditText) solo.getView(R.id.RequestRideEndLocation), "Corona Station");
         assertTrue(solo.waitForText("Corona Station"));
-        solo.clickOnButton("Get\nEstimate");
+        solo.clickOnButton("Find\nEnd");
+        solo.clickOnMenuItem("University LRT Station\nEdmonton, AB T6G 2P8");
+        solo.clickOnButton("Confirm");
         assertTrue(solo.waitForText("Please fill in start location"));
-        solo.clickOnButton("CONFIRM");
-        assertTrue(solo.waitForText("Please fill in start location"));
-
-        solo.enterText((EditText) solo.getView(R.id.RequestRideStartLocation), "University LRT Station");
-        assertTrue(solo.waitForText("University LRT Station"));
-        solo.clickOnButton("Get\nEstimate");
-        // Fare Estimate is not working atm.
-        solo.clickOnButton("CONFIRM");
-        assertTrue(solo.waitForText("Request Made"));
 
         solo.clickOnButton("My Ride\nRequests");
         solo.assertCurrentActivity("Wrong Activity", MyRideRequestsUIActivity.class);

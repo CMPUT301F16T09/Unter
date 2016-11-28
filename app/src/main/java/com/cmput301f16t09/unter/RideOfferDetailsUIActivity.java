@@ -113,12 +113,6 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
     /**
      * Taken from CMPUT 301 Fall 16 Lab 8 - Geolocation by Stephen Romansky
      * Calls upon the UpdateRoadTask to draw a given route in the Activities MapView

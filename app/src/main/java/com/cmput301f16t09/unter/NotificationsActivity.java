@@ -27,6 +27,7 @@ public class NotificationsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Viewing My Notifications");
         setContentView(R.layout.activity_notifications);
 
         final ListView notificationsLV = (ListView) findViewById(R.id.listViewNotifications);
