@@ -1,16 +1,13 @@
 package com.cmput301f16t09.unter;
 
-import android.app.Notification;
 import android.util.Log;
-
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A model class that holds the Current User's most recently accessed information to be
  * stored on their phone's local memory.
  * Uses Lazy Singleton to allow for its information to be accessed from anywhere.
- *
+ * <p>
  * currentPost is Post object that is set when the user selects a post from any ListView
  */
 public class CurrentUser {
@@ -18,6 +15,9 @@ public class CurrentUser {
     private static Post currentPost = null;
 
 
+    /**
+     * Update current user.
+     */
     public static void updateCurrentUser() {
         try {
             UserListOnlineController.SearchUserListsTask searchUserListsTask = new UserListOnlineController.SearchUserListsTask();

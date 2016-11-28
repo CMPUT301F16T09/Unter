@@ -5,19 +5,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.widget.Toast;
-
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
-
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
-
 import io.searchbox.core.Delete;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
@@ -25,26 +18,36 @@ import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
 /**
- * Created by Kelly on 2016-11-21.
+ * Notification Online Controller builds android Notifications after fetching notifications
+ * that are meant to be received by the current user.
+ *
+ * @see PostListOnlineController
  */
-
-
+//Nov 26, 2016
 //http://stackoverflow.com/questions/7040742/android-notification-manager-having-a-notification-without-an-intent
+//Author: Garbit
 public class NotificationOnlineController {
 
-    //Static variables for JestDroidClient and holding notificationss.
+    //Static variables for JestDroidClient and holding notifications.
     private static JestDroidClient client;
-    private static ArrayList<Notification> arrayNotificationList = null;
     static final private ArrayList<Notification> list = new ArrayList<Notification>();
-//    private static int mID = 0;
 
+    /**
+     * Get list array list.
+     *
+     * @return the array list
+     */
     public static ArrayList<Notification> getList(){
         return list;
     }
 
+    /**
+     * Queries elastic search and fills up the list of notifications
+     * to be accessed by other Activities
+     */
     public static void findNotifications(){
-        //any status changes are placed into notification list
 
+        //Any status changes are placed into notification list
         list.clear();
 
         try {
@@ -57,46 +60,39 @@ public class NotificationOnlineController {
         }
     }
 
+    /**
+     * After querying elastic search, a notification is built
+     *
+     * @param c the context on which to show the notification
+     */
     public static void createNotifications(Context c){
 
         findNotifications();
 
         Intent resultIntent = new Intent(c,NotificationsActivity.class);
-        //resultIntent.setAction(Intent.ACTION_MAIN);
-        // resultIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         resultIntent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(c.getApplicationContext(), 0, resultIntent, 0);
-
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(c.getApplicationContext())
                         .setAutoCancel(true)
                         .setSmallIcon(R.drawable.ic_menu_compass)
                         .setContentTitle("Unter")
-                        .setContentText("There has been a status change!")
-                ;
+                        .setContentText("There has been a status change!");
 
         mBuilder.setContentIntent(pendingIntent);
         NotificationManager mNotificationManager = (NotificationManager) c.getSystemService(Context.NOTIFICATION_SERVICE);
 
         //http://stackoverflow.com/questions/16885706/click-on-notification-to-go-current-activity
-        //David Wasser, Nov 22 2016
-        if (list.isEmpty()){
-            //Toast.makeText(c, "No new notifications!", Toast.LENGTH_SHORT).show();
+        //Author: David Wasser, Nov 22 2016
+        if (!list.isEmpty()){
+            mBuilder.setStyle(new NotificationCompat.BigTextStyle()
+                    .bigText("There are " +  list.size() + " new updates to your open posts.")
+            );
+            android.app.Notification N = mBuilder.build();
+            mNotificationManager.notify(0, N);
         }
-        else {
-           // for (Notification n : templist) {
-                mBuilder.setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText("There are " +  list.size() + " new updates to your open posts.")
-                );
-                android.app.Notification N = mBuilder.build();
-                mNotificationManager.notify(0, N);
-           // }
-        }
-
     }
-
-
 
     /**
      * The type Search notification lists task from elastic search.
@@ -109,7 +105,7 @@ public class NotificationOnlineController {
 
             ArrayList<Notification> notifications = new ArrayList<Notification>();
 
-            //Just list top 10000 notifications with type and keyword
+            //Just list top 10000 notifications with type and specified user
             String search_string = "{\"from\": 0, \"size\": 10000, \"query\": {\"match_phrase\": {\"" + search_parameters[0] + "\": \"" + search_parameters[1] + "\"}}}";
 
             //Add indexing and type

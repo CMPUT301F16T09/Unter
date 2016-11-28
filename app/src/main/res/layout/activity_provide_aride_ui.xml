@@ -21,7 +21,7 @@
             android:id="@+id/ProvideARideSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Provide A Ride"
+            android:text="All available Requests"
             android:textSize="24sp"
             android:textColor="@color/white"
             android:fontFamily="sans-serif-smallcaps" />
@@ -41,6 +41,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="#606060"
-        app:itemTextColor="@color/TextColor"/>
+        />
 
 </android.support.v4.widget.DrawerLayout>

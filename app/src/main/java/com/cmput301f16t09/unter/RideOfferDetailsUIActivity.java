@@ -48,6 +48,9 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
      */
     IMapController mapController;
 
+    /**
+     * The My activity.
+     */
     Activity myActivity = this;
     /**
      * The Start point.
@@ -61,8 +64,10 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Viewing Ride Offer Details");
         setContentView(R.layout.activity_ride_offer_details_ui);
 
+        // Creating Display for user to see details of offer
         TextView tvRiderName = (TextView) findViewById(R.id.RideOfferRiderName);
         String riderName = CurrentUser.getCurrentPost().getUsername();
         SpannableString content = new SpannableString(riderName);
@@ -149,6 +154,7 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
             else if (road.mStatus > Road.STATUS_TECHNICAL_ISSUE) //functional issues
                 Toast.makeText(map.getContext(), "No possible route here", Toast.LENGTH_SHORT).show();
 
+            // Create the path for the user on the map
             List<Overlay> mapOverlays = map.getOverlays();
 
             Polyline roadPolyline = RoadManager.buildRoadOverlay(road);
@@ -160,23 +166,21 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
             Marker startMarker = new Marker(map);
             startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
             startMarker.setPosition(startPoint);
-            //startMarker.setTitle();
 
             Marker endMarker = new Marker(map);
             endMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
             endMarker.setPosition(endPoint);
-            //endMarker.setTitle();
 
             startMarker.setTitle("Departure:\n" + CurrentUser.getCurrentPost().getStartAddress());
             endMarker.setTitle("Destination:\n" + CurrentUser.getCurrentPost().getEndAddress());
 
+            //We insert the road overlays at the "bottom", just above the MapEventsOverlay,
+            //to avoid covering the other overlays.
             mapOverlays.add(startMarker);
             mapOverlays.add(endMarker);
             mapOverlays.add(0, roadPolyline);
 
             map.invalidate();
-            //we insert the road overlays at the "bottom", just above the MapEventsOverlay,
-            //to avoid covering the other overlays.
         }
     }
 }

@@ -27,13 +27,13 @@
         android:id="@+id/textViewProfileName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textUsernameTitle"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="39dp"
         android:text="@string/name"
         android:textSize="@dimen/header_text_size"
         android:textColor="@color/TextColor"
-        android:fontFamily="sans-serif-smallcaps"
-        android:layout_below="@+id/textUsernameTitle"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="39dp" />
+        android:fontFamily="sans-serif-smallcaps" />
 
     <TextView
         android:id="@+id/textViewProfilePhoneNumber"
@@ -78,12 +78,12 @@
         android:id="@+id/displayNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewProfileName"
+        android:layout_alignEnd="@+id/textViewProfilePhoneNumber"
         android:text="name of user"
         android:textSize="@dimen/input_text_size"
         android:textColor="@color/TextColor"
-        android:fontFamily="sans-serif-smallcaps"
-        android:layout_below="@+id/textViewProfileName"
-        android:layout_alignEnd="@+id/textViewProfilePhoneNumber" />
+        android:fontFamily="sans-serif-smallcaps" />
 
     <TextView
         android:id="@+id/displayNumberTextView"
@@ -124,12 +124,12 @@
         android:id="@+id/displayVehicleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewProfileVehicle"
+        android:layout_alignStart="@+id/displayNumberTextView"
         android:text="displayVehicleTextView of user"
         android:textSize="@dimen/input_text_size"
         android:textColor="@color/TextColor"
-        android:fontFamily="sans-serif-smallcaps"
-        android:layout_below="@+id/textViewProfileVehicle"
-        android:layout_alignStart="@+id/displayNumberTextView" />
+        android:fontFamily="sans-serif-smallcaps" />
 
 
 </RelativeLayout>

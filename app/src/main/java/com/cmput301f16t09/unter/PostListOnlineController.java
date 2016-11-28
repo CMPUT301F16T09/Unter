@@ -30,7 +30,7 @@ import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
 /**
- * The Postlist Online controller for elastic search.
+ * The PostList Online controller for elastic search.
  */
 public class PostListOnlineController {
 
@@ -250,6 +250,9 @@ public class PostListOnlineController {
         }
     }
 
+    /**
+     * The type Search keyword task.
+     */
     public static class SearchKeywordTask extends AsyncTask<String, Void, ArrayList<Post>> {
 
         @Override
@@ -292,17 +295,23 @@ public class PostListOnlineController {
         }
     }
 
+    /**
+     * The type Search post lists range task.
+     */
     public static class SearchPostListsRangeTask extends AsyncTask<String, Void, ArrayList<Post>> {
 
         @Override
 
         protected ArrayList<Post> doInBackground(String... search_parameters) {
             verifySettings();
-            ArrayList<Post> posts = new ArrayList<Post>();            //Just list top 10000 posts with type and keyword
-            // {"from": 0, "size": 10000, "query": {"range" : {"fare": {"gte":14, "lte":20}}}}
+            ArrayList<Post> posts = new ArrayList<Post>();
+
+            //Just list top 10000 posts with type and range for greater than or equals
+            //and less than or equals
             String search_string = "{\"from\": 0, \"size\": 10000, \"query\": {\"range\": " +
                                     "{\"" + search_parameters[0] + "\": {\"gte\":" + search_parameters[1] + ", \"lte\":" +
-                                        search_parameters[2] + "}}}}";            //Add Indexing and type
+                                        search_parameters[2] + "}}}}";
+            //Add Indexing and type
             Search search = new Search.Builder(search_string)
                     .addIndex("t09")
                     .addType("post")
@@ -323,27 +332,6 @@ public class PostListOnlineController {
             return posts;
         }
     }
-    /**
-     * Verifies settings of the elastic search server
-     */
-    private static void verifySettings() {
-        // if the client hasn't been initialized then we should make it!
-        if (client == null) {
-            DroidClientConfig.Builder builder = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080");
-            DroidClientConfig config = builder.build();
-
-            JestClientFactory factory = new JestClientFactory();
-            factory.setDroidClientConfig(config);
-            client = (JestDroidClient) factory.getObject();
-        }
-    }
-
-    // Idea: we call notifyUsers whenever we communicate with the server to notify user B
-    // that user A has made changes to their post (e.g. Driver accepts Riders request)
-    private static void notifyUsers(User user){
-
-    }
-
 
     public static class ProcessOfflineData extends AsyncTask<Object, Void, Post> {
         Geocoder coder;
@@ -409,6 +397,21 @@ public class PostListOnlineController {
             }
 
             return distance;
+        }
+    }
+
+    /**
+     * Verifies settings of the elastic search server
+     */
+    private static void verifySettings() {
+        // if the client hasn't been initialized then we should make it!
+        if (client == null) {
+            DroidClientConfig.Builder builder = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080");
+            DroidClientConfig config = builder.build();
+
+            JestClientFactory factory = new JestClientFactory();
+            factory.setDroidClientConfig(config);
+            client = (JestDroidClient) factory.getObject();
         }
     }
 }
