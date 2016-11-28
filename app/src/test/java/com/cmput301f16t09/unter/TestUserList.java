@@ -65,27 +65,6 @@ public class TestUserList extends TestCase {
     }
 
     /**
-     * Test retrieve userby username.
-     */
-    public void testRetrieveUserbyUsername(){
-
-        UserList usrList = new UserList();
-        User jellykelly = new User("Kelly", "JellYKeLly", "jellykelly@example.com", "780-653-1241", "kelly's password", "");
-
-        User testEmptyList = usrList.searchByUsername(jellykelly.getUsername());
-        //assertEquals(testEmptyList instanceof NonexistantUserException);
-
-        usrList.addUser(jellykelly);
-        User testProperList = usrList.searchByUsername(jellykelly.getUsername());
-        //assertEquals(testProperList instanceof User);
-        assertTrue(testProperList.getUsername().equals("JellYKeLly"));
-        assertTrue(testProperList.getEmail().equals("jellykelly@example.com"));
-        assertTrue(testProperList.getPhoneNumber().equals("780-653-1241"));
-        assertTrue(testProperList.getPassword().equals("kelly's password"));
-
-    }
-
-    /**
      * Test add listener.
      */
     public void testAddListener(){

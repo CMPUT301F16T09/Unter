@@ -119,8 +119,7 @@ public class TestPostList extends TestCase {
         PostList searchResults;
         searchResults = postList.searchList("Joe");
 
-        assertTrue((searchResults.getPosts().size() == 1));
-        assertTrue(searchResults.getPost(0) == newPost2);
+        assertTrue(searchResults == null);
 
     }
 }

@@ -168,7 +168,8 @@ public class TestUser extends TestCase{
         GeoPoint startLoc = new GeoPoint(53.52676, -113.52715);
         GeoPoint endLoc = new GeoPoint(53.54565, -113.49026);
         String myFare = "40.39";
-        Post rideRequest = new Post(startLoc,endLoc,"1", "2",myFare, "Rider");
+        Post rideRequest = new Post(startLoc, endLoc, "Corona Station", "West Edmonton Mall", 4.0, 1.2, newUsr.getUsername());
+
         newUsr.addRideRequest(rideRequest.getId());
         assertEquals(newUsr.getMyRequests().size(),1);
 
@@ -183,7 +184,7 @@ public class TestUser extends TestCase{
         GeoPoint startLoc = new GeoPoint(53.52676, -113.52715);
         GeoPoint endLoc = new GeoPoint(53.54565, -113.49026);
         String myFare = "40.39";
-        Post rideRequest = new Post(startLoc,endLoc,"1", "2",myFare, "Rider");
+        Post rideRequest = new Post(startLoc, endLoc, "Corona Station", "West Edmonton Mall", 4.0, 1.2, newUsr.getUsername());
         newUsr.addRideRequest(rideRequest.getId());
         assertEquals(newUsr.getMyRequests().size(),1);
         newUsr.deleteRideRequest(rideRequest.getId());
@@ -198,7 +199,7 @@ public class TestUser extends TestCase{
         GeoPoint startLoc = new GeoPoint(53.52676, -113.52715);
         GeoPoint endLoc = new GeoPoint(53.54565, -113.49026);
         String myFare = "40.39";
-        Post a_request_i_accepted = new Post(startLoc,endLoc,"1", "2",myFare, "Rider");
+        Post a_request_i_accepted = new Post(startLoc, endLoc, "Corona Station", "West Edmonton Mall", 4.0, 1.2, newUsr.getUsername());
         newUsr.addOfferReference(a_request_i_accepted.getId());
         assertEquals(newUsr.getMyOffers().size(),1);
     }
@@ -212,9 +213,9 @@ public class TestUser extends TestCase{
         GeoPoint startLoc = new GeoPoint(53.52676, -113.52715);
         GeoPoint endLoc = new GeoPoint(53.54565, -113.49026);
         String myFare = "40.39";
-        Post rideRequest = new Post(startLoc,endLoc,"1", "2",myFare, "Rider");
+        Post rideRequest = new Post(startLoc, endLoc, "Corona Station", "West Edmonton Mall", 4.0, 1.2, newUsr.getUsername());
         newUsr.addOfferReference(rideRequest.getId());
-        assertEquals(newUsr.getMyRequests().size(),1);
+        assertTrue(newUsr.getMyOffers().size() == 1);
 
         newUsr.deleteOfferReference(rideRequest.getId());
         assertEquals(newUsr.getMyOffers().size(),0);

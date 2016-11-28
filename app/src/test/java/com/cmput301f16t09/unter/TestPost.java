@@ -69,7 +69,7 @@ public class TestPost extends TestCase {
         Post post = new Post(start, end, "1", "2", 4.0, 1.2, rider.getUsername());
 
         GeoPoint end2 = new GeoPoint(200.0, 400.0);
-        post.setEndLocation(end2);
+        post.setStartLocation(end2);
 
         assertTrue((post.getStartLocation() == end2));
     }
@@ -117,7 +117,7 @@ public class TestPost extends TestCase {
         GeoPoint end = new GeoPoint(2.0, 1.0);
         Post post = new Post(start, end, "1", "2", 4.0, 1.2, rider.getUsername());
 
-        assertTrue((post.getFare().equals("$4")));
+        assertTrue((post.getFare().equals(4.0)));
     }
 
     /**
