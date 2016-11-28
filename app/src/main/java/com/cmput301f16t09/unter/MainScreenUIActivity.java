@@ -45,8 +45,6 @@ public class MainScreenUIActivity extends AppCompatActivity {
 
         @Override
     public void onDestroy() {
-        connected.abortBroadcast();
-        connected = null;
         handlerThread.quit();
         unregisterReceiver(connected);
         super.onDestroy();
