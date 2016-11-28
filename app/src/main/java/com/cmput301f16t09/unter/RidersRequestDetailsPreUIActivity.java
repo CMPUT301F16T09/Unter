@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 
 /**
@@ -23,7 +22,7 @@ import java.util.ArrayList;
  * offered the post, cancel the post, or confirm an offer made by a user for the post. There is also
  * basic information (no map) for the post.
  * Notifications are created here
- * @author Daniel
+ *
  */
 public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
 
@@ -59,9 +58,7 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
          */
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, CurrentUser.getCurrentPost().getDriverOffers()) {
 
-            // Create the view for the habits. Habits name is red if it has not been completed before
-            // and green if it has been completed.
-            // Code to change text from: http://android--code.blogspot.ca/2015/08/android-listview-text-color.html
+            // Create the view for the posts.
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
@@ -101,6 +98,8 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
                         Boolean awaitingCompletion = false;
                         try {
                             CurrentUser.updateCurrentUser();
+
+                            // Check if the user has an offer that is awaiting completion
                             if (CurrentUser.getCurrentUser().getMyOffers().size() == 1) {
                                 PostListOnlineController.SearchPostListsTask searchPostListsTask1 = new PostListOnlineController.SearchPostListsTask();
                                 searchPostListsTask1.execute("documentId", CurrentUser.getCurrentUser().getMyOffers().get(0));
@@ -122,8 +121,10 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
                                     if (!driverUsername.equals(CurrentUser.getCurrentPost().getDriverOffers().get(i))) {
                                         UserListOnlineController.SearchUserListsTask searchUserListsTask1 = new UserListOnlineController.SearchUserListsTask();
                                         searchUserListsTask1.execute("username", CurrentUser.getCurrentPost().getDriverOffers().get(i));
+
                                         User driver = searchUserListsTask1.get().get(0);
                                         driver.getMyOffers().remove(CurrentUser.getCurrentPost().getId());
+
                                         UserListOnlineController.UpdateUsersTask updateUserListstask1 = new UserListOnlineController.UpdateUsersTask();
                                         updateUserListstask1.execute(driver);
                                         updateUserListstask1.get();
@@ -136,12 +137,17 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
                                         PostListOnlineController.SearchPostListsTask searchPostListsTask2 = new PostListOnlineController.SearchPostListsTask();
                                         searchPostListsTask2.execute("documentId", CurrentUser.getCurrentUser().getMyRequests().get(i));
                                         ArrayList<Post> templist = searchPostListsTask2.get();
+
+                                        // If there are any posts existing, delete all connections
+                                        // to each driver that offered a ride to the post
                                         if (!templist.isEmpty()) {
                                             for (int j = 0; j < templist.get(0).getDriverOffers().size(); j++){
                                                 UserListOnlineController.SearchUserListsTask searchUserListsTask2 = new UserListOnlineController.SearchUserListsTask();
                                                 searchUserListsTask2.execute("username", CurrentUser.getCurrentPost().getDriverOffers().get(j));
+
                                                 User driver2 = searchUserListsTask2.get().get(0);
                                                 driver2.getMyOffers().remove(templist.get(0).getId());
+
                                                 UserListOnlineController.UpdateUsersTask updateUserListstask2 = new UserListOnlineController.UpdateUsersTask();
                                                 updateUserListstask2.execute(driver2);
                                                 updateUserListstask2.get();
@@ -174,6 +180,7 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
                                         PostListOnlineController.SearchPostListsTask searchPostListsTask3 = new PostListOnlineController.SearchPostListsTask();
                                         searchPostListsTask3.execute("documentId", driver3.getMyOffers().get(i));
                                         ArrayList<Post> templist2 = searchPostListsTask3.get();
+
                                         if(!templist2.isEmpty()) {
                                             templist2.get(0).getDriverOffers().remove(driverUsername);
                                             PostListOnlineController.UpdatePostsTask updatePostsTask3 = new PostListOnlineController.UpdatePostsTask();
@@ -195,6 +202,7 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
                                     PostListOnlineController.SearchPostListsTask searchPostListsTask4 = new PostListOnlineController.SearchPostListsTask();
                                     searchPostListsTask4.execute("documentId", CurrentUser.getCurrentUser().getMyOffers().get(i));
                                     ArrayList<Post> templist3 = searchPostListsTask4.get();
+
                                     if (!templist3.isEmpty()) {
                                         templist3.get(0).getDriverOffers().remove(CurrentUser.getCurrentUser().getUsername());
                                         PostListOnlineController.UpdatePostsTask updatePostsTask4 = new PostListOnlineController.UpdatePostsTask();
@@ -211,10 +219,13 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
                                 updateUsersTask4.execute(CurrentUser.getCurrentUser());
                                 updateUsersTask4.get();
 
-                                NotificationOnlineController.AddNotificationsTask addNotificationsTask = new NotificationOnlineController.AddNotificationsTask();
+                                // Create a notification for the respective
                                 String msg = "You have been selected to drive" + CurrentUser.getCurrentUser().getUsername() + " from " + CurrentUser.getCurrentPost().getStartAddress() + " to " + CurrentUser.getCurrentPost().getEndAddress() + " !";
                                 Notification notification = new Notification(driverUsername, msg);
                                 notification.setPostType("offer"); //offer
+
+                                // Create and execute the notfication Async task to add to elastic search
+                                NotificationOnlineController.AddNotificationsTask addNotificationsTask = new NotificationOnlineController.AddNotificationsTask();
                                 addNotificationsTask.execute(notification);
                                 addNotificationsTask.get();
 
@@ -223,6 +234,8 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
 
                                 Intent intent = new Intent(RidersRequestDetailsPreUIActivity.this,RidersRequestDetailsPostUIActivity.class);
                                 startActivity(intent);
+
+                                // Sleep the thread so that the all async tasks finish
                                 try {
                                     Thread.sleep(1000);
                                 }
@@ -259,8 +272,8 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
                         Intent intent = new Intent(RidersRequestDetailsPreUIActivity.this, ViewProfileUIActivity.class);
                         intent.putExtra("User", driverUsername);
                         intent.putExtra("isRestricted", false);
-                        startActivity(intent);
 
+                        startActivity(intent);
                         Toast.makeText(RidersRequestDetailsPreUIActivity.this, "viewing profile", Toast.LENGTH_SHORT).show();
 
                     }
@@ -275,20 +288,23 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
     /**
      * When the Cancel Request button is pressed, then delete the post from elastic search and from
      * the current postlist. Update the user's information about current posts
+     *
+     * @param v the v
      * @see PostListOnlineController
      * @see CurrentUser
-     * @param v the v
      */
     public void cancelRequest(View v) {
         try {
             CurrentUser.updateCurrentUser();
             // Remove all of the offers attached to the driver's myoffers list
-            // Update each user
+            // and updates each user in elastic search
             for (String username : CurrentUser.getCurrentPost().getDriverOffers()) {
                 UserListOnlineController.SearchUserListsTask searchUserListsTask = new UserListOnlineController.SearchUserListsTask();
                 searchUserListsTask.execute("username", username);
                 User driver = searchUserListsTask.get().get(0);
+
                 driver.getMyOffers().remove(CurrentUser.getCurrentPost().getId());
+
                 UserListOnlineController.UpdateUsersTask updateUserListstask = new UserListOnlineController.UpdateUsersTask();
                 updateUserListstask.execute(driver);
                 updateUserListstask.get();
@@ -297,12 +313,15 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
             // Deletes the post from the elastic search database
             PostListMainController.deletePosts(CurrentUser.getCurrentPost(), RidersRequestDetailsPreUIActivity.this);
 
+            // Updates the user on elastic search
             CurrentUser.getCurrentUser().getMyRequests().remove(CurrentUser.getCurrentPost().getId());
-            UserListOnlineController.UpdateUsersTask updateUserListstask = new UserListOnlineController.UpdateUsersTask();
-            updateUserListstask.execute(CurrentUser.getCurrentUser());
-            updateUserListstask.get();
+            UserListOnlineController.UpdateUsersTask updateUserListsTask = new UserListOnlineController.UpdateUsersTask();
+            updateUserListsTask.execute(CurrentUser.getCurrentUser());
+            updateUserListsTask.get();
 
             Toast.makeText(RidersRequestDetailsPreUIActivity.this, "Successfully deleted the post!", Toast.LENGTH_SHORT).show();
+
+            // Sleep the thread so that all async tasks finish
             try {
                 Thread.sleep(1000);
             }

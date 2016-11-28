@@ -16,10 +16,13 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/**
+ * The type Notifications activity.
+ */
 public class NotificationsActivity extends AppCompatActivity {
 
     private ArrayAdapter<Notification> adapter;
-    private ArrayList<Notification> templist = new ArrayList<Notification>();
+    private ArrayList<Notification> tempList = new ArrayList<Notification>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,29 +31,30 @@ public class NotificationsActivity extends AppCompatActivity {
 
         final ListView notificationsLV = (ListView) findViewById(R.id.listViewNotifications);
 
+        // Find the notifications for the user
         NotificationOnlineController.findNotifications();
-        templist = NotificationOnlineController.getList();
+        tempList = NotificationOnlineController.getList();
 
+        // Set the notifications in the ListView Adapter if there are any for the user
+        if (!tempList.isEmpty()) {
+            adapter = new ArrayAdapter<Notification>(this, android.R.layout.simple_list_item_1, tempList) {
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    View view = super.getView(position, convertView, parent);
+                    TextView tv = (TextView) view.findViewById(android.R.id.text1);
+                    String notification_message = NotificationOnlineController.getList().get(position).getNotification();
+                    tv.setText(notification_message);
+                    tv.setTextColor(Color.WHITE);
+                    tv.setTextSize(16);
 
-            if (!templist.isEmpty()) {
-                adapter = new ArrayAdapter<Notification>(this, android.R.layout.simple_list_item_1, templist) {
-                    @Override
-                    public View getView(int position, View convertView, ViewGroup parent) {
-                        View view = super.getView(position, convertView, parent);
-                        TextView tv = (TextView) view.findViewById(android.R.id.text1);
-                        String notification_message = NotificationOnlineController.getList().get(position).getNotification();
-                        tv.setText(notification_message);
-                        tv.setTextColor(Color.WHITE);
-                        tv.setTextSize(16);
+                    return view;
+                }
+            };
+            notificationsLV.setAdapter(adapter);
 
-                        return view;
-                    }
-                };
-                notificationsLV.setAdapter(adapter);
+        }
 
-            }
-
-        //the refresh button queries elastic search seperately from the periodic queries
+        //The refresh button queries elastic search separate from the periodic queries
         Button refresh = (Button) findViewById(R.id.RefreshButton);
 
         refresh.setOnClickListener(new View.OnClickListener() {
@@ -60,28 +64,28 @@ public class NotificationsActivity extends AppCompatActivity {
             }
         });
 
-        //clearAllNotifications calls the deletenotificationtask individually
+        //clearAllNotifications calls the deleteNotificationTask individually
         Button clearAllNotifcations = (Button) findViewById(R.id.ClearAllButton);
         clearAllNotifcations.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (templist.isEmpty()){
+                if (tempList.isEmpty()){
                 Toast.makeText(NotificationsActivity.this, "No notifications to delete!", Toast.LENGTH_SHORT).show();
                 }
-                for (Notification n : templist){
+                for (Notification n : tempList){
                     try {
                         NotificationOnlineController.DeleteNotificationsTask deleteNotificationsTask = new NotificationOnlineController.DeleteNotificationsTask();
                         deleteNotificationsTask.execute(n);
                         deleteNotificationsTask.get();
-                        templist.remove(n);
+                        tempList.remove(n);
                         adapter.notifyDataSetChanged();
                     } catch(Exception e) {
                         Log.i("Error", "Error trying to delete notification");
                     }
                 }
-
             }
         });
 
+        // If notificationsLV isn't null, set listeners for them
         if (notificationsLV != null) {
             notificationsLV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
@@ -89,9 +93,9 @@ public class NotificationsActivity extends AppCompatActivity {
                     Toast.makeText(NotificationsActivity.this, "Notification deleted.", Toast.LENGTH_SHORT).show();
                     try {
                         NotificationOnlineController.DeleteNotificationsTask deleteNotificationsTask = new NotificationOnlineController.DeleteNotificationsTask();
-                        deleteNotificationsTask.execute(templist.get(position));
+                        deleteNotificationsTask.execute(tempList.get(position));
                         deleteNotificationsTask.get();
-                        templist.remove(templist.get(position));
+                        tempList.remove(tempList.get(position));
                         adapter.notifyDataSetChanged();
                     } catch(Exception e) {
                         Log.i("Error", "Error trying to delete notification");
@@ -105,11 +109,11 @@ public class NotificationsActivity extends AppCompatActivity {
             notificationsLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public  void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    if (templist.get(position).getPostType().equals("offer")){
+                    if (tempList.get(position).getPostType().equals("offer")){
                         Intent intent = new Intent(NotificationsActivity.this,MyRideOffersUIActivity.class);
                         startActivity(intent);
                     }
-                    else if (templist.get(position).getPostType().equals("request")){
+                    else if (tempList.get(position).getPostType().equals("request")){
                         Intent intent = new Intent(NotificationsActivity.this,MyRideRequestsUIActivity.class);
                         startActivity(intent);
                     }

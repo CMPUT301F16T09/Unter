@@ -1,14 +1,15 @@
 package com.cmput301f16t09.unter;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
-
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The type Post list main controller which handles using the
+ * PostList Offline or Online Controllers depending on if
+ * WiFi is available or not.
+ */
 public class PostListMainController {
 
     private static PostList postListMain = null;
@@ -16,6 +17,12 @@ public class PostListMainController {
     private static PostList postListUpdate = null;
     private static PostList postListDelete = null;
 
+    /**
+     * Gets post list.
+     *
+     * @param context the context
+     * @return the post list
+     */
     static public PostList getPostList(Context context) {
         /**
          * Create a new list if the list has not been initialized
@@ -60,6 +67,12 @@ public class PostListMainController {
         return postListMain;
     }
 
+    /**
+     * Gets post list queue.
+     *
+     * @param context the context
+     * @return the post list queue
+     */
     static public PostList getPostListQueue(Context context) {
         if (postListQueue == null) {
             postListQueue = new PostList();
@@ -69,6 +82,12 @@ public class PostListMainController {
         return postListQueue;
     }
 
+    /**
+     * Gets post list update.
+     *
+     * @param context the context
+     * @return the post list update
+     */
     static public PostList getPostListUpdate(Context context) {
         if (postListUpdate == null) {
             postListUpdate = new PostList();
@@ -78,6 +97,12 @@ public class PostListMainController {
         return postListUpdate;
     }
 
+    /**
+     * Gets post list delete.
+     *
+     * @param context the context
+     * @return the post list delete
+     */
     static public PostList getPostListDelete(Context context) {
         if (postListDelete == null) {
             postListDelete = new PostList();
@@ -87,16 +112,31 @@ public class PostListMainController {
         return postListDelete;
     }
 
+    /**
+     * Clear post list queue.
+     *
+     * @param context the context
+     */
     static public void clearPostListQueue(Context context) {
         postListQueue.getPosts().clear();
         PostListOfflineController.saveOfflinePosts("queueOffline", postListQueue, context);
     }
 
+    /**
+     * Clear post list update.
+     *
+     * @param context the context
+     */
     static public void clearPostListUpdate(Context context) {
         postListUpdate.getPosts().clear();
         PostListOfflineController.saveOfflinePosts("updateOffline", postListUpdate, context);
     }
 
+    /**
+     * Clear post list delete.
+     *
+     * @param context the context
+     */
     static public void clearPostListDelete(Context context) {
         postListDelete.getPosts().clear();
         PostListOfflineController.saveOfflinePosts("deleteOffline", postListDelete, context);
@@ -105,8 +145,8 @@ public class PostListMainController {
     /**
      * Add offline post.
      *
-     * @param post the post
-     * @param context     the context of the activity
+     * @param post    the post
+     * @param context the context of the activity
      */
     public static void addPost(Post post, Context context) {
         /**
@@ -130,6 +170,12 @@ public class PostListMainController {
         PostListOfflineController.saveOfflinePosts("mainOffline", postListMain, context);
     }
 
+    /**
+     * Update posts.
+     *
+     * @param post    the post
+     * @param context the context
+     */
     public static void updatePosts(Post post, Context context) {
         if (WifiReceiver.isNetworkAvailable(context)) {
             try {
@@ -153,6 +199,11 @@ public class PostListMainController {
         // Also update main list.
     }
 
+    /**
+     * Update main offline posts.
+     *
+     * @param context the context
+     */
     public static void updateMainOfflinePosts(Context context) {
 
         // Get updated information for postListMain, not required for
@@ -161,6 +212,12 @@ public class PostListMainController {
 //        PostListOfflineController.saveOfflinePosts("queueOffline", postListQueue, context);
     }
 
+    /**
+     * Delete posts.
+     *
+     * @param post    the post
+     * @param context the context
+     */
     public static void deletePosts(Post post, Context context) {
         try {
             if (WifiReceiver.isNetworkAvailable(context)) {

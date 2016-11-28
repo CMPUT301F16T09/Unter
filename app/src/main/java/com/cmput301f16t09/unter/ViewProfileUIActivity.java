@@ -1,14 +1,8 @@
 package com.cmput301f16t09.unter;
 
-/**
- * Created by Kelly on 2016-11-10.
- */
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 
 /**
@@ -32,6 +26,9 @@ public class ViewProfileUIActivity extends AppCompatActivity {
      */
     TextView email;
 
+    /**
+     * The Vehicle.
+     */
     TextView vehicle;
 
 
@@ -40,24 +37,27 @@ public class ViewProfileUIActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_profile);
 
+        // Finds the TextViews
         title = (TextView) findViewById(R.id.textUsernameTitle);
         phNumber = (TextView) findViewById(R.id.displayNumberTextView);
         name = (TextView) findViewById(R.id.displayNameTextView);
         email = (TextView) findViewById(R.id.displayEmailTextView);
         vehicle = (TextView) findViewById(R.id.displayVehicleTextView);
 
+        // Retrieve the user and if information s restricted
         Bundle extras = getIntent().getExtras();
         String fetchThisUser = extras.getString("User");
         Boolean isRestricted = extras.getBoolean("isRestricted");
-
         title.setText(fetchThisUser);
 
         try {
+            // Finds the user from elastic search
             UserListOnlineController.SearchUserListsTask getUserInfoTask = new UserListOnlineController.SearchUserListsTask();
             getUserInfoTask.execute("username",fetchThisUser);
             ArrayList<User> results = getUserInfoTask.get();
             User fetched = results.get(0);
 
+            // Sets the profile information to be viewed by the user
             name.setText(fetched.getName());
             phNumber.setText(fetched.getPhoneNumber());
             email.setText(fetched.getEmail());
@@ -71,5 +71,4 @@ public class ViewProfileUIActivity extends AppCompatActivity {
         catch(Exception e){
         }
     }
-
 }

@@ -51,6 +51,9 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
      */
     IMapController mapController;
 
+    /**
+     * The My activity.
+     */
     Activity myActivity = this;
     /**
      * The Start point.
@@ -66,6 +69,7 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ride_offer_details_ui);
 
+        // Creating Display for user to see details of offer
         TextView tvRiderName = (TextView) findViewById(R.id.RideOfferRiderName);
         String riderName = CurrentUser.getCurrentPost().getUsername();
         SpannableString content = new SpannableString(riderName);
@@ -141,20 +145,21 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
                 Toast.makeText(map.getContext(), "Technical issue when getting the route", Toast.LENGTH_SHORT).show();
             else if (roads[0].mStatus > Road.STATUS_TECHNICAL_ISSUE) //functional issues
                 Toast.makeText(map.getContext(), "No possible route here", Toast.LENGTH_SHORT).show();
-            //Polyline[] mRoadOverlays = new Polyline[roads.length];
+            // Create the path for the user on the map
             List<Overlay> mapOverlays = map.getOverlays();
-            //for (int i = 0; i < roads.length; i++) {
-                Polyline roadPolyline = RoadManager.buildRoadOverlay(roads[0]);
-                // mRoadOverlays[i] = roadPolyline;
-                String routeDesc = roads[0].getLengthDurationText(myActivity.getBaseContext(), -1);
-                roadPolyline.setTitle(getString(R.string.app_name) + " - " + routeDesc);
-                roadPolyline.setInfoWindow(new BasicInfoWindow(org.osmdroid.bonuspack.R.layout.bonuspack_bubble, map));
-                roadPolyline.setRelatedObject(0);
-                mapOverlays.add(0, roadPolyline);
 
-                map.invalidate();
-                //we insert the road overlays at the "bottom", just above the MapEventsOverlay,
-                //to avoid covering the other overlays.
+            Polyline roadPolyline = RoadManager.buildRoadOverlay(roads[0]);
+            String routeDesc = roads[0].getLengthDurationText(myActivity.getBaseContext(), -1);
+
+            roadPolyline.setTitle(getString(R.string.app_name) + " - " + routeDesc);
+            roadPolyline.setInfoWindow(new BasicInfoWindow(org.osmdroid.bonuspack.R.layout.bonuspack_bubble, map));
+            roadPolyline.setRelatedObject(0);
+
+            //We insert the road overlays at the "bottom", just above the MapEventsOverlay,
+            //to avoid covering the other overlays.
+            mapOverlays.add(0, roadPolyline);
+            map.invalidate();
+
 
         }
     }

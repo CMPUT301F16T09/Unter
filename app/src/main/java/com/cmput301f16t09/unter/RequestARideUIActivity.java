@@ -45,11 +45,11 @@ import java.util.Locale;
  * allows the user to specify start and end location, get an estimate for a fare based on the
  * locations, or input their own fare. The locations can be displayed on the map when the Get Estimate
  * button is pressed.
- * @author Daniel
+ *
  */
-
 public class RequestARideUIActivity extends AppCompatActivity implements MapEventsReceiver {
 
+    // Set default values
     private double lowerLeftLat = 53.0;
     private double lowerLeftLong = -114.0;
     private double upperRightLat = 54.0;
@@ -64,14 +64,43 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
      */
     Activity myActivity = this;
 
+    /**
+     * The Start location.
+     */
+    String startLocation, /**
+     * The End location.
+     */
+    endLocation;
+    /**
+     * The Start addresses.
+     */
+    ArrayList<String> startAddresses, /**
+     * The End addresses.
+     */
+    endAddresses;
+    /**
+     * The Start adapter.
+     */
+    ArrayAdapter<String> startAdapter, /**
+     * The End adapter.
+     */
+    endAdapter;
 
-    String startLocation, endLocation;
-    ArrayList<String> startAddresses, endAddresses;
-    ArrayAdapter<String> startAdapter, endAdapter;
-
+    /**
+     * The Overlay item array.
+     */
     ArrayList<OverlayItem> overlayItemArray;
-    RoadManager roadManager, roadManager2;
+    /**
+     * The Road manager.
+     */
+    RoadManager roadManager, /**
+     * The Road manager 2.
+     */
+    roadManager2;
 
+    /**
+     * The Map.
+     */
     MapView map;
     /**
      * The M roads.
@@ -86,8 +115,17 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
      */
     IMapController mapController;
 
-    GeoPoint startPoint, endPoint;
+    /**
+     * The Start point.
+     */
+    GeoPoint startPoint, /**
+     * The End point.
+     */
+    endPoint;
 
+    /**
+     * The Find.
+     */
     Button find;
 
     /** Called when the activity is created. */
@@ -135,6 +173,11 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         return true;
     }
 
+    /**
+     * Complete start address.
+     *
+     * @param v the v
+     */
     public void completeStartAddress(View v){
         editStart = (AutoCompleteTextView) findViewById(R.id.RequestRideStartLocation);
         editEnd = (AutoCompleteTextView) findViewById(R.id.RequestRideEndLocation);
@@ -178,6 +221,11 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         });
     }
 
+    /**
+     * Complete end address.
+     *
+     * @param v the v
+     */
     public void completeEndAddress(View v){
         editStart = (AutoCompleteTextView) findViewById(R.id.RequestRideStartLocation);
         editEnd = (AutoCompleteTextView) findViewById(R.id.RequestRideEndLocation);
@@ -222,11 +270,20 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         });
     }
 
-        Boolean awaitingCompletion = false;
+    /**
+     * The Awaiting completion.
+     */
+    Boolean awaitingCompletion = false;
+
+    /**
+     * Confirm ride request.
+     *
+     * @param v the v
+     */
     public void confirmRideRequest(View v) {
 
         try {
-
+            // Check if the user has any posts with awaiting completion
             CurrentUser.updateCurrentUser();
             if (CurrentUser.getCurrentUser().getMyRequests().size() == 1) {
                 PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
@@ -268,18 +325,18 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
             }
             else {
 
-//                startPoint = getCoords(startLocation);
-//                endPoint = getCoords(endLocation);
+                // Set initial values
+                Double convertedFare = 0.0;
+                boolean isNumeric = true;
 
                 editFare = (EditText) findViewById(R.id.RequestRideCost);
                 String fare = editFare.getText().toString();
 
-                Double convertedFare = 0.0;
-                boolean isNumeric = true;
-
+                // Log start and end locations
                 Log.d("START", startLocation);
                 Log.d("END", endLocation);
 
+                // Check if the value is valid
                 try {
                     convertedFare = Double.parseDouble(fare);
                 } catch (Exception e) {
@@ -287,18 +344,15 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
                 }
                 Post newPost = new Post(startPoint, endPoint, startLocation, endLocation, convertedFare, convertedFare/(distance/1000), CurrentUser.getCurrentUser().getUsername());
 
+                // If the value is valid
                 if (isNumeric) {
                     try {
+                        // Add post and update user
                         PostListMainController.addPost(newPost, RequestARideUIActivity.this);
-                        //                    PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
-                        //                    addPostOnline.execute(newPost);
-                        //                    addPostOnline.get();
-                        // Most likely get updated copy of CurrentUser possibly?
                         CurrentUser.getCurrentUser().getMyRequests().add(newPost.getId());
                         UserListOnlineController.UpdateUsersTask updateUserListstask = new UserListOnlineController.UpdateUsersTask();
                         updateUserListstask.execute(CurrentUser.getCurrentUser());
                         updateUserListstask.get();
-
                     }
                     catch (Exception e) {
                         Log.i("Error", "Elastic Search Error");
@@ -318,6 +372,7 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
             }
         }
     }
+
     /**
      * Taken from CMPUT 301 Fall 16 Lab 8 - Geolocation by Stephen Romansky
      * Calls upon the UpdateRoadTask to draw a given route in the Activities MapView
@@ -362,39 +417,40 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
             else if (roads[0].mStatus > Road.STATUS_TECHNICAL_ISSUE) //functional issues
                 Toast.makeText(map.getContext(), "No possible route here", Toast.LENGTH_SHORT).show();
 
-            Polyline[] mRoadOverlays = new Polyline[roads.length];
             List<Overlay> mapOverlays = map.getOverlays();
 
-            //for (int i = 0; i < roads.length; i++) {
-                Polyline roadPolyline = RoadManager.buildRoadOverlay(roads[0]);
-                String routeDesc = roads[0].getLengthDurationText(myActivity.getBaseContext(), -1);
-                roadPolyline.setTitle(getString(R.string.app_name) + " - " + routeDesc);
-                roadPolyline.setInfoWindow(new BasicInfoWindow(org.osmdroid.bonuspack.R.layout.bonuspack_bubble, map));
-                roadPolyline.setRelatedObject(0);
+            // Setup Overlay
+            Polyline roadPolyline = RoadManager.buildRoadOverlay(roads[0]);
+            String routeDesc = roads[0].getLengthDurationText(myActivity.getBaseContext(), -1);
+            roadPolyline.setTitle(getString(R.string.app_name) + " - " + routeDesc);
+            roadPolyline.setInfoWindow(new BasicInfoWindow(org.osmdroid.bonuspack.R.layout.bonuspack_bubble, map));
+            roadPolyline.setRelatedObject(0);
 
-                mapOverlays.clear();
+            // Clear Overlay
+            mapOverlays.clear();
 
-                Marker startMarker = new Marker(map);
-                startMarker.setPosition(startPoint);
-                startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                mapOverlays.add(startMarker);
+            // Set start marker
+            Marker startMarker = new Marker(map);
+            startMarker.setPosition(startPoint);
+            startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+            mapOverlays.add(startMarker);
 
-                Marker endMarker = new Marker(map);
-                endMarker.setPosition(endPoint);
-                endMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                mapOverlays.add(endMarker);
+            // Set end marker
+            Marker endMarker = new Marker(map);
+            endMarker.setPosition(endPoint);
+            endMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+            mapOverlays.add(endMarker);
 
-                mapOverlays.add(0, roadPolyline);
-                //mapOverlays.add(roadPolyline);
-                map.invalidate();
-                //we insert the road overlays at the "bottom", just above the MapEventsOverlay,
-                //to avoid covering the other overlays.
-
+            // We insert the road overlays at the "bottom", just above the MapEventsOverlay,
+            // to avoid covering the other overlays.
+            mapOverlays.add(0, roadPolyline);
+            map.invalidate();
         }
     }
 
     /**
      * Used to get an estimate fare for the route. (Incomplete)
+     *
      * @see FareCalculatingTask
      * @see GeoPoint
      */
@@ -427,35 +483,35 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         protected void onPostExecute(Road[] roads) {
 
             if (roads == null){return;}
+            // Set inital distance value
             distance = 0.0;
 
+            Polyline roadPolyline = RoadManager.buildRoadOverlay(roads[0]);
+            List<GeoPoint> roadSegment = roadPolyline.getPoints();
 
-            //for (int i = 0; i < roads.length; i++) {
+            // Find the distance of the segments
+            for (int j = 0; j < roadSegment.size() - 1; j+= 1){
+                GeoPoint geoStart = roadSegment.get(j);
+                GeoPoint geoEnd = roadSegment.get(j + 1);
 
-                Polyline roadPolyline = RoadManager.buildRoadOverlay(roads[0]);
-                List<GeoPoint> roadSegment = roadPolyline.getPoints();
+                Location start = new Location("start");
+                start.setLatitude(geoStart.getLatitude());
+                start.setLongitude(geoStart.getLongitude());
 
-                for (int j = 0; j < roadSegment.size() - 1; j+= 1){
-                    GeoPoint geoStart = roadSegment.get(j);
-                    GeoPoint geoEnd = roadSegment.get(j + 1);
+                Location end = new Location("end");
+                end.setLatitude(geoEnd.getLatitude());
+                end.setLongitude(geoEnd.getLongitude());
 
-                    Location start = new Location("start");
-                    start.setLatitude(geoStart.getLatitude());
-                    start.setLongitude(geoStart.getLongitude());
+                distance += start.distanceTo(end);
+            }
 
-                    Location end = new Location("end");
-                    end.setLatitude(geoEnd.getLatitude());
-                    end.setLongitude(geoEnd.getLongitude());
-
-                    distance += start.distanceTo(end);
-                }
-
-
+            // Fare Calculating formula
             double fare = distance / 1000 + 4.4;
             editFare.setText(String.format("%.2f", fare));
         }
     }
 
+    // Find Address method from inputted string
     private ArrayList<String> findAddresses(String address) {
         //Nov 7th, 2016 - http://stackoverflow.com/questions/13576470/converting-an-address-into-geopoint
         //Geocoder takes an string and finds an address that most closely resembles the string
@@ -478,8 +534,11 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         }
         return stringAddresses;
     }
+
+    // Get Coordinates from string location
     private GeoPoint getCoords(String location){
 
+        // Set inital values
         double latitude, longitude;
         latitude = 0.0;
         longitude = 0.0;
@@ -496,23 +555,28 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         return new GeoPoint(latitude, longitude);
     }
 
-    //https://github.com/MKergall/osmbonuspack/blob/master/OSMNavigator/src/main/java/com/osmnavigator/MapActivity.java
-    //date: November 25th, 2016, author: MKergall
+    // Referenced from
+    // https://github.com/MKergall/osmbonuspack/blob/master/OSMNavigator/src/main/java/com/osmnavigator/MapActivity.java
+    // date: November 25th, 2016, author: MKergall
     // lines 1385 - 1434
 
+
+
+    /**
+     * The Clicked.
+     */
+    GeoPoint clicked;
+
+    // Overwriting required method
     @Override
     public boolean singleTapConfirmedHelper(GeoPoint p) {
-        //Toast.makeText(this, "Tapped", Toast.LENGTH_SHORT).show();
         //DO NOTHING
         return true;
     }
 
-    GeoPoint clicked;
-
+    // Grab and create context for map
     @Override
     public boolean longPressHelper(GeoPoint p) {
-        //Toast.makeText(this, "Long Clicked", Toast.LENGTH_SHORT).show();
-
         clicked = p;
         Button find = (Button) findViewById(R.id.findStart);
         registerForContextMenu(find);
@@ -528,7 +592,7 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         inflater.inflate(R.menu.map_menu, menu);
     }
 
-
+    // Create map marker from selected context
     @Override
     public boolean onContextItemSelected(MenuItem item){
         switch (item.getItemId()){
@@ -549,8 +613,6 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
                 } else {
                     startLocation = startPoint.toDoubleString();
                 }
-//                Log.d("START POINT", startPoint.toDoubleString());
-//                Log.d("CLICKED", clicked.toDoubleString());
 
                 if (endPoint != null) {
                     getFareAsync();
@@ -568,8 +630,6 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
                 } else {
                     endLocation = endPoint.toDoubleString();
                 }
-//                Log.d("START POINT", endPoint.toDoubleString());
-//                Log.d("CLICKED", clicked.toDoubleString());
 
                 Marker endMarker = new Marker(map);
                 endMarker.setPosition(endPoint);
@@ -589,12 +649,17 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         }
     }
 
+    /**
+     * Reverse geocode string.
+     *
+     * @param point the point
+     * @return the string
+     */
     public String reverseGeocode(GeoPoint point){
     String address = "None";
 
     try {
-        List<Address> addresses = coder.getFromLocation(point.getLatitude(),
-                                                        point.getLongitude(), 1);
+        List<Address> addresses = coder.getFromLocation(point.getLatitude(), point.getLongitude(), 1);
         address = addresses.get(0).getAddressLine(0) + ", " + addresses.get(0).getAddressLine(1);
     } catch (IOException e) {
         e.printStackTrace();

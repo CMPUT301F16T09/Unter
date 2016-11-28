@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
 /**
  * The type My ride offers ui activity allows the user to view the offers made to multiple posts.
  */
@@ -70,7 +69,7 @@ public class MyRideOffersUIActivity extends AppCompatActivity {
             }
         };
 
-        // Set the adapter to the listview
+        // Set the adapter to the ListView
         currentPostList.setAdapter(adapter);
 
         /**
@@ -88,25 +87,5 @@ public class MyRideOffersUIActivity extends AppCompatActivity {
                 startActivity(RideOfferDetailsIntent);
             }
         });
-
-        /**
-         * Add a listener to the post list in PostListOfflineController
-         *
-         * @see PostListOfflineController
-         */
-//        PostListOfflineController.getPostList(MyRideOffersUIActivity.this).addListener(new Listener() {
-//            @Override
-//            public void update() {
-//                postList.getPosts().clear();
-//
-//                for (Post p : PostListOfflineController.getPostList(MyRideOffersUIActivity.this).getPosts()) {
-//                    if (p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) {
-//                        postList.addPost(p);
-//                    }
-//                }
-//
-//                adapter.notifyDataSetChanged();
-//            }
-//        });
     }
 }

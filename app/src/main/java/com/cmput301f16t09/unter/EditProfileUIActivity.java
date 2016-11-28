@@ -1,17 +1,12 @@
 package com.cmput301f16t09.unter;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-//import android.support.design.widget.FloatingActionButton;
-//import android.support.design.widget.Snackbar;
 
 /**
  * This activity is a 'View' used to display the current user info
@@ -53,7 +48,9 @@ public class EditProfileUIActivity extends AppCompatActivity {
      * An android widget displaying a blank to be filled in by the user.
      */
     private EditText editConfirmPassword;
-
+    /**
+     * An android widget displaying the vehicle of the user.
+     */
     private EditText editVehicle;
 
 
@@ -66,13 +63,18 @@ public class EditProfileUIActivity extends AppCompatActivity {
         //grabs the respective data from the android widgets and stores them in their respective object representations.
         editName = (EditText) findViewById(R.id.EditProfileNameField);
         editName.setText(CurrentUser.getCurrentUser().getName());
+
         editPhoneNumber = (EditText) findViewById(R.id.EditProfilePhoneNumberField);
         editPhoneNumber.setText(CurrentUser.getCurrentUser().getPhoneNumber());
+
         editEmail = (EditText) findViewById(R.id.EditProfileEmailField);
         editEmail.setText(CurrentUser.getCurrentUser().getEmail());
+
         editPassword = (EditText) findViewById(R.id.EditProfilePasswordField);
         editPassword.setText(CurrentUser.getCurrentUser().getPassword());
+
         editConfirmPassword = (EditText) findViewById(R.id.EditProfileConfirmPasswordField);
+
         editVehicle = (EditText) findViewById(R.id.EditProfileVehicleInfoField);
         editVehicle.setText(CurrentUser.getCurrentUser().getVehicle());
     }
@@ -118,6 +120,7 @@ public class EditProfileUIActivity extends AppCompatActivity {
         else {
             Toast.makeText(EditProfileUIActivity.this, "Your password did not confirm!" , Toast.LENGTH_SHORT).show();
         }
+        //Sleep Thread to make sure all AsyncTasks finish
         try {
             Thread.sleep(1000);
         }
