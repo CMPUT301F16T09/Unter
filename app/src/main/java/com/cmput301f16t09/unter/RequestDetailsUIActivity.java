@@ -98,7 +98,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         end_Location.setText(CurrentUser.getCurrentPost().getEndAddress());
 
         fare = (TextView) findViewById(R.id.RequestDetailsCost);
-        fare.setText(CurrentUser.getCurrentPost().getFare());
+        fare.setText("$" + CurrentUser.getCurrentPost().getFare().toString());
 
         map = (MapView) findViewById(R.id.RequestDetailsMap);
         map.setTileSource(TileSourceFactory.MAPNIK);

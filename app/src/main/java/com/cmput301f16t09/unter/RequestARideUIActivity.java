@@ -42,6 +42,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
     private AutoCompleteTextView editStart;
     private AutoCompleteTextView editEnd;
     private EditText editFare;
+    private double distance = 0.0;
 
     /**
      * The My activity.
@@ -215,31 +216,40 @@ public class RequestARideUIActivity extends AppCompatActivity {
             else {
                 startPoint = findCoords(startLocation);
                 endPoint = findCoords(endLocation);
-
+                Double convertedFare = 0.0;
+                boolean isNumeric = true;
                 /**
                  * Add the post to elastic search and save the post to the offline data.
                  * @see PostListOfflineController
                  * @see PostListOnlineController
                  * @see Post
                  */
-
                 try {
-                    PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
-                    Post newPost = new Post(startPoint, endPoint, startLocation, endLocation, fare, CurrentUser.getCurrentUser().getUsername());
-                    PostListOfflineController.addOfflinePost(newPost, RequestARideUIActivity.this);
-                    addPostOnline.execute(newPost);
-                    addPostOnline.get();
-                    // Most likely get updated copy of CurrentUser possibly?
-                    CurrentUser.getCurrentUser().getMyRequests().add(newPost.getId());
-                    UserListOnlineController.UpdateUsersTask updateUserListstask = new UserListOnlineController.UpdateUsersTask();
-                    updateUserListstask.execute(CurrentUser.getCurrentUser());
-                    updateUserListstask.get();
+                    convertedFare = Double.parseDouble(fare);
                 } catch (Exception e) {
-                    Log.i("Error", "Elastic search error");
+                    isNumeric = false;
                 }
-
-                Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();
-                finish();
+                if (isNumeric) {
+                    try {
+                        PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
+                        Post newPost = new Post(startPoint, endPoint, startLocation, endLocation, convertedFare, convertedFare/(distance/1000), CurrentUser.getCurrentUser().getUsername());
+                        PostListOfflineController.addOfflinePost(newPost, RequestARideUIActivity.this);
+                        addPostOnline.execute(newPost);
+                        addPostOnline.get();
+                        // Most likely get updated copy of CurrentUser possibly?
+                        CurrentUser.getCurrentUser().getMyRequests().add(newPost.getId());
+                        UserListOnlineController.UpdateUsersTask updateUserListstask = new UserListOnlineController.UpdateUsersTask();
+                        updateUserListstask.execute(CurrentUser.getCurrentUser());
+                        updateUserListstask.get();
+                    } catch (Exception e) {
+                        Log.i("Error", "Elastic search error");
+                    }
+                    Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                else {
+                    Toast.makeText(this, "Request invalid", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
@@ -320,7 +330,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
         protected void onPostExecute(Road[] roads) {
 
             if (roads == null){return;}
-            double distance = 0.0;
+            distance = 0.0;
 
             /**
              * Draws small segments of the Polyline and calculates the cost of the line based on the
@@ -348,7 +358,7 @@ public class RequestARideUIActivity extends AppCompatActivity {
             }
 
             double fare = distance / 1000 + 4.4;
-            editFare.setText(String.format("$%.2f", fare));
+            editFare.setText(String.format("%.2f", fare));
         }
     }
 

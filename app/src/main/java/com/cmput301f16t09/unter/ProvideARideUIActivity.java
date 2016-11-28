@@ -6,6 +6,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -28,10 +31,16 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Provide A Ride UI Activity is where the user sees all the Requests made (minus his/her own)
  * and can choose to make a Ride offer for a Request
- * How to do nav bars
+ * Creating Nav bars, Accessed November 26
  * http://blog.teamtreehouse.com/add-navigation-drawer-android
  */
 public class ProvideARideUIActivity extends AppCompatActivity {
@@ -157,6 +166,10 @@ public class ProvideARideUIActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        resetPosts();
+    }
+
+    public void resetPosts() {
         postList.getPosts().clear();
         for(Post p : PostListOfflineController.getPostList(ProvideARideUIActivity.this).getPosts()) {
             if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&
@@ -213,67 +226,379 @@ public class ProvideARideUIActivity extends AppCompatActivity {
     }
 
     private void addDrawerItems() {
-        String[] osArray = { "Keyword", "Geolocation", "Fare", "Fare/km", "Address" };
+        String[] osArray = { "Keyword", "Geolocation", "Fare", "Fare/km", "Address","Show all open requests" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
+//        TextView tvSearchOptions = () Change text color
         mDrawerList.setAdapter(mAdapter);
 
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                if (position == 0) {
-                    Toast.makeText(ProvideARideUIActivity.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
+             //   https://www.youtube.com/watch?v=_ANXdk_V71s
+                if (position == 0) { //Keyword
                     final Dialog dialog = new Dialog(ProvideARideUIActivity.this);
                     dialog.setTitle("Search by Keyword");
                     dialog.setContentView(R.layout.dialog_search_keyword);
                     dialog.show();
 
-                    final EditText editText = (EditText) dialog.findViewById(R.id.searchKeyword);
+                    final EditText editKeyword = (EditText) dialog.findViewById(R.id.searchKeyword);
                     Button searchKeywordConfirm = (Button) dialog.findViewById(R.id.searchKeywordConfirm);
-                    Button searchKeywordCancel = (Button) dialog.findViewById(R.id.searchKeywordCancel);
+                    final Button searchKeywordCancel = (Button) dialog.findViewById(R.id.searchKeywordCancel);
 
                     searchKeywordConfirm.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                           String keyword = editText.getText().toString();
+                            String keyword = editKeyword.getText().toString();
                             if (keyword.length()==0) {
                                 // add toast
-                            }
-                            tvSearch.setText("Searching by Keyword: " + keyword);
-                                // Implement search method
+                                Toast.makeText(ProvideARideUIActivity.this, "Invalid search", Toast.LENGTH_SHORT).show();
 
-                            onBackPressed();
-                            dialog.cancel();
+                            } else {
+                                tvSearch.setText("Searching by Keyword: " + keyword);
+                                // Implement search method
+                                Toast.makeText(ProvideARideUIActivity.this, "Searching...", Toast.LENGTH_SHORT).show();
+                                try {
+                                    PostListOnlineController.SearchKeywordTask searchKeywordTask = new PostListOnlineController.SearchKeywordTask();
+                                    searchKeywordTask.execute(keyword);
+                                    // Create a postList object
+                                    ArrayList<Post> tempPostlist = searchKeywordTask.get();
+                                    postList.getPosts().clear();
+                                    postList.getPosts().addAll(tempPostlist);
+                                    adapter.notifyDataSetChanged();
+                                }
+                                catch (Exception e) {
+                                    Log.i("Error", "Error searching for keyword");
+                                }
+
+                                onBackPressed();
+                                dialog.cancel();
+
+                            }
                         }
                     });
 
                     searchKeywordCancel.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            Toast.makeText(ProvideARideUIActivity.this, "Cancelling search.", Toast.LENGTH_SHORT).show();
                             dialog.cancel();
                         }
                     });
 
-                } else if (position == 1) {
-                    Dialog dialog = new Dialog(ProvideARideUIActivity.this);
-                    dialog.setTitle("Search by Keyword");
-                    dialog.setContentView(R.layout.dialog_search_keyword);
+                } else if (position == 1) { //Geolocation
+                    final Dialog dialog = new Dialog(ProvideARideUIActivity.this);
+                    dialog.setTitle("Search by Geolocation");
+                    dialog.setContentView(R.layout.dialog_search_geolocation);
                     dialog.show();
 
-                    final EditText editText = (EditText) dialog.findViewById(R.id.searchKeyword);
-                    Button searchKeywordConfirm = (Button) dialog.findViewById(R.id.searchKeywordConfirm);
-                    Button searchKeywordCancel = (Button) dialog.findViewById(R.id.searchKeywordCancel);
+                    final EditText editGeoLat = (EditText) dialog.findViewById(R.id.searchGeolocationLat);
+                    final EditText editGeoLong = (EditText) dialog.findViewById(R.id.searchGeolocationLong);
+                    final EditText editGeoRadius = (EditText) dialog.findViewById(R.id.searchGeolocationRadius);
+                    Button searchGeolocationConfirm = (Button) dialog.findViewById(R.id.searchGeolocationConfirm);
+                    Button searchGeolocationCancel = (Button) dialog.findViewById(R.id.searchGeolocationCancel);
 
-                } else if (position == 2) {
+                    searchGeolocationConfirm.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Double geoLat = 0.0;
+                            Double geoLong = 0.0;
+                            Double geoRadius = 0.0;
+                            boolean isNumeric = true;
+                            try {
+                                geoLat = Double.parseDouble(editGeoLat.getText().toString());
+                                geoLong = Double.parseDouble(editGeoLong.getText().toString());
+                                geoRadius = Double.parseDouble(editGeoRadius.getText().toString());
 
-                } else if (position == 3) {
-                } else {
-                } //position ==4
+                            } catch (Exception e){
+                                isNumeric = false;
+                            }
+                            // If editGeoLat and editGeoLong are valid
+                            if (isNumeric) {
+                                Toast.makeText(ProvideARideUIActivity.this, "Searching...", Toast.LENGTH_SHORT).show();
+                                tvSearch.setText("Searching within " + geoRadius + "m" + " of "
+                                        + "\nLAT: "+ geoLat + ", " + "LONG: " + geoLong);
+                                // Implement search method
 
+                                Location a = new Location("a");
+                                a.setLatitude(geoLat);
+                                a.setLongitude(geoLong);
+                                try {
+                                    PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
+                                    searchPostListsTask.execute("status", "Pending Approval");
+                                    ArrayList<Post> tempPostList = searchPostListsTask.get();
+
+                                    postList.getPosts().clear();
+
+                                    for(Post p : tempPostList) {
+                                        if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&
+                                                (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername()))) {
+                                            Location b = new Location("b");
+                                            b.setLatitude(p.getStartLocation().getLatitude());
+                                            b.setLongitude(p.getStartLocation().getLongitude());
+                                            Float distance = a.distanceTo(b);
+                                            if (distance < geoRadius) {
+                                                postList.addPost(p);
+                                            }
+                                        }
+                                    }
+
+                                    adapter.notifyDataSetChanged();
+
+                                    } catch (Exception e) {
+                                }
+                                onBackPressed();
+                                dialog.cancel();
+
+                            } else {
+                                // add Invalid toast
+                                Toast.makeText(ProvideARideUIActivity.this, "Invalid search", Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    });
+
+                    searchGeolocationCancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(ProvideARideUIActivity.this, "Search cancelled", Toast.LENGTH_SHORT).show();
+                            dialog.cancel();
+                        }
+                    });
+
+                } else if (position == 2) { //Fare
+                    final Dialog dialog = new Dialog(ProvideARideUIActivity.this);
+                    dialog.setTitle("Search by Fare");
+                    dialog.setContentView(R.layout.dialog_search_fare);
+                    dialog.show();
+
+                    final EditText editMinFare = (EditText) dialog.findViewById(R.id.searchMinFare);
+                    final EditText editMaxFare = (EditText) dialog.findViewById(R.id.searchMaxFare);
+                    Button searchFareConfirm = (Button) dialog.findViewById(R.id.searchFareConfirm);
+                    Button searchFareCancel = (Button) dialog.findViewById(R.id.searchFareCancel);
+
+                    searchFareConfirm.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Double minFare = 0.0;
+                            Double maxFare = 1000000.0;
+                            if (editMaxFare.getText().toString().equals("") && editMinFare.getText().toString().equals("")) {
+                                Toast.makeText(ProvideARideUIActivity.this, "Invalid search, no fields entered", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                boolean isNumeric = true;
+                                if (editMaxFare.getText().toString().equals("")) {
+                                    try {
+                                        minFare = Double.parseDouble(editMinFare.getText().toString());
+                                    } catch (Exception e){
+                                        isNumeric = false;
+                                    }
+                                }
+                                else if (editMinFare.getText().toString().equals("")) {
+                                    try {
+                                        maxFare = Double.parseDouble(editMaxFare.getText().toString());
+                                    } catch (Exception e){
+                                        isNumeric = false;
+                                    }
+                                }
+                                else {
+                                    try {
+                                        maxFare = Double.parseDouble(editMaxFare.getText().toString());
+                                        minFare = Double.parseDouble(editMinFare.getText().toString());
+                                    } catch (Exception e){
+                                        isNumeric = false;
+                                    }
+                                }
+                                if (isNumeric) {
+                                    if (minFare <= maxFare) {
+                                        try {
+                                            postList.getPosts().clear();
+                                            PostListOnlineController.SearchPostListsRangeTask searchPostListsRangeTask = new PostListOnlineController.SearchPostListsRangeTask();
+                                            searchPostListsRangeTask.execute("fare", minFare.toString(), maxFare.toString());
+                                            ArrayList<Post> tempPostList = searchPostListsRangeTask.get();
+                                            postList.getPosts().addAll(tempPostList);
+                                            adapter.notifyDataSetChanged();
+                                        } catch (Exception e) {}
+                                        onBackPressed();
+                                        dialog.cancel();
+                                    }
+                                    else {
+                                        Toast.makeText(ProvideARideUIActivity.this, "Invalid search", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                else {
+                                    Toast.makeText(ProvideARideUIActivity.this, "Invalid search, fields contain non-numeric characters", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    });
+
+                    searchFareCancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(ProvideARideUIActivity.this, "Search cancelled", Toast.LENGTH_SHORT).show();
+                            dialog.cancel();
+                        }
+                    });
+                } else if (position == 3) { //Fare/km
+                    final Dialog dialog = new Dialog(ProvideARideUIActivity.this);
+                    dialog.setTitle("Search by Fare/km");
+                    dialog.setContentView(R.layout.dialog_search_farekm);
+                    dialog.show();
+
+                    final EditText editMinFareKM = (EditText) dialog.findViewById(R.id.searchMinFareKM);
+                    final EditText editMaxFareKM = (EditText) dialog.findViewById(R.id.searchMaxFareKM);
+                    Button searchFareKMConfirm = (Button) dialog.findViewById(R.id.searchFareKMConfirm);
+                    Button searchFareKMCancel = (Button) dialog.findViewById(R.id.searchFareKMCancel);
+
+                    searchFareKMConfirm.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Double minFareKM = 0.0;
+                            Double maxFareKM = 1000000.0;
+                            if (editMaxFareKM.getText().toString().equals("") && editMinFareKM.getText().toString().equals("")) {
+                                Toast.makeText(ProvideARideUIActivity.this, "Invalid search, no fields entered", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                boolean isNumeric = true;
+                                if (editMaxFareKM.getText().toString().equals("")) {
+                                    try {
+                                        minFareKM = Double.parseDouble(editMinFareKM.getText().toString());
+                                    } catch (Exception e){
+                                        isNumeric = false;
+                                    }
+                                }
+                                else if (editMinFareKM.getText().toString().equals("")) {
+                                    try {
+                                        maxFareKM = Double.parseDouble(editMaxFareKM.getText().toString());
+                                    } catch (Exception e){
+                                        isNumeric = false;
+                                    }
+                                }
+                                else {
+                                    try {
+                                        maxFareKM = Double.parseDouble(editMaxFareKM.getText().toString());
+                                        minFareKM = Double.parseDouble(editMinFareKM.getText().toString());
+                                    } catch (Exception e){
+                                        isNumeric = false;
+                                    }
+                                }
+                                if (isNumeric) {
+                                    if (minFareKM <= maxFareKM) {
+                                        try {
+                                            postList.getPosts().clear();
+                                            PostListOnlineController.SearchPostListsRangeTask searchPostListsRangeTask = new PostListOnlineController.SearchPostListsRangeTask();
+                                            searchPostListsRangeTask.execute("fareKM", minFareKM.toString(), maxFareKM.toString());
+                                            ArrayList<Post> tempPostList = searchPostListsRangeTask.get();
+                                            postList.getPosts().addAll(tempPostList);
+                                            adapter.notifyDataSetChanged();
+                                        } catch (Exception e) {}
+                                        onBackPressed();
+                                        dialog.cancel();
+                                    }
+                                    else {
+                                        Toast.makeText(ProvideARideUIActivity.this, "Invalid search", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                else {
+                                    Toast.makeText(ProvideARideUIActivity.this, "Invalid search, fields contain non-numeric characters", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    });
+
+                    searchFareKMCancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(ProvideARideUIActivity.this, "Search cancelled", Toast.LENGTH_SHORT).show();
+                            dialog.cancel();
+                        }
+                    });
+                } else if (position == 4){ //Address
+                    final Dialog dialog = new Dialog(ProvideARideUIActivity.this);
+                    dialog.setTitle("Search by Address");
+                    dialog.setContentView(R.layout.dialog_search_address);
+                    dialog.show();
+
+                    final EditText editAddress = (EditText) dialog.findViewById(R.id.searchAddress);
+                    final EditText editAddressRadius = (EditText) dialog.findViewById(R.id.searchAddressRadius);
+                    Button searchAddressConfirm = (Button) dialog.findViewById(R.id.searchAddressConfirm);
+                    Button searchAddressCancel = (Button) dialog.findViewById(R.id.searchAddressCancel);
+
+                    searchAddressConfirm.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            // Geocode some address~
+                            // if editAddress is valid GeoCoder Address
+                            if (true) {
+                                // add toast
+                                Toast.makeText(ProvideARideUIActivity.this, "Searching...", Toast.LENGTH_SHORT).show();
+                                tvSearch.setText("Searching within " + editAddressRadius.getText().toString() + "m"
+                                                    + " of " + editAddress.getText().toString());
+                                // Implement search method
+                                boolean isNumeric = true;
+                                Double radius = 0.0;
+                                try {
+                                    radius = Double.parseDouble(editAddressRadius.getText().toString());
+                                } catch(Exception e) {
+                                    isNumeric = false;
+                                }
+                                if (isNumeric) {
+                                    try {
+                                        Geocoder coder = new Geocoder(ProvideARideUIActivity.this);
+                                        List<Address> addresses = coder.getFromLocationName(editAddress.getText().toString(), 1);
+                                        Location a = new Location("a");
+                                        a.setLatitude(addresses.get(0).getLatitude());
+                                        a.setLongitude(addresses.get(0).getLongitude());
+                                        PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
+                                        searchPostListsTask.execute("status", "Pending Approval");
+                                        ArrayList<Post> tempPostList = searchPostListsTask.get();
+                                        postList.getPosts().clear();
+                                        for(Post p : tempPostList) {
+                                            if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&
+                                                    (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername()))) {
+                                                Location b = new Location("b");
+                                                b.setLatitude(p.getStartLocation().getLatitude());
+                                                b.setLongitude(p.getStartLocation().getLongitude());
+                                                Float distance = a.distanceTo(b);
+                                                if (distance < (radius)) {
+                                                    postList.addPost(p);
+                                                }
+                                            }
+                                        }
+                                        adapter.notifyDataSetChanged();
+                                    } catch (Exception e) {
+                                    }
+                                    onBackPressed();
+                                    dialog.cancel();
+                                } else {
+                                    Toast.makeText(ProvideARideUIActivity.this, "Invalid search radius", Toast.LENGTH_SHORT).show();
+                                }
+
+                            } else {
+                                // invalid toast
+                                Toast.makeText(ProvideARideUIActivity.this, "Invalid search address", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+                    searchAddressCancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.cancel();
+                            Toast.makeText(ProvideARideUIActivity.this, "Search cancelled", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else{//default
+                    Toast.makeText(ProvideARideUIActivity.this, "Showing all ride requests", Toast.LENGTH_SHORT).show();
+                    resetPosts();
+                    getSupportActionBar().setTitle("Provide A Ride");
+                    onBackPressed();
+                }
             }
         });
     }
-
 
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

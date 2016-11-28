@@ -50,8 +50,8 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
         tvEndLocation.setText(endLocation);
 
         TextView tvOfferedFare = (TextView) findViewById(R.id.RideRequestDetailsPreOfferedFare);
-        String offeredFare = CurrentUser.getCurrentPost().getFare();
-        tvOfferedFare.setText(offeredFare);
+        String offeredFare = CurrentUser.getCurrentPost().getFare().toString();
+        tvOfferedFare.setText("$" + offeredFare);
 
         /**
          * Create an adapter for the ListView that will display all of the posts.

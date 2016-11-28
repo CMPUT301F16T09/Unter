@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/minFareDollar"
+        android:text="$"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/searchMinFare"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Minimum Fare"
+        android:textSize="20sp"
+        android:layout_toEndOf="@+id/minFareDollar"
+        android:layout_alignBaseline="@id/minFareDollar"/>
+
+    <TextView
+        android:id="@+id/maxFareDollar"
+        android:text="$"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:layout_below="@+id/minFareDollar"/>
+
+    <EditText
+        android:id="@+id/searchMaxFare"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Maximum Fare"
+        android:textSize="20sp"
+        android:layout_toEndOf="@id/maxFareDollar"
+        android:layout_alignBaseline="@id/maxFareDollar"/>
+
+
+    <Button
+        android:id="@+id/searchFareConfirm"
+        android:text="Confirm"
+        android:textSize="24sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40sp"
+        android:layout_below="@+id/searchMaxFare"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/searchFareCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/searchFareConfirm"
+        android:text="Cancel"
+        android:textSize="24sp"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>
