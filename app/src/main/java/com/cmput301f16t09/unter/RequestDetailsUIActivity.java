@@ -21,6 +21,7 @@ import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.Polyline;
@@ -51,10 +52,6 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
     MapView map;
 
     Activity myActivity = this;
-    /**
-     * Roads used for the route.
-     */
-    Road[] mRoads;
     /**
      * The Start point.
      */
@@ -108,6 +105,8 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
+        map.setMinZoomLevel(2);
+        map.setMaxZoomLevel(18);
         mapController = map.getController();
 
         //GeoPoint edmPoint = new GeoPoint(53.5444, -113.4909);
@@ -147,46 +146,62 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
      * Calls upon the UpdateRoadTask to draw a given route in the Activities MapView
      */
     public void getRoadAsync() {
-        mRoads = null;
 
-        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>(2);
-        waypoints.add(startPoint);
-        waypoints.add(endPoint);
+        ArrayList<GeoPoint> wayPoints = new ArrayList<>(2);
+        wayPoints.add(startPoint);
+        wayPoints.add(endPoint);
 
-        new UpdateRoadTask().execute(waypoints);
-    }
-    private class UpdateRoadTask extends AsyncTask<Object, Void, Road[]> {
+        mapController.setCenter(startPoint);
 
-        protected Road[] doInBackground(Object... params) {
-            @SuppressWarnings("unchecked")
-            ArrayList<GeoPoint> waypoints = (ArrayList<GeoPoint>) params[0];
-            return roadManager.getRoads(waypoints);
+        if (WifiReceiver.isNetworkAvailable(myActivity)){
+            new UpdateRoadTask().execute(wayPoints);
+        } else{
+            Toast.makeText(this, "Cannot draw road Offline", Toast.LENGTH_SHORT).show();
         }
+    }
+    private class UpdateRoadTask extends AsyncTask<Object, Void, Road> {
 
+        protected Road doInBackground(Object... params) {
+            @SuppressWarnings("unchecked")
+            ArrayList<GeoPoint> wayPoints = (ArrayList<GeoPoint>) params[0];
+            return roadManager.getRoad(wayPoints);
+        }
         @Override
-        protected void onPostExecute(Road[] roads) {
-            mRoads = roads;
-            if (roads == null)
+        protected void onPostExecute(Road road) {
+
+            if (road == null)
                 return;
-            if (roads[0].mStatus == Road.STATUS_TECHNICAL_ISSUE)
+            if (road.mStatus == Road.STATUS_TECHNICAL_ISSUE)
                 Toast.makeText(map.getContext(), "Technical issue when getting the route", Toast.LENGTH_SHORT).show();
-            else if (roads[0].mStatus > Road.STATUS_TECHNICAL_ISSUE) //functional issues
+            else if (road.mStatus > Road.STATUS_TECHNICAL_ISSUE) //functional issues
                 Toast.makeText(map.getContext(), "No possible route here", Toast.LENGTH_SHORT).show();
-            Polyline[] mRoadOverlays = new Polyline[roads.length];
+
             List<Overlay> mapOverlays = map.getOverlays();
-            //for (int i = 0; i < roads.length; i++) {
-                Polyline roadPolyline = RoadManager.buildRoadOverlay(roads[0]);
-                mRoadOverlays[0] = roadPolyline;
-                String routeDesc = roads[0].getLengthDurationText(myActivity.getBaseContext(), -1);
-                roadPolyline.setTitle(getString(R.string.app_name) + " - " + routeDesc);
-                roadPolyline.setInfoWindow(new BasicInfoWindow(org.osmdroid.bonuspack.R.layout.bonuspack_bubble, map));
-                roadPolyline.setRelatedObject(0);
 
-                mapOverlays.add(0, roadPolyline);
-                map.invalidate();
-                //we insert the road overlays at the "bottom", just above the MapEventsOverlay,
-                //to avoid covering the other overlays.
+            Polyline roadPolyline = RoadManager.buildRoadOverlay(road);
+            String routeDesc = road.getLengthDurationText(myActivity.getBaseContext(), -1);
+            roadPolyline.setTitle(getString(R.string.app_name) + " - " + routeDesc);
+            roadPolyline.setInfoWindow(new BasicInfoWindow(org.osmdroid.bonuspack.R.layout.bonuspack_bubble, map));
+            roadPolyline.setRelatedObject(0);
 
+            Marker startMarker = new Marker(map);
+            startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+            startMarker.setPosition(startPoint);
+
+            Marker endMarker = new Marker(map);
+            endMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+            endMarker.setPosition(endPoint);
+
+            startMarker.setTitle("Departure:\n" + CurrentUser.getCurrentPost().getStartAddress());
+            endMarker.setTitle("Destination:\n" + CurrentUser.getCurrentPost().getEndAddress());
+
+            mapOverlays.add(startMarker);
+            mapOverlays.add(endMarker);
+            mapOverlays.add(0, roadPolyline);
+
+            map.invalidate();
+            //we insert the road overlays at the "bottom", just above the MapEventsOverlay,
+            //to avoid covering the other overlays.
         }
     }
 

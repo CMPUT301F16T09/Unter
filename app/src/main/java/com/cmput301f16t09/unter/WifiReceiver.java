@@ -3,11 +3,17 @@ package com.cmput301f16t09.unter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 // 2016-11-19
 // http://stackoverflow.com/questions/6362314/wifi-connect-disconnect-listener
@@ -18,11 +24,14 @@ public class WifiReceiver extends BroadcastReceiver {
     private static boolean prevConnected = true;
     final static Handler handler = new Handler();
 
+    Geocoder coder;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         ConnectivityManager conMan = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = conMan.getActiveNetworkInfo();
+
+        coder = new Geocoder(context, Locale.getDefault());
 
         if (netInfo != null && netInfo.getState().name().equals("CONNECTED")) {
             if (!prevConnected) {
@@ -35,7 +44,8 @@ public class WifiReceiver extends BroadcastReceiver {
 
                     for (Post p : PostListMainController.getPostListQueue(context).getPosts()) {
                         PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
-                        addPostOnline.execute(p);
+                        Post online = reverseGeocodeForOfflinePost(p);
+                        addPostOnline.execute(online);
                     }
                     // ADD CLEARING THE SAVE FILE
                     PostListMainController.clearPostListQueue(context);
@@ -78,6 +88,10 @@ public class WifiReceiver extends BroadcastReceiver {
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 
+    // 2016-11-26
+    // https://guides.codepath.com/android/Repeating-Periodic-Tasks
+    // http://stackoverflow.com/questions/6242268/repeat-a-task-with-a-time-delay/6242292#6242292
+    // Author: Inazaruk
     public static void polling(Context context) {
         final Context c = context;
         final Runnable r = new Runnable() {
@@ -99,9 +113,26 @@ public class WifiReceiver extends BroadcastReceiver {
             handler.removeCallbacks(r);
         }
     }
+
+    public Post reverseGeocodeForOfflinePost(Post post){
+
+        Post onlinePost = post;
+
+        try {
+            List<Address> start = coder.getFromLocation(post.getStartLocation().getLatitude(),
+                                                         post.getStartLocation().getLongitude(), 1);
+
+            List<Address> end = coder.getFromLocation(post.getEndLocation().getLatitude(),
+                                                      post.getEndLocation().getLongitude(), 1);
+
+            onlinePost.setStartAddress(start.get(0).getAddressLine(0) + ", " + start.get(0).getAddressLine(1));
+            onlinePost.setEndAddress(end.get(0).getAddressLine(0) + ", " + end.get(0).getAddressLine(1));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("IOException", "IOException was caught");
+        }
+
+        return onlinePost;
+    }
 }
-
-
-//https://guides.codepath.com/android/Repeating-Periodic-Tasks
-//http://stackoverflow.com/questions/6242268/repeat-a-task-with-a-time-delay/6242292#6242292
-
