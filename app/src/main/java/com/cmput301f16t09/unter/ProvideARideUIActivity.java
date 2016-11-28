@@ -290,7 +290,7 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                     searchKeywordCancel.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(ProvideARideUIActivity.this, "Cancelling search.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProvideARideUIActivity.this, "Search cancelled", Toast.LENGTH_SHORT).show();
                             dialog.cancel();
                         }
                     });
@@ -602,7 +602,6 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                         public void onClick(View v) {
 
                             if (true) {
-                                Toast.makeText(ProvideARideUIActivity.this, "Searching...", Toast.LENGTH_SHORT).show();
                                 tvSearch.setText("Searching for Address:\nSearching within " + editAddressRadius.getText().toString() + "m"
                                                     + " of\n" + editAddress.getText().toString());
                                 // Set inital values
