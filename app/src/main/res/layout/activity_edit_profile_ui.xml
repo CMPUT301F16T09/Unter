@@ -11,170 +11,322 @@
     android:background="@color/background"
     tools:context="com.cmput301f16t09.unter.EditProfileUIActivity">
 
-    <TextView
-        android:id="@+id/EditProfileName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:text="@string/name"
-        android:textSize="@dimen/header_text_size"
-        android:textColor="@color/TextColor"
-        android:fontFamily="sans-serif-smallcaps" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1.0">
 
-    <EditText
-        android:id="@+id/EditProfileNameField"
-        android:layout_width="350dp"
-        android:layout_height="42dp"
-        android:layout_below="@+id/EditProfileName"
-        android:layout_alignStart="@+id/EditProfileName"
-        android:layout_marginStart="5dp"
-        android:hint="Current Name"
-        android:textSize="@dimen/input_text_size"
-        android:textColor="@color/TextColor"
-        android:textColorHint="@color/HintTextColor"
-        android:fontFamily="sans-serif-smallcaps"/>
+        <TextView
+            android:id="@+id/EditProfileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_marginStart="0dp"
+            android:text="@string/name"
+            android:textSize="@dimen/header_text_size"
+            android:textColor="@color/TextColor"
+            android:fontFamily="sans-serif-smallcaps" />
 
-    <TextView
-        android:id="@+id/EditProfilePhoneNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/EditProfileName"
-        android:layout_alignStart="@+id/EditProfileName"
-        android:layout_marginTop="45dp"
-        android:layout_centerHorizontal="true"
-        android:text="@string/phone_number"
-        android:textSize="@dimen/header_text_size"
-        android:textColor="@color/TextColor"
-        android:fontFamily="sans-serif-smallcaps" />
+        <EditText
+            android:id="@+id/EditProfileNameField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_weight="0.05"
+            android:hint="Current Name"
+            android:textSize="@dimen/input_text_size"
+            android:textColor="@color/TextColor"
+            android:textColorHint="@color/HintTextColor"
+            android:fontFamily="sans-serif-smallcaps"/>
 
-    <EditText
-        android:id="@+id/EditProfilePhoneNumberField"
-        android:layout_width="350dp"
-        android:layout_height="42dp"
-        android:layout_below="@+id/EditProfilePhoneNumber"
-        android:layout_alignStart="@+id/EditProfileName"
-        android:layout_marginStart="5dp"
-        android:hint="Current Phone Number"
-        android:textSize="@dimen/input_text_size"
-        android:textColor="@color/TextColor"
-        android:textColorHint="@color/HintTextColor"
-        android:fontFamily="sans-serif-smallcaps"/>
+        <TextView
+            android:id="@+id/EditProfilePhoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:text="@string/phone_number"
+            android:textSize="@dimen/header_text_size"
+            android:textColor="@color/TextColor"
+            android:fontFamily="sans-serif-smallcaps" />
 
-    <TextView
-        android:id="@+id/EditProfileEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/EditProfilePhoneNumber"
-        android:layout_alignStart="@+id/EditProfileName"
-        android:layout_marginTop="45dp"
-        android:layout_centerHorizontal="true"
-        android:text="@string/email"
-        android:textSize="@dimen/header_text_size"
-        android:textColor="@color/TextColor"
-        android:fontFamily="sans-serif-smallcaps"/>
+        <EditText
+            android:id="@+id/EditProfilePhoneNumberField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_weight="0.05"
+            android:hint="Current Phone Number"
+            android:textSize="@dimen/input_text_size"
+            android:textColor="@color/TextColor"
+            android:textColorHint="@color/HintTextColor"
+            android:fontFamily="sans-serif-smallcaps"/>
 
-    <EditText
-        android:id="@+id/EditProfileEmailField"
-        android:layout_width="350dp"
-        android:layout_height="42dp"
-        android:layout_below="@+id/EditProfileEmail"
-        android:layout_alignStart="@+id/EditProfileName"
-        android:layout_marginStart="5dp"
-        android:hint="Current Email"
-        android:textSize="@dimen/input_text_size"
-        android:textColor="@color/TextColor"
-        android:textColorHint="@color/HintTextColor"
-        android:fontFamily="sans-serif-smallcaps"/>
+        <TextView
+            android:id="@+id/EditProfileEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:text="@string/email"
+            android:textSize="@dimen/header_text_size"
+            android:textColor="@color/TextColor"
+            android:fontFamily="sans-serif-smallcaps"/>
 
-    <TextView
-        android:id="@+id/EditProfileVehicleInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/EditProfileEmailField"
-        android:layout_alignParentStart="true"
-        android:text="Vehicle"
-        android:textSize="@dimen/header_text_size"
-        android:textColor="@color/TextColor"
-        android:fontFamily="sans-serif-smallcaps" />
+        <EditText
+            android:id="@+id/EditProfileEmailField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_weight="0.05"
+            android:hint="Current Email"
+            android:textSize="@dimen/input_text_size"
+            android:textColor="@color/TextColor"
+            android:textColorHint="@color/HintTextColor"
+            android:fontFamily="sans-serif-smallcaps"/>
 
-    <EditText
-        android:id="@+id/EditProfileVehicleInfoField"
-        android:layout_width="350dp"
-        android:layout_height="42dp"
-        android:layout_below="@+id/EditProfileVehicleInfo"
-        android:layout_alignStart="@+id/EditProfilePasswordField"
-        android:hint="Current Vehicle"
-        android:textSize="@dimen/input_text_size"
-        android:textColor="@color/TextColor"
-        android:textColorHint="@color/HintTextColor"
-        android:fontFamily="sans-serif-smallcaps" />
+        <TextView
+            android:id="@+id/EditProfileVehicleInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:text="Vehicle"
+            android:textSize="@dimen/header_text_size"
+            android:textColor="@color/TextColor"
+            android:fontFamily="sans-serif-smallcaps" />
 
-    <TextView
-        android:id="@+id/EditProfilePassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:text="@string/password"
-        android:textSize="@dimen/header_text_size"
-        android:textColor="@color/TextColor"
-        android:fontFamily="sans-serif-smallcaps"
-        android:layout_below="@+id/EditProfileEmailField"
-        android:layout_alignParentStart="true" />
+        <EditText
+            android:id="@+id/EditProfileVehicleInfoField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05"
+            android:hint="Current Vehicle"
+            android:textSize="@dimen/input_text_size"
+            android:textColor="@color/TextColor"
+            android:textColorHint="@color/HintTextColor"
+            android:fontFamily="sans-serif-smallcaps" />
 
-    <EditText
-        android:id="@+id/EditProfilePasswordField"
-        android:layout_width="350dp"
-        android:layout_height="42dp"
-        android:layout_below="@+id/EditProfilePassword"
-        android:layout_alignStart="@+id/EditProfileName"
-        android:layout_marginStart="5dp"
-        android:hint="Current Password"
-        android:textSize="@dimen/input_text_size"
-        android:textColor="@color/TextColor"
-        android:textColorHint="@color/HintTextColor"
-        android:inputType="textPassword"
-        android:fontFamily="sans-serif-smallcaps"/>
+        <TextView
+            android:id="@+id/EditProfilePassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:text="@string/password"
+            android:textSize="@dimen/header_text_size"
+            android:textColor="@color/TextColor"
+            android:fontFamily="sans-serif-smallcaps" />
 
-    <TextView
-    android:id="@+id/EditProfileConfirmPassword"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/EditProfilePassword"
-    android:layout_alignStart="@+id/EditProfileName"
-    android:layout_marginTop="45dp"
-    android:layout_centerHorizontal="true"
-    android:text="@string/confirm_password"
-    android:textSize="@dimen/header_text_size"
-    android:textColor="@color/TextColor"
-    android:fontFamily="sans-serif-smallcaps"/>
+        <EditText
+            android:id="@+id/EditProfilePasswordField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_weight="0.05"
+            android:hint="Current Password"
+            android:textSize="@dimen/input_text_size"
+            android:textColor="@color/TextColor"
+            android:textColorHint="@color/HintTextColor"
+            android:inputType="textPassword"
+            android:fontFamily="sans-serif-smallcaps"/>
 
-    <EditText
-    android:id="@+id/EditProfileConfirmPasswordField"
-    android:layout_width="350dp"
-    android:layout_height="42dp"
-    android:layout_below="@+id/EditProfileConfirmPassword"
-    android:layout_alignStart="@+id/EditProfileEmail"
-    android:layout_marginStart="5dp"
-    android:hint="Confirm password"
-    android:textSize="@dimen/input_text_size"
-    android:textColor="@color/TextColor"
-    android:textColorHint="@color/HintTextColor"
-    android:inputType="textPassword"
-    android:fontFamily="sans-serif-smallcaps"/>
+        <TextView
+            android:id="@+id/EditProfileConfirmPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="0.1"
+            android:text="@string/confirm_password"
+            android:textSize="@dimen/header_text_size"
+            android:textColor="@color/TextColor"
+            android:fontFamily="sans-serif-smallcaps"/>
 
-    <Button
-    android:id="@+id/EditProfileConfirmButton"
-    android:layout_width="match_parent"
-    android:layout_height="70dp"
-    android:layout_alignParentBottom="true"
-    android:layout_marginStart="20dp"
-    android:layout_marginBottom="10dp"
-    android:layout_centerHorizontal="true"
-    android:text="Confirm"
-    android:textSize="40sp"
-    android:background="@color/lightAccent"
-    android:onClick="updateProfile"/>
+        <EditText
+            android:id="@+id/EditProfileConfirmPasswordField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_weight="0.05"
+            android:hint="Confirm password"
+            android:textSize="@dimen/input_text_size"
+            android:textColor="@color/TextColor"
+            android:textColorHint="@color/HintTextColor"
+            android:inputType="textPassword"
+            android:fontFamily="sans-serif-smallcaps"/>
 
+        <Button
+            android:id="@+id/EditProfileConfirmButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="0.1"
+            android:text="Confirm"
+            android:textSize="40sp"
+            android:background="@color/lightAccent"
+            android:onClick="updateProfile"/>
 
+    </LinearLayout>
+    <!--<TextView-->
+        <!--android:id="@+id/EditProfileName"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="0dp"-->
+        <!--android:text="@string/name"-->
+        <!--android:textSize="@dimen/header_text_size"-->
+        <!--android:textColor="@color/TextColor"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
+
+    <!--<EditText-->
+        <!--android:id="@+id/EditProfileNameField"-->
+        <!--android:layout_width="350dp"-->
+        <!--android:layout_height="42dp"-->
+        <!--android:layout_below="@+id/EditProfileName"-->
+        <!--android:layout_alignStart="@+id/EditProfileName"-->
+        <!--android:layout_marginStart="5dp"-->
+        <!--android:hint="Current Name"-->
+        <!--android:textSize="@dimen/input_text_size"-->
+        <!--android:textColor="@color/TextColor"-->
+        <!--android:textColorHint="@color/HintTextColor"-->
+        <!--android:fontFamily="sans-serif-smallcaps"/>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/EditProfilePhoneNumber"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/EditProfileName"-->
+        <!--android:layout_alignStart="@+id/EditProfileName"-->
+        <!--android:layout_marginTop="45dp"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:text="@string/phone_number"-->
+        <!--android:textSize="@dimen/header_text_size"-->
+        <!--android:textColor="@color/TextColor"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
+
+    <!--<EditText-->
+        <!--android:id="@+id/EditProfilePhoneNumberField"-->
+        <!--android:layout_width="350dp"-->
+        <!--android:layout_height="42dp"-->
+        <!--android:layout_below="@+id/EditProfilePhoneNumber"-->
+        <!--android:layout_alignStart="@+id/EditProfileName"-->
+        <!--android:layout_marginStart="5dp"-->
+        <!--android:hint="Current Phone Number"-->
+        <!--android:textSize="@dimen/input_text_size"-->
+        <!--android:textColor="@color/TextColor"-->
+        <!--android:textColorHint="@color/HintTextColor"-->
+        <!--android:fontFamily="sans-serif-smallcaps"/>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/EditProfileEmail"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/EditProfilePhoneNumber"-->
+        <!--android:layout_alignStart="@+id/EditProfileName"-->
+        <!--android:layout_marginTop="45dp"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:text="@string/email"-->
+        <!--android:textSize="@dimen/header_text_size"-->
+        <!--android:textColor="@color/TextColor"-->
+        <!--android:fontFamily="sans-serif-smallcaps"/>-->
+
+    <!--<EditText-->
+        <!--android:id="@+id/EditProfileEmailField"-->
+        <!--android:layout_width="350dp"-->
+        <!--android:layout_height="42dp"-->
+        <!--android:layout_below="@+id/EditProfileEmail"-->
+        <!--android:layout_alignStart="@+id/EditProfileName"-->
+        <!--android:layout_marginStart="5dp"-->
+        <!--android:hint="Current Email"-->
+        <!--android:textSize="@dimen/input_text_size"-->
+        <!--android:textColor="@color/TextColor"-->
+        <!--android:textColorHint="@color/HintTextColor"-->
+        <!--android:fontFamily="sans-serif-smallcaps"/>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/EditProfileVehicleInfo"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/EditProfileEmailField"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:text="Vehicle"-->
+        <!--android:textSize="@dimen/header_text_size"-->
+        <!--android:textColor="@color/TextColor"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
+
+    <!--<EditText-->
+        <!--android:id="@+id/EditProfileVehicleInfoField"-->
+        <!--android:layout_width="350dp"-->
+        <!--android:layout_height="42dp"-->
+        <!--android:layout_below="@+id/EditProfileVehicleInfo"-->
+        <!--android:layout_alignStart="@+id/EditProfilePasswordField"-->
+        <!--android:hint="Current Vehicle"-->
+        <!--android:textSize="@dimen/input_text_size"-->
+        <!--android:textColor="@color/TextColor"-->
+        <!--android:textColorHint="@color/HintTextColor"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/EditProfilePassword"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="68dp"-->
+        <!--android:text="@string/password"-->
+        <!--android:textSize="@dimen/header_text_size"-->
+        <!--android:textColor="@color/TextColor"-->
+        <!--android:fontFamily="sans-serif-smallcaps"-->
+        <!--android:layout_below="@+id/EditProfileEmailField"-->
+        <!--android:layout_alignParentStart="true" />-->
+
+    <!--<EditText-->
+        <!--android:id="@+id/EditProfilePasswordField"-->
+        <!--android:layout_width="350dp"-->
+        <!--android:layout_height="42dp"-->
+        <!--android:layout_below="@+id/EditProfilePassword"-->
+        <!--android:layout_alignStart="@+id/EditProfileName"-->
+        <!--android:layout_marginStart="5dp"-->
+        <!--android:hint="Current Password"-->
+        <!--android:textSize="@dimen/input_text_size"-->
+        <!--android:textColor="@color/TextColor"-->
+        <!--android:textColorHint="@color/HintTextColor"-->
+        <!--android:inputType="textPassword"-->
+        <!--android:fontFamily="sans-serif-smallcaps"/>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/EditProfileConfirmPassword"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/EditProfilePassword"-->
+        <!--android:layout_alignStart="@+id/EditProfileName"-->
+        <!--android:layout_marginTop="45dp"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:text="@string/confirm_password"-->
+        <!--android:textSize="@dimen/header_text_size"-->
+        <!--android:textColor="@color/TextColor"-->
+        <!--android:fontFamily="sans-serif-smallcaps"/>-->
+
+    <!--<EditText-->
+        <!--android:id="@+id/EditProfileConfirmPasswordField"-->
+        <!--android:layout_width="350dp"-->
+        <!--android:layout_height="42dp"-->
+        <!--android:layout_below="@+id/EditProfileConfirmPassword"-->
+        <!--android:layout_alignStart="@+id/EditProfileEmail"-->
+        <!--android:layout_marginStart="5dp"-->
+        <!--android:hint="Confirm password"-->
+        <!--android:textSize="@dimen/input_text_size"-->
+        <!--android:textColor="@color/TextColor"-->
+        <!--android:textColorHint="@color/HintTextColor"-->
+        <!--android:inputType="textPassword"-->
+        <!--android:fontFamily="sans-serif-smallcaps"/>-->
+
+    <!--<Button-->
+        <!--android:id="@+id/EditProfileConfirmButton"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="70dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginStart="20dp"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:text="Confirm"-->
+        <!--android:textSize="40sp"-->
+        <!--android:background="@color/lightAccent"-->
+        <!--android:onClick="updateProfile"/>-->
 
 </RelativeLayout>

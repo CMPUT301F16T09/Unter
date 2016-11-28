@@ -67,7 +67,7 @@ public class MainScreenUIActivityTest extends ActivityInstrumentationTestCase2<M
 
         solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);
 
-        solo.clickOnButton("My Ride\nRequest");
+        solo.clickOnButton("My Ride\nRequests");
         solo.assertCurrentActivity("Wrong Activity, should be MyRideRequestUIActivity", MyRideRequestsUIActivity.class);
 
         solo.goBack();
@@ -112,5 +112,24 @@ public class MainScreenUIActivityTest extends ActivityInstrumentationTestCase2<M
         solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);
         solo.goBack();
     }
+}
 
+    /**
+     * Test my notifications button.
+     */
+    public void testMyNotificationsButton() {
+        solo.assertCurrentActivity("Wrong Activity", MainGUIActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.mainScreenUsername), "KappaRoss");
+        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "123");
+        solo.clickOnButton("Login");
+
+        solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);
+
+        solo.clickOnButton("My Notifications");
+        solo.assertCurrentActivity("Wrong Activity, should be NotificationsActivity", NotificationsActivity.class);
+
+        solo.goBack();
+        solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);
+        solo.goBack();
+    }
 }

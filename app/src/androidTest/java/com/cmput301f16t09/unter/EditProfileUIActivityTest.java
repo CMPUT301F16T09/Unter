@@ -46,19 +46,22 @@ public class EditProfileUIActivityTest extends ActivityInstrumentationTestCase2<
         solo.enterText((EditText) solo.getView(R.id.EditProfileEmailField), "Kappa@Ross.com");
         solo.waitForText("Kappa@Ross.com");
 
+        solo.clearEditText((EditText) solo.getView(R.id.EditProfileVehicleInfoField));
+        solo.enterText((EditText) solo.getView(R.id.EditProfileVehicleInfoField), "Permobile");
+        solo.waitForText("Permobile");
+
         solo.clearEditText((EditText) solo.getView(R.id.EditProfilePasswordField));
         solo.enterText((EditText) solo.getView(R.id.EditProfilePasswordField), "123");
         solo.waitForText("123");
 
-
-        solo.clickOnButton("C o n f i r m");
+        solo.clickOnButton("Confirm");
         solo.waitForText("Your password did not confirm!");
 
         solo.clearEditText((EditText) solo.getView(R.id.EditProfileConfirmPasswordField));
         solo.enterText((EditText) solo.getView(R.id.EditProfileConfirmPasswordField), "123");
         solo.waitForText("123");
 
-        solo.clickOnButton("C o n f i r m");
+        solo.clickOnButton("Confirm");
         solo.waitForText("Your information was updated!");
         solo.goBack();
         solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);
