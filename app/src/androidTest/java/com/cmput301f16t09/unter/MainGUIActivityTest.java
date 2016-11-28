@@ -71,5 +71,4 @@ public class MainGUIActivityTest extends ActivityInstrumentationTestCase2<MainGU
         solo.goBack();
         solo.assertCurrentActivity("Wrong Activity", MainGUIActivity.class);
     }
-
 }
