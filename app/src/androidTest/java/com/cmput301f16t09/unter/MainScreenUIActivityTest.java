@@ -112,7 +112,7 @@ public class MainScreenUIActivityTest extends ActivityInstrumentationTestCase2<M
         solo.assertCurrentActivity("Wrong Activity", MainScreenUIActivity.class);
         solo.goBack();
     }
-    
+
     /**
      * Test my notifications button.
      */
