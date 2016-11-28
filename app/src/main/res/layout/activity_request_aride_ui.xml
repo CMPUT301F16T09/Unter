@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_weight="0.7"
+            android:layout_weight="0.80"
             android:textSize="@dimen/input_text_size"
             android:textColor="@color/TextColor"
             android:lines="2"
@@ -35,14 +35,13 @@
             android:id="@+id/findStart"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.3"
+            android:layout_weight="0.20"
             android:layout_toEndOf="@+id/RequestRideStartLocation"
-            android:text="find"
+            android:text="Find\nStart"
             android:onClick="completeStartAddress"
             android:elevation="0dp" />
 
     </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/endLocationLayout"
@@ -58,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/RequestRideStartLocation"
             android:layout_marginTop="5dp"
-            android:layout_weight="0.7"
+            android:layout_weight="0.80"
             android:lines="2"
             android:textSize="@dimen/input_text_size"
             android:textColor="@color/TextColor"
@@ -73,8 +72,8 @@
             android:layout_below="@+id/findStart"
             android:layout_alignParentEnd="true"
             android:layout_toEndOf="@+id/RequestRideEndLocation"
-            android:layout_weight="0.3"
-            android:text="find"
+            android:layout_weight="0.2"
+            android:text="Find\nEnd"
             android:onClick="completeEndAddress"
             android:elevation="0dp" />
 
