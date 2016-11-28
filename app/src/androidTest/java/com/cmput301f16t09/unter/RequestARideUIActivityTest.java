@@ -66,7 +66,7 @@ public class RequestARideUIActivityTest extends ActivityInstrumentationTestCase2
         solo.enterText((EditText) solo.getView(R.id.RequestRideEndLocation), "Corona Station");
         assertTrue(solo.waitForText("Corona Station"));
         solo.clickOnButton("Find\nEnd");
-        solo.clickOnMenuItem("University LRT Station\nEdmonton, AB T6G 2P8");
+        solo.clickOnMenuItem("Corona Station\nEdmonton, AB T5J");
         solo.clickOnButton("Confirm");
         assertTrue(solo.waitForText("Please fill in start location"));
 
@@ -76,8 +76,5 @@ public class RequestARideUIActivityTest extends ActivityInstrumentationTestCase2
         solo.goBack();
         solo.goBack();
     }
-
-
-
 
 }
