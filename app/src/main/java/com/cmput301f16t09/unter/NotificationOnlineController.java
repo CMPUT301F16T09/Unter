@@ -26,6 +26,10 @@ import io.searchbox.core.SearchResult;
 
 /**
  * Created by Kelly on 2016-11-21.
+ *
+ * Notification Online Controller builds android Notifications after fetching notifications
+ * that are meant to be received by the current user.
+ * @see PostListOnlineController
  */
 
 
@@ -42,6 +46,12 @@ public class NotificationOnlineController {
         return list;
     }
 
+
+    /**
+     * queries elastic search and fills up the list of notifications
+     * to be accessed by other activites
+     *
+     */
     public static void findNotifications(){
         //any status changes are placed into notification list
 
@@ -57,6 +67,10 @@ public class NotificationOnlineController {
         }
     }
 
+    /**
+     * after querying elastic search, a notification is built
+     * @param c  the context on which to show the notification
+     */
     public static void createNotifications(Context c){
 
         findNotifications();

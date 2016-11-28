@@ -33,7 +33,6 @@ public class NotificationsActivity extends AppCompatActivity {
 
 
             if (!templist.isEmpty()) {
-//                notificationList.setNotificationList(templist);
                 adapter = new ArrayAdapter<Notification>(this, android.R.layout.simple_list_item_1, templist) {
                     @Override
                     public View getView(int position, View convertView, ViewGroup parent) {
@@ -51,6 +50,7 @@ public class NotificationsActivity extends AppCompatActivity {
 
             }
 
+        //the refresh button queries elastic search seperately from the periodic queries
         Button refresh = (Button) findViewById(R.id.RefreshButton);
 
         refresh.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +60,7 @@ public class NotificationsActivity extends AppCompatActivity {
             }
         });
 
+        //clearAllNotifications calls the deletenotificationtask individually
         Button clearAllNotifcations = (Button) findViewById(R.id.ClearAllButton);
         clearAllNotifcations.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -99,6 +100,8 @@ public class NotificationsActivity extends AppCompatActivity {
                 }
             });
 
+
+            //clicking on the notification will bring them to either myRideRequests or MyRideOffers for more detail
             notificationsLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public  void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -118,6 +121,6 @@ public class NotificationsActivity extends AppCompatActivity {
         }
     }
 
-    }
+}
 
 

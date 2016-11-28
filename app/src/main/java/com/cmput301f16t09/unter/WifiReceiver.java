@@ -9,6 +9,13 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
+/**
+*
+* This class moniters network connectivity changes and handles notification polling upon these changes
+ * in addition to managing the online and offline controllers
+*/
+
+
 // 2016-11-19
 // http://stackoverflow.com/questions/6362314/wifi-connect-disconnect-listener
 // Basic class for detecting WiFi connection/disconnection
@@ -77,7 +84,10 @@ public class WifiReceiver extends BroadcastReceiver {
         final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
-
+    /**
+     * This is the function to be called to initialize periodic notification queries
+     *
+     */
     public static void polling(Context context) {
         final Context c = context;
         final Runnable r = new Runnable() {

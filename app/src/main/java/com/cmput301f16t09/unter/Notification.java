@@ -4,6 +4,9 @@ import io.searchbox.annotations.JestId;
 
 /**
  * Created by Kevin on 11/21/2016.
+ *
+ * This model class keeps track of who the msg is meant for
+ * it is to be stored on elastic search to be fetched by said user
  */
 
 public class Notification {
