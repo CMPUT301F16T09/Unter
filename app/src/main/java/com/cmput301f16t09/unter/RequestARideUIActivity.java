@@ -252,8 +252,7 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
             }
             else {
 
-                double dfare = Double.parseDouble(fare);
-                Post newPost = new Post(startPoint, endPoint, startLocation, endLocation, dfare, CurrentUser.getCurrentUser().getUsername());
+                Post newPost = new Post(startPoint, endPoint, startLocation, endLocation, fare, CurrentUser.getCurrentUser().getUsername());
 
                 try {
                     PostListMainController.addPost(newPost, RequestARideUIActivity.this);
@@ -310,6 +309,8 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
      * @see GeoPoint
      * @see Polyline
      */
+    Polyline roadPolyline;
+
     private class UpdateRoadTask extends AsyncTask<Object, Void, Road> {
 
         protected Road doInBackground(Object... params) {
@@ -329,16 +330,14 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
 
             List<Overlay> mapOverlays = map.getOverlays();
 
-            Polyline roadPolyline = RoadManager.buildRoadOverlay(road);
+            if (mapOverlays.contains(roadPolyline)) mapOverlays.remove(roadPolyline);
+
+            /*Polyline*/ roadPolyline = RoadManager.buildRoadOverlay(road);
             String routeDesc = road.getLengthDurationText(myActivity.getBaseContext(), -1);
+
             roadPolyline.setTitle(getString(R.string.app_name) + " - " + routeDesc);
             roadPolyline.setInfoWindow(new BasicInfoWindow(org.osmdroid.bonuspack.R.layout.bonuspack_bubble, map));
             roadPolyline.setRelatedObject(0);
-
-            mapOverlays.clear();
-
-            //startMarker = updateMarker(startMarker, startPoint, "Departure:\n" + startLocation);
-            //endMarker = updateMarker(endMarker, endPoint, "Destination:\n" + endLocation);
 
             mapOverlays.add(startMarker);
             mapOverlays.add(endMarker);
@@ -561,10 +560,38 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         if (marker == null){
             marker = new Marker(map);
             marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+            //marker.setOnMarkerDragListener(dragListener);
             map.getOverlays().add(marker);
         }
+
         marker.setPosition(p);
         marker.setTitle(title);
         return marker;
     }
+
+//    class OnDragListener implements Marker.OnMarkerDragListener {
+//
+//        @Override public void onMarkerDrag(Marker marker) {}
+//        @Override public void onMarkerDragStart(Marker marker) {}
+//
+//        @Override public void onMarkerDragEnd(Marker marker) {
+//
+//            if (marker == startMarker){
+//
+//                startPoint = marker.getPosition();
+//                startLocation = reverseGeocode(startPoint);
+//            }
+//
+//            else if (marker == endMarker) {
+//
+//                endPoint = marker.getPosition();
+//                endLocation = reverseGeocode(endPoint);
+//            }
+//
+//            //update route:
+//            getRoadAsync();
+//        }
+//    }
+//
+//    final OnDragListener dragListener = new OnDragListener();
 }
