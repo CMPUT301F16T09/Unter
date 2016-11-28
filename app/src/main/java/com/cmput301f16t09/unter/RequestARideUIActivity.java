@@ -560,7 +560,6 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         if (marker == null){
             marker = new Marker(map);
             marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-            //marker.setOnMarkerDragListener(dragListener);
             map.getOverlays().add(marker);
         }
 
@@ -568,30 +567,4 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         marker.setTitle(title);
         return marker;
     }
-
-//    class OnDragListener implements Marker.OnMarkerDragListener {
-//
-//        @Override public void onMarkerDrag(Marker marker) {}
-//        @Override public void onMarkerDragStart(Marker marker) {}
-//
-//        @Override public void onMarkerDragEnd(Marker marker) {
-//
-//            if (marker == startMarker){
-//
-//                startPoint = marker.getPosition();
-//                startLocation = reverseGeocode(startPoint);
-//            }
-//
-//            else if (marker == endMarker) {
-//
-//                endPoint = marker.getPosition();
-//                endLocation = reverseGeocode(endPoint);
-//            }
-//
-//            //update route:
-//            getRoadAsync();
-//        }
-//    }
-//
-//    final OnDragListener dragListener = new OnDragListener();
 }

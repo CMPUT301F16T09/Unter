@@ -16,8 +16,6 @@ import java.util.ArrayList;
  */
 public class CreateNewUserUIActivity extends AppCompatActivity {
 
-
-
     private ArrayList<String> input_index = new ArrayList<>();
 
     @Override
@@ -73,42 +71,49 @@ public class CreateNewUserUIActivity extends AppCompatActivity {
         input_index.add(6,vehicle.getText().toString());
 
 
+        if (input_index.get(0).equals("") || input_index.get(1).equals("") || input_index.get(2).equals("")
+                || input_index.get(3).equals("") || input_index.get(4).equals("") || input_index.get(5).equals("")) {
+            Toast.makeText(CreateNewUserUIActivity.this, "Please fill in all required fields!", Toast.LENGTH_SHORT).show();
+        }
 
-        try {
-            // Trying to search for same username
-            UserListOnlineController.SearchUserListsTask searchUserListsTask = new UserListOnlineController.SearchUserListsTask();
-            searchUserListsTask.execute("username", input_index.get(0));
-            ArrayList<User> userlist = searchUserListsTask.get();
+        else {
 
-            // If no user with same username exists, search for same email
-            if (userlist.isEmpty()) {
-                searchUserListsTask = new UserListOnlineController.SearchUserListsTask();
-                searchUserListsTask.execute("email", input_index.get(3));
-                userlist = searchUserListsTask.get();
+            try {
+                // Trying to search for same username
+                UserListOnlineController.SearchUserListsTask searchUserListsTask = new UserListOnlineController.SearchUserListsTask();
+                searchUserListsTask.execute("username", input_index.get(0));
+                ArrayList<User> userlist = searchUserListsTask.get();
 
-                // If no user with same email exists, create user with
+                // If no user with same username exists, search for same email
                 if (userlist.isEmpty()) {
-                    if (input_index.get(5).equals(input_index.get(4))) {
-                        User new_user = new User(input_index.get(1), input_index.get(0), input_index.get(3), input_index.get(2), input_index.get(4), input_index.get(6));
-                        UserListOnlineController.AddUsersTask addUserTask = new UserListOnlineController.AddUsersTask();
-                        addUserTask.execute(new_user);
-                        addUserTask.get();
+                    searchUserListsTask = new UserListOnlineController.SearchUserListsTask();
+                    searchUserListsTask.execute("email", input_index.get(3));
+                    userlist = searchUserListsTask.get();
+
+                    // If no user with same email exists, create user with
+                    if (userlist.isEmpty()) {
+                        if (input_index.get(5).equals(input_index.get(4))) {
+                            User new_user = new User(input_index.get(1), input_index.get(0), input_index.get(3), input_index.get(2), input_index.get(4), input_index.get(6));
+                            UserListOnlineController.AddUsersTask addUserTask = new UserListOnlineController.AddUsersTask();
+                            addUserTask.execute(new_user);
+                            addUserTask.get();
 //                        FirebaseMessaging.getInstance().subscribeToTopic("user_"+input_index.get(0));
-                        finish();
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(CreateNewUserUIActivity.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                     else {
-                        Toast.makeText(CreateNewUserUIActivity.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateNewUserUIActivity.this, "Email already exists!", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {
-                    Toast.makeText(CreateNewUserUIActivity.this, "Email already exists!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateNewUserUIActivity.this, "Username already exist!", Toast.LENGTH_SHORT).show();
                 }
+            } catch(Exception e) {
+                Log.i("Error", "Something went wrong");
             }
-            else {
-                Toast.makeText(CreateNewUserUIActivity.this, "Username already exist!", Toast.LENGTH_SHORT).show();
-            }
-        } catch(Exception e) {
-            Log.i("Error", "Something went wrong");
         }
     }
 }
