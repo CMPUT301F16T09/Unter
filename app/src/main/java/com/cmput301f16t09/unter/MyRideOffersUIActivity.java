@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
 /**
  * The type My ride offers ui activity allows the user to view the offers made to multiple posts.
  */
@@ -72,7 +71,7 @@ public class MyRideOffersUIActivity extends AppCompatActivity {
             }
         };
 
-        // Set the adapter to the listview
+        // Set the adapter to the ListView
         currentPostList.setAdapter(adapter);
 
         /**
@@ -90,6 +89,5 @@ public class MyRideOffersUIActivity extends AppCompatActivity {
                 startActivity(RideOfferDetailsIntent);
             }
         });
-
     }
 }

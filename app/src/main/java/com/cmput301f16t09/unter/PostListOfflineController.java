@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
  * hard disk. It calls PostListOnlineController to retrieve the most updated information from
  * elasticsearch whenever the method getPostList is called, if the device is online. If the device
  * is offline, then retrieve data from the saved file.
- * @author Daniel
+ *
  */
 public class PostListOfflineController {
     private static final String FILENAME = "real_offline_posts.sav";
@@ -39,7 +39,9 @@ public class PostListOfflineController {
     /**
      * Load offline posts to postlist (file saved on real_offline_posts.sav).
      *
-     * @param context the context of the activity
+     * @param saveType the save type
+     * @param postList the post list
+     * @param context  the context of the activity
      * @return the post list
      */
     public static PostList loadOfflinePosts(String saveType, PostList postList, Context context)
@@ -121,7 +123,9 @@ public class PostListOfflineController {
     /**
      * Static method to save posts to a file for offline retrieval
      *
-     * @param context the context of the activity
+     * @param saveType the save type
+     * @param postList the post list
+     * @param context  the context of the activity
      */
     public static void saveOfflinePosts(String saveType, PostList postList, Context context)
     {

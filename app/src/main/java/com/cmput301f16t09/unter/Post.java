@@ -3,7 +3,6 @@ package com.cmput301f16t09.unter;
 import org.osmdroid.util.GeoPoint;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import io.searchbox.annotations.JestId;
 
@@ -32,6 +31,7 @@ public class Post {
      * @param startAddress  the start address
      * @param endAddress    the end address
      * @param fare          the fare
+     * @param fareKM        the fare per km
      * @param rider         the rider
      */
     public Post(GeoPoint startLocation, GeoPoint endLocation, String startAddress, String endAddress,
@@ -167,10 +167,20 @@ public class Post {
         this.fare = fare;
     }
 
+    /**
+     * Gets fare km.
+     *
+     * @return the fare km
+     */
     public Double getFareKM() {
         return fareKM;
     }
 
+    /**
+     * Sets fare km.
+     *
+     * @param fareKM the fare km
+     */
     public void setFareKM(Double fareKM) {
         this.fareKM = fareKM;
     }
@@ -205,10 +215,10 @@ public class Post {
     /**
      * Sets offers.
      *
-     * @param driveroffers the driveroffers
+     * @param driverOffers the driveroffers
      */
-    public void setdriverOffers(ArrayList<String> driveroffers) {
-        this.driver_OfferList = driveroffers;
+    public void setdriverOffers(ArrayList<String> driverOffers) {
+        this.driver_OfferList = driverOffers;
     }
 
     /**
@@ -230,9 +240,5 @@ public class Post {
     public String getUsername() {
         return this.user;
     }
-
-//    public String toString(){
-//        return "Rider: "+ getUsername()+ "Driver:";
-//    }
 
 }

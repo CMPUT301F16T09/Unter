@@ -3,7 +3,6 @@ package com.cmput301f16t09.unter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -91,7 +90,6 @@ public class CreateNewUserUIActivity extends AppCompatActivity {
                             UserListOnlineController.AddUsersTask addUserTask = new UserListOnlineController.AddUsersTask();
                             addUserTask.execute(new_user);
                             addUserTask.get();
-//                        FirebaseMessaging.getInstance().subscribeToTopic("user_"+input_index.get(0));
                             finish();
                         }
                         else {
