@@ -264,10 +264,10 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
                 } catch (Exception e) {
                     isNumeric = false;
                 }
-                Post newPost = new Post(startPoint, endPoint, startLocation, endLocation, convertedFare, convertedFare/(distance/1000), CurrentUser.getCurrentUser().getUsername());
 
                 if (isNumeric) {
                     try {
+                        Post newPost = new Post(startPoint, endPoint, startLocation, endLocation, convertedFare, convertedFare/(distance/1000), CurrentUser.getCurrentUser().getUsername());
                         PostListMainController.addPost(newPost, RequestARideUIActivity.this);
                         //                    PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
                         //                    addPostOnline.execute(newPost);

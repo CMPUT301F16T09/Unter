@@ -1,5 +1,9 @@
 package com.cmput301f16t09.unter;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -7,7 +11,16 @@ import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
+import org.osmdroid.bonuspack.routing.OSRMRoadManager;
+import org.osmdroid.bonuspack.routing.Road;
+import org.osmdroid.bonuspack.routing.RoadManager;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.overlay.Polyline;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 import io.searchbox.core.Delete;
@@ -329,5 +342,73 @@ public class PostListOnlineController {
     // that user A has made changes to their post (e.g. Driver accepts Riders request)
     private static void notifyUsers(User user){
 
+    }
+
+
+    public static class ProcessOfflineData extends AsyncTask<Object, Void, Post> {
+        Geocoder coder;
+
+        @Override
+        protected Post doInBackground(Object... offlineParameters) {
+            verifySettings();
+            Context context = (Context) offlineParameters[0];
+            coder = new Geocoder(context, Locale.getDefault());
+            Post post = (Post) offlineParameters[1];
+            return reverseGeocodeForOfflinePost(post, context);
+
+        }
+
+        public Post reverseGeocodeForOfflinePost(Post post, Context context){
+
+            Post onlinePost = post;
+
+            try {
+                List<Address> start = coder.getFromLocation(post.getStartLocation().getLatitude(),
+                        post.getStartLocation().getLongitude(), 1);
+
+                List<Address> end = coder.getFromLocation(post.getEndLocation().getLatitude(),
+                        post.getEndLocation().getLongitude(), 1);
+
+                onlinePost.setStartAddress(start.get(0).getAddressLine(0) + ", " + start.get(0).getAddressLine(1));
+                onlinePost.setEndAddress(end.get(0).getAddressLine(0) + ", " + end.get(0).getAddressLine(1));
+
+                onlinePost.setFareKM(onlinePost.getFare()/(distanceCalculator(onlinePost.getStartLocation(), onlinePost.getEndLocation(), context)/1000));
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.d("IOException", "IOException was caught");
+            }
+
+            return onlinePost;
+        }
+
+        double distanceCalculator(GeoPoint startp, GeoPoint endp, Context context) {
+
+            double distance = 0.0;
+            ArrayList<GeoPoint> wayPoints = new ArrayList<>();
+            wayPoints.add(startp);
+            wayPoints.add(endp);
+            RoadManager roadManager = new OSRMRoadManager(context);
+
+            Road road = roadManager.getRoad(wayPoints);
+            Polyline roadPolyline = RoadManager.buildRoadOverlay(road);
+            List<GeoPoint> roadSegment = roadPolyline.getPoints();
+
+            for (int j = 0; j < roadSegment.size() - 1; j += 1) {
+                GeoPoint geoStart = roadSegment.get(j);
+                GeoPoint geoEnd = roadSegment.get(j + 1);
+
+                Location start = new Location("start");
+                start.setLatitude(geoStart.getLatitude());
+                start.setLongitude(geoStart.getLongitude());
+
+                Location end = new Location("end");
+                end.setLatitude(geoEnd.getLatitude());
+                end.setLongitude(geoEnd.getLongitude());
+
+                distance += start.distanceTo(end);
+            }
+
+            return distance;
+        }
     }
 }

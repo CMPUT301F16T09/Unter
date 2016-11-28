@@ -5,15 +5,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.osmdroid.bonuspack.routing.OSRMRoadManager;
+import org.osmdroid.bonuspack.routing.Road;
+import org.osmdroid.bonuspack.routing.RoadManager;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.overlay.Polyline;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 // 2016-11-19
 // http://stackoverflow.com/questions/6362314/wifi-connect-disconnect-listener
@@ -24,14 +34,12 @@ public class WifiReceiver extends BroadcastReceiver {
     private static boolean prevConnected = true;
     final static Handler handler = new Handler();
 
-    Geocoder coder;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         ConnectivityManager conMan = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = conMan.getActiveNetworkInfo();
 
-        coder = new Geocoder(context, Locale.getDefault());
 
         if (netInfo != null && netInfo.getState().name().equals("CONNECTED")) {
             if (!prevConnected) {
@@ -44,7 +52,17 @@ public class WifiReceiver extends BroadcastReceiver {
 
                     for (Post p : PostListMainController.getPostListQueue(context).getPosts()) {
                         PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
-                        Post online = reverseGeocodeForOfflinePost(p);
+                        Post online = p;
+                        try {
+                            PostListOnlineController.ProcessOfflineData pod = new PostListOnlineController.ProcessOfflineData();
+                            pod.execute(context, p);
+                            online = pod.get();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        }
+
                         addPostOnline.execute(online);
                     }
                     // ADD CLEARING THE SAVE FILE
@@ -112,27 +130,5 @@ public class WifiReceiver extends BroadcastReceiver {
         if (!WifiReceiver.isNetworkAvailable(c)) {
             handler.removeCallbacks(r);
         }
-    }
-
-    public Post reverseGeocodeForOfflinePost(Post post){
-
-        Post onlinePost = post;
-
-        try {
-            List<Address> start = coder.getFromLocation(post.getStartLocation().getLatitude(),
-                                                         post.getStartLocation().getLongitude(), 1);
-
-            List<Address> end = coder.getFromLocation(post.getEndLocation().getLatitude(),
-                                                      post.getEndLocation().getLongitude(), 1);
-
-            onlinePost.setStartAddress(start.get(0).getAddressLine(0) + ", " + start.get(0).getAddressLine(1));
-            onlinePost.setEndAddress(end.get(0).getAddressLine(0) + ", " + end.get(0).getAddressLine(1));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.d("IOException", "IOException was caught");
-        }
-
-        return onlinePost;
     }
 }

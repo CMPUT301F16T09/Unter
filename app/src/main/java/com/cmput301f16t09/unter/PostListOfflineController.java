@@ -104,10 +104,15 @@ public class PostListOfflineController {
             reader.setLenient(true);
 
             // save the posts from Gson into an ArrayList of Posts
-             ArrayList<Post> tempList = gson.fromJson(br_in, listType);
+            ArrayList<Post> tempList = gson.fromJson(br_in, listType);
 
             // Store the data into the main PostList
-            postList.setPostList(tempList);
+            if (tempList == null) {
+                return postList;
+            }
+            else {
+                postList.setPostList(tempList);
+            }
         }
 
         // If there is no file, return error and create empty postlist

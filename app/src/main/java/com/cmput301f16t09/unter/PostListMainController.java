@@ -121,6 +121,7 @@ public class PostListMainController {
         }
 
         else {
+            post.setFareKM(0.0);
             getPostListQueue(context).addPost(post);
             PostListOfflineController.saveOfflinePosts("queueOffline", postListQueue, context);
         }
