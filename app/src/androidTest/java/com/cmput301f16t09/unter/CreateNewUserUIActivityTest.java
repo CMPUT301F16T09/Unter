@@ -73,6 +73,33 @@ public class CreateNewUserUIActivityTest extends ActivityInstrumentationTestCase
 
         solo.clickOnButton("Confirm");
 
+        solo.assertCurrentActivity("Wrong Activity", MainGUIActivity.class);
+        solo.clickOnButton("Create\nNew User");
+        solo.assertCurrentActivity("Wrong Activity, should be CreateNewUserUIActivity", CreateNewUserUIActivity.class);
+
+        solo.enterText((EditText) solo.getView(R.id.SignUpUsername), "KappaRoss2");
+        assertTrue(solo.waitForText("KappaRoss2"));
+
+        solo.enterText((EditText) solo.getView(R.id.SignUpName), "Bob Ross");
+        assertTrue(solo.waitForText("Bob Ross"));
+
+        solo.enterText((EditText) solo.getView(R.id.SignUpPhoneNumber), "123 456 7890");
+        assertTrue(solo.waitForText("123 456 7890"));
+
+        solo.enterText((EditText) solo.getView(R.id.SignUpEmail), "KappaRoss@Kappa.com");
+        assertTrue(solo.waitForText("KappaRoss@Kappa.com"));
+
+        solo.enterText((EditText) solo.getView(R.id.SignUpVehicleInfo), "KappaRossmobile");
+        assertTrue(solo.waitForText("KappaRossmobile"));
+
+        solo.enterText((EditText) solo.getView(R.id.SignUpPassword), "123");
+        assertTrue(solo.waitForText("123"));
+
+        solo.enterText((EditText) solo.getView(R.id.SignUpConfirmPassword), "123");
+        assertTrue(solo.waitForText("123"));
+
+        solo.clickOnButton("Confirm");
+
         solo.goBack();
     }
 }
