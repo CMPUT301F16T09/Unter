@@ -41,7 +41,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
     /**
      * The Road manager.
      */
-    // 2016-11-14
+    // Referenced 2016-11-14
     // If the polyline disappears with zooming
     // http://stackoverflow.com/questions/35799907/route-polyline-dissapears-after-zoom-in-osmbonuspack
     // Author: croaton
@@ -51,6 +51,9 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
      */
     MapView map;
 
+    /**
+     * The My activity.
+     */
     Activity myActivity = this;
     /**
      * The Start point.
@@ -85,8 +88,10 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Viewing Ride Request Details");
         setContentView(R.layout.activity_request_details_ui);
 
+        // Creating Display for user to see details of request
         poster = (TextView) findViewById(R.id.RequestDetailsPostedByRiderName);
         SpannableString content = new SpannableString(CurrentUser.getCurrentPost().getUsername());
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
@@ -109,17 +114,14 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         map.setMaxZoomLevel(18);
         mapController = map.getController();
 
-        //GeoPoint edmPoint = new GeoPoint(53.5444, -113.4909);
+        mapController = map.getController();
         mapController.setZoom(15);
-        //mapController.setCenter(edmPoint);
 
         startPoint = CurrentUser.getCurrentPost().getStartLocation();
         endPoint = CurrentUser.getCurrentPost().getEndLocation();
 
         mapController.setCenter(startPoint);
 
-        // to get a key http://developer.mapquest.com/
-        //roadManager = new MapQuestRoadManager("xPGrfmORuC6QJMSkF6SXGKYbBgTefNdm");
         roadManager = new OSRMRoadManager(myActivity);
 
         ArrayList<OverlayItem> overlayItemArray;
@@ -127,7 +129,6 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
         overlayItemArray.add(new OverlayItem("Starting Point", "This is the starting point", startPoint));
         overlayItemArray.add(new OverlayItem("Destination", "This is the destination point", endPoint));
         getRoadAsync();
-
 
         //Brings the user to the rider's profile if their name is clicked.
         poster.setOnClickListener(new View.OnClickListener() {
@@ -159,6 +160,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
             Toast.makeText(this, "Cannot draw road Offline", Toast.LENGTH_SHORT).show();
         }
     }
+    // Async task to update the road
     private class UpdateRoadTask extends AsyncTask<Object, Void, Road> {
 
         protected Road doInBackground(Object... params) {
@@ -178,6 +180,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
 
             List<Overlay> mapOverlays = map.getOverlays();
 
+            // Create path to display
             Polyline roadPolyline = RoadManager.buildRoadOverlay(road);
             String routeDesc = road.getLengthDurationText(myActivity.getBaseContext(), -1);
             roadPolyline.setTitle(getString(R.string.app_name) + " - " + routeDesc);
@@ -195,20 +198,14 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
             startMarker.setTitle("Departure:\n" + CurrentUser.getCurrentPost().getStartAddress());
             endMarker.setTitle("Destination:\n" + CurrentUser.getCurrentPost().getEndAddress());
 
+            //We insert the road overlays at the "bottom", just above the MapEventsOverlay,
+            //to avoid covering the other overlays.
             mapOverlays.add(startMarker);
             mapOverlays.add(endMarker);
             mapOverlays.add(0, roadPolyline);
 
             map.invalidate();
-            //we insert the road overlays at the "bottom", just above the MapEventsOverlay,
-            //to avoid covering the other overlays.
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
     }
 
     @Override
@@ -233,19 +230,17 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
      * Changes the status of the post from 'Pending Offer' to 'Pending Approval' in the current User, in Persistent data and elastic search.
      * An additional check is done to prevent user from offering a ride multiple times.
      *
-     *
+     * @param v the current view
      * @see PostListOnlineController
      * @see PostListOfflineController
      * @see UserListOnlineController
-     *
-     *
-     * @param v the current view
      */
-    public void confirm_ride_request(View v) {
+    public void offerRide(View v) {
 
         Boolean found = false;
         Boolean awaitingCompletion = false;
         try {
+            // Check if the user has any requests that are awaiting completion
             CurrentUser.updateCurrentUser();
             if (CurrentUser.getCurrentUser().getMyRequests().size() == 1) {
                 PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
@@ -279,9 +274,8 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
             finish();
         }
         else {
-            // Can probably change up to be faster?
+            // Check if the post is still exists and accepting offers
             for(Post p : PostListMainController.getPostList(RequestDetailsUIActivity.this).getPosts()) {
-                // Prob don't need the first check if this if statement.
                 if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) && (p.getStatus().equals("Pending Approval")) && CurrentUser.getCurrentPost().getId().equals(p.getId())) {
                     found = true;
                     p.addDriverOffer(CurrentUser.getCurrentUser().getUsername());
@@ -291,21 +285,22 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
             }
             if (found) {
                 try {
-//                    PostListOnlineController.UpdatePostsTask updatePostsTask = new PostListOnlineController.UpdatePostsTask();
-//                    updatePostsTask.execute(CurrentUser.getCurrentPost());
-//                    updatePostsTask.get();
+                    // Update post
                     PostListMainController.updatePosts(CurrentUser.getCurrentPost(), RequestDetailsUIActivity.this);
-//                PostListOfflineController.addOfflinePost(CurrentUser.getCurrentPost(), RequestDetailsUIActivity.this);
-
-                    // Most likely get updated copy of CurrentUser possibly?
                     CurrentUser.getCurrentUser().getMyOffers().add(CurrentUser.getCurrentPost().getId());
+
+                    // Update user
                     UserListOnlineController.UpdateUsersTask updateUserTask = new UserListOnlineController.UpdateUsersTask();
                     updateUserTask.execute(CurrentUser.getCurrentUser());
                     updateUserTask.get();
-                    NotificationOnlineController.AddNotificationsTask addNotificationsTask = new NotificationOnlineController.AddNotificationsTask();
+
+                    // Create notification to be sent
                     String msg = CurrentUser.getCurrentUser().getUsername() + " wants to be your driver for route " + CurrentUser.getCurrentPost().getStartAddress() + " -> " + CurrentUser.getCurrentPost().getEndAddress() +  ", in a " + CurrentUser.getCurrentUser().getVehicle() + " .";
                     Notification notification = new Notification(CurrentUser.getCurrentPost().getUsername(), msg);
-                    notification.setPostType("request"); //request
+                    notification.setPostType("request");
+
+                    // Execute Async task to add to elastic search
+                    NotificationOnlineController.AddNotificationsTask addNotificationsTask = new NotificationOnlineController.AddNotificationsTask();
                     addNotificationsTask.execute(notification);
                     addNotificationsTask.get();
                     Toast.makeText(RequestDetailsUIActivity.this, "Successfully sent the offer!", Toast.LENGTH_SHORT).show();
@@ -314,6 +309,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
                     Toast.makeText(RequestDetailsUIActivity.this, "Sorry, Could not update the database", Toast.LENGTH_SHORT).show();
                 }
             }
+            // Sleep thread to allow Async tasks to finish
             try {
                 Thread.sleep(1000);
             }

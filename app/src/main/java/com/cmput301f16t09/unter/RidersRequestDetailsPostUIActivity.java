@@ -70,8 +70,10 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Viewing My Ride Request Details");
         setContentView(R.layout.activity_riders_request_details_post_ui);
 
+        //Display request details for the user
         TextView tvCurrentStatus = (TextView) findViewById(R.id.RideRequestDetailsPostCurrentStatus);
         String currentStatus = CurrentUser.getCurrentPost().getStatus().toString();
         tvCurrentStatus.setText(currentStatus);
@@ -110,7 +112,7 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
         mapController.setZoom(15);
         getRoadAsync();
 
-        //allows for the user to view the driver's user profile where they can phone or email them
+        //Allows for the user to view the driver's user profile where they can phone or email them
         tvDriverName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,7 +124,7 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
         });
 
 
-        //bring up dialog window for payment and also delete the post on elastic search once it has been completed
+        //Bring up dialog window for payment and also delete the post on elastic search once it has been completed
         Button complete_request = (Button) findViewById(R.id.RideRequestDetailsCompleteRequestButton);
         complete_request.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -135,15 +137,14 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
                 paymentDialog.setPositiveButton("Complete Transaction", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        //int index = CurrentUser.getCurrentUser().getMyRequests().getPosts().indexOf(CurrentUser.getCurrentPost());
-                        //CurrentUser.getCurrentUser().getMyRequests().getPosts().get(index).setStatus("Completed");
-                       // CurrentUser.getCurrentUser().getMyRequests().getPosts().remove(CurrentUser.getCurrentPost());
                         CurrentUser.getCurrentPost().setStatus("Completed");
 
+                        // Updating tasks to successfully remove from the post from all connected components
                         try {
                             UserListOnlineController.SearchUserListsTask searchUserListsTask = new UserListOnlineController.SearchUserListsTask();
                             searchUserListsTask.execute("username", driverName);
                             User driver = searchUserListsTask.get().get(0);
+
                             driver.getMyOffers().clear();
 
                             UserListOnlineController.UpdateUsersTask updateUserListstask = new UserListOnlineController.UpdateUsersTask();
@@ -163,12 +164,10 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
 
                             PostListMainController.updateMainOfflinePosts(RidersRequestDetailsPostUIActivity.this);
 
-                            //bring to main menu ; clear android activity stack
+                            //Bring to main menu ; clear android activity stack
                             Intent intent = new Intent(RidersRequestDetailsPostUIActivity.this,MainScreenUIActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             startActivity(intent);
-
-
                         }
                         catch (Exception e) {
                             Log.i("Error", "Deletion upon completion Error");
@@ -199,6 +198,8 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
             Toast.makeText(this, "Cannot draw road Offline", Toast.LENGTH_SHORT).show();
         }
     }
+
+    // Update Road tasks
     private class UpdateRoadTask extends AsyncTask<Object, Void, Road> {
 
         protected Road doInBackground(Object... params) {
@@ -218,6 +219,7 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
 
             List<Overlay> mapOverlays = map.getOverlays();
 
+            //Create the path on the map
             Polyline roadPolyline = RoadManager.buildRoadOverlay(road);
             String routeDesc = road.getLengthDurationText(myActivity.getBaseContext(), -1);
             roadPolyline.setTitle(getString(R.string.app_name) + " - " + routeDesc);
@@ -237,13 +239,13 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
             startMarker.setTitle("Departure:\n" + CurrentUser.getCurrentPost().getStartAddress());
             endMarker.setTitle("Destination:\n" + CurrentUser.getCurrentPost().getEndAddress());
 
+            //we insert the road overlays at the "bottom", just above the MapEventsOverlay,
+            //to avoid covering the other overlays.
             mapOverlays.add(startMarker);
             mapOverlays.add(endMarker);
             mapOverlays.add(0, roadPolyline);
 
             map.invalidate();
-            //we insert the road overlays at the "bottom", just above the MapEventsOverlay,
-            //to avoid covering the other overlays.
         }
     }
 }

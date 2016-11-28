@@ -1,8 +1,5 @@
 package com.cmput301f16t09.unter;
 
-
-import org.osmdroid.util.GeoPoint;
-
 import java.util.ArrayList;
 
 /**
@@ -113,8 +110,22 @@ public class PostList {
         notifyListeners();
     }
 
+    /**
+     * Pick post.
+     *
+     * @param post the post
+     */
     public void pickPost(Post post) {
         this.postList.clear();
         this.postList.add(post);
+    }
+
+    public void updatePost(Post post) {
+        for (int i = 0; i < postList.size(); i ++) {
+            if (postList.get(i).getId().equals(post.getId())) {
+                postList.remove(i);
+                postList.add(post);
+            }
+        }
     }
 }

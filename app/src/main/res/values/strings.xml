@@ -12,6 +12,7 @@
     <string name="title_activity_ride_offer_details_ui">RideOfferDetailsUIActivity</string>
     <string name="title_activity_riders_request_details_post_ui">RidersRequestDetailsPostUIActivity</string>
     <string name="title_activity_riders_request_details_pre_ui">RidersRequestDetailsPreUIActivity</string>
+    <string name="title_activity_notifications">Notifications</string>
 
     <!--activity_main_gui.xml strings-->
     <string name="create_new_user">Create\nNew User</string>

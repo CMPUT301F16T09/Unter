@@ -13,42 +13,60 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-//import android.support.design.widget.FloatingActionButton;
-//import android.support.design.widget.Snackbar;
-
 /**
  * A view that allows the user to choose between rider activies or driver activities.
  */
 public class MainScreenUIActivity extends AppCompatActivity {
 
-//    Button requestButton = (Button) findViewById(R.id.RequestARideButton);
+    /**
+     * The Connected.
+     */
     WifiReceiver connected;
+    /**
+     * The Handler thread.
+     */
     HandlerThread handlerThread = new HandlerThread("WiFiConnectionThread");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Choose an option");
         setContentView(R.layout.activity_main_screen_ui);
 
+        // 2016-11-19
+        // http://stackoverflow.com/questions/5674518/does-broadcastreceiver-onreceive-always-run-in-the-ui-thread
+        // Author: Caner
+        // Set up a handler thread once someone is logged in because they must be online to log in
+        // its purpose is to receive signals on a network change
         handlerThread.start();
         Looper looper = handlerThread.getLooper();
         Handler handler = new Handler(looper);
-        if (handlerThread.isAlive()) {
-            Log.i("WiFiConnectionThread","Working");}
+
+        // Log if the WifiConnectionThread is alive
+        if (handlerThread.isAlive()) {Log.i("WiFiConnectionThread","Working");}
+
+        //Make WifiReceiver
         connected = new WifiReceiver();
+
+        //Create new intents
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION);
         registerReceiver(connected, intentFilter, null, handler);
 
+        // Notifications will be checked and the periodic notification check will be activated here on the handler thread
         NotificationOnlineController.createNotifications(MainScreenUIActivity.this);
         WifiReceiver.polling(MainScreenUIActivity.this);
     }
 
-        @Override
+    // Remove thread if activity is destroyed
+    @Override
     public void onDestroy() {
         handlerThread.quit();
         unregisterReceiver(connected);
         super.onDestroy();
     }
+    /**
+     * Editing profile and logging out can only be done on the main screen
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -75,35 +93,55 @@ public class MainScreenUIActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //The following methods bring the user to the appropriate activity upon selecting that button
-
+    /**
+     * The following methods bring the user to the appropriate activity upon selecting that button
+     *
+     * @param v the v
+     */
     public void viewNotifications(View v){
-        Intent intent = new Intent(MainScreenUIActivity.this,NotificationsActivity.class);
+        Intent intent = new Intent(MainScreenUIActivity.this, NotificationsActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Request a ride.
+     *
+     * @param v the v
+     */
     public void requestARide(View v){
         Intent requestARideIntent = new Intent(MainScreenUIActivity.this, RequestARideUIActivity.class);
         startActivity(requestARideIntent);
     }
 
+    /**
+     * My ride requests.
+     *
+     * @param v the v
+     */
     public void myRideRequests(View v){
         Intent myRideRequestsIntent = new Intent(MainScreenUIActivity.this, MyRideRequestsUIActivity.class);
         startActivity(myRideRequestsIntent);
     }
 
 
+    /**
+     * Provide a ride.
+     *
+     * @param v the v
+     */
     public void provideARide(View v){
         Intent provideARideIntent = new Intent(MainScreenUIActivity.this, ProvideARideUIActivity.class);
         startActivity(provideARideIntent);
     }
 
 
+    /**
+     * My ride offers.
+     *
+     * @param v the v
+     */
     public void myRideOffers(View v){
         Intent myRideOffersIntent = new Intent(MainScreenUIActivity.this, MyRideOffersUIActivity.class);
         startActivity(myRideOffersIntent);
-
-//        Intent requestARideIntent = new Intent(MainScreenUIActivity.this, RidersRequestDetailsPreUIActivity.class);
-//        startActivity(requestARideIntent);
     }
 }

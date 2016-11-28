@@ -3,11 +3,9 @@ package com.cmput301f16t09.unter;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,11 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 /**
  * The type My ride requests ui activity.
@@ -32,70 +25,32 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Viewing My Ride Requests");
         setContentView(R.layout.activity_my_ride_requests_ui);
-
-        Geocoder coder = new Geocoder(this, Locale.CANADA);
 
         ListView currentPostList = (ListView) findViewById(R.id.listViewMyRideRequests);
 
-//         Get All posts for the specific user
+         //Get All posts for the specific user
         for(Post p : PostListMainController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
             if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
                 postList.addPost(p);
             }
         }
 
-        //For faster searching later
-//        try {
-//            for (int i = 0; i < CurrentUser.getCurrentUser().getMyRequests().size(); i++) {
-//                PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
-//                searchPostListsTask.execute(CurrentUser.getCurrentUser().getMyRequests().get(i));
-//                ArrayList<Post> temp = searchPostListsTask.get();
-//                if (!temp.isEmpty()) {
-//                    postList.addPost(temp.get(0));
-//                }
-//            }
-//        }
-//        catch (Exception e){
-//                Log.i("Error", "Offline");
-//            }
-        // App crashes when using postlist.getposts().clear(), or if there is no list clearing statement
-
-
-
-
         adapter = new ArrayAdapter<Post>(this, android.R.layout.simple_list_item_1, postList.getPosts()) {
 
+            // Set the view
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView tv = (TextView) view.findViewById(android.R.id.text1);
-//                String forTestUsername = postList.getPost(position).getUsername();
-
-//                double startLat = postList.getPost(position).getStartLocation().getLatitude();
-//                double startLon = postList.getPost(position).getStartLocation().getLongitude();
-//                double endLat = postList.getPost(position).getEndLocation().getLatitude();
-//                double endLon = postList.getPost(position).getEndLocation().getLongitude();
-//
-//                try {
-//                    List<Address> startAddress = coder.getFromLocation(startLat, startLon, 1);
-//                    List<Address> endAddress = coder.getFromLocation(endLat, endLon, 1);
-//                    tv.setText("Username: " + forTestUsername + "\nStart: " + startAddress.get(0).getAddressLine(0) +"\nEnd: " + endAddress.get(0).getAddressLine(0));
-//
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
 
                 String startLocation = postList.getPost(position).getStartAddress();
                 String endLocation = postList.getPost(position).getEndAddress();
 
                 tv.setText("Start: " + startLocation +"\nEnd: " + endLocation);
-
-
-                // Remove forTestUsername after
-                // tv.setText(postList.getPost(position).getUsername());
                 tv.setTextColor(Color.WHITE);
-                tv.setTextSize(24);
+                tv.setTextSize(20);
                 return view;
             }
         };
@@ -129,68 +84,20 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
             }
         });
 
-        // Add a listener and define the update function to refresh the habits list when there
-        // is a change in the dataset, then save the data to FILENAME
-//        PostListMainController.getPostList(MyRideRequestsUIActivity.this).addListener(new Listener() {
-//            @Override
-//            public void update()
-//            {
-//                postList.getPosts().clear();
-//
-//                PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
-//                searchPostListsTask.execute(CurrentUser.getCurrentUser().getMyRequests().toString());
-//                // App crashes when using postlist.getposts().clear(), or if there is no list clearing statement
-//                try {
-//                    for(Post p : searchPostListsTask.get()) {
-//                        if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
-//                            postList.addPost(p);
-//                        }
-//                    }
-//                }
-//                catch (Exception e){
-//                    Log.i("Error", "Offline");
-//                }
-//
-//
-//                adapter.notifyDataSetChanged();
-//                PostListMainController.updateMainOfflinePosts(ProvideARideUIActivity.this);
-//            }
-//        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        // Update the list of new posts
         postList.getPosts().clear();
-        // Probably increase this -- if needed.
         for(Post p : PostListMainController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
             if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
                 postList.addPost(p);
             }
         }
-
-        // For faster searching later
-//        PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
-//        searchPostListsTask.execute(CurrentUser.getCurrentUser().getMyRequests().toString());
-//        try {
-//            for(Post p : searchPostListsTask.get()) {
-//                if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {
-//                    postList.addPost(p);
-//                }
-//            }
-//        }
-//        catch (Exception e){
-//            Log.i("Error", "Offline");
-//        }
         adapter.notifyDataSetChanged();
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-
 
     /**
      * Create deletion dialog.
@@ -222,16 +129,18 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
                     deletePostsTask.execute(CurrentUser.getCurrentPost());
                     deletePostsTask.get();
 
-//                    CurrentUser.getCurrentUser().getMyOffers().deletePost(CurrentUser.getCurrentPost());
-
                     UserListOnlineController.UpdateUsersTask updateUsersTask = new UserListOnlineController.UpdateUsersTask();
                     updateUsersTask.execute(CurrentUser.getCurrentUser());
                     updateUsersTask.get();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
                 // Save this change of data into FILENAME
                 PostListMainController.updateMainOfflinePosts(MyRideRequestsUIActivity.this);
+
+                // Update the list of new posts
                 postList.getPosts().clear();
                 for(Post p : PostListMainController.getPostList(MyRideRequestsUIActivity.this).getPosts()) {
                     if (p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) {

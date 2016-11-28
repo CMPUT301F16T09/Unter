@@ -62,13 +62,16 @@ public class CreateNewUserUIActivityTest extends ActivityInstrumentationTestCase
         solo.enterText((EditText) solo.getView(R.id.SignUpEmail), "KappaRoss@Kappa.com");
         assertTrue(solo.waitForText("KappaRoss@Kappa.com"));
 
+        solo.enterText((EditText) solo.getView(R.id.SignUpVehicleInfo), "KappaRossmobile");
+        assertTrue(solo.waitForText("KappaRossmobile"));
+
         solo.enterText((EditText) solo.getView(R.id.SignUpPassword), "123");
         assertTrue(solo.waitForText("123"));
 
         solo.enterText((EditText) solo.getView(R.id.SignUpConfirmPassword), "123");
         assertTrue(solo.waitForText("123"));
 
-        solo.clickOnButton("C o n f i r m");
+        solo.clickOnButton("Confirm");
 
         solo.goBack();
     }

@@ -20,7 +20,6 @@
         android:textColor="@color/white"
         android:fontFamily="sans-serif-smallcaps" />
 
-    <!-- To be filled in with CurrentStatus-->
     <TextView
         android:id="@+id/RideRequestDetailsPostCurrentStatus"
         android:layout_width="wrap_content"
@@ -43,7 +42,6 @@
         android:textColor="@color/white"
         android:fontFamily="sans-serif-smallcaps" />
 
-    <!-- To be filled in with StartLocationName-->
     <TextView
         android:id="@+id/RideRequestDetailsPostStartLocationName"
         android:layout_width="wrap_content"
@@ -67,7 +65,6 @@
         android:singleLine="true"
         android:fontFamily="sans-serif-smallcaps" />
 
-    <!-- To be filled in with EndLocationName-->
     <TextView
         android:id="@+id/RideRequestDetailsPostEndLocationName"
         android:layout_width="wrap_content"
@@ -90,7 +87,6 @@
         android:textColor="@color/white"
         android:fontFamily="sans-serif-smallcaps" />
 
-    // To be filled in with OfferedFareAmount
     <TextView
         android:id="@+id/RideRequestDetailsPostOfferedFare"
         android:layout_width="wrap_content"
@@ -114,7 +110,6 @@
         android:singleLine="true"
         android:fontFamily="sans-serif-smallcaps" />
 
-    // To be filled in with Selected Driver's Name
     <TextView
         android:id="@+id/RideRequestDetailsPostDriverName"
         android:layout_width="wrap_content"
@@ -125,8 +120,8 @@
         android:textColor="@color/light_blue"
         android:fontFamily="sans-serif-smallcaps" />
 
-    // Insert Map here
-    <org.osmdroid.views.MapView android:id="@+id/RidersRequestDetailsPostMap"
+    <org.osmdroid.views.MapView
+        android:id="@+id/RidersRequestDetailsPostMap"
         android:layout_width="match_parent"
         android:layout_height="330dp"
         android:layout_below="@+id/RideRequestDetailsPostDriver"/>
@@ -137,9 +132,9 @@
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:background="@color/lightAccent"
         android:text="Complete Request"
         android:textSize="36sp"
         android:fontFamily="sans-serif-smallcaps" />
-
 
 </RelativeLayout>

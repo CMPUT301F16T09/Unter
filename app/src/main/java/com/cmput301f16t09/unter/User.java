@@ -1,7 +1,6 @@
 package com.cmput301f16t09.unter;
 
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 import io.searchbox.annotations.JestId;
 
@@ -29,6 +28,7 @@ public class User {
      * @param email       the email of the user
      * @param phoneNumber the phone number of the user
      * @param password    the password of the user
+     * @param vehicle     the vehicle
      */
     public User(String name, String username, String email, String phoneNumber, String password, String vehicle) {
         this.name = name.toLowerCase();
@@ -230,11 +230,21 @@ public class User {
         this.myOffers.remove(rideRequest);
     }
 
+    /**
+     * Choosen as driver.
+     *
+     * @param post the post
+     */
     public void choosenAsDriver(String post) {
         this.myOffers.clear();
         this.myOffers.add(post);
     }
 
+    /**
+     * Choose a driver, remove all other driver
+     *
+     * @param post the post
+     */
     public void choosenADriver(String post) {
         this.myRequests.clear();
         this.myRequests.add(post);
@@ -243,18 +253,20 @@ public class User {
     /**
      * Returns the username of the User
      * same as @getUsername()
+     *
+     * @param vehicleInfo the vehicle info
      * @return output, the username of the user
      */
-
-//    public String toString(){
-//        String output = getUsername();
-//        return output;
-//    }
 
     public void setVehicle(String vehicleInfo){
         vehicle=vehicleInfo;
     }
 
+    /**
+     * Get vehicle string.
+     *
+     * @return the string
+     */
     public String getVehicle(){
         return vehicle;
     }

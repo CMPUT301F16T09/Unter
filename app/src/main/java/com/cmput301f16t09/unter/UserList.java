@@ -52,20 +52,6 @@ public class UserList {
     }
 
     /**
-     * Modify the users Name, Phone number and email
-     *
-     * @param user         the user to edit
-     * @param name         the name to change to
-     * @param phone_number the phone number to change to
-     * @param email        the email to change to
-     */
-    public void ModifyUser(User user, String name, String phone_number, String email) {
-        user.setName(name);
-        user.setPhoneNumber(phone_number);
-        user.setEmail(email);
-    }
-
-    /**
      * Search by username user.
      *
      * @param username the username
@@ -91,11 +77,5 @@ public class UserList {
      */
     public long getListener(Listener l) {
         return 1;
-    }
-
-    /**
-     * Delete listener.
-     */
-    public void deleteListener() {
     }
 }

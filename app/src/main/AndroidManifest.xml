@@ -66,8 +66,10 @@
         <activity
             android:name=".RidersRequestDetailsPreUIActivity"
             android:label="@string/title_activity_riders_request_details_pre_ui" />
+        <activity
+            android:name=".NotificationsActivity"
+            android:label="@string/title_activity_notifications" />
         <activity android:name=".ViewProfileUIActivity" />
-
     </application>
 
 </manifest>

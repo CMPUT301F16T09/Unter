@@ -11,63 +11,51 @@
     tools:context="com.cmput301f16t09.unter.RequestDetailsUIActivity">
 
     <TextView
-        android:id="@+id/RequestDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:text="Request Details"
-        android:textSize="42sp"
-        android:textColor="@color/white"
-        android:textAlignment="center"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
         android:id="@+id/RequestDetailsPostedBy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/RequestDetails"
+        android:layout_alignParentTop="true"
         android:layout_marginTop="10dp"
         android:text="Posted By: "
         android:textSize="20sp"
         android:textColor="@color/white"
         android:fontFamily="sans-serif-smallcaps" />
 
-     <!--Add in RiderName-->
     <TextView
         android:id="@+id/RequestDetailsPostedByRiderName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/RequestDetailsPostedBy"
         android:layout_alignBaseline="@id/RequestDetailsPostedBy"
-        android:layout_marginTop="10dp"
         android:textSize="20sp"
         android:textColor="@color/light_blue"
         android:fontFamily="sans-serif-smallcaps" />
 
-    <org.osmdroid.views.MapView android:id="@+id/RequestDetailsMap"
-        android:layout_width="400dp"
-        android:layout_height="300dp"
-        android:layout_below="@+id/RequestDetailsPostedBy"/>
+    <org.osmdroid.views.MapView
+        android:id="@+id/RequestDetailsMap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/RequestDetailsPostedBy"
+        android:layout_above="@+id/RequestDetailsStartLocation"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
 
     <TextView
         android:id="@+id/RequestDetailsStartLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/RequestDetailsPostedBy"
-        android:layout_marginTop="300dp"
+        android:layout_above="@+id/RequestDetailsEndLocation"
         android:text="Start Location: "
         android:textSize="20sp"
         android:textColor="@color/white"
         android:fontFamily="sans-serif-smallcaps" />
 
-     <!--Add in Location-->
     <TextView
         android:id="@+id/RequestDetailsStartLocationName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/RequestDetailsStartLocation"
         android:layout_alignBaseline="@id/RequestDetailsStartLocation"
-        android:layout_marginTop="10dp"
         android:textSize="20sp"
         android:textColor="@color/white"
         android:singleLine="true"
@@ -77,32 +65,28 @@
         android:id="@+id/RequestDetailsEndLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/RequestDetailsStartLocation"
+        android:layout_above="@+id/RequestDetailsCost"
         android:text="End Location: "
         android:textSize="20sp"
         android:textColor="@color/white"
         android:fontFamily="sans-serif-smallcaps" />
 
-     <!--Add in Location-->
     <TextView
         android:id="@+id/RequestDetailsEndLocationName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/RequestDetailsEndLocation"
-        android:layout_alignBaseline="@id/RequestDetailsEndLocation"
-        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/RequestDetailsEndLocation"
+        android:layout_alignBaseline="@+id/RequestDetailsEndLocation"
         android:textSize="20sp"
         android:textColor="@color/white"
         android:singleLine="true"
         android:fontFamily="sans-serif-smallcaps" />
 
-
-     <!--Add in Offered Fare-->
     <TextView
         android:id="@+id/RequestDetailsCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/RequestDetailsEndLocation"
+        android:layout_above="@+id/RequestDetailsButton"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
         android:textSize="20sp"
@@ -115,9 +99,8 @@
         android:id="@+id/RequestDetailsFare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toStartOf="@id/RequestDetailsCost"
-        android:layout_alignBaseline="@id/RequestDetailsCost"
-        android:layout_marginTop="10dp"
+        android:layout_toStartOf="@+id/RequestDetailsCost"
+        android:layout_alignBaseline="@+id/RequestDetailsCost"
         android:text="Fare: "
         android:textSize="20sp"
         android:textColor="@color/white"
@@ -129,14 +112,10 @@
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="10dp"
+        android:background="@color/lightAccent"
         android:text="Offer Ride"
         android:textSize="40sp"
         android:fontFamily="sans-serif-smallcaps"
-        android:onClick="confirm_ride_request" />
-
-    <!--<org.osmdroid.views.MapView android:id="@+id/request_details_map"-->
-        <!--android:layout_width="400dp"-->
-        <!--android:layout_height="300dp"-->
-        <!--android:layout_below="@+id/textViewPostedBy" />-->
+        android:onClick="offerRide" />
 
 </RelativeLayout>

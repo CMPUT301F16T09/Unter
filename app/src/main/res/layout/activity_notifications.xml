@@ -11,39 +11,42 @@
     tools:context="com.cmput301f16t09.unter.NotificationsActivity">
 
 
-    <TextView
-        android:id="@+id/myNotifications"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Notifications"
-        android:textSize="42sp"
-        android:textColor="@color/white"
-        android:fontFamily="sans-serif-smallcaps" />
-
     <ListView
         android:id="@+id/listViewNotifications"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/myNotifications"
-        android:layout_alignParentStart="false"
-        android:layout_above="@+id/ClearAllButton"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Refresh"
-        android:id="@+id/RefreshButton"
         android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/listViewNotifications" />
+        android:layout_alignParentStart="false"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/notificationButtons"
+        android:layout_marginBottom="10dp"/>
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/notificationButtons"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Clear All"
-        android:id="@+id/ClearAllButton"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:weightSum="1.0">
+
+        <Button
+            android:id="@+id/RefreshButton"
+            android:layout_width="wrap_content"
+            android:layout_height="70sp"
+            android:layout_marginEnd="5dp"
+            android:text="Refresh"
+            android:textSize="20sp"
+            android:background="@color/lightAccent"
+            android:layout_weight="0.5"/>
+
+        <Button
+            android:id="@+id/ClearAllButton"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_height="70sp"
+            android:text="Clear All"
+            android:textSize="20sp"
+            android:background="@color/lightAccent"
+            android:layout_weight="0.5"/>
+    </LinearLayout>
 
 </RelativeLayout>
