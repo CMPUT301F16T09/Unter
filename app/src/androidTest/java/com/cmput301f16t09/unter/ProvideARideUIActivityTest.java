@@ -80,4 +80,134 @@ public class ProvideARideUIActivityTest extends ActivityInstrumentationTestCase2
         solo.goBack();
         solo.assertCurrentActivity("Wrong Activity", MainGUIActivity.class);
     }
+
+    public void testSearchKeyword() throws Exception {
+        solo.enterText((EditText) solo.getView(R.id.mainScreenUsername), "KappaRoss");
+        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "123");
+        solo.clickOnButton("Login");
+
+        solo.clickOnButton("Provide\nA Ride");
+        solo.assertCurrentActivity("Wrong Activity",ProvideARideUIActivity.class);
+
+        solo.clickOnActionBarHomeButton();
+        solo.clickOnText("Keyword");
+        solo.waitForText("Search by Keyword");
+        solo.clickOnButton("Confirm");
+        solo.waitForText("Invalid search");
+        solo.clickOnButton("Cancel");
+        solo.waitForText("Search cancelled");
+
+        solo.clickOnText("Keyword");
+        solo.enterText((EditText) solo.getView(R.id.searchKeyword),"Corona");
+        solo.clickOnButton("Confirm");
+        solo.waitForText("Searching...");
+    }
+
+    public void testSearchGeolocation() throws Exception {
+        solo.enterText((EditText) solo.getView(R.id.mainScreenUsername), "KappaRoss");
+        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "123");
+        solo.clickOnButton("Login");
+
+        solo.clickOnButton("Provide\nA Ride");
+        solo.assertCurrentActivity("Wrong Activity",ProvideARideUIActivity.class);
+
+        solo.clickOnActionBarHomeButton();
+        solo.clickOnText("Geolocation");
+        solo.waitForText("Search by Geolocation");
+        solo.clickOnButton("Confirm");
+        solo.waitForText("Invalid search");
+        solo.clickOnButton("Cancel");
+        solo.waitForText("Search cancelled");
+
+        solo.clickOnText("Geolocation");
+        solo.enterText((EditText) solo.getView(R.id.searchGeolocationLat),"Corona");
+        solo.enterText((EditText) solo.getView(R.id.searchGeolocationLong),"");
+        solo.enterText((EditText) solo.getView(R.id.searchGeolocationRadius),"5000");
+
+        solo.clickOnButton("Confirm");
+        solo.waitForText("Searching...");
+    }
+
+    public void testSearchFare() throws Exception {
+        solo.enterText((EditText) solo.getView(R.id.mainScreenUsername), "KappaRoss");
+        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "123");
+        solo.clickOnButton("Login");
+
+        solo.clickOnButton("Provide\nA Ride");
+        solo.assertCurrentActivity("Wrong Activity",ProvideARideUIActivity.class);
+
+        solo.clickOnActionBarHomeButton();
+        solo.clickOnText("Fare");
+        solo.waitForText("Search by Fare");
+        solo.clickOnButton("Confirm");
+        solo.waitForText("Invalid search, no fields entered");
+        solo.clickOnButton("Cancel");
+        solo.waitForText("Search cancelled");
+
+        solo.clickOnText("Fare");
+        solo.enterText((EditText) solo.getView(R.id.searchMinFare),"2");
+        solo.enterText((EditText) solo.getView(R.id.searchMaxFare),"1");
+
+        solo.clickOnButton("Confirm");
+        solo.waitForText("Invalid search");
+
+        solo.clearEditText((EditText) solo.getView(R.id.searchMaxFare));
+        solo.enterText((EditText) solo.getView(R.id.searchMaxFare),"50");
+        solo.clickOnButton("Confirm");
+        solo.waitForText("Searching...");
+    }
+
+    public void testSearchFareKM() throws Exception {
+        solo.enterText((EditText) solo.getView(R.id.mainScreenUsername), "KappaRoss");
+        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "123");
+        solo.clickOnButton("Login");
+
+        solo.clickOnButton("Provide\nA Ride");
+        solo.assertCurrentActivity("Wrong Activity", ProvideARideUIActivity.class);
+
+        solo.clickOnActionBarHomeButton();
+        solo.clickOnText("Fare/km");
+        solo.waitForText("Search by Fare");
+        solo.clickOnButton("Confirm");
+        solo.waitForText("Invalid search, no fields entered");
+        solo.clickOnButton("Cancel");
+        solo.waitForText("Search cancelled");
+
+        solo.clickOnText("Fare/km");
+        solo.enterText((EditText) solo.getView(R.id.searchMinFareKM), "2");
+        solo.enterText((EditText) solo.getView(R.id.searchMaxFareKM), "1");
+
+        solo.clickOnButton("Confirm");
+        solo.waitForText("Invalid search");
+
+        solo.clearEditText((EditText) solo.getView(R.id.searchMaxFareKM));
+        solo.enterText((EditText) solo.getView(R.id.searchMaxFareKM), "3");
+        solo.clickOnButton("Confirm");
+        solo.waitForText("Searching...");
+    }
+
+    public void testSearchAddress() throws Exception {
+        solo.enterText((EditText) solo.getView(R.id.mainScreenUsername), "KappaRoss");
+        solo.enterText((EditText) solo.getView(R.id.mainScreenPassword), "123");
+        solo.clickOnButton("Login");
+
+        solo.clickOnButton("Provide\nA Ride");
+        solo.assertCurrentActivity("Wrong Activity",ProvideARideUIActivity.class);
+
+        solo.clickOnActionBarHomeButton();
+        solo.clickOnText("Address");
+        solo.waitForText("Search by Address");
+        solo.clickOnButton("Confirm");
+        solo.waitForText("Invalid search");
+        solo.clickOnButton("Cancel");
+        solo.waitForText("Search cancelled");
+
+        solo.clickOnText("Address");
+        solo.enterText((EditText) solo.getView(R.id.searchAddress),"Corona Station");
+        solo.enterText((EditText) solo.getView(R.id.searchAddressRadius),"5000");
+
+        solo.clickOnButton("Confirm");
+        solo.waitForText("Searching...");
+    }
+
 }

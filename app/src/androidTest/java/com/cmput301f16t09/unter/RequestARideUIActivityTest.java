@@ -3,6 +3,7 @@ package com.cmput301f16t09.unter;
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
 import com.robotium.solo.Solo;
@@ -56,14 +57,14 @@ public class RequestARideUIActivityTest extends ActivityInstrumentationTestCase2
         solo.clickOnButton("Confirm");
         assertTrue(solo.waitForText("Please fill in start and end locations"));
 
-        solo.enterText((EditText) solo.getView(R.id.RequestRideStartLocation), "University LRT Station");
+        solo.enterText((AutoCompleteTextView) solo.getView(R.id.RequestRideStartLocation), "University LRT Station");
         assertTrue(solo.waitForText("University LRT Station"));
         solo.clickOnButton("Find\nStart");
         solo.clickOnMenuItem("University LRT Station\nEdmonton, AB T6G 2P8");
         solo.clickOnButton("Confirm");
         assertTrue(solo.waitForText("Please specify your end location"));
 
-        solo.enterText((EditText) solo.getView(R.id.RequestRideEndLocation), "Corona Station");
+        solo.enterText((AutoCompleteTextView) solo.getView(R.id.RequestRideEndLocation), "Corona Station");
         assertTrue(solo.waitForText("Corona Station"));
         solo.clickOnButton("Find\nEnd");
         solo.clickOnMenuItem("Corona Station\nEdmonton, AB T5J");

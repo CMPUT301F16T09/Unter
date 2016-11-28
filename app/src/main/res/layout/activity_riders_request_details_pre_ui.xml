@@ -132,6 +132,11 @@
             android:textColor="@color/white"
             android:fontFamily="sans-serif-smallcaps" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </LinearLayout>
         <ListView
             android:id="@+id/listViewRideRequestDetailsRiderOffers"
             android:layout_width="match_parent"
