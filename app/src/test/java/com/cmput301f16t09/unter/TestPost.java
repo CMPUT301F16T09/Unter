@@ -21,7 +21,7 @@ public class TestPost extends TestCase {
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
-        Post post = new Post(start, end, "1", "2", "$4", "rider");
+        Post post = new Post(start, end, "1", "2", 4.0, 1.2, rider.getUsername());
 
         assertTrue(post.getStartLocation() == start);
     }
@@ -35,7 +35,7 @@ public class TestPost extends TestCase {
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
-        Post post = new Post(start, end, "1", "2", "$4", "rider");
+        Post post = new Post(start, end, "1", "2", 4.0, 1.2, rider.getUsername());
 
         GeoPoint start2 = new GeoPoint(400.0, 200.0);
         post.setStartLocation(start2);
@@ -52,7 +52,7 @@ public class TestPost extends TestCase {
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
-        Post post = new Post(start, end, "1", "2", "$4", "rider");
+        Post post = new Post(start, end, "1", "2", 4.0, 1.2, rider.getUsername());
 
         assertTrue(post.getEndLocation() == end);
     }
@@ -66,7 +66,7 @@ public class TestPost extends TestCase {
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
-        Post post = new Post(start, end, "1", "2", "$4", "rider");
+        Post post = new Post(start, end, "1", "2", 4.0, 1.2, rider.getUsername());
 
         GeoPoint end2 = new GeoPoint(200.0, 400.0);
         post.setEndLocation(end2);
@@ -83,7 +83,7 @@ public class TestPost extends TestCase {
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
-        Post post = new Post(start, end, "1", "2", "$4", "rider");
+        Post post = new Post(start, end, "1", "2", 4.0, 1.2, rider.getUsername());
 
         post.setStatus("I'm ready");
 
@@ -99,7 +99,7 @@ public class TestPost extends TestCase {
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
-        Post post = new Post(start, end, "1", "2", "$4", "rider");
+        Post post = new Post(start, end, "1", "2", 4.0, 1.2, rider.getUsername());
 
         post.setStatus("I'm ready");
 
@@ -115,7 +115,7 @@ public class TestPost extends TestCase {
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
-        Post post = new Post(start, end, "1", "2", "$4", "rider");
+        Post post = new Post(start, end, "1", "2", 4.0, 1.2, rider.getUsername());
 
         assertTrue((post.getFare().equals("$4")));
     }
@@ -129,11 +129,11 @@ public class TestPost extends TestCase {
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
-        Post post = new Post(start, end, "1", "2", "$4", "rider");
+        Post post = new Post(start, end, "1", "2", 4.0, 1.2, rider.getUsername());
 
-        post.setFare("$5");
+        post.setFare(5.0);
 
-        assertTrue((post.getFare().equals("$5")));
+        assertTrue((post.getFare().equals(5.0)));
     }
 
     /**
@@ -145,7 +145,7 @@ public class TestPost extends TestCase {
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
-        Post post = new Post(start, end, "1", "2", "$4", "rider");
+        Post post = new Post(start, end, "1", "2", 4.0, 1.2, rider.getUsername());
 
         ArrayList driverOffers = new ArrayList<>();
         driverOffers.add("Joe");
@@ -165,7 +165,7 @@ public class TestPost extends TestCase {
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
-        Post post = new Post(start, end, "1", "2", "$4", "rider");
+        Post post = new Post(start, end, "1", "2", 4.0, 1.2, rider.getUsername());
 
         ArrayList driverOffers = new ArrayList<>();
         driverOffers.add("Joe");
@@ -185,7 +185,7 @@ public class TestPost extends TestCase {
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
-        Post post = new Post(start, end, "1", "2", "$4", "rider");
+        Post post = new Post(start, end, "1", "2", 4.0, 1.2, rider.getUsername());
 
         assertTrue((post.getDriverOffers()).isEmpty());
         post.addDriverOffer("Joe");
@@ -204,7 +204,7 @@ public class TestPost extends TestCase {
 
         GeoPoint start = new GeoPoint(1.0, 2.0);
         GeoPoint end = new GeoPoint(2.0, 1.0);
-        Post post = new Post(start, end, "1", "2", "$4", "rider");
+        Post post = new Post(start, end, "1", "2", 4.0, 1.2, rider.getUsername());
 
         post.addDriverOffer("Joe");
         post.addDriverOffer("Jim");

@@ -28,7 +28,7 @@ public class TestPostListOnlineController extends TestCase{
      */
     public void testaddPost() {
         User newUsr = new User("Kelly", "JellYKeLly", "DaNiEl@EmAil.com", "780-653-1241", "password", "");
-        Post new_post = new Post(new GeoPoint(1234.0, 1234.0), new GeoPoint(1234.0, 1234.0), "1", "2", "50", "rider");
+        Post new_post = new Post(new GeoPoint(1234.0, 1234.0), new GeoPoint(1234.0, 1234.0), "Corona Station", "University of Alberta", 50.0, 2.4, newUsr.getUsername());
         try {
             PostListOnlineController.AddPostsTask addPostsTask = new PostListOnlineController.AddPostsTask();
             addPostsTask.execute(new_post);
