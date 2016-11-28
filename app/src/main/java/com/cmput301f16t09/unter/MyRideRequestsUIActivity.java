@@ -32,6 +32,7 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Viewing My Ride Requests");
         setContentView(R.layout.activity_my_ride_requests_ui);
 
         Geocoder coder = new Geocoder(this, Locale.CANADA);
@@ -45,57 +46,19 @@ public class MyRideRequestsUIActivity extends AppCompatActivity {
             }
         }
 
-        //For faster searching later
-//        try {
-//            for (int i = 0; i < CurrentUser.getCurrentUser().getMyRequests().size(); i++) {
-//                PostListOnlineController.SearchPostListsTask searchPostListsTask = new PostListOnlineController.SearchPostListsTask();
-//                searchPostListsTask.execute(CurrentUser.getCurrentUser().getMyRequests().get(i));
-//                ArrayList<Post> temp = searchPostListsTask.get();
-//                if (!temp.isEmpty()) {
-//                    postList.addPost(temp.get(0));
-//                }
-//            }
-//        }
-//        catch (Exception e){
-//                Log.i("Error", "Offline");
-//            }
-        // App crashes when using postlist.getposts().clear(), or if there is no list clearing statement
-
-
-
-
         adapter = new ArrayAdapter<Post>(this, android.R.layout.simple_list_item_1, postList.getPosts()) {
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView tv = (TextView) view.findViewById(android.R.id.text1);
-//                String forTestUsername = postList.getPost(position).getUsername();
-
-//                double startLat = postList.getPost(position).getStartLocation().getLatitude();
-//                double startLon = postList.getPost(position).getStartLocation().getLongitude();
-//                double endLat = postList.getPost(position).getEndLocation().getLatitude();
-//                double endLon = postList.getPost(position).getEndLocation().getLongitude();
-//
-//                try {
-//                    List<Address> startAddress = coder.getFromLocation(startLat, startLon, 1);
-//                    List<Address> endAddress = coder.getFromLocation(endLat, endLon, 1);
-//                    tv.setText("Username: " + forTestUsername + "\nStart: " + startAddress.get(0).getAddressLine(0) +"\nEnd: " + endAddress.get(0).getAddressLine(0));
-//
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
 
                 String startLocation = postList.getPost(position).getStartAddress();
                 String endLocation = postList.getPost(position).getEndAddress();
 
                 tv.setText("Start: " + startLocation +"\nEnd: " + endLocation);
-
-
-                // Remove forTestUsername after
-                // tv.setText(postList.getPost(position).getUsername());
                 tv.setTextColor(Color.WHITE);
-                tv.setTextSize(24);
+                tv.setTextSize(20);
                 return view;
             }
         };

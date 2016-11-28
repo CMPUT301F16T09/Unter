@@ -77,7 +77,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="50dp"
         android:layout_marginBottom="25dp"
-        android:background="@color/white"
+
         android:text="@string/login"
         android:textSize="20sp"
         android:fontFamily="sans-serif-smallcaps"
@@ -90,7 +90,6 @@
         android:layout_alignTop="@+id/loginButton"
         android:layout_below="@+id/mainScreenPassword"
         android:layout_marginStart="200dp"
-        android:background="@color/white"
         android:text="@string/create_new_user"
         android:textSize="20sp"
         android:fontFamily="sans-serif-smallcaps"

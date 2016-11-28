@@ -10,7 +10,6 @@
     android:background="@color/background"
     tools:context="com.cmput301f16t09.unter.RidersRequestDetailsPreUIActivity">
 
-
     <TextView
         android:id="@+id/RideRequestDetailsPreStatus"
         android:layout_width="wrap_content"
@@ -21,7 +20,6 @@
         android:textColor="@color/white"
         android:fontFamily="sans-serif-smallcaps" />
 
-    <!-- To be filled in with CurrentStatus-->
     <TextView
         android:id="@+id/RideRequestDetailsPreCurrentStatus"
         android:layout_width="wrap_content"
@@ -44,8 +42,6 @@
         android:textColor="@color/white"
         android:fontFamily="sans-serif-smallcaps" />
 
-
-    // To be filled in with StartLocationName
     <TextView
         android:id="@+id/RideRequestDetailsPreStartLocationName"
         android:layout_width="wrap_content"
@@ -56,7 +52,6 @@
         android:textColor="@color/white"
         android:singleLine="true"
         android:fontFamily="sans-serif-smallcaps" />
-
 
     <TextView
         android:id="@+id/RideRequestDetailsPreEndLocation"
@@ -69,7 +64,6 @@
         android:textColor="@color/white"
         android:fontFamily="sans-serif-smallcaps" />
 
-    // To be filled in with EndLocationName
     <TextView
         android:id="@+id/RideRequestDetailsPreEndLocationName"
         android:layout_width="wrap_content"
@@ -80,7 +74,6 @@
         android:textColor="@color/white"
         android:singleLine="true"
         android:fontFamily="sans-serif-smallcaps" />
-
 
     <TextView
         android:id="@+id/RideRequestDetailsPreFare"
@@ -93,7 +86,6 @@
         android:textColor="@color/white"
         android:fontFamily="sans-serif-smallcaps" />
 
-    // To be filled in with OfferedFareAmount
     <TextView
         android:id="@+id/RideRequestDetailsPreOfferedFare"
         android:layout_width="wrap_content"
@@ -118,11 +110,13 @@
 
     <ListView
         android:id="@+id/listViewRideRequestDetailsRiderOffers"
-        android:layout_width="wrap_content"
-        android:layout_height="250dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/RideRequestDetailsPreSelectDriver"
+        android:layout_above="@+id/RideRequestDetailsCancelRequestButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
 
     <Button
         android:id="@+id/RideRequestDetailsCancelRequestButton"
@@ -130,10 +124,10 @@
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:background="@color/lightAccent"
         android:text="Cancel Request"
         android:textSize="40sp"
         android:fontFamily="sans-serif-smallcaps"
         android:onClick="cancelRequest"/>
-
 
 </RelativeLayout>

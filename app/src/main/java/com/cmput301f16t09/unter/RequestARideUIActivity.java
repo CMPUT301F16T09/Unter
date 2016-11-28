@@ -99,6 +99,7 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Requesting A Ride");
         setContentView(R.layout.activity_request_aride_ui);
 
         /* Set up the map information */
@@ -127,12 +128,6 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
 
         find = (Button) findViewById(R.id.findStart);
         registerForContextMenu(find);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
     }
 
     public void completeStartAddress(View v){

@@ -30,6 +30,7 @@ public class MyRideOffersUIActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Viewing My Ride Offers");
         setContentView(R.layout.activity_my_ride_offers_ui);
 
         ListView currentPostList = (ListView) findViewById(R.id.listViewMyRideOffers);
@@ -66,6 +67,7 @@ public class MyRideOffersUIActivity extends AppCompatActivity {
 
                 tv.setText("Username: " + forTestUsername + "\nStart: " + startLocation + "\nEnd: " + endLocation);
                 tv.setTextColor(Color.WHITE);
+                tv.setTextSize(20);
                 return view;
             }
         };
@@ -89,24 +91,5 @@ public class MyRideOffersUIActivity extends AppCompatActivity {
             }
         });
 
-        /**
-         * Add a listener to the post list in PostListOfflineController
-         *
-         * @see PostListOfflineController
-         */
-//        PostListOfflineController.getPostList(MyRideOffersUIActivity.this).addListener(new Listener() {
-//            @Override
-//            public void update() {
-//                postList.getPosts().clear();
-//
-//                for (Post p : PostListOfflineController.getPostList(MyRideOffersUIActivity.this).getPosts()) {
-//                    if (p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) {
-//                        postList.addPost(p);
-//                    }
-//                }
-//
-//                adapter.notifyDataSetChanged();
-//            }
-//        });
     }
 }

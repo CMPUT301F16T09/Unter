@@ -88,6 +88,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Viewing Ride Request Details");
         setContentView(R.layout.activity_request_details_ui);
 
         poster = (TextView) findViewById(R.id.RequestDetailsPostedByRiderName);

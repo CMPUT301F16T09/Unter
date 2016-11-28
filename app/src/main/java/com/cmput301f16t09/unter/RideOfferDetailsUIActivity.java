@@ -64,6 +64,7 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Viewing Ride Offer Details");
         setContentView(R.layout.activity_ride_offer_details_ui);
 
         TextView tvRiderName = (TextView) findViewById(R.id.RideOfferRiderName);

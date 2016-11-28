@@ -73,6 +73,7 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Viewing My Ride Request Details");
         setContentView(R.layout.activity_riders_request_details_post_ui);
 
         TextView tvCurrentStatus = (TextView) findViewById(R.id.RideRequestDetailsPostCurrentStatus);

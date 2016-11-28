@@ -60,6 +60,7 @@ public class EditProfileUIActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Editing My Profile");
         setContentView(R.layout.activity_edit_profile_ui);
         Toast.makeText(EditProfileUIActivity.this, CurrentUser.getCurrentUser().getName(), Toast.LENGTH_SHORT).show();
 
@@ -75,12 +76,6 @@ public class EditProfileUIActivity extends AppCompatActivity {
         editConfirmPassword = (EditText) findViewById(R.id.EditProfileConfirmPasswordField);
         editVehicle = (EditText) findViewById(R.id.EditProfileVehicleInfoField);
         editVehicle.setText(CurrentUser.getCurrentUser().getVehicle());
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
     }
 
     /**

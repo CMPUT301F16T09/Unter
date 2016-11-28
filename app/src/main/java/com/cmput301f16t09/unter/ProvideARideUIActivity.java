@@ -100,8 +100,7 @@ public class ProvideARideUIActivity extends AppCompatActivity {
 
 //                tv.setText(postList.getPost(position).getUsername());
                 tv.setTextColor(Color.WHITE);
-                tv.setTextSize(24);
-
+                tv.setTextSize(20);
                 return view;
             }
         };

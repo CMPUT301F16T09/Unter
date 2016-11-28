@@ -27,6 +27,7 @@ public class MainScreenUIActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Choose an option");
         setContentView(R.layout.activity_main_screen_ui);
 
         //set up a handler thread once someone is logged in because they must be online to log in

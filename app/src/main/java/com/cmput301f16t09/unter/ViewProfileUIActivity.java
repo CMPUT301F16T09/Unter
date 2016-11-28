@@ -38,6 +38,7 @@ public class ViewProfileUIActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Viewing User Profile");
         setContentView(R.layout.activity_view_profile);
 
         title = (TextView) findViewById(R.id.textUsernameTitle);

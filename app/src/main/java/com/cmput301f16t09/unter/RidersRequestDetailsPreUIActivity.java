@@ -31,6 +31,7 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Viewing My Ride Request Details");
         setContentView(R.layout.activity_riders_request_details_pre_ui);
         ListView potentialDriversListView = (ListView) findViewById(R.id.listViewRideRequestDetailsRiderOffers);
 
@@ -69,6 +70,7 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
 
                 tv.setText(CurrentUser.getCurrentPost().getDriverOffers().get(position));
                 tv.setTextColor(Color.WHITE);
+                tv.setTextSize(20);
                 return view;
             }
         };

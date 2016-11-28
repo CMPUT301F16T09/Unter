@@ -10,20 +10,10 @@
     android:background="@color/background"
     tools:context="com.cmput301f16t09.unter.MyRideRequestsUIActivity">
 
-    <TextView
-        android:id="@+id/myNotifications"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="My Ride Requests"
-        android:textSize="42sp"
-        android:textColor="@color/white"
-        android:fontFamily="sans-serif-smallcaps" />
-
     <ListView
         android:id="@+id/listViewMyRideRequests"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/myNotifications"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
