@@ -53,20 +53,31 @@ public class WifiReceiver extends BroadcastReceiver {
                         try {
                             PostListOnlineController.ProcessOfflineData pod = new PostListOnlineController.ProcessOfflineData();
                             pod.execute(context, p);
+                            addPostOnline.execute(online);
                             online = pod.get();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        } catch (ExecutionException e) {
+
+                            CurrentUser.getCurrentUser().getMyRequests().add(online.getId());
+                            UserListOnlineController.UpdateUsersTask updateUserListstask = new UserListOnlineController.UpdateUsersTask();
+                            updateUserListstask.execute(CurrentUser.getCurrentUser());
+                            updateUserListstask.get();
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-
-                        addPostOnline.execute(online);
                     }
                     // ADD CLEARING THE SAVE FILE
                     PostListMainController.clearPostListQueue(context);
 
                     for (Post p : PostListMainController.getPostListUpdate(context).getPosts()) {
                         PostListMainController.updatePosts(p, context);
+
+                        try {
+                            CurrentUser.getCurrentUser().getMyRequests().add(p.getId());
+                            UserListOnlineController.UpdateUsersTask updateUserListstask = new UserListOnlineController.UpdateUsersTask();
+                            updateUserListstask.execute(CurrentUser.getCurrentUser());
+                            updateUserListstask.get();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                     // ADD CLEARING THE SAVE FILE
                     PostListMainController.clearPostListUpdate(context);

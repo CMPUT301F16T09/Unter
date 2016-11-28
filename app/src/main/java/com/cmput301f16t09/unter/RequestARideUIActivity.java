@@ -344,10 +344,12 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
                         Post newPost = new Post(startPoint, endPoint, startLocation, endLocation, convertedFare, convertedFare/(distance/1000), CurrentUser.getCurrentUser().getUsername());
                         // Add post and update user
                         PostListMainController.addPost(newPost, RequestARideUIActivity.this);
-                        CurrentUser.getCurrentUser().getMyRequests().add(newPost.getId());
-                        UserListOnlineController.UpdateUsersTask updateUserListstask = new UserListOnlineController.UpdateUsersTask();
-                        updateUserListstask.execute(CurrentUser.getCurrentUser());
-                        updateUserListstask.get();
+                        if (WifiReceiver.isNetworkAvailable(RequestARideUIActivity.this)) {
+                            CurrentUser.getCurrentUser().getMyRequests().add(newPost.getId());
+                            UserListOnlineController.UpdateUsersTask updateUserListstask = new UserListOnlineController.UpdateUsersTask();
+                            updateUserListstask.execute(CurrentUser.getCurrentUser());
+                            updateUserListstask.get();
+                        }
                     }
                     catch (Exception e) {
                         Log.i("Error", "Elastic Search Error");

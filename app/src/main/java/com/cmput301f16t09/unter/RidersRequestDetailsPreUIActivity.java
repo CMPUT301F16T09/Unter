@@ -300,16 +300,18 @@ public class RidersRequestDetailsPreUIActivity extends AppCompatActivity {
             CurrentUser.updateCurrentUser();
             // Remove all of the offers attached to the driver's myoffers list
             // and updates each user in elastic search
-            for (String username : CurrentUser.getCurrentPost().getDriverOffers()) {
-                UserListOnlineController.SearchUserListsTask searchUserListsTask = new UserListOnlineController.SearchUserListsTask();
-                searchUserListsTask.execute("username", username);
-                User driver = searchUserListsTask.get().get(0);
+            if (WifiReceiver.isNetworkAvailable(RidersRequestDetailsPreUIActivity.this)) {
+                for (String username : CurrentUser.getCurrentPost().getDriverOffers()) {
+                    UserListOnlineController.SearchUserListsTask searchUserListsTask = new UserListOnlineController.SearchUserListsTask();
+                    searchUserListsTask.execute("username", username);
+                    User driver = searchUserListsTask.get().get(0);
 
-                driver.getMyOffers().remove(CurrentUser.getCurrentPost().getId());
+                    driver.getMyOffers().remove(CurrentUser.getCurrentPost().getId());
 
-                UserListOnlineController.UpdateUsersTask updateUserListstask = new UserListOnlineController.UpdateUsersTask();
-                updateUserListstask.execute(driver);
-                updateUserListstask.get();
+                    UserListOnlineController.UpdateUsersTask updateUserListstask = new UserListOnlineController.UpdateUsersTask();
+                    updateUserListstask.execute(driver);
+                    updateUserListstask.get();
+                }
             }
 
             // Deletes the post from the elastic search database
