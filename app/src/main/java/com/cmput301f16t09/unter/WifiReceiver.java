@@ -3,10 +3,16 @@ package com.cmput301f16t09.unter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 import android.widget.Toast;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 // 2016-11-19
 // http://stackoverflow.com/questions/6362314/wifi-connect-disconnect-listener
@@ -14,10 +20,14 @@ import android.widget.Toast;
 // Author: warbi
 public class WifiReceiver extends BroadcastReceiver {
 
+    Geocoder coder;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         ConnectivityManager conMan = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = conMan.getActiveNetworkInfo();
+
+        coder = new Geocoder(context, Locale.getDefault());
 
         if (netInfo != null && netInfo.getState().name().equals("CONNECTED")) {
 
@@ -30,7 +40,8 @@ public class WifiReceiver extends BroadcastReceiver {
 
                 for (Post p : PostListMainController.getPostListQueue(context).getPosts()) {
                     PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
-                    addPostOnline.execute(p);
+                    Post online = reverseGeocodeForOfflinePost(p);
+                    addPostOnline.execute(online);
                 }
                 // ADD CLEARING THE SAVE FILE
                 PostListMainController.clearPostListQueue(context);
@@ -54,4 +65,31 @@ public class WifiReceiver extends BroadcastReceiver {
             Toast.makeText(context, "WiFi Has Disconnected", Toast.LENGTH_SHORT).show();
         }
     }
-};
+
+    public static boolean isNetworkAvailable(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
+
+    public Post reverseGeocodeForOfflinePost(Post post){
+
+        Post onlinePost = post;
+
+        try {
+            List<Address> start = coder.getFromLocation(post.getStartLocation().getLatitude(),
+                                                         post.getStartLocation().getLongitude(), 1);
+
+            List<Address> end = coder.getFromLocation(post.getEndLocation().getLatitude(),
+                                                      post.getEndLocation().getLongitude(), 1);
+
+            onlinePost.setStartAddress(start.get(0).getAddressLine(0) + ", " + start.get(0).getAddressLine(1));
+            onlinePost.setEndAddress(end.get(0).getAddressLine(0) + ", " + end.get(0).getAddressLine(1));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("IOException", "IOException was caught");
+        }
+
+        return onlinePost;
+    }
+}
