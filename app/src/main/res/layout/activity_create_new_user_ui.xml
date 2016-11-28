@@ -11,26 +11,13 @@
     android:background="@color/background"
     tools:context="com.cmput301f16t09.unter.CreateNewUserUIActivity">
 
-    <TextView
-        android:id="@+id/SignUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:text="Sign Up"
-        android:textSize="48sp"
-        android:textColor="@color/TextColor"
-        android:textAlignment="center"
-        android:fontFamily="sans-serif-smallcaps" />
-
     <EditText
         android:id="@+id/SignUpUsername"
         android:layout_width="400dp"
         android:layout_height="48dp"
         android:layout_below="@+id/SignUp"
         android:layout_marginTop="40dp"
-        android:hint="Username"
+        android:hint="Username*"
         android:textSize="24sp"
         android:textColor="@color/TextColor"
         android:textColorHint="@color/HintTextColor"
@@ -43,13 +30,12 @@
         android:layout_height="48dp"
         android:layout_marginTop="5dp"
         android:layout_below="@+id/SignUpUsername"
-        android:hint="First and Last Name"
+        android:hint="First and Last Name*"
         android:textSize="24sp"
         android:textColor="@color/TextColor"
         android:textColorHint="@color/HintTextColor"
         android:textAlignment="center"
-        android:fontFamily="sans-serif-smallcaps"
-        />
+        android:fontFamily="sans-serif-smallcaps" />
 
     <EditText
         android:id="@+id/SignUpPhoneNumber"
@@ -57,13 +43,13 @@
         android:layout_height="48dp"
         android:layout_below="@+id/SignUpName"
         android:layout_marginTop="5dp"
-        android:hint="Phone number"
+        android:hint="Phone number*"
         android:textSize="24sp"
         android:textColor="@color/TextColor"
         android:textColorHint="@color/HintTextColor"
         android:textAlignment="center"
         android:inputType="phone"
-        />
+        android:fontFamily="sans-serif-smallcaps" />
 
     <EditText
         android:id="@+id/SignUpEmail"
@@ -71,26 +57,39 @@
         android:layout_height="48dp"
         android:layout_below="@+id/SignUpPhoneNumber"
         android:layout_marginTop="5dp"
-        android:hint="Email"
+        android:hint="Email*"
         android:textSize="24sp"
         android:textColor="@color/TextColor"
         android:textColorHint="@color/HintTextColor"
         android:textAlignment="center"
-        />
+        android:fontFamily="sans-serif-smallcaps" />
+
+    <EditText
+        android:id="@+id/SignUpVehicleInfo"
+        android:layout_width="400dp"
+        android:layout_height="48dp"
+        android:hint="Driver Only: Vehicle Info"
+        android:textSize="24sp"
+        android:textColor="@color/TextColor"
+        android:textColorHint="@color/HintTextColor"
+        android:textAlignment="center"
+        android:layout_below="@+id/SignUpEmail"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-smallcaps" />
 
     <EditText
         android:id="@+id/SignUpPassword"
         android:layout_width="400dp"
         android:layout_height="48dp"
-        android:hint="Password"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/SignUpVehicleInfo"
+        android:hint="Password*"
         android:textSize="24sp"
         android:textColor="@color/TextColor"
         android:textColorHint="@color/HintTextColor"
         android:textAlignment="center"
         android:inputType="textPassword"
-        android:fontFamily="sans-serif-smallcaps"
-        android:layout_below="@+id/SignUpVehicleInfo"
-        android:layout_centerHorizontal="true" />
+        android:fontFamily="sans-serif-smallcaps" />
 
     <EditText
         android:id="@+id/SignUpConfirmPassword"
@@ -98,7 +97,7 @@
         android:layout_height="48dp"
         android:layout_below="@+id/SignUpPassword"
         android:layout_marginTop="5dp"
-        android:hint="Confirm password"
+        android:hint="Confirm password*"
         android:textSize="24sp"
         android:textColor="@color/TextColor"
         android:textColorHint="@color/HintTextColor"
@@ -112,22 +111,20 @@
         android:layout_height="70dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:text="C o n f i r m"
+        android:text="Confirm"
         android:textSize="40sp"
         android:background="@color/lightAccent"
         android:fontFamily="sans-serif-smallcaps"
         android:onClick="create_user"/>
 
-    <EditText
-        android:id="@+id/SignUpVehicleInfo"
-        android:layout_width="400dp"
-        android:layout_height="48dp"
-        android:hint="Driver Only: Vehicle Info"
-        android:textSize="24sp"
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/SignUpConfirmPassword"
+        android:layout_marginTop="10sp"
+        android:text="*Starred fields need to be filled in"
+        android:textSize="16sp"
         android:textColor="@color/TextColor"
-        android:textColorHint="@color/HintTextColor"
-        android:textAlignment="center"
-        android:layout_below="@+id/SignUpEmail"
-        android:layout_centerHorizontal="true" />
+        android:fontFamily="sans-serif-smallcaps" />
 
 </RelativeLayout>

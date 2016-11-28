@@ -11,20 +11,10 @@
     android:background="@color/background"
     tools:context="com.cmput301f16t09.unter.RequestARideUIActivity">
 
-    <TextView
-        android:id="@+id/RequestARide"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Request A Ride"
-        android:textSize="52sp"
-        android:textColor="@color/white"
-        android:fontFamily="sans-serif-smallcaps" />
-
     <AutoCompleteTextView
         android:id="@+id/RequestRideStartLocation"
         android:layout_width="300dp"
         android:layout_height="42dp"
-        android:layout_below="@+id/RequestARide"
         android:layout_marginTop="5dp"
         android:textSize="@dimen/input_text_size"
         android:textColor="@color/TextColor"
@@ -98,8 +88,8 @@
         android:onClick="completeEndAddress"
         android:elevation="0dp" />
 
-    <org.osmdroid.views.MapView android:id="@+id/RequestARideMap"
-        android:layout_width="400dp"
-        android:layout_height="300dp"
-        android:layout_below="@+id/RequestRideEstimatedFare"/>
+    <!--<org.osmdroid.views.MapView android:id="@+id/RequestARideMap"-->
+        <!--android:layout_width="400dp"-->
+        <!--android:layout_height="300dp"-->
+        <!--android:layout_below="@+id/RequestRideEstimatedFare"/>-->
 </RelativeLayout>

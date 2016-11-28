@@ -225,7 +225,7 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                 TextView tv = (TextView) view.findViewById(android.R.id.text1);
 
                 tv.setTextColor(Color.WHITE);
-                tv.setTextSize(24);
+                tv.setTextSize(20);
 
                 return view;
             };
