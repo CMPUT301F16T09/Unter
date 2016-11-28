@@ -242,12 +242,13 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                 // Nov 26, 2016
                 if (position == 0) { //Keyword search
                     final Dialog dialog = new Dialog(ProvideARideUIActivity.this);
-                    final EditText editKeyword = (EditText) dialog.findViewById(R.id.searchKeyword);
-                    final Button searchKeywordCancel = (Button) dialog.findViewById(R.id.searchKeywordCancel);
 
                     dialog.setTitle("Search by Keyword");
                     dialog.setContentView(R.layout.dialog_search_keyword);
                     dialog.show();
+
+                    final EditText editKeyword = (EditText) dialog.findViewById(R.id.searchKeyword);
+                    final Button searchKeywordCancel = (Button) dialog.findViewById(R.id.searchKeywordCancel);
 
                     Button searchKeywordConfirm = (Button) dialog.findViewById(R.id.searchKeywordConfirm);
 
@@ -297,13 +298,14 @@ public class ProvideARideUIActivity extends AppCompatActivity {
 
                 } else if (position == 1) { //Geolocation search
                     final Dialog dialog = new Dialog(ProvideARideUIActivity.this);
-                    final EditText editGeoLat = (EditText) dialog.findViewById(R.id.searchGeolocationLat);
-                    final EditText editGeoLong = (EditText) dialog.findViewById(R.id.searchGeolocationLong);
-                    final EditText editGeoRadius = (EditText) dialog.findViewById(R.id.searchGeolocationRadius);
 
                     dialog.setTitle("Search by Geolocation");
                     dialog.setContentView(R.layout.dialog_search_geolocation);
                     dialog.show();
+
+                    final EditText editGeoLat = (EditText) dialog.findViewById(R.id.searchGeolocationLat);
+                    final EditText editGeoLong = (EditText) dialog.findViewById(R.id.searchGeolocationLong);
+                    final EditText editGeoRadius = (EditText) dialog.findViewById(R.id.searchGeolocationRadius);
 
                     Button searchGeolocationConfirm = (Button) dialog.findViewById(R.id.searchGeolocationConfirm);
                     Button searchGeolocationCancel = (Button) dialog.findViewById(R.id.searchGeolocationCancel);
@@ -385,12 +387,13 @@ public class ProvideARideUIActivity extends AppCompatActivity {
 
                 } else if (position == 2) { // Fare searching
                     final Dialog dialog = new Dialog(ProvideARideUIActivity.this);
-                    final EditText editMinFare = (EditText) dialog.findViewById(R.id.searchMinFare);
-                    final EditText editMaxFare = (EditText) dialog.findViewById(R.id.searchMaxFare);
 
                     dialog.setTitle("Search by Fare");
                     dialog.setContentView(R.layout.dialog_search_fare);
                     dialog.show();
+
+                    final EditText editMinFare = (EditText) dialog.findViewById(R.id.searchMinFare);
+                    final EditText editMaxFare = (EditText) dialog.findViewById(R.id.searchMaxFare);
 
                     Button searchFareConfirm = (Button) dialog.findViewById(R.id.searchFareConfirm);
                     Button searchFareCancel = (Button) dialog.findViewById(R.id.searchFareCancel);
@@ -484,12 +487,13 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                     });
                 } else if (position == 3) { //Fare/km searching
                     final Dialog dialog = new Dialog(ProvideARideUIActivity.this);
-                    final EditText editMinFareKM = (EditText) dialog.findViewById(R.id.searchMinFareKM);
-                    final EditText editMaxFareKM = (EditText) dialog.findViewById(R.id.searchMaxFareKM);
 
                     dialog.setTitle("Search by Fare/km");
                     dialog.setContentView(R.layout.dialog_search_farekm);
                     dialog.show();
+
+                    final EditText editMinFareKM = (EditText) dialog.findViewById(R.id.searchMinFareKM);
+                    final EditText editMaxFareKM = (EditText) dialog.findViewById(R.id.searchMaxFareKM);
 
                     Button searchFareKMConfirm = (Button) dialog.findViewById(R.id.searchFareKMConfirm);
                     Button searchFareKMCancel = (Button) dialog.findViewById(R.id.searchFareKMCancel);
@@ -583,12 +587,13 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                     });
                 } else if (position == 4){ //Address searching
                     final Dialog dialog = new Dialog(ProvideARideUIActivity.this);
-                    final EditText editAddress = (EditText) dialog.findViewById(R.id.searchAddress);
-                    final EditText editAddressRadius = (EditText) dialog.findViewById(R.id.searchAddressRadius);
 
                     dialog.setTitle("Search by Address");
                     dialog.setContentView(R.layout.dialog_search_address);
                     dialog.show();
+
+                    final EditText editAddress = (EditText) dialog.findViewById(R.id.searchAddress);
+                    final EditText editAddressRadius = (EditText) dialog.findViewById(R.id.searchAddressRadius);
 
                     Button searchAddressConfirm = (Button) dialog.findViewById(R.id.searchAddressConfirm);
                     Button searchAddressCancel = (Button) dialog.findViewById(R.id.searchAddressCancel);

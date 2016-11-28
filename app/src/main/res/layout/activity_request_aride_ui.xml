@@ -88,8 +88,8 @@
         android:onClick="completeEndAddress"
         android:elevation="0dp" />
 
-    <!--<org.osmdroid.views.MapView android:id="@+id/RequestARideMap"-->
-        <!--android:layout_width="400dp"-->
-        <!--android:layout_height="300dp"-->
-        <!--android:layout_below="@+id/RequestRideEstimatedFare"/>-->
+    <org.osmdroid.views.MapView android:id="@+id/RequestARideMap"
+        android:layout_width="400dp"
+        android:layout_height="300dp"
+        android:layout_below="@+id/RequestRideEstimatedFare"/>
 </RelativeLayout>
