@@ -29,6 +29,9 @@ public class MainScreenUIActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen_ui);
 
+        //set up a handler thread once someone is logged in because they must be online to log in
+        //its purpose is to recieve signals on a network change
+
         handlerThread.start();
         Looper looper = handlerThread.getLooper();
         Handler handler = new Handler(looper);
@@ -39,6 +42,7 @@ public class MainScreenUIActivity extends AppCompatActivity {
         intentFilter.addAction(WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION);
         registerReceiver(connected, intentFilter, null, handler);
 
+        // notifications will be checked and the periodic notification check will be activated here on the handler thread
         NotificationOnlineController.createNotifications(MainScreenUIActivity.this);
         WifiReceiver.polling(MainScreenUIActivity.this);
     }
@@ -51,6 +55,9 @@ public class MainScreenUIActivity extends AppCompatActivity {
         unregisterReceiver(connected);
         super.onDestroy();
     }
+    /**
+     * editing profile and logging out can only be done on the main screen
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {

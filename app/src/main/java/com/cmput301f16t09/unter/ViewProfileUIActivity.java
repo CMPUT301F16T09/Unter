@@ -12,7 +12,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 /**
- * The type View profile ui activity.
+ * A view used to view user profiles.
  */
 public class ViewProfileUIActivity extends AppCompatActivity {
     /**
@@ -72,10 +72,4 @@ public class ViewProfileUIActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 }
