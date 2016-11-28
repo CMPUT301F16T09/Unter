@@ -86,5 +86,7 @@ public class NotificationsActivityTest extends ActivityInstrumentationTestCase2<
         solo.clickInList(0);
         solo.goBack();
         solo.goBack();
+        solo.goBack();
+
     }
 }
