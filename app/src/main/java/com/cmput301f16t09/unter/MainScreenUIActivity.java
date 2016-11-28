@@ -99,7 +99,7 @@ public class MainScreenUIActivity extends AppCompatActivity {
      * @param v the v
      */
     public void viewNotifications(View v){
-        Intent intent = new Intent(MainScreenUIActivity.this,NotificationsActivity.class);
+        Intent intent = new Intent(MainScreenUIActivity.this, NotificationsActivity.class);
         startActivity(intent);
     }
 

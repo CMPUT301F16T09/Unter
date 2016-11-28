@@ -241,7 +241,7 @@ public class RequestDetailsUIActivity extends AppCompatActivity {
      * @see PostListOfflineController
      * @see UserListOnlineController
      */
-    public void confirm_ride_request(View v) {
+    public void offerRide(View v) {
 
         Boolean found = false;
         Boolean awaitingCompletion = false;

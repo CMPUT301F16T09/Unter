@@ -116,6 +116,6 @@
         android:text="Offer Ride"
         android:textSize="40sp"
         android:fontFamily="sans-serif-smallcaps"
-        android:onClick="confirm_ride_request" />
+        android:onClick="offerRide" />
 
 </RelativeLayout>

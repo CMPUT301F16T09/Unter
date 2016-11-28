@@ -195,7 +195,7 @@ public class PostListMainController {
             postListUpdate.addPost(post);
             PostListOfflineController.saveOfflinePosts("updateOffline", postListUpdate, context);
         }
-//        postListMain.updatePost(post);
+        postListMain.updatePost(post);
         PostListOfflineController.saveOfflinePosts("mainOffline", postListMain, context);
         // Also update main list.
     }

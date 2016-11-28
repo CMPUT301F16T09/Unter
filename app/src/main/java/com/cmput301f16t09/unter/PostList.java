@@ -119,4 +119,13 @@ public class PostList {
         this.postList.clear();
         this.postList.add(post);
     }
+
+    public void updatePost(Post post) {
+        for (int i = 0; i < postList.size(); i ++) {
+            if (postList.get(i).getId().equals(post.getId())) {
+                postList.remove(i);
+                postList.add(post);
+            }
+        }
+    }
 }
