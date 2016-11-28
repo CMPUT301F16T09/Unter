@@ -10,124 +10,247 @@
     android:background="@color/background"
     tools:context="com.cmput301f16t09.unter.RidersRequestDetailsPreUIActivity">
 
-    <TextView
-        android:id="@+id/RideRequestDetailsPreStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="Status: "
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
-        android:id="@+id/RideRequestDetailsPreCurrentStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/RideRequestDetailsPreStatus"
-        android:layout_alignBottom="@+id/RideRequestDetailsPreStatus"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:singleLine="true"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
-        android:id="@+id/RideRequestDetailsPreStartLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/RideRequestDetailsPreStatus"
-        android:layout_marginBottom="5dp"
-        android:text="Start Location: "
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
-        android:id="@+id/RideRequestDetailsPreStartLocationName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/RideRequestDetailsPreStartLocation"
-        android:layout_alignBottom="@+id/RideRequestDetailsPreStartLocation"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:singleLine="true"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
-        android:id="@+id/RideRequestDetailsPreEndLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/RideRequestDetailsPreStartLocation"
-        android:layout_marginBottom="5dp"
-        android:text="End Location: "
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
-        android:id="@+id/RideRequestDetailsPreEndLocationName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/RideRequestDetailsPreEndLocation"
-        android:layout_alignBottom="@+id/RideRequestDetailsPreEndLocation"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:singleLine="true"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
-        android:id="@+id/RideRequestDetailsPreFare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/RideRequestDetailsPreEndLocation"
-        android:layout_marginBottom="5dp"
-        android:text="Offered Fare: "
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
-        android:id="@+id/RideRequestDetailsPreOfferedFare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/RideRequestDetailsPreFare"
-        android:layout_alignBottom="@+id/RideRequestDetailsPreFare"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:singleLine="true"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
-        android:id="@+id/RideRequestDetailsPreSelectDriver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/RideRequestDetailsPreFare"
-        android:layout_marginTop="15dp"
-        android:text="Select a Driver"
-        android:textSize="28sp"
-        android:textColor="@color/white"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <ListView
-        android:id="@+id/listViewRideRequestDetailsRiderOffers"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/RideRequestDetailsPreSelectDriver"
-        android:layout_above="@+id/RideRequestDetailsCancelRequestButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/>
+        android:orientation="vertical"
+        android:weightSum="1.0">
 
-    <Button
-        android:id="@+id/RideRequestDetailsCancelRequestButton"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:background="@color/lightAccent"
-        android:text="Cancel Request"
-        android:textSize="40sp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:onClick="cancelRequest"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="0.02"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/RideRequestDetailsPreStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status: "
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif-smallcaps" />
+
+            <TextView
+                android:id="@+id/RideRequestDetailsPreCurrentStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:singleLine="true"
+                android:fontFamily="sans-serif-smallcaps" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="0.02">
+
+            <TextView
+                android:id="@+id/RideRequestDetailsPreStartLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start Location: "
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif-smallcaps" />
+
+            <TextView
+                android:id="@+id/RideRequestDetailsPreStartLocationName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:singleLine="true"
+                android:fontFamily="sans-serif-smallcaps" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="0.02">
+
+            <TextView
+                android:id="@+id/RideRequestDetailsPreEndLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+              android:text="End Location: "
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif-smallcaps" />
+
+            <TextView
+                android:id="@+id/RideRequestDetailsPreEndLocationName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:singleLine="true"
+                android:fontFamily="sans-serif-smallcaps" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="0.02">
+
+            <TextView
+                android:id="@+id/RideRequestDetailsPreFare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Offered Fare: "
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif-smallcaps" />
+
+            <TextView
+                android:id="@+id/RideRequestDetailsPreOfferedFare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 android:textSize="20sp"
+                android:textColor="@color/white"
+                android:singleLine="true"
+                android:fontFamily="sans-serif-smallcaps" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/RideRequestDetailsPreSelectDriver"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:text="Select a Driver"
+            android:layout_weight="0.02"
+            android:textSize="28sp"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-smallcaps" />
+
+        <ListView
+            android:id="@+id/listViewRideRequestDetailsRiderOffers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+
+        <Button
+            android:id="@+id/RideRequestDetailsCancelRequestButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_weight="0.1"
+            android:background="@color/lightAccent"
+            android:text="Cancel Request"
+            android:textSize="40sp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:onClick="cancelRequest"/>
+
+    </LinearLayout>
+
+
+    <!--<TextView-->
+        <!--android:id="@+id/RideRequestDetailsPreStartLocation"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/RideRequestDetailsPreStatus"-->
+        <!--android:layout_marginBottom="5dp"-->
+        <!--android:text="Start Location: "-->
+        <!--android:textSize="20sp"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/RideRequestDetailsPreStartLocationName"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_toEndOf="@+id/RideRequestDetailsPreStartLocation"-->
+        <!--android:layout_alignBottom="@+id/RideRequestDetailsPreStartLocation"-->
+        <!--android:textSize="20sp"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:singleLine="true"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/RideRequestDetailsPreEndLocation"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/RideRequestDetailsPreStartLocation"-->
+        <!--android:layout_marginBottom="5dp"-->
+        <!--android:text="End Location: "-->
+        <!--android:textSize="20sp"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/RideRequestDetailsPreEndLocationName"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_toEndOf="@+id/RideRequestDetailsPreEndLocation"-->
+        <!--android:layout_alignBottom="@+id/RideRequestDetailsPreEndLocation"-->
+        <!--android:textSize="20sp"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:singleLine="true"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/RideRequestDetailsPreFare"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/RideRequestDetailsPreEndLocation"-->
+        <!--android:layout_marginBottom="5dp"-->
+        <!--android:text="Offered Fare: "-->
+        <!--android:textSize="20sp"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/RideRequestDetailsPreOfferedFare"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_toEndOf="@+id/RideRequestDetailsPreFare"-->
+        <!--android:layout_alignBottom="@+id/RideRequestDetailsPreFare"-->
+        <!--android:textSize="20sp"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:singleLine="true"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/RideRequestDetailsPreSelectDriver"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/RideRequestDetailsPreFare"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:text="Select a Driver"-->
+        <!--android:textSize="28sp"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
+
+    <!--<ListView-->
+        <!--android:id="@+id/listViewRideRequestDetailsRiderOffers"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/RideRequestDetailsPreSelectDriver"-->
+        <!--android:layout_above="@+id/RideRequestDetailsCancelRequestButton"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_marginBottom="10dp"/>-->
+
+    <!--<Button-->
+        <!--android:id="@+id/RideRequestDetailsCancelRequestButton"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="70dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:background="@color/lightAccent"-->
+        <!--android:text="Cancel Request"-->
+        <!--android:textSize="40sp"-->
+        <!--android:fontFamily="sans-serif-smallcaps"-->
+        <!--android:onClick="cancelRequest"/>-->
 
 </RelativeLayout>

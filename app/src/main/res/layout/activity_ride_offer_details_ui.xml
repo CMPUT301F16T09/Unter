@@ -15,82 +15,180 @@
         android:id="@+id/ride_offer_details_map"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/RideOfferRider"/>
+        android:layout_above="@+id/RideOfferLayout"
+        android:layout_alignParentTop="true"/>
 
-    <TextView
-        android:id="@+id/RideOfferRider"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/RideOfferLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/RideOfferOfferedFare"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="10dp"
-        android:text="Rider: "
-        android:textSize="24sp"
-        android:textColor="@color/white"
-        android:textAlignment="textStart"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
-        android:id="@+id/RideOfferRiderName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/RideOfferRider"
-        android:layout_alignBaseline="@+id/RideOfferRider"
-        android:textSize="24sp"
-        android:textColor="@color/light_blue"
-        android:textAlignment="textStart"
-        android:textColorLink="@color/accent"
-        android:fontFamily="sans-serif-smallcaps"
-        android:singleLine="true"
-        android:clickable="true"
-        android:onClick="viewProfile" />
-
-    <TextView
-        android:id="@+id/RideOfferOfferedFare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/RideOfferStatus"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:text="Offered Fare: "
-        android:textSize="24sp"
-        android:textColor="@color/white"
-        android:textAlignment="textStart"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
-        android:id="@+id/RideOfferCost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/RideOfferOfferedFare"
-        android:layout_alignBaseline="@+id/RideOfferOfferedFare"
-        android:textSize="24sp"
-        android:textColor="@color/white"
-        android:textAlignment="textStart"
-        android:singleLine="true"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
-        android:id="@+id/RideOfferStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_alignParentBottom="true"
-        android:text="Status: "
-        android:textSize="24sp"
-        android:textColor="@color/white"
-        android:textAlignment="textStart"
-        android:fontFamily="sans-serif-smallcaps" />
+        android:orientation="vertical"
+        android:weightSum="1.0">
 
-    <TextView
-        android:id="@+id/RideOfferStatusDesc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/RideOfferStatus"
-        android:layout_toEndOf="@+id/RideOfferStatus"
-        android:textSize="24sp"
-        android:textColor="@color/white"
-        android:textAlignment="textStart"
-        android:singleLine="true"
-        android:fontFamily="sans-serif-smallcaps" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="0.025"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/RideOfferRider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rider: "
+                android:textSize="24sp"
+                android:textColor="@color/white"
+                android:textAlignment="textStart"
+                android:fontFamily="sans-serif-smallcaps" />
+
+            <TextView
+                android:id="@+id/RideOfferRiderName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textColor="@color/light_blue"
+                android:textAlignment="textStart"
+                android:textColorLink="@color/accent"
+                android:fontFamily="sans-serif-smallcaps"
+                android:singleLine="true"
+                android:clickable="true"
+                android:onClick="viewProfile" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="0.025"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/RideOfferOfferedFare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Offered Fare: "
+                android:textSize="24sp"
+                android:textColor="@color/white"
+                android:textAlignment="textStart"
+                android:fontFamily="sans-serif-smallcaps" />
+
+            <TextView
+                android:id="@+id/RideOfferCost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textColor="@color/white"
+                android:textAlignment="textStart"
+                android:singleLine="true"
+                android:fontFamily="sans-serif-smallcaps" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="0.025"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/RideOfferStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:text="Status: "
+                android:textSize="24sp"
+                android:textColor="@color/white"
+                android:textAlignment="textStart"
+                android:fontFamily="sans-serif-smallcaps" />
+
+            <TextView
+                android:id="@+id/RideOfferStatusDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:textSize="24sp"
+                android:textColor="@color/white"
+                android:textAlignment="textStart"
+                android:singleLine="true"
+                android:fontFamily="sans-serif-smallcaps" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <!--<TextView-->
+        <!--android:id="@+id/RideOfferRider"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@+id/RideOfferOfferedFare"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:text="Rider: "-->
+        <!--android:textSize="24sp"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textAlignment="textStart"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/RideOfferRiderName"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_toEndOf="@+id/RideOfferRider"-->
+        <!--android:layout_alignBaseline="@+id/RideOfferRider"-->
+        <!--android:textSize="24sp"-->
+        <!--android:textColor="@color/light_blue"-->
+        <!--android:textAlignment="textStart"-->
+        <!--android:textColorLink="@color/accent"-->
+        <!--android:fontFamily="sans-serif-smallcaps"-->
+        <!--android:singleLine="true"-->
+        <!--android:clickable="true"-->
+        <!--android:onClick="viewProfile" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/RideOfferOfferedFare"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@+id/RideOfferStatus"-->
+        <!--android:text="Offered Fare: "-->
+        <!--android:textSize="24sp"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textAlignment="textStart"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/RideOfferCost"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_toEndOf="@+id/RideOfferOfferedFare"-->
+        <!--android:layout_alignBaseline="@+id/RideOfferOfferedFare"-->
+        <!--android:textSize="24sp"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textAlignment="textStart"-->
+        <!--android:singleLine="true"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/RideOfferStatus"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:text="Status: "-->
+        <!--android:textSize="24sp"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textAlignment="textStart"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/RideOfferStatusDesc"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignBaseline="@+id/RideOfferStatus"-->
+        <!--android:layout_toEndOf="@+id/RideOfferStatus"-->
+        <!--android:textSize="24sp"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textAlignment="textStart"-->
+        <!--android:singleLine="true"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
 
 </RelativeLayout>

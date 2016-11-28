@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/background"
     tools:context="com.cmput301f16t09.unter.ViewProfileUIActivity">
-
+    
     <TextView
         android:id="@+id/textUsernameTitle"
         android:layout_width="wrap_content"

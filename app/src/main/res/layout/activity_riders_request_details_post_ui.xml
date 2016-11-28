@@ -10,131 +10,170 @@
     android:background="@color/background"
     tools:context="com.cmput301f16t09.unter.RidersRequestDetailsPostUIActivity">
 
-    <TextView
-        android:id="@+id/RideRequestDetailsPostStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="Status: "
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
-        android:id="@+id/RideRequestDetailsPostCurrentStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/RideRequestDetailsPostStatus"
-        android:layout_alignBottom="@+id/RideRequestDetailsPostStatus"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:singleLine="true"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
-        android:id="@+id/RideRequestDetailsPostStartLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/RideRequestDetailsPostStatus"
-        android:layout_marginBottom="5dp"
-        android:text="Start Location: "
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
-        android:id="@+id/RideRequestDetailsPostStartLocationName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/RideRequestDetailsPostStartLocation"
-        android:layout_alignBottom="@+id/RideRequestDetailsPostStartLocation"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:singleLine="true"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
-        android:id="@+id/RideRequestDetailsPostEndLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/RideRequestDetailsPostStartLocation"
-        android:layout_marginBottom="5dp"
-        android:text="End Location: "
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:singleLine="true"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
-        android:id="@+id/RideRequestDetailsPostEndLocationName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/RideRequestDetailsPostEndLocation"
-        android:layout_alignBottom="@+id/RideRequestDetailsPostEndLocation"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:singleLine="true"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
-        android:id="@+id/RideRequestDetailsPostFare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/RideRequestDetailsPostEndLocation"
-        android:layout_marginBottom="5dp"
-        android:text="Offered Fare: "
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
-        android:id="@+id/RideRequestDetailsPostOfferedFare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/RideRequestDetailsPostFare"
-        android:layout_alignBottom="@+id/RideRequestDetailsPostFare"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:singleLine="true"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
-        android:id="@+id/RideRequestDetailsPostDriver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/RideRequestDetailsPostFare"
-        android:layout_marginBottom="5dp"
-        android:text="Driver: "
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:singleLine="true"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
-        android:id="@+id/RideRequestDetailsPostDriverName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/RideRequestDetailsPostDriver"
-        android:layout_alignBottom="@+id/RideRequestDetailsPostDriver"
-        android:textSize="20sp"
-        android:textColor="@color/light_blue"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <org.osmdroid.views.MapView
-        android:id="@+id/RidersRequestDetailsPostMap"
+    <LinearLayout
+        android:id="@+id/RideRequestDetailsPostLayout"
         android:layout_width="match_parent"
-        android:layout_height="330dp"
-        android:layout_below="@+id/RideRequestDetailsPostDriver"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1.0">
 
-    <Button
-        android:id="@+id/RideRequestDetailsCompleteRequestButton"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:background="@color/lightAccent"
-        android:text="Complete Request"
-        android:textSize="36sp"
-        android:fontFamily="sans-serif-smallcaps" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="0.02"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/RideRequestDetailsPostStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status: "
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif-smallcaps" />
+
+            <TextView
+                android:id="@+id/RideRequestDetailsPostCurrentStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:singleLine="true"
+                android:fontFamily="sans-serif-smallcaps" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="0.02"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/RideRequestDetailsPostStartLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start Location: "
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif-smallcaps" />
+
+            <TextView
+                android:id="@+id/RideRequestDetailsPostStartLocationName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:singleLine="true"
+                android:fontFamily="sans-serif-smallcaps" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="0.02"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/RideRequestDetailsPostEndLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="End Location: "
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:singleLine="true"
+                android:fontFamily="sans-serif-smallcaps" />
+
+            <TextView
+                android:id="@+id/RideRequestDetailsPostEndLocationName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:singleLine="true"
+                android:fontFamily="sans-serif-smallcaps" />
+
+        </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:layout_weight="0.02"
+           android:gravity="center_vertical">
+
+           <TextView
+               android:id="@+id/RideRequestDetailsPostFare"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Offered Fare: "
+               android:textSize="20sp"
+               android:textColor="@color/white"
+               android:fontFamily="sans-serif-smallcaps" />
+
+           <TextView
+               android:id="@+id/RideRequestDetailsPostOfferedFare"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="20sp"
+               android:textColor="@color/white"
+               android:singleLine="true"
+               android:fontFamily="sans-serif-smallcaps" />
+
+       </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="0.02"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/RideRequestDetailsPostDriver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RideRequestDetailsPostFare"
+                android:text="Driver: "
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:singleLine="true"
+                android:fontFamily="sans-serif-smallcaps" />
+
+            <TextView
+                android:id="@+id/RideRequestDetailsPostDriverName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/RideRequestDetailsPostDriver"
+                android:layout_alignBottom="@+id/RideRequestDetailsPostDriver"
+                android:textSize="20sp"
+                android:textColor="@color/light_blue"
+                android:fontFamily="sans-serif-smallcaps" />
+
+        </LinearLayout>
+
+        <org.osmdroid.views.MapView
+            android:id="@+id/RidersRequestDetailsPostMap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"/>
+
+        <Button
+            android:id="@+id/RideRequestDetailsCompleteRequestButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_weight="0.1"
+            android:background="@color/lightAccent"
+            android:text="Complete Request"
+            android:textSize="36sp"
+            android:fontFamily="sans-serif-smallcaps" />
+
+    </LinearLayout>
 
 </RelativeLayout>

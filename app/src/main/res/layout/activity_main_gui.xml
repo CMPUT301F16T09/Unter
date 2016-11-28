@@ -10,96 +10,190 @@
     android:background="@color/background"
     tools:context="com.cmput301f16t09.unter.MainGUIActivity">
 
-    <TextView
-        android:id="@+id/UnterTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:text="@string/app_name"
-        android:textSize="110sp"
-        android:textColor="@color/TextColor"
-        android:fontFamily="sans-serif-smallcaps" />
-    
-    <TextView
-        android:id="@+id/username_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/UnterTitle"
-        android:layout_marginTop="30dp"
-        android:text="@string/username_title_login"
-        android:textSize="40sp"
-        android:textColor="@color/TextColor"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <EditText
-        android:id="@+id/mainScreenUsername"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/username_title"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:hint="@string/enter_username_login_hint"
-        android:textSize="20sp"
-        android:textColor="@color/TextColor"
-        android:textColorHint="@color/HintTextColor"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <TextView
-        android:id="@+id/password_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/username_title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp"
-        android:text="@string/password_title_login"
-        android:textSize="40sp"
-        android:textColor="@color/TextColor"
-        android:fontFamily="sans-serif-smallcaps" />
-
-    <EditText
-        android:id="@+id/mainScreenPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/password_title"
-        android:layout_centerHorizontal="true"
-        android:hint="@string/enter_password_login_hint"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:textColor="@color/TextColor"
-        android:textColorHint="@color/HintTextColor"
-        android:inputType="textPassword"
-        android:fontFamily="sans-serif-smallcaps" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/mainScreenPassword"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="30dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1.0">
 
-        <Button
-            android:id="@+id/loginButton"
+        <TextView
+            android:id="@+id/UnterTitle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_weight="0.5"
-            android:text="@string/login"
-            android:textSize="20sp"
-            android:fontFamily="sans-serif-smallcaps"
-            android:onClick="verifyLogin" />
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textSize="110sp"
+            android:textColor="@color/TextColor"
+            android:fontFamily="sans-serif-smallcaps" />
 
-        <Button
-            android:id="@+id/createNewUserButton"
+        <TextView
+            android:id="@+id/username_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:text="@string/username_title_login"
+            android:textSize="40sp"
+            android:textColor="@color/TextColor"
+            android:fontFamily="sans-serif-smallcaps" />
+
+        <EditText
+            android:id="@+id/mainScreenUsername"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:text="@string/create_new_user"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05"
+            android:gravity="center"
+            android:hint="@string/enter_username_login_hint"
             android:textSize="20sp"
-            android:fontFamily="sans-serif-smallcaps"
-            android:onClick="createNewUser"/>
+            android:textColor="@color/TextColor"
+            android:textColorHint="@color/HintTextColor"
+            android:fontFamily="sans-serif-smallcaps" />
+
+        <TextView
+            android:id="@+id/password_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:text="@string/password_title_login"
+            android:textSize="40sp"
+            android:textColor="@color/TextColor"
+            android:fontFamily="sans-serif-smallcaps" />
+
+        <EditText
+            android:id="@+id/mainScreenPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05"
+            android:hint="@string/enter_password_login_hint"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="@color/TextColor"
+            android:textColorHint="@color/HintTextColor"
+            android:inputType="textPassword"
+            android:fontFamily="sans-serif-smallcaps" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_weight="0.2"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:text="@string/login"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:onClick="verifyLogin" />
+
+            <Button
+                android:id="@+id/createNewUserButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:text="@string/create_new_user"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:onClick="createNewUser"/>
+
+        </LinearLayout>
 
     </LinearLayout>
+
+    <!--<TextView-->
+        <!--android:id="@+id/UnterTitle"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:gravity="center"-->
+        <!--android:text="@string/app_name"-->
+        <!--android:textSize="110sp"-->
+        <!--android:textColor="@color/TextColor"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
+    <!---->
+    <!--<TextView-->
+        <!--android:id="@+id/username_title"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_below="@+id/UnterTitle"-->
+        <!--android:layout_marginTop="30dp"-->
+        <!--android:text="@string/username_title_login"-->
+        <!--android:textSize="40sp"-->
+        <!--android:textColor="@color/TextColor"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
+
+    <!--<EditText-->
+        <!--android:id="@+id/mainScreenUsername"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/username_title"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:gravity="center"-->
+        <!--android:hint="@string/enter_username_login_hint"-->
+        <!--android:textSize="20sp"-->
+        <!--android:textColor="@color/TextColor"-->
+        <!--android:textColorHint="@color/HintTextColor"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/password_title"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/username_title"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="75dp"-->
+        <!--android:text="@string/password_title_login"-->
+        <!--android:textSize="40sp"-->
+        <!--android:textColor="@color/TextColor"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
+
+    <!--<EditText-->
+        <!--android:id="@+id/mainScreenPassword"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/password_title"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:hint="@string/enter_password_login_hint"-->
+        <!--android:gravity="center"-->
+        <!--android:textSize="20sp"-->
+        <!--android:textColor="@color/TextColor"-->
+        <!--android:textColorHint="@color/HintTextColor"-->
+        <!--android:inputType="textPassword"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/mainScreenPassword"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_margin="30dp"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<Button-->
+            <!--android:id="@+id/loginButton"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="0.5"-->
+            <!--android:text="@string/login"-->
+            <!--android:textSize="20sp"-->
+            <!--android:fontFamily="sans-serif-smallcaps"-->
+            <!--android:onClick="verifyLogin" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/createNewUserButton"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="0.5"-->
+            <!--android:text="@string/create_new_user"-->
+            <!--android:textSize="20sp"-->
+            <!--android:fontFamily="sans-serif-smallcaps"-->
+            <!--android:onClick="createNewUser"/>-->
+
+    <!--</LinearLayout>-->
 
 </RelativeLayout>

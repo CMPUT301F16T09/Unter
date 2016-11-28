@@ -11,93 +11,210 @@
     android:background="@color/background"
     tools:context="com.cmput301f16t09.unter.MainScreenUIActivity">
 
-    <TextView
-        android:id="@+id/MainScreenRider"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_centerHorizontal="true"
-        android:text="@string/rider"
-        android:textSize="52sp"
-        android:textColor="@color/TextColor"
-        android:fontFamily="sans-serif-smallcaps" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1.0">
 
-    <Button
-        android:id="@+id/MainScreenRequestARideButton"
-        android:layout_width="160dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="120dp"
-        android:text="@string/request_a_ride"
-        android:textSize="22sp"
-        android:textColor="@color/background"
-        android:fontFamily="sans-serif-smallcaps"
-        android:onClick="requestARide"/>
-    <Button
-        android:id="@+id/MainScreenMyRideRequestsButton"
-        android:layout_width="160dp"
-        android:layout_height="100dp"
-        android:layout_toEndOf="@+id/MainScreenRequestARideButton"
-        android:layout_alignBottom="@+id/MainScreenRequestARideButton"
-        android:layout_marginTop="120dp"
-        android:layout_marginStart="50dp"
-        android:text="@string/my_ride_requests"
-        android:textSize="22sp"
-        android:textColor="@color/background"
-        android:fontFamily="sans-serif-smallcaps"
-        android:onClick="myRideRequests"/>
+        <TextView
+            android:id="@+id/MainScreenRider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="0.1"
+            android:layout_marginTop="10dp"
+            android:text="@string/rider"
+            android:textSize="52sp"
+            android:textColor="@color/TextColor"
+            android:fontFamily="sans-serif-smallcaps" />
 
-    <TextView
-        android:id="@+id/MainScreenDriver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/MainScreenRider"
-        android:layout_marginTop="160dp"
-        android:layout_centerHorizontal="true"
-        android:text="@string/driver"
-        android:textSize="52sp"
-        android:textColor="@color/TextColor"
-        android:fontFamily="sans-serif-smallcaps" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="0.2"
+            android:weightSum="1.0">
 
-    <Button
-        android:id="@+id/MainScreenProvideARideButton"
-        android:layout_width="160dp"
-        android:layout_height="100dp"
-        android:layout_below="@+id/MainScreenRequestARideButton"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="130dp"
-        android:text="@string/provide_a_ride"
-        android:textSize="22sp"
-        android:textColor="@color/background"
-        android:fontFamily="sans-serif-smallcaps"
-        android:onClick="provideARide"/>
+            <Button
+                android:id="@+id/MainScreenRequestARideButton"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="0.5"
+                android:layout_marginEnd="10dp"
+                android:text="@string/request_a_ride"
+                android:textSize="22sp"
+                android:textColor="@color/background"
+                android:fontFamily="sans-serif-smallcaps"
+                android:onClick="requestARide"/>
 
-    <Button
-        android:id="@+id/MainScreenMyRideOffersButton"
-        android:layout_width="160dp"
-        android:layout_height="100dp"
-        android:layout_below="@+id/MainScreenMyRideRequestsButton"
-        android:layout_toEndOf="@+id/MainScreenProvideARideButton"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginTop="130dp"
-        android:textSize="22sp"
-        android:text="@string/my_ride_offers"
-        android:textColor="@color/background"
-        android:fontFamily="sans-serif-smallcaps"
-        android:onClick="myRideOffers"/>
+            <Button
+                android:id="@+id/MainScreenMyRideRequestsButton"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="0.5"
+                android:layout_marginStart="10dp"
+                android:text="@string/my_ride_requests"
+                android:textSize="22sp"
+                android:textColor="@color/background"
+                android:fontFamily="sans-serif-smallcaps"
+                android:onClick="myRideRequests"/>
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="My Notifications"
-        android:id="@+id/NotificationButton"
-        android:layout_marginBottom="51dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/MainScreenDriver"
-        android:layout_alignStart="@+id/MainScreenDriver"
-        android:fontFamily="sans-serif-smallcaps"
-        android:onClick="viewNotifications" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/MainScreenDriver"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="0.1"
+            android:text="@string/driver"
+            android:textSize="52sp"
+            android:textColor="@color/TextColor"
+            android:fontFamily="sans-serif-smallcaps" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="0.3"
+            android:weightSum="1.0">
+
+            <Button
+                android:id="@+id/MainScreenProvideARideButton"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="0.5"
+                android:layout_marginEnd="10dp"
+                android:text="@string/provide_a_ride"
+                android:textSize="22sp"
+                android:textColor="@color/background"
+                android:fontFamily="sans-serif-smallcaps"
+                android:onClick="provideARide"/>
+
+            <Button
+                android:id="@+id/MainScreenMyRideOffersButton"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="0.5"
+                android:layout_marginStart="10dp"
+                android:textSize="22sp"
+                android:text="@string/my_ride_offers"
+                android:textColor="@color/background"
+                android:fontFamily="sans-serif-smallcaps"
+                android:onClick="myRideOffers"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="0.2"
+            android:weightSum="1.0">
+
+            <Button
+                android:id="@+id/NotificationButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:text="My Notifications"
+                android:textSize="22sp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:onClick="viewNotifications" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <!--<TextView-->
+        <!--android:id="@+id/MainScreenRider"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="50dp"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:text="@string/rider"-->
+        <!--android:textSize="52sp"-->
+        <!--android:textColor="@color/TextColor"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/MainScreenRequestARideButton"-->
+        <!--android:layout_width="160dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_marginStart="5dp"-->
+        <!--android:layout_marginTop="120dp"-->
+        <!--android:text="@string/request_a_ride"-->
+        <!--android:textSize="22sp"-->
+        <!--android:textColor="@color/background"-->
+        <!--android:fontFamily="sans-serif-smallcaps"-->
+        <!--android:onClick="requestARide"/>-->
+    <!--<Button-->
+        <!--android:id="@+id/MainScreenMyRideRequestsButton"-->
+        <!--android:layout_width="160dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_toEndOf="@+id/MainScreenRequestARideButton"-->
+        <!--android:layout_alignBottom="@+id/MainScreenRequestARideButton"-->
+        <!--android:layout_marginTop="120dp"-->
+        <!--android:layout_marginStart="50dp"-->
+        <!--android:text="@string/my_ride_requests"-->
+        <!--android:textSize="22sp"-->
+        <!--android:textColor="@color/background"-->
+        <!--android:fontFamily="sans-serif-smallcaps"-->
+        <!--android:onClick="myRideRequests"/>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/MainScreenDriver"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/MainScreenRider"-->
+        <!--android:layout_marginTop="160dp"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:text="@string/driver"-->
+        <!--android:textSize="52sp"-->
+        <!--android:textColor="@color/TextColor"-->
+        <!--android:fontFamily="sans-serif-smallcaps" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/MainScreenProvideARideButton"-->
+        <!--android:layout_width="160dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_below="@+id/MainScreenRequestARideButton"-->
+        <!--android:layout_marginStart="5dp"-->
+        <!--android:layout_marginTop="130dp"-->
+        <!--android:text="@string/provide_a_ride"-->
+        <!--android:textSize="22sp"-->
+        <!--android:textColor="@color/background"-->
+        <!--android:fontFamily="sans-serif-smallcaps"-->
+        <!--android:onClick="provideARide"/>-->
+
+    <!--<Button-->
+        <!--android:id="@+id/MainScreenMyRideOffersButton"-->
+        <!--android:layout_width="160dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_below="@+id/MainScreenMyRideRequestsButton"-->
+        <!--android:layout_toEndOf="@+id/MainScreenProvideARideButton"-->
+        <!--android:layout_marginStart="50dp"-->
+        <!--android:layout_marginEnd="5dp"-->
+        <!--android:layout_marginTop="130dp"-->
+        <!--android:textSize="22sp"-->
+        <!--android:text="@string/my_ride_offers"-->
+        <!--android:textColor="@color/background"-->
+        <!--android:fontFamily="sans-serif-smallcaps"-->
+        <!--android:onClick="myRideOffers"/>-->
+
+    <!--<Button-->
+        <!--style="?android:attr/buttonStyleSmall"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="My Notifications"-->
+        <!--android:id="@+id/NotificationButton"-->
+        <!--android:layout_marginBottom="51dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignEnd="@+id/MainScreenDriver"-->
+        <!--android:layout_alignStart="@+id/MainScreenDriver"-->
+        <!--android:fontFamily="sans-serif-smallcaps"-->
+        <!--android:onClick="viewNotifications" />-->
 
 </RelativeLayout>
