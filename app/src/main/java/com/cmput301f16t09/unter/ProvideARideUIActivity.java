@@ -455,7 +455,12 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                                             searchPostListsRangeTask.execute("fare", minFare.toString(), maxFare.toString());
                                             ArrayList<Post> tempPostList = searchPostListsRangeTask.get();
 
-                                            postList.getPosts().addAll(tempPostList);
+                                            for (Post p : tempPostList) {
+                                                if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&
+                                                        (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername()))) {
+                                                    postList.addPost(p);
+                                                }
+                                            }
 
                                             // Set the searchList for if the user is searching
                                             searchList.clear();
@@ -555,8 +560,12 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                                             searchPostListsRangeTask.execute("fareKM", minFareKM.toString(), maxFareKM.toString());
                                             ArrayList<Post> tempPostList = searchPostListsRangeTask.get();
 
-                                            postList.getPosts().addAll(tempPostList);
-
+                                            for (Post p : tempPostList) {
+                                                if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&
+                                                        (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername()))) {
+                                                    postList.addPost(p);
+                                                }
+                                            }
                                             // Set the searchList for if the user is searching
                                             searchList.clear();
                                             searchList.addAll(postList.getPosts());
