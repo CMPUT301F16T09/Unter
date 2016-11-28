@@ -73,8 +73,8 @@ public class RideOfferDetailsUIActivity extends AppCompatActivity {
         tvRiderName.setText(content);
 
         TextView tvOfferedFare = (TextView) findViewById(R.id.RideOfferCost);
-        String offeredFare = CurrentUser.getCurrentPost().getFare();
-        tvOfferedFare.setText(offeredFare);
+        String offeredFare = CurrentUser.getCurrentPost().getFare().toString();
+        tvOfferedFare.setText("$" + offeredFare);
 
         TextView tvStatus = (TextView) findViewById(R.id.RideOfferStatusDesc);
         String statusDesc = CurrentUser.getCurrentPost().getStatus();

@@ -89,7 +89,7 @@ public class RidersRequestDetailsPostUIActivity extends AppCompatActivity {
 
         TextView tvOfferedFare = (TextView) findViewById(R.id.RideRequestDetailsPostOfferedFare);
         String offeredFare = CurrentUser.getCurrentPost().getFare().toString();
-        tvOfferedFare.setText(offeredFare);
+        tvOfferedFare.setText("$" + offeredFare);
 
         TextView tvDriverName = (TextView) findViewById(R.id.RideRequestDetailsPostDriverName);
         final String driverName = CurrentUser.getCurrentPost().getDriver().toString();

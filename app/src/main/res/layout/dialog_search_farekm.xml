@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/minFareDollarKM"
+        android:text="$"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/searchMinFareKM"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Minimum Fare/km"
+        android:textSize="20sp"
+        android:layout_toEndOf="@+id/minFareDollarKM"
+        android:layout_alignBaseline="@id/minFareDollarKM"/>
+
+    <TextView
+        android:id="@+id/maxFareDollarKM"
+        android:text="$"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:layout_below="@+id/minFareDollarKM"/>
+
+    <EditText
+        android:id="@+id/searchMaxFareKM"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Maximum Fare/km"
+        android:textSize="20sp"
+        android:layout_toEndOf="@id/maxFareDollarKM"
+        android:layout_alignBaseline="@id/maxFareDollarKM"/>
+
+    <Button
+        android:id="@+id/searchFareKMConfirm"
+        android:text="Confirm"
+        android:textSize="24sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40sp"
+        android:layout_below="@id/searchMinFareKM"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/searchFareKMCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/searchFareKMConfirm"
+        android:text="Cancel"
+        android:textSize="24sp"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

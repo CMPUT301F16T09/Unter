@@ -57,6 +57,7 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
 
     private AutoCompleteTextView editStart, editEnd;
     private EditText editFare;
+    private double distance = 0.0;
 
     /**
      * The My activity.
@@ -266,46 +267,55 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
                 Toast.makeText(this, "Please specify your end location", Toast.LENGTH_SHORT).show();
             }
             else {
+
 //                startPoint = getCoords(startLocation);
 //                endPoint = getCoords(endLocation);
 
                 editFare = (EditText) findViewById(R.id.RequestRideCost);
                 String fare = editFare.getText().toString();
 
+                Double convertedFare = 0.0;
+                boolean isNumeric = true;
+
                 Log.d("START", startLocation);
                 Log.d("END", endLocation);
 
-                Post newPost = new Post(startPoint, endPoint, startLocation, endLocation, fare, CurrentUser.getCurrentUser().getUsername());
-
                 try {
-                    PostListMainController.addPost(newPost, RequestARideUIActivity.this);
-    //                    PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
-    //                    addPostOnline.execute(newPost);
-    //                    addPostOnline.get();
-                    // Most likely get updated copy of CurrentUser possibly?
-                    CurrentUser.getCurrentUser().getMyRequests().add(newPost.getId());
-                    UserListOnlineController.UpdateUsersTask updateUserListstask = new UserListOnlineController.UpdateUsersTask();
-                    updateUserListstask.execute(CurrentUser.getCurrentUser());
-                    updateUserListstask.get();
+                    convertedFare = Double.parseDouble(fare);
+                } catch (Exception e) {
+                    isNumeric = false;
+                }
+                Post newPost = new Post(startPoint, endPoint, startLocation, endLocation, convertedFare, convertedFare/(distance/1000), CurrentUser.getCurrentUser().getUsername());
 
-                }
-                catch (Exception e){
-                }
-                Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();
-                try {
-                    Thread.sleep(1000);
-                }
-                catch (Exception e) {
-                }
+                if (isNumeric) {
+                    try {
+                        PostListMainController.addPost(newPost, RequestARideUIActivity.this);
+                        //                    PostListOnlineController.AddPostsTask addPostOnline = new PostListOnlineController.AddPostsTask();
+                        //                    addPostOnline.execute(newPost);
+                        //                    addPostOnline.get();
+                        // Most likely get updated copy of CurrentUser possibly?
+                        CurrentUser.getCurrentUser().getMyRequests().add(newPost.getId());
+                        UserListOnlineController.UpdateUsersTask updateUserListstask = new UserListOnlineController.UpdateUsersTask();
+                        updateUserListstask.execute(CurrentUser.getCurrentUser());
+                        updateUserListstask.get();
+
+                    }
+                    catch (Exception e) {
+                        Log.i("Error", "Elastic Search Error");
+                    }
+                    try {
+                        Thread.sleep(1000);
+                    }
+                    catch (Exception e) {
+                        Log.i("Error", "Thread Sleep Error");
+                    }
                     Toast.makeText(this, "Request Made", Toast.LENGTH_SHORT).show();
                     finish();
                 }
-                /**
-                 * Add the post to elastic search and save the post to the offline data.
-                 * @see PostListOfflineController
-                 * @see PostListOnlineController
-                 * @see Post
-                 */
+                else {
+                    Toast.makeText(this, "Request invalid", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
     /**
@@ -417,7 +427,7 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         protected void onPostExecute(Road[] roads) {
 
             if (roads == null){return;}
-            double distance = 0.0;
+            distance = 0.0;
 
 
             //for (int i = 0; i < roads.length; i++) {
@@ -442,7 +452,7 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
 
 
             double fare = distance / 1000 + 4.4;
-            editFare.setText(String.format("$%.2f", fare));
+            editFare.setText(String.format("%.2f", fare));
         }
     }
 

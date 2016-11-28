@@ -44,7 +44,10 @@
     <string name="choose_driver">Choose this Driver</string>
     <string name="view_profile">View Profile</string>
     <string name="cancel_button">Cancel</string>
-    <string name="title_activity_notification">NotificationActivity</string>
+    <string name="title_activity_provide_aride_test_ui">ProvideARideTestUIActivity</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 
 
 </resources>

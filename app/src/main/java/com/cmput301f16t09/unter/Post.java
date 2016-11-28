@@ -16,7 +16,8 @@ public class Post {
     private String startAddress;
     private String endAddress;
     private String status;
-    private String fare;
+    private Double fare;
+    private Double fareKM;
     private ArrayList<String> driver_OfferList;
     @JestId
     private String documentId;
@@ -34,7 +35,7 @@ public class Post {
      * @param rider         the rider
      */
     public Post(GeoPoint startLocation, GeoPoint endLocation, String startAddress, String endAddress,
-                String fare, String rider) {
+                Double fare, Double fareKM, String rider) {
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startAddress = startAddress;
@@ -44,6 +45,7 @@ public class Post {
         this.driver_OfferList = new ArrayList<String>();
         this.user = rider;
         this.driver = null;
+        this.fareKM = fareKM;
     }
 
     /**
@@ -152,7 +154,7 @@ public class Post {
      *
      * @return the fare
      */
-    public String getFare() {
+    public Double getFare() {
         return fare;
     }
 
@@ -161,8 +163,16 @@ public class Post {
      *
      * @param fare the fare
      */
-    public void setFare(String fare) {
+    public void setFare(Double fare) {
         this.fare = fare;
+    }
+
+    public Double getFareKM() {
+        return fareKM;
+    }
+
+    public void setFareKM(Double fareKM) {
+        this.fareKM = fareKM;
     }
 
     /**

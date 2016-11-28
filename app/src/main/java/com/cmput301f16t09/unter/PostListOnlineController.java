@@ -65,7 +65,7 @@ public class PostListOnlineController {
 
             //Add Indexing and type
             Search search = new Search.Builder(search_string)
-                    .addIndex("t09test")
+                    .addIndex("t09")
                     .addType("post")
                     .build();
 
@@ -99,7 +99,7 @@ public class PostListOnlineController {
 
             //Add Indexing and type
             Search search = new Search.Builder(search_parameters[0])
-                    .addIndex("t09test")
+                    .addIndex("t09")
                     .addType("post")
                     .build();
 
@@ -131,7 +131,7 @@ public class PostListOnlineController {
 
             for (Post post: posts) {
                 //Add Indexing and type
-                Index index = new Index.Builder(post).index("t09test").type("post").build();
+                Index index = new Index.Builder(post).index("t09").type("post").build();
 
                 try {
                     DocumentResult result = client.execute(index);
@@ -163,7 +163,7 @@ public class PostListOnlineController {
 
             for (Post post: posts) {
                 //Add Indexing, type and id of post
-                Index index = new Index.Builder(post).index("t09test").type("post").id(post.getId()).build();
+                Index index = new Index.Builder(post).index("t09").type("post").id(post.getId()).build();
 
                 try {
                     DocumentResult result = client.execute(index);
@@ -191,7 +191,7 @@ public class PostListOnlineController {
 
             for (Post post: posts) {
                 // Adds index, type and id of post to be deleted.
-                Delete index = new Delete.Builder(post.getId()).index("t09test").type("post").build();
+                Delete index = new Delete.Builder(post.getId()).index("t09").type("post").build();
 
                 try {
                     DocumentResult result = client.execute(index);
@@ -220,7 +220,7 @@ public class PostListOnlineController {
 
             for (String post: posts) {
                 // Adds index, type and id of post to be deleted.
-                Delete index = new Delete.Builder(post).index("t09test").type("post").build();
+                Delete index = new Delete.Builder(post).index("t09").type("post").build();
 
                 try {
                     DocumentResult result = client.execute(index);
@@ -237,6 +237,79 @@ public class PostListOnlineController {
         }
     }
 
+    public static class SearchKeywordTask extends AsyncTask<String, Void, ArrayList<Post>> {
+
+        @Override
+        protected ArrayList<Post> doInBackground(String... search_parameters) {
+            verifySettings();
+            ArrayList<Post> posts = new ArrayList<Post>();
+            ArrayList<String> uniqueposts = new ArrayList<String>();
+            ArrayList<String> search_string = new ArrayList<>();
+            String search_details = "{\"from\": 0, \"size\": 10000, \"query\": {\"multi_match\": {\"query\": \"" + search_parameters[0] + "\", \"type\": \"best_fields\", \"fields\": [\"user\", \"startAddress\", \"startLocation\", \"endAddress\", \"endLocation\"]}}}";
+            search_string.add(search_details);
+            String search_location = "{\"from\": 0, \"size\": 10000, \"query\": {\"multi_match\": {\"query\": \"" + search_parameters[0] + "\", \"type\": \"best_fields\", \"fields\": [\"startAddress.mLatitude\", \"startAddress.mLongitude\", \"endLocation.mLatitude\", \"endLocation.mLongitude\", \"fare\"]}}}";
+            search_string.add(search_location);
+
+            for (int i = 0; i < 2; i++) {
+                //Add Indexing and type{"from": 0, "size": 10000, "query": {"multi_match": {"query": "home", "type": "best_fields", "fields": ["driver_OfferList","startAddress", "startLocation", "endAddress", "endLocation", "fare"]}}}
+                Search search = new Search.Builder(search_string.get(i))
+                        .addIndex("t09")
+                        .addType("post")
+                        .build();
+                try {
+                    SearchResult result = client.execute(search);
+
+                    if (result.isSucceeded()) {
+                        ArrayList<Post> foundPosts = (ArrayList<Post>) result.getSourceAsObjectList(Post.class);
+
+                        for (Post p : foundPosts) {
+                            if (!uniqueposts.contains(p.getId())) {
+                                uniqueposts.add(p.getId());
+                                posts.add(p);
+                            }
+                        }
+                    } else {
+                        Log.i("Error", "The search query failed to find any posts that matched.");
+                    }
+                } catch (Exception e) {
+                    Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                }
+            }
+            return posts;
+        }
+    }
+
+    public static class SearchPostListsRangeTask extends AsyncTask<String, Void, ArrayList<Post>> {
+
+        @Override
+
+        protected ArrayList<Post> doInBackground(String... search_parameters) {
+            verifySettings();
+            ArrayList<Post> posts = new ArrayList<Post>();            //Just list top 10000 posts with type and keyword
+            // {"from": 0, "size": 10000, "query": {"range" : {"fare": {"gte":14, "lte":20}}}}
+            String search_string = "{\"from\": 0, \"size\": 10000, \"query\": {\"range\": " +
+                                    "{\"" + search_parameters[0] + "\": {\"gte\":" + search_parameters[1] + ", \"lte\":" +
+                                        search_parameters[2] + "}}}}";            //Add Indexing and type
+            Search search = new Search.Builder(search_string)
+                    .addIndex("t09")
+                    .addType("post")
+                    .build();
+            try {
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()) {
+                    ArrayList<Post> foundPosts = (ArrayList<Post>) result.getSourceAsObjectList(Post.class);
+                    posts.addAll(foundPosts);
+                }
+                else {
+                    Log.i("Error", "The search query failed to find any posts that matched.");
+                }
+            }
+            catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+            return posts;
+        }
+    }
     /**
      * Verifies settings of the elastic search server
      */
