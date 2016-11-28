@@ -251,15 +251,9 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
                 Toast.makeText(this, "Please specify your offered fare", Toast.LENGTH_SHORT).show();
             }
             else {
-//                startPoint = geocode(startLocation);
-//                endPoint = geocode(endLocation);
 
-
-
-                Log.d("START", startLocation);
-                Log.d("END", endLocation);
-
-                Post newPost = new Post(startPoint, endPoint, startLocation, endLocation, fare, CurrentUser.getCurrentUser().getUsername());
+                double dfare = Double.parseDouble(fare);
+                Post newPost = new Post(startPoint, endPoint, startLocation, endLocation, dfare, CurrentUser.getCurrentUser().getUsername());
 
                 try {
                     PostListMainController.addPost(newPost, RequestARideUIActivity.this);
@@ -412,7 +406,7 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
             }
 
             double fare = distance / 1000 + 4.4;
-            editFare.setText(String.format("$%.2f", fare));
+            editFare.setText(String.format("%.2f", fare));
         }
     }
 
@@ -438,6 +432,7 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
         }
         return stringAddresses;
     }
+
     private GeoPoint geocode(String location){
 
         double latitude, longitude;
@@ -455,12 +450,14 @@ public class RequestARideUIActivity extends AppCompatActivity implements MapEven
 
         return new GeoPoint(latitude, longitude);
     }
+
     public String reverseGeocode(GeoPoint point){
         String address = "None";
 
         try {
             List<Address> addresses = coder.getFromLocation(point.getLatitude(),
-                    point.getLongitude(), 1);
+                                                            point.getLongitude(), 1);
+
             address = addresses.get(0).getAddressLine(0) + ", " + addresses.get(0).getAddressLine(1);
         } catch (IOException e) {
             e.printStackTrace();
