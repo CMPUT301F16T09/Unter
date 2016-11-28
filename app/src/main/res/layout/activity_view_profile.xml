@@ -10,126 +10,123 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/background"
     tools:context="com.cmput301f16t09.unter.ViewProfileUIActivity">
-    
-    <TextView
-        android:id="@+id/textUsernameTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="Username"
-        android:textSize="42sp"
-        android:textColor="@color/TextColor"
-        android:textAlignment="center"
-        android:fontFamily="sans-serif-smallcaps"/>
 
-    <TextView
-        android:id="@+id/textViewProfileName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textUsernameTitle"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="39dp"
-        android:text="@string/name"
-        android:textSize="@dimen/header_text_size"
-        android:textColor="@color/TextColor"
-        android:fontFamily="sans-serif-smallcaps" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1.0">
 
-    <TextView
-        android:id="@+id/textViewProfilePhoneNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewProfileName"
-        android:layout_alignStart="@+id/textViewProfileName"
-        android:layout_marginTop="45dp"
-        android:layout_centerHorizontal="true"
-        android:text="@string/phone_number"
-        android:textSize="@dimen/header_text_size"
-        android:textColor="@color/TextColor"
-        android:fontFamily="sans-serif-smallcaps" />
+        <TextView
+            android:id="@+id/textUsernameTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="0.2"
+            android:text="Username"
+            android:textSize="42sp"
+            android:textColor="@color/TextColor"
+            android:fontFamily="sans-serif-smallcaps"/>
 
-    <TextView
-        android:id="@+id/textViewProfileEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewProfilePhoneNumber"
-        android:layout_alignStart="@+id/textViewProfileName"
-        android:layout_marginTop="45dp"
-        android:layout_centerHorizontal="true"
-        android:text="@string/email"
-        android:textSize="@dimen/header_text_size"
-        android:textColor="@color/TextColor"
-        android:fontFamily="sans-serif-smallcaps"/>
+        <TextView
+            android:id="@+id/textViewProfileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:gravity="center_vertical"
+            android:text="@string/name"
+            android:textSize="@dimen/header_text_size"
+            android:textColor="@color/TextColor"
+            android:fontFamily="sans-serif-smallcaps" />
 
-    <TextView
-        android:id="@+id/textViewProfileVehicle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewProfileEmail"
-        android:layout_alignStart="@+id/textViewProfileName"
-        android:layout_marginTop="45dp"
-        android:layout_centerHorizontal="true"
-        android:text="@string/vehicle"
-        android:textSize="@dimen/header_text_size"
-        android:textColor="@color/TextColor"
-        android:fontFamily="sans-serif-smallcaps"/>
+        <TextView
+            android:id="@+id/displayNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_marginStart="20dp"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/input_text_size"
+            android:textColor="@color/TextColor"
+            android:fontFamily="sans-serif-smallcaps" />
 
-    <TextView
-        android:id="@+id/displayNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewProfileName"
-        android:layout_alignEnd="@+id/textViewProfilePhoneNumber"
-        android:text="name of user"
-        android:textSize="@dimen/input_text_size"
-        android:textColor="@color/TextColor"
-        android:fontFamily="sans-serif-smallcaps" />
+        <TextView
+            android:id="@+id/textViewProfilePhoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:gravity="center_vertical"
+            android:text="@string/phone_number"
+            android:textSize="@dimen/header_text_size"
+            android:textColor="@color/TextColor"
+            android:fontFamily="sans-serif-smallcaps" />
 
-    <TextView
-        android:id="@+id/displayNumberTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ph no"
-        android:textSize="@dimen/input_text_size"
-        android:textColor="@color/white"
-        android:fontFamily="sans-serif-smallcaps"
-        android:layout_below="@+id/textViewProfilePhoneNumber"
-        android:layout_alignStart="@+id/displayNameTextView"
-        android:phoneNumber="true"
-        android:inputType="phone"
-        android:autoLink="phone"
-        android:visibility="visible"
-        android:textColorHighlight="@color/lightAccent"
-        android:textColorLink="@color/lightAccent" />
+        <TextView
+            android:id="@+id/displayNumberTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_marginStart="20dp"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/input_text_size"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-smallcaps"
+            android:phoneNumber="true"
+            android:inputType="phone"
+            android:autoLink="phone"
+            android:textColorHighlight="@color/lightAccent"
+            android:textColorLink="@color/lightAccent" />
 
-    <TextView
-        android:id="@+id/displayEmailTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="user email"
-        android:textSize="@dimen/input_text_size"
-        android:textColor="@color/white"
-        android:fontFamily="sans-serif-smallcaps"
-        android:layout_below="@+id/textViewProfileEmail"
-        android:layout_alignStart="@+id/displayNumberTextView"
-        android:inputType="textEmailAddress"
-        android:autoLink="email"
-        android:visibility="visible"
-        android:phoneNumber="false"
-        android:textColorHighlight="@color/lightAccent"
-        android:textColorLink="@color/lightAccent"
-        android:textAppearance="@color/darkAccent" />
+        <TextView
+            android:id="@+id/textViewProfileEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:gravity="center_vertical"
+            android:text="@string/email"
+            android:textSize="@dimen/header_text_size"
+            android:textColor="@color/TextColor"
+            android:fontFamily="sans-serif-smallcaps"/>
 
-    <TextView
-        android:id="@+id/displayVehicleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewProfileVehicle"
-        android:layout_alignStart="@+id/displayNumberTextView"
-        android:text="displayVehicleTextView of user"
-        android:textSize="@dimen/input_text_size"
-        android:textColor="@color/TextColor"
-        android:fontFamily="sans-serif-smallcaps" />
+        <TextView
+            android:id="@+id/displayEmailTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_marginStart="20dp"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/input_text_size"
+            android:textColor="@color/white"
+            android:textColorHighlight="@color/lightAccent"
+            android:textColorLink="@color/lightAccent"
+            android:fontFamily="sans-serif-smallcaps"
+            android:inputType="textEmailAddress"
+            android:autoLink="email"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/textViewProfileVehicle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:gravity="center_vertical"
+            android:text="@string/vehicle"
+            android:textSize="@dimen/header_text_size"
+            android:textColor="@color/TextColor"
+            android:fontFamily="sans-serif-smallcaps"/>
+
+        <TextView
+            android:id="@+id/displayVehicleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_marginStart="20dp"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/input_text_size"
+            android:textColor="@color/TextColor"
+            android:fontFamily="sans-serif-smallcaps" />
+
+    </LinearLayout>
 
 
 </RelativeLayout>
