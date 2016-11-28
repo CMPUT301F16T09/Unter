@@ -53,6 +53,7 @@ public class ProvideARideUIActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
     private TextView tvSearch;
+    private ArrayList<Post> searchList = new ArrayList<Post>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,39 +133,32 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                 }
                 if (found) {
                     Intent intent = new Intent(ProvideARideUIActivity.this, RequestDetailsUIActivity.class);
-                    adapter.notifyDataSetChanged();
                     startActivity(intent);
                 }
                 else {
                     CurrentUser.setCurrentPost(null);
                     Toast.makeText(ProvideARideUIActivity.this, "Selected Post Request Unavailable. Updated List.", Toast.LENGTH_SHORT).show();
+                    adapter.notifyDataSetChanged();
                 }
             }
         });
-
-//        PostListMainController.getPostList(ProvideARideUIActivity.this).addListener(new Listener() {
-//            @Override
-//            public void update()
-//            {
-//                postList.getPosts().clear();
-//                for(Post p : PostListMainController.getPostList(ProvideARideUIActivity.this).getPosts()) {
-//                    if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&
-//                            (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername())) &&
-//                             p.getStatus().equals("Pending Approval")) {
-//                        postList.addPost(p);
-//                    }
-//                }
-//
-//                adapter.notifyDataSetChanged();
-//                PostListMainController.updateMainOfflinePosts(ProvideARideUIActivity.this);
-//            }
-//        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        resetPosts();
+        if (searchList.isEmpty()) {
+            resetPosts();
+        }
+        else {
+            postList.getPosts().clear();
+            for (Post p : searchList) {
+                if (!CurrentUser.getCurrentUser().getMyOffers().contains(p.getId())) {
+                    postList.addPost(p);
+                }
+            }
+            adapter.notifyDataSetChanged();
+        }
     }
 
     public void resetPosts() {
@@ -224,9 +218,18 @@ public class ProvideARideUIActivity extends AppCompatActivity {
     }
 
     private void addDrawerItems() {
-        String[] osArray = { "Keyword", "Geolocation", "Fare", "Fare/km", "Address","Show all open requests" };
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
-//        TextView tvSearchOptions = () Change text color
+        String[] searchOptions = {"Keyword", "Geolocation", "Fare", "Fare/km", "Address", "Show all open requests"};
+        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, searchOptions) {
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView tv = (TextView) view.findViewById(android.R.id.text1);
+
+                tv.setTextColor(Color.WHITE);
+                tv.setTextSize(24);
+
+                return view;
+            };
+        };
         mDrawerList.setAdapter(mAdapter);
 
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -252,7 +255,7 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                                 Toast.makeText(ProvideARideUIActivity.this, "Invalid search", Toast.LENGTH_SHORT).show();
 
                             } else {
-                                tvSearch.setText("Searching by Keyword: " + keyword);
+                                tvSearch.setText("Searching by Keyword:\nKeyword is: " + keyword);
                                 // Implement search method
                                 Toast.makeText(ProvideARideUIActivity.this, "Searching...", Toast.LENGTH_SHORT).show();
                                 try {
@@ -262,15 +265,15 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                                     ArrayList<Post> tempPostlist = searchKeywordTask.get();
                                     postList.getPosts().clear();
                                     postList.getPosts().addAll(tempPostlist);
+                                    searchList.clear();
+                                    searchList.addAll(postList.getPosts());
                                     adapter.notifyDataSetChanged();
                                 }
                                 catch (Exception e) {
                                     Log.i("Error", "Error searching for keyword");
                                 }
-
                                 onBackPressed();
                                 dialog.cancel();
-
                             }
                         }
                     });
@@ -313,8 +316,8 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                             // If editGeoLat and editGeoLong are valid
                             if (isNumeric) {
                                 Toast.makeText(ProvideARideUIActivity.this, "Searching...", Toast.LENGTH_SHORT).show();
-                                tvSearch.setText("Searching within " + geoRadius + "m" + " of "
-                                        + "\nLAT: "+ geoLat + ", " + "LONG: " + geoLong);
+                                tvSearch.setText("Searching by Geolocation: \nWithin " + geoRadius + "m" + " of "
+                                        + "\nLAT: "+ geoLat + "\nLONG: " + geoLong);
                                 // Implement search method
 
                                 Location a = new Location("a");
@@ -339,7 +342,8 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                                             }
                                         }
                                     }
-
+                                    searchList.clear();
+                                    searchList.addAll(postList.getPosts());
                                     adapter.notifyDataSetChanged();
 
                                     } catch (Exception e) {
@@ -409,11 +413,24 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                                 if (isNumeric) {
                                     if (minFare <= maxFare) {
                                         try {
+                                            if (editMaxFare.getText().toString().equals("")) {
+                                                tvSearch.setText("Searching for Fare: \n" + "Minimum fare: $" + minFare);
+                                            }
+                                            else if (editMinFare.getText().toString().equals("")) {
+                                                tvSearch.setText("Searching for Fare: \n" + "Maximum fare: $" + maxFare);
+                                            }
+                                            else {
+                                                tvSearch.setText("Searching for Fare: \n" + "Minimum fare: $" +
+                                                        minFare + "\nMaximum fare: $" + maxFare);
+                                            }
                                             postList.getPosts().clear();
                                             PostListOnlineController.SearchPostListsRangeTask searchPostListsRangeTask = new PostListOnlineController.SearchPostListsRangeTask();
                                             searchPostListsRangeTask.execute("fare", minFare.toString(), maxFare.toString());
                                             ArrayList<Post> tempPostList = searchPostListsRangeTask.get();
                                             postList.getPosts().addAll(tempPostList);
+
+                                            searchList.clear();
+                                            searchList.addAll(postList.getPosts());
                                             adapter.notifyDataSetChanged();
                                         } catch (Exception e) {}
                                         onBackPressed();
@@ -483,11 +500,24 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                                 if (isNumeric) {
                                     if (minFareKM <= maxFareKM) {
                                         try {
+                                            if (editMaxFareKM.getText().toString().equals("")) {
+                                                tvSearch.setText("Searching for Fare/km: \n" + "Minimum fare/km: $" + minFareKM);
+                                            }
+                                            else if (editMinFareKM.getText().toString().equals("")) {
+                                                tvSearch.setText("Searching for Fare/km: \n" + "Maximum fare/km: $" + maxFareKM);
+                                            }
+                                            else {
+                                                tvSearch.setText("Searching for Fare/km: \n" + "Minimum fare/km: $" +
+                                                        minFareKM + "\nMaximum fare/km: $" + maxFareKM);
+                                            }
                                             postList.getPosts().clear();
                                             PostListOnlineController.SearchPostListsRangeTask searchPostListsRangeTask = new PostListOnlineController.SearchPostListsRangeTask();
                                             searchPostListsRangeTask.execute("fareKM", minFareKM.toString(), maxFareKM.toString());
                                             ArrayList<Post> tempPostList = searchPostListsRangeTask.get();
                                             postList.getPosts().addAll(tempPostList);
+
+                                            searchList.clear();
+                                            searchList.addAll(postList.getPosts());
                                             adapter.notifyDataSetChanged();
                                         } catch (Exception e) {}
                                         onBackPressed();
@@ -531,8 +561,8 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                             if (true) {
                                 // add toast
                                 Toast.makeText(ProvideARideUIActivity.this, "Searching...", Toast.LENGTH_SHORT).show();
-                                tvSearch.setText("Searching within " + editAddressRadius.getText().toString() + "m"
-                                                    + " of " + editAddress.getText().toString());
+                                tvSearch.setText("Searching for Address:\nSearching within " + editAddressRadius.getText().toString() + "m"
+                                                    + " of\n" + editAddress.getText().toString());
                                 // Implement search method
                                 boolean isNumeric = true;
                                 Double radius = 0.0;
@@ -552,6 +582,7 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                                         searchPostListsTask.execute("status", "Pending Approval");
                                         ArrayList<Post> tempPostList = searchPostListsTask.get();
                                         postList.getPosts().clear();
+
                                         for(Post p : tempPostList) {
                                             if (!(p.getUsername().equals(CurrentUser.getCurrentUser().getUsername())) &&
                                                     (!p.getDriverOffers().contains(CurrentUser.getCurrentUser().getUsername()))) {
@@ -564,6 +595,9 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                                                 }
                                             }
                                         }
+
+                                        searchList.clear();
+                                        searchList.addAll(postList.getPosts());
                                         adapter.notifyDataSetChanged();
                                     } catch (Exception e) {
                                     }
@@ -590,7 +624,9 @@ public class ProvideARideUIActivity extends AppCompatActivity {
                 }
                 else{//default
                     Toast.makeText(ProvideARideUIActivity.this, "Showing all ride requests", Toast.LENGTH_SHORT).show();
+                    searchList.clear();
                     resetPosts();
+                    tvSearch.setText("All available Requests");
                     getSupportActionBar().setTitle("Provide A Ride");
                     onBackPressed();
                 }

@@ -7,29 +7,37 @@
         android:id="@+id/searchKeyword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:hint="Input keyword"
         android:textSize="20sp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:fontFamily="sans-serif-smallcaps" />
 
-    <Button
-        android:id="@+id/searchKeywordCancel"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/searchKeywordConfirm"
-        android:layout_alignBaseline="@+id/searchKeywordConfirm"
-        android:text="Cancel"
-        android:textSize="24sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:text="Confirm"
-        android:textSize="24sp"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/searchKeywordConfirm"
-        android:layout_below="@+id/searchKeyword"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@id/searchKeyword"
+        android:weightSum="1.0">
+
+        <Button
+            android:id="@+id/searchKeywordConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_alignParentStart="true"
+            android:text="Confirm"
+            android:textSize="24sp"
+            android:fontFamily="sans-serif-smallcaps" />
+
+        <Button
+            android:id="@+id/searchKeywordCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_alignBaseline="@+id/searchAddressConfirm"
+            android:text="Cancel"
+            android:textSize="24sp"
+            android:fontFamily="sans-serif-smallcaps" />
+    </LinearLayout>
 
 </RelativeLayout>

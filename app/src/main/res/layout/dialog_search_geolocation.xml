@@ -1,46 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <EditText
         android:id="@+id/searchGeolocationLat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Input search latitude"
-        android:textSize="20sp"/>
+        android:hint="Input search Latitude"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-smallcaps" />
 
     <EditText
         android:id="@+id/searchGeolocationLong"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/searchGeolocationLat"
-        android:hint="Input search longitude"
-        android:textSize="20sp"/>
+        android:hint="Input search Longitude"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-smallcaps" />
 
     <EditText
         android:id="@+id/searchGeolocationRadius"
-        android:hint="Input search radius in meters"
-        android:textSize="20sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/searchGeolocationLong"/>
+        android:layout_below="@+id/searchGeolocationLong"
+        android:hint="Input search radius in meters"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-smallcaps" />
 
-    <Button
-        android:id="@+id/searchGeolocationConfirm"
-        android:text="Confirm"
-        android:textSize="24sp"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/searchGeolocationRadius"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@id/searchGeolocationRadius"
+        android:weightSum="1.0">
 
-    <Button
-        android:id="@+id/searchGeolocationCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/searchGeolocationConfirm"
-        android:text="Cancel"
-        android:textSize="24sp"
-        android:layout_alignParentEnd="true" />
+        <Button
+            android:id="@+id/searchGeolocationConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_alignParentStart="true"
+            android:text="Confirm"
+            android:textSize="24sp"
+            android:fontFamily="sans-serif-smallcaps" />
+
+        <Button
+            android:id="@+id/searchGeolocationCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_alignBaseline="@+id/searchAddressConfirm"
+            android:text="Cancel"
+            android:textSize="24sp"
+            android:fontFamily="sans-serif-smallcaps" />
+    </LinearLayout>
 
 </RelativeLayout>
