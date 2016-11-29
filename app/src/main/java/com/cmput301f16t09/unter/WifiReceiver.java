@@ -52,7 +52,7 @@ public class WifiReceiver extends BroadcastReceiver {
                         Post online = p;
                         try {
                             PostListOnlineController.ProcessOfflineData pod = new PostListOnlineController.ProcessOfflineData();
-                            pod.execute(context, p);
+                            pod.execute(context, online);
                             addPostOnline.execute(online);
                             online = pod.get();
 
